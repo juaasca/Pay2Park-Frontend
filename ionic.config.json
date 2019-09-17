@@ -1,5 +1,7 @@
 {
   "name": "Pay2Park-Frontend",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
