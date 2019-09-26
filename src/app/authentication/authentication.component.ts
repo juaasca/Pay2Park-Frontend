@@ -1,22 +1,25 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 import { environment } from '../../environments/environment';
 
 @Component({
-    selector: 'app-tab1',
-    templateUrl: 'tab1.page.html',
-    styleUrls: ['tab1.page.scss']
+    selector: 'app-authentication',
+    templateUrl: './authentication.component.html',
+    styleUrls: ['./authentication.component.scss'],
 })
-export class Tab1Page implements OnInit {
+export class AuthenticationComponent implements OnInit {
 
     auth: any;
     database: any;
     provider: any;
 
-    constructor() { }
+    constructor(private router: Router) { }
 
-    ngOnInit() {
+    ngOnInit() { }
+
+    acceder() {
         // Initialize Firebase
         firebase.initializeApp(environment.firebaseConfig);
         this.database = firebase.database();
@@ -32,6 +35,7 @@ export class Tab1Page implements OnInit {
                 // The signed-in user info.
                 const user = result.user;
                 console.log(user);
+                this.router.navigateByUrl('tabs/park');
             })
             .catch((error: any) => {
                 // Handle Errors here.
@@ -42,6 +46,7 @@ export class Tab1Page implements OnInit {
                 // The firebase.auth.AuthCredential type that was used.
                 const credential = error.credential;
             });
+
     }
 
 }

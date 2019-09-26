@@ -1,19 +1,49 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-const routes: Routes = [
-  {
-    path: '',
-    loadChildren: () => import('./autentificacion/autentificacion.module').then(m => m.AutentificacionPageModule)
-  },
-  { path: 'tab4', loadChildren: './tab4/tab4.module#Tab4PageModule' },
-  { path: 'autentificacion', loadChildren: './autentificacion/autentificacion.module#AutentificacionPageModule' }
+import { AuthenticationComponent } from './authentication/authentication.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { ProfileComponent } from './profile/profile.component';
+import { ParkComponent } from './park/park.component';
+import { NotificationComponent } from './notification/notification.component';
+import { WalletComponent } from './wallet/wallet.component';
 
+const routes: Routes = [
+    {
+        path: 'authentication',
+        component: AuthenticationComponent
+    },
+    {
+        path: 'tabs',
+        component: TabsComponent,
+        children: [
+            {
+                path: 'park',
+                component: ParkComponent
+            },
+            {
+                path: 'notification',
+                component: NotificationComponent
+            },
+            {
+                path: 'wallet',
+                component: WalletComponent
+            },
+            {
+                path: 'profile',
+                component: ProfileComponent
+            }
+        ]
+    },
+    {
+        path: '**',
+        redirectTo: 'authentication'
+    }
 ];
 @NgModule({
-  imports: [
-    RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
-  ],
-  exports: [RouterModule]
+    imports: [
+        RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })
+    ],
+    exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }
