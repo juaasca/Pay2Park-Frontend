@@ -44,5 +44,8 @@ export class AuthenticationComponent implements OnInit {
                 const credential = error.credential;
             });
     }
+    registrarse(){
+        this.router.navigateByUrl('registration')
+    }
 
 }
