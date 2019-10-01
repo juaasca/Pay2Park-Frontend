@@ -19,7 +19,7 @@ export class AuthenticationComponent implements OnInit {
 
     ngOnInit() { }
 
-    acceder() {
+    logWithGoogle() {
         this.auth = firebase.auth();
         this.auth.languageCode = 'es';
         this.provider = new firebase.auth.GoogleAuthProvider();
@@ -44,8 +44,11 @@ export class AuthenticationComponent implements OnInit {
                 const credential = error.credential;
             });
     }
-    registrarse(){
+    register(){
         this.router.navigateByUrl('registration')
     }
 
+    logIn(){
+        
+    }
 }
