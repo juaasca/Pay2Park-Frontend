@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -11,13 +11,11 @@ export class ClientsService {
     public app: firebase.app.App;
     private database: firebase.database.Database;
     private ref: firebase.database.Reference;
-    private refClient: firebase.database.Reference;
+    private refClients: firebase.database.Reference;
 
 
     constructor() {
-        // Create a new ref and save data to it in one step
-
-        console.log(userRef.parent);
+        this.initializeDatabase();
     }
 
     private initializeDatabase() {
@@ -25,19 +23,16 @@ export class ClientsService {
         this.database = firebase.database();
 
         this.ref = firebase.app().database().ref();
-        this.refClient = this.ref.child('users/clients');
+        this.refClients = this.ref.child('users/clients');
     }
 
-    public showDatabase() {
-        this.ref.once('value')
-            .then(snap => {
-                // Show database values
-                return snap.val();
-            });
+    public async showDatabase() {
+        let snapshot = await this.refClients.once('value');
+        return snapshot.val();
     }
 
     public addClient(name: string, surname: string) {
-        return this.refClient.push({
+        return this.refClients.push({
             name,
             surname
         });
