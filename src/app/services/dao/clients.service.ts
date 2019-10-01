@@ -8,26 +8,38 @@ import { environment } from '../../../environments/environment'
 })
 export class ClientsService {
 
-    public app: firebase.app.App
-    private database: firebase;
+    public app: firebase.app.App;
+    private database: firebase.database.Database;
+    private ref: firebase.database.Reference;
+    private refClient: firebase.database.Reference;
+
 
     constructor() {
-        // Initialize Firebase
-        firebase.initializeApp(environment.firebaseConfig);
+        // Create a new ref and save data to it in one step
+
+        console.log(userRef.parent);
+    }
+
+    private initializeDatabase() {
+        this.app = firebase.initializeApp(environment.firebaseConfig);
         this.database = firebase.database();
 
-        let ref = firebase.app().database().ref();
-        ref.once('value')
+        this.ref = firebase.app().database().ref();
+        this.refClient = this.ref.child('users/clients');
+    }
+
+    public showDatabase() {
+        this.ref.once('value')
             .then(snap => {
-                //Show database values  
-                //console.log(snap.val());
+                // Show database values
+                return snap.val();
             });
-        let usersRef = ref.child('users');
-        // Create a new ref and save data to it in one step
-        let userRef = usersRef.push({
-            name: 'Christopher',
-            description: 'I eat too much ice cream'
+    }
+
+    public addClient(name: string, surname: string) {
+        return this.refClient.push({
+            name,
+            surname
         });
-        console.log(userRef.parent);
     }
 }
