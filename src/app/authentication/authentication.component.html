@@ -1,22 +1,24 @@
-<ion-header>
-    <ion-toolbar>
-        <ion-title>Autentificacion</ion-title>
-    </ion-toolbar>
-</ion-header>
-
-<ion-content>
-    <ion-button (click)="acceder()">
-        Acceder
-    </ion-button>
-</ion-content>
-
 <ion-card>
     <ion-card-header>
         <ion-img [src]="'assets/icon/favicon.jpeg'"></ion-img>
     </ion-card-header>
-
     <ion-card-content>
-        Keep close to Nature's heart... and break clear away, once in awhile,
-        and climb a mountain or spend a week in the woods. Wash your spirit clean.
+        <ion-chip>
+                <ion-icon name="contact"></ion-icon>
+                <ion-input placeholder="Usuario"></ion-input>
+        </ion-chip>
+
+        <ion-chip>
+            <ion-icon name="key"></ion-icon>
+            <ion-input placeholder="Contraseña"></ion-input>
+        </ion-chip>
+
+        <ion-button style="margin-top: 10px; width: 100%;" shape="round" (click)="acceder()">
+            Acceder
+        </ion-button>
+        
     </ion-card-content>
 </ion-card>
+
+
+
