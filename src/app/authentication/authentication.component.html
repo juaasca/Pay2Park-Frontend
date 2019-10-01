@@ -12,7 +12,13 @@
             <ion-icon name="key"></ion-icon>
             <ion-input placeholder="Contraseña" type="password"></ion-input>
         </ion-chip>
-
+        <ion-label (click)="forgot()" color="primary" style="padding-left: 8px; padding-top: 15px;  "  >
+                <u>
+                    <b>
+                    He olvidado mi contraseña
+                    </b>                  
+                </u>
+            </ion-label>
         <ion-button style="margin-top: 10px; width: 100%;" shape="round">
             Acceder
         </ion-button>
@@ -20,8 +26,8 @@
             <ion-button style="width: 48.5%" shape="round" (click)="acceder()">Iniciar con google</ion-button>
             <ion-button style="width: 48.5%" shape="round" (click) = "registrarse()">Registrarse</ion-button>
         </section>
+        
     </ion-card-content>
 </ion-card>
-
 
 

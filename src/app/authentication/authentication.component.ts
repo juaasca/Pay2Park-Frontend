@@ -47,5 +47,7 @@ export class AuthenticationComponent implements OnInit {
     registrarse(){
         this.router.navigateByUrl('registration')
     }
-
+forgot(){
+    this.router.navigateByUrl('registration')
+}
 }
