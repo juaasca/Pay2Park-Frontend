@@ -50,4 +50,7 @@ export class AuthenticationComponent implements OnInit {
 forgot(){
     this.router.navigateByUrl('registration')
 }
+logIn(){
+    
+}
 }
