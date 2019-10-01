@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
 import { environment } from '../../environments/environment';
+import { ClientsService } from '../services/dao/clients.service';
 
 @Component({
     selector: 'app-authentication',
@@ -12,17 +13,13 @@ import { environment } from '../../environments/environment';
 export class AuthenticationComponent implements OnInit {
 
     auth: any;
-    database: any;
     provider: any;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private clientService: ClientsService) { }
 
     ngOnInit() { }
 
     acceder() {
-        // Initialize Firebase
-        firebase.initializeApp(environment.firebaseConfig);
-        this.database = firebase.database();
         this.auth = firebase.auth();
         this.auth.languageCode = 'es';
         this.provider = new firebase.auth.GoogleAuthProvider();
@@ -34,6 +31,7 @@ export class AuthenticationComponent implements OnInit {
                 console.log(token);
                 // The signed-in user info.
                 const user = result.user;
+                this.clientService.addClient('JC', 'Asensi');
                 console.log(user);
                 this.router.navigateByUrl('tabs/park');
             })
@@ -46,7 +44,6 @@ export class AuthenticationComponent implements OnInit {
                 // The firebase.auth.AuthCredential type that was used.
                 const credential = error.credential;
             });
-
     }
 
 }

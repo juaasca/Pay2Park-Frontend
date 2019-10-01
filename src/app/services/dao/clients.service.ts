@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
-import { environment } from '../../../environments/environment'
+import { environment } from '../../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
@@ -15,9 +15,7 @@ export class ClientsService {
 
 
     constructor() {
-        // Create a new ref and save data to it in one step
-
-        console.log(userRef.parent);
+        this.initializeDatabase();
     }
 
     private initializeDatabase() {
