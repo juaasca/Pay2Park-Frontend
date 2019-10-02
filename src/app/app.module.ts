@@ -15,6 +15,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -28,11 +29,15 @@ import { RegistrationComponent } from './registration/registration.component';
         RegistrationComponent
     ],
     entryComponents: [],
-    imports: [BrowserModule, IonicModule.forRoot(), AppRoutingModule],
+    imports: [
+        BrowserModule,
+        IonicModule.forRoot(),
+        AppRoutingModule,
+        ReactiveFormsModule],
     providers: [
         StatusBar,
         SplashScreen,
-        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ],
     bootstrap: [AppComponent]
 })
