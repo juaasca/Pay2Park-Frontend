@@ -7,6 +7,7 @@ import { ProfileComponent } from './profile/profile.component';
 import { ParkComponent } from './park/park.component';
 import { NotificationComponent } from './notification/notification.component';
 import { WalletComponent } from './wallet/wallet.component';
+import { RegistrationComponent } from './registration/registration.component';
 
 const routes: Routes = [
     {
@@ -29,6 +30,7 @@ const routes: Routes = [
                 path: 'wallet',
                 component: WalletComponent
             },
+            
             {
                 path: 'profile',
                 component: ProfileComponent
@@ -36,9 +38,14 @@ const routes: Routes = [
         ]
     },
     {
+        path: 'registration',
+        component: RegistrationComponent
+    },
+    {
         path: '**',
         redirectTo: 'authentication'
     }
+    
 ];
 @NgModule({
     imports: [
