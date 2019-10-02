@@ -13,6 +13,7 @@ export class ClientsService {
     private ref: firebase.database.Reference;
     private refClients: firebase.database.Reference;
 
+    public listClients: any[];
 
     constructor() {
         this.initializeDatabase();
@@ -31,10 +32,22 @@ export class ClientsService {
         return snapshot.val();
     }
 
-    public addClient(name: string, surname: string) {
-        return this.refClients.push({
+    public addClient(user: string, password: string, dni: string, name: string, surname: string, email: string, birthDate: Date) {
+        this.refClients.child(dni).set({
+            user,
+            password,
             name,
-            surname
-        });
+            surname,
+            email,
+            birthDate
+        }, error => console.error(error));
     }
+
+    public getClients() {
+        this.refClients.on('value', snapshot => {
+
+        }, error => console.log(error))
+    }
+
+
 }

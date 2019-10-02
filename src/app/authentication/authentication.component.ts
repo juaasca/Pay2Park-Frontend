@@ -31,7 +31,7 @@ export class AuthenticationComponent implements OnInit {
                 console.log(token);
                 // The signed-in user info.
                 const user = result.user;
-                console.log(user);
+                console.log(this.clientService.addClient('jasensic123', '123', '123', 'jc', 'asensi', 'jc', new Date()));
                 this.router.navigateByUrl('tabs/park');
             })
             .catch((error: any) => {
