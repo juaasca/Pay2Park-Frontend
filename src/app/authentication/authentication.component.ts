@@ -48,7 +48,7 @@ export class AuthenticationComponent implements OnInit {
         this.router.navigateByUrl('registration')
     }
 forgot(){
-    this.router.navigateByUrl('forgot')
+    this.router.navigateByUrl('registration')
 }
 logIn(){
     
