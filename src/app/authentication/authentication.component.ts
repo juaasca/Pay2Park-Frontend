@@ -19,7 +19,7 @@ export class AuthenticationComponent implements OnInit {
 
     ngOnInit() { }
 
-    acceder() {
+    logWithGoogle() {
         this.auth = firebase.auth();
         this.auth.languageCode = 'es';
         this.provider = new firebase.auth.GoogleAuthProvider();
@@ -31,7 +31,7 @@ export class AuthenticationComponent implements OnInit {
                 console.log(token);
                 // The signed-in user info.
                 const user = result.user;
-                console.log(user);
+                console.log(this.clientService.addClient('jasensic123', '123', '123', 'jc', 'asensi', 'jc', new Date()));
                 this.router.navigateByUrl('tabs/park');
             })
             .catch((error: any) => {
@@ -44,8 +44,13 @@ export class AuthenticationComponent implements OnInit {
                 const credential = error.credential;
             });
     }
-    registrarse(){
+    register(){
         this.router.navigateByUrl('registration')
     }
-
+forgot(){
+    this.router.navigateByUrl('forgot')
+}
+logIn(){
+    
+}
 }

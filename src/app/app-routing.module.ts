@@ -8,6 +8,7 @@ import { ParkComponent } from './park/park.component';
 import { NotificationComponent } from './notification/notification.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { RegistrationComponent } from './registration/registration.component';
+import { ForgotComponent } from './forgot/forgot.component';
 
 const routes: Routes = [
     {
@@ -42,11 +43,15 @@ const routes: Routes = [
         component: RegistrationComponent
     },
     {
+        path: 'forgot',
+        component: ForgotComponent
+    },
+    {
         path: '**',
         redirectTo: 'authentication'
-    }
-    
+    }    
 ];
+
 @NgModule({
     imports: [
         RouterModule.forRoot(routes, { preloadingStrategy: PreloadAllModules })

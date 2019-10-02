@@ -16,6 +16,8 @@ import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ForgotComponent } from './forgot/forgot.component';
+
 
 @NgModule({
     declarations: [
@@ -26,7 +28,8 @@ import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
         NotificationComponent,
         WalletComponent,
         ProfileComponent,
-        RegistrationComponent
+        RegistrationComponent,
+        ForgotComponent
     ],
     entryComponents: [],
     imports: [
