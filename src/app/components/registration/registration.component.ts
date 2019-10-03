@@ -1,23 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Location } from '@angular/common';
+import * as firebase from 'firebase';
+import { Client } from 'src/app/Domain/Client';
+import { ClientsService } from 'src/app/services/dao/clients.service';
 
 @Component({
   selector: 'app-registration',
   templateUrl: './registration.component.html',
   styleUrls: ['./registration.component.scss'],
 })
+
 export class RegistrationComponent implements OnInit {
   private registration: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder) {
+  constructor(private location: Location, private formBuilder: FormBuilder, private clientsService : ClientsService) {
     this.registration = this.formBuilder.group({
       Nombre: ['',Validators.required],
       Apellidos: ['', Validators.required],
       Usuario: ['', Validators.required],
-      ContraseñaRetry: this.formBuilder.group({
-        Contraseña: ['',Validators.required],
-        ConfirmarContraseña: ['', Validators.required],
+      RetryPassword: this.formBuilder.group({
+        Password: ['',Validators.required],
+        ConfirmPassword: ['', Validators.required],
       }),
       FechaNacimiento: ['', Validators.required],
       Email: ['', Validators.required],
@@ -39,7 +43,6 @@ export class RegistrationComponent implements OnInit {
   }
 
   volver(){
-    this.router.navigateByUrl('authentication')
-}
-
+    this.location.back();
+  }
 }
