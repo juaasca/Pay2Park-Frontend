@@ -28,7 +28,14 @@ export class RegistrationComponent implements OnInit {
   ngOnInit() {}
 
   saveData(){
-    console.log(this.registration.value);
+    var formValue = this.registration.value;
+
+    var newClient =
+      new Client(formValue.DNI, formValue.Nombre, formValue.Apellidos, formValue.Usuario, formValue.FechaNacimiento, formValue.Email);
+
+    firebase.auth().createUserWithEmailAndPassword(newClient.Mail, formValue.RetryPassword.Password);
+
+    this.clientsService.addClient(newClient);
   }
 
   volver(){
