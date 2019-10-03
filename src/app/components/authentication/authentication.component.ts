@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import * as firebase from 'firebase';
 
-import { environment } from '../../environments/environment';
-import { ClientsService } from '../services/dao/clients.service';
+import { environment } from '../../../environments/environment';
+import { ClientsService } from '../../services/dao/clients.service';
 
 @Component({
     selector: 'app-authentication',
@@ -44,13 +44,13 @@ export class AuthenticationComponent implements OnInit {
                 const credential = error.credential;
             });
     }
-    register(){
+    register() {
         this.router.navigateByUrl('registration')
     }
-forgot(){
-    this.router.navigateByUrl('forgot')
-}
-logIn(){
-    
-}
+    forgot() {
+        this.router.navigateByUrl('forgot')
+    }
+    logIn() {
+
+    }
 }

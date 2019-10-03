@@ -1,14 +1,14 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
-import { AuthenticationComponent } from './authentication/authentication.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { ProfileComponent } from './profile/profile.component';
-import { ParkComponent } from './park/park.component';
-import { NotificationComponent } from './notification/notification.component';
-import { WalletComponent } from './wallet/wallet.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { ForgotComponent } from './forgot/forgot.component';
+import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { ParkComponent } from './components/park/park.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
 
 const routes: Routes = [
     {
@@ -31,7 +31,7 @@ const routes: Routes = [
                 path: 'wallet',
                 component: WalletComponent
             },
-            
+
             {
                 path: 'profile',
                 component: ProfileComponent
@@ -49,7 +49,7 @@ const routes: Routes = [
     {
         path: '**',
         redirectTo: 'authentication'
-    }    
+    }
 ];
 
 @NgModule({

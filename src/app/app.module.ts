@@ -9,15 +9,14 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
-import { TabsComponent } from './tabs/tabs.component';
-import { ParkComponent } from './park/park.component';
-import { NotificationComponent } from './notification/notification.component';
-import { WalletComponent } from './wallet/wallet.component';
-import { ProfileComponent } from './profile/profile.component';
-import { RegistrationComponent } from './registration/registration.component';
-import { ForgotComponent } from './forgot/forgot.component';
-import { InitializeService } from './services/dao/initialize.service';
+import { AuthenticationComponent } from './components/authentication/authentication.component';
+import { TabsComponent } from './components/tabs/tabs.component';
+import { ParkComponent } from './components/park/park.component';
+import { NotificationComponent } from './components/notification/notification.component';
+import { WalletComponent } from './components/wallet/wallet.component';
+import { ProfileComponent } from './components/profile/profile.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { ForgotComponent } from './components/forgot/forgot.component';
 
 
 @NgModule({
@@ -41,8 +40,6 @@ import { InitializeService } from './services/dao/initialize.service';
     providers: [
         StatusBar,
         SplashScreen,
-        InitializeService,
-        { provide: APP_INITIALIZER, useFactory: (init: InitializeService) => function () { return init.initialize() } },
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ],
     bootstrap: [AppComponent]
