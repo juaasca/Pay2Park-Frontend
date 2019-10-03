@@ -1,8 +1,50 @@
 <ion-card>
   <ion-card-content>
-    <ion-chip>
-      
-      <ion-input></ion-input>
-    </ion-chip>
+      <ion-title text-center> Registrar usuario</ion-title>
   </ion-card-content>
 </ion-card>
+
+<ion-content>
+  <form [formGroup]="registration" (ngSumbit)="saveData()">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Nombre:</ion-label>
+        <ion-input formControlName="Nombre" type="text" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Apellidos:</ion-label>
+        <ion-input formControlName="Apellidos" type="text" placeholder="Apellidos"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Usuario:</ion-label>
+        <ion-input formControlName="Usuario" type="text" placeholder="Usuario"></ion-input>
+      </ion-item>
+      <div formGroupName="ContraseñaRetry">
+        <ion-item>
+          <ion-label position="floating">Contraseña:</ion-label>
+          <ion-input formControlName="Contraseña" type="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Confirmar contraseña:</ion-label>
+          <ion-input formControlName="ConfirmarContraseña" type="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+      </div>
+      <ion-item>
+        <ion-label position="floating">Fecha de nacimiento:</ion-label>
+        <ion-datetime formControlName="FechaNacimiento" displayFormat="DD-MM-YYYY" placeholder="DD-MM-YYYY"></ion-datetime>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Correo electrónico:</ion-label>
+        <ion-input formControlName="Email" type="text" placeholder="Correo electrónico"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">DNI:</ion-label>
+        <ion-input formControlName="DNI" type="text" placeholder="DNI"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <button ion-button block type="submit" [disabled]="!registration.valid">Aceptar</button>
+      <button ion-button block (click)="volver()">Volver</button>
+    </div>
+  </form>
+</ion-content>
