@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-
-import { environment } from '../../../environments/environment';
+import { Client } from 'src/app/Domain/Client';
 
 @Injectable({
     providedIn: 'root'
 })
+
 export class ClientsService {
 
     public app: firebase.app.App;
@@ -31,15 +31,8 @@ export class ClientsService {
         return snapshot.val();
     }
 
-    public addClient(user: string, password: string, dni: string, name: string, surname: string, email: string, birthDate: Date) {
-        this.refClients.child(dni).set({
-            user,
-            password,
-            name,
-            surname,
-            email,
-            birthDate
-        }, error => console.error(error));
+    public addClient(client : Client) {
+        this.refClients.child(client.Dni).set(client, error => console.error(error));
     }
 
     public getClients() {
