@@ -1,6 +1,7 @@
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -15,8 +16,8 @@ import { NotificationComponent } from './notification/notification.component';
 import { WalletComponent } from './wallet/wallet.component';
 import { ProfileComponent } from './profile/profile.component';
 import { RegistrationComponent } from './registration/registration.component';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { ForgotComponent } from './forgot/forgot.component';
+import { InitializeService } from './services/dao/initialize.service';
 
 
 @NgModule({
@@ -40,6 +41,8 @@ import { ForgotComponent } from './forgot/forgot.component';
     providers: [
         StatusBar,
         SplashScreen,
+        InitializeService,
+        { provide: APP_INITIALIZER, useFactory: (init: InitializeService) => function () { return init.initialize() } },
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ],
     bootstrap: [AppComponent]

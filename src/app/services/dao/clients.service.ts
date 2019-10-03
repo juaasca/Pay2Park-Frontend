@@ -20,7 +20,6 @@ export class ClientsService {
     }
 
     private initializeDatabase() {
-        this.app = firebase.initializeApp(environment.firebaseConfig);
         this.database = firebase.database();
 
         this.ref = firebase.app().database().ref();
