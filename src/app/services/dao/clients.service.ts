@@ -7,11 +7,9 @@ import { Client } from 'src/app/Domain/Client';
 })
 
 export class ClientsService {
-
-    public app: firebase.app.App;
-    private database: firebase.database.Database;
     private ref: firebase.database.Reference;
     private refClients: firebase.database.Reference;
+    private clientsDataBaseUrl: string = 'persons/clients';
 
     public listClients: any[];
 
@@ -20,10 +18,7 @@ export class ClientsService {
     }
 
     private initializeDatabase() {
-        this.database = firebase.database();
-
-        this.ref = firebase.app().database().ref();
-        this.refClients = this.ref.child('users/clients');
+        this.refClients = this.ref.child(this.clientsDataBaseUrl);
     }
 
     public async showDatabase() {
@@ -33,6 +28,23 @@ export class ClientsService {
 
     public addClient(client : Client) {
         this.refClients.child(client.Dni).set(client, error => console.error(error));
+    }
+
+    public getClient(dni: string) {
+        return this.refClients.child(dni).once('value').then(function (snapshot) {
+            var clientName = snapshot.val() && snapshot.val().Name;
+            var clientSurname = snapshot.val() && snapshot.val().Surname;
+            var clientUsername = snapshot.val() && snapshot.val().Username;
+            var clientBirthDate = snapshot.val() && snapshot.val().BirthDate;
+            var clientMail = snapshot.val() && snapshot.val().Mail;
+
+            return new Client(dni, clientName, clientSurname, clientUsername, clientBirthDate as Date, clientMail);
+        });
+
+    }
+
+    public deleteClient(dni: string) {
+        this.refClients.child(dni).remove();
     }
 
     public getClients() {
