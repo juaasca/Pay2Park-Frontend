@@ -18,6 +18,8 @@ export class ClientsService {
     }
 
     private initializeDatabase() {
+        this.ref = firebase.app().database().ref();
+        
         this.refClients = this.ref.child(this.clientsDataBaseUrl);
     }
 
