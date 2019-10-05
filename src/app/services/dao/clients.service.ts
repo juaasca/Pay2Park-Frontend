@@ -49,11 +49,16 @@ export class ClientsService {
         this.refClients.child(dni).remove();
     }
 
-    public getClients() {
-        this.refClients.on('value', snapshot => {
+    public async getClients() {
+        const clients : Client[] = [];
 
-        }, error => console.log(error))
+        await this.refClients.once('value').then(async function (snapshot) {
+            snapshot.forEach(childSnapshot => {
+                var client = <Client> childSnapshot.val();
+
+                clients.push(client);
+            })});
+
+        return clients;
     }
-
-
 }
