@@ -15,7 +15,11 @@ export class UserActions {
         var newClient =
           new Client(dni, name, surname, username, birthDate, email);
     
-        firebase.auth().createUserWithEmailAndPassword(email, password);
+        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+          var errorMessage = error.message;
+          
+          throw new Error(errorMessage);
+        });
     
         this.clientsService.addClient(newClient);
       }
