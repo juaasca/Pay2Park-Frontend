@@ -6,6 +6,7 @@ import { Client } from 'src/app/Domain/Client';
 import { ClientsService } from 'src/app/services/dao/clients.service';
 import {passwordValidation} from './passwordValidation';
 import {usernameValidation} from './usernameValidation';
+import { UserActions } from 'src/app/logic/user.actions.service';
 
 @Component({
   selector: 'app-registration',
@@ -16,7 +17,7 @@ import {usernameValidation} from './usernameValidation';
 export class RegistrationComponent implements OnInit {
   private registration: FormGroup;
 
-  constructor(private location: Location, private formBuilder: FormBuilder, private clientsService : ClientsService) {
+  constructor(private location: Location, private formBuilder: FormBuilder, private userActions : UserActions) {
     this.registration = this.formBuilder.group({
       Name: ['', Validators.required],
       Surname: ['', Validators.required],
@@ -53,12 +54,8 @@ export class RegistrationComponent implements OnInit {
   saveData(){
     var formValue = this.registration.value;
 
-    var newClient =
-      new Client(formValue.DNI, formValue.Name, formValue.Surname, formValue.Username, formValue.Birthdate, formValue.Email);
-
-    firebase.auth().createUserWithEmailAndPassword(newClient.Mail, formValue.RetryPassword.Password);
-
-    this.clientsService.addClient(newClient);
+    this.userActions.registerNewUser(
+      formValue.DNI, formValue.Nombre, formValue.Apellidos, formValue.Usuario, formValue.RetryPassword.Password, formValue.FechaNacimiento, formValue.Email);
   }
 
   volver(){
