@@ -37,8 +37,6 @@
         <ng-container *ngFor="let validation of validation_messages.Username">
           <div *ngIf="registration.get('Username').hasError(validation.type) && (registration.get('Username').dirty || registration.get('Username').touched)">
             {{validation.message}}
-            {{validation.message}}
-            {{validation.message}}
           </div>
         </ng-container>
       </div>
