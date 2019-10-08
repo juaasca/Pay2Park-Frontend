@@ -40,7 +40,7 @@ export abstract class PersistenceService<T> {
     this.databaseRef.child(key).remove();
   }
 
-  public async getClientsAsync() {
+  public async getEntitiesAsync() {
     const clients : T[] = [];
 
     await this.databaseRef.once('value').then(async function (snapshot) {
