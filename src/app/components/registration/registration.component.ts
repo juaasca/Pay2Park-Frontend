@@ -54,6 +54,7 @@ export class RegistrationComponent implements OnInit {
       DNI: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(9)
+      ])),
     });
   }
 
