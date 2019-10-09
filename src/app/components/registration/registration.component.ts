@@ -32,7 +32,8 @@ export class RegistrationComponent implements OnInit {
       ])),
       Username: new FormControl('', Validators.compose([
         Validators.required,
-        UsernameValidatorService.validUsername
+        UsernameValidatorService.validUsername,
+        Validators.minLength(8)
       ])),
       Password: new FormControl ('', Validators.compose([
          Validators.required,
@@ -51,11 +52,7 @@ export class RegistrationComponent implements OnInit {
       ])),
       Email: new FormControl ('', Validators.compose([
         Validators.required, 
-        Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
-      ])),
-      DNI: new FormControl('', Validators.compose([
-        Validators.required,
-        Validators.minLength(9)
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ])),
     });
   }
@@ -79,11 +76,11 @@ export class RegistrationComponent implements OnInit {
 
   async userSuccesfullyCreatedAlert() {
     const alert = await this.alertController.create({
-      header: '¡Éxito!',
-      message: 'Usuario creado con éxito. Ahora puedes autenticarte en la aplicación.',
+      header: 'Success!',
+      message: 'User succesfully created. You can now log in.',
       buttons: [
         {
-          text: 'Aceptar',
+          text: 'Ok',
           handler: () => {
             this.back();
           }
@@ -96,17 +93,17 @@ export class RegistrationComponent implements OnInit {
 
   async errorCreatingUserAlert(error: string) {
     const alert = await this.alertController.create({
-      header: '¡Error!',
+      header: 'Error!',
       message: error,
       buttons: [
         {
-          text: 'Cancelar',
+          text: 'Cancel',
           handler: () => {
             this.back();
           }
         },
         {
-          text: 'Intentar de nuevo',
+          text: 'Try again',
           handler: () => {
             alert.dismiss();
           }
@@ -147,10 +144,6 @@ export class RegistrationComponent implements OnInit {
       {type: 'required', message: '·El correo electrónico es obligatorio.'},
       {type: 'pattern', message: '· Correo incorrecto.'}
       
-    ],
-    'DNI': [
-          {type: 'required', message: 'El nombre es obligatorio.'},
-          {type: 'pattern', message: 'El nombre no puede contener números ni caracteres especiales.'}
     ],
   }
 

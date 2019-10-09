@@ -69,7 +69,7 @@
       </ion-item>
       <div class="error_messages">
         <ng-container *ngFor="let validation of validation_messages.Birthdate">
-          <div *ngIf="registration.get('Birthdate').hasError(validation.type) && (registration.get('Birthdate').dirty || registration.get('Birthdate').touched)">
+          <div class="message-error" *ngIf="registration.get('Birthdate').hasError(validation.type) && (registration.get('Birthdate').dirty || registration.get('Birthdate').touched)">
             {{validation.message}}
           </div>
         </ng-container>
@@ -80,18 +80,7 @@
       </ion-item>
       <div class="error_messages">
         <ng-container *ngFor="let validation of validation_messages.Email">
-          <div *ngIf="registration.get('Email').hasError(validation.type) && (registration.get('Email').dirty || registration.get('Email').touched)">
-            {{validation.message}}
-          </div>
-        </ng-container>
-      </div>
-      <ion-item>
-        <ion-label class="label-css" position="floating">DNI:</ion-label>
-        <ion-input class="input-css" formControlName="DNI" type="text" placeholder="DNI"></ion-input>
-      </ion-item>
-      <div class="error_messages">
-        <ng-container *ngFor="let validation of validation_messages.DNI">
-          <div *ngIf="registration.get('DNI').hasError(validation.type) && (registration.get('DNI').dirty || registration.get('DNI').touched)">
+          <div class="message-error" *ngIf="registration.get('Email').hasError(validation.type) && (registration.get('Email').dirty || registration.get('Email').touched)">
             {{validation.message}}
           </div>
         </ng-container>
