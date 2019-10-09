@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
-import { Location } from '@angular/common';
-import * as firebase from 'firebase';
-import { Client } from 'src/app/Domain/Client';
-import { ClientsService } from 'src/app/services/dao/clients.service';
 import { ageValidation } from './ageValidation';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
+import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registration',
@@ -18,10 +16,11 @@ export class RegistrationComponent implements OnInit {
   private registration: FormGroup;
 
   constructor(
-    private location: Location,
+    private router: Router,
     private formBuilder: FormBuilder,
     private userActions : UserActions,
-    private usernameValidator: UsernameValidatorService) {
+    private usernameValidator: UsernameValidatorService,
+    private alertController: AlertController) {
     this.registration = this.formBuilder.group({
       Name: new FormControl('', Validators.compose([
         Validators.required,
@@ -35,18 +34,17 @@ export class RegistrationComponent implements OnInit {
         Validators.required,
         UsernameValidatorService.validUsername
       ])),
-      //RetryPassword: new FormGroup({
-         Password: new FormControl ('', Validators.compose([
-            Validators.required,
-            Validators.minLength(8), 
-            Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-         ])),
-         ConfirmPassword: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.minLength(8), 
-          Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
-          this.equalTo('Password')
-         ])),
+      Password: new FormControl ('', Validators.compose([
+         Validators.required,
+         Validators.minLength(8), 
+         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])),
+      ConfirmPassword: new FormControl('', Validators.compose([
+       Validators.required,
+       Validators.minLength(8), 
+       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+       this.equalTo('Password')
+      ])),
       Birthdate: new FormControl ('', Validators.compose([
         Validators.required,
         ageValidation.overEighteen
@@ -64,16 +62,59 @@ export class RegistrationComponent implements OnInit {
 
   ngOnInit() {}
 
-  saveData(){
+  async saveData(){
     var formValue = this.registration.value;
 
     this.userActions.registerNewUser(
-      formValue.DNI, formValue.Nombre, formValue.Apellidos, formValue.Usuario,
-      formValue.Password, formValue.FechaNacimiento, formValue.Email);
+        formValue.DNI, formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
+        .then(async () => await this.userSuccesfullyCreatedAlert())
+        .catch(async (error) => {
+          await this.errorCreatingUserAlert(error.message);
+        });     
   }
 
-  volver(){
-    this.location.back();
+  back(){
+    this.router.navigateByUrl('authentication');
+  }
+
+  async userSuccesfullyCreatedAlert() {
+    const alert = await this.alertController.create({
+      header: 'Success!',
+      message: 'User succesfully created. You can now log in.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            this.back();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async errorCreatingUserAlert(error: string) {
+    const alert = await this.alertController.create({
+      header: 'Error!',
+      message: error,
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: () => {
+            this.back();
+          }
+        },
+        {
+          text: 'Try again',
+          handler: () => {
+            alert.dismiss();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   validation_messages = {
