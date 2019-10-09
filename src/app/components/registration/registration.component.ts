@@ -51,7 +51,7 @@ export class RegistrationComponent implements OnInit {
       ])),
       Email: new FormControl ('', Validators.compose([
         Validators.required, 
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+        Validators.pattern('^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$')
       ])),
       DNI: new FormControl('', Validators.compose([
         Validators.required,
