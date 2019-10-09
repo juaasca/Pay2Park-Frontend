@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
-import { ageValidation } from './ageValidation';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { AgeValidatorService } from 'src/app/services/validators/age.validator.service';
 
 @Component({
   selector: 'app-registration',
@@ -48,7 +48,7 @@ export class RegistrationComponent implements OnInit {
       ])),
       Birthdate: new FormControl ('', Validators.compose([
         Validators.required,
-        ageValidation.overEighteen
+        AgeValidatorService.overEighteen
       ])),
       Email: new FormControl ('', Validators.compose([
         Validators.required, 
@@ -63,11 +63,11 @@ export class RegistrationComponent implements OnInit {
     var formValue = this.registration.value;
 
     this.userActions.registerNewUserAsync(
-        formValue.DNI, formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
+      formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
         .then(async () => await this.userSuccesfullyCreatedAlert())
         .catch(async (error) => {
           await this.errorCreatingUserAlert(error.message);
-        });     
+        });
   }
 
   back(){

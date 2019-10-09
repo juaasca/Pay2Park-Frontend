@@ -1,18 +1,16 @@
 export class Person {
-    Dni: string;
     Name: string;
     Surname: string;
     Username: string;
     BirthDate: Date;
-    Mail: string;
+    Email: string;
 
-    constructor(dni: string, name: string, surname: string, username: string, birthDate: Date, mail: string) {
-        this.Dni = dni;
+    constructor(name: string, surname: string, username: string, birthDate: Date, email: string) {
         this.Name = name;
         this.Surname = surname;
         this.Username = username;
         this.BirthDate = birthDate;
-        this.Mail = mail;
+        this.Email = email;
     }
 
 }

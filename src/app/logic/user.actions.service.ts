@@ -13,7 +13,7 @@ export class UserActions {
   constructor(private clientsService: ClientsService, private usernameValidatorService: UsernameValidatorService) {
   }
     
-  public async registerNewUserAsync(dni: string, name: string, surname: string, username: string, password: string, birthDate: Date, email: string) {
+  public async registerNewUserAsync(name: string, surname: string, username: string, password: string, birthDate: Date, email: string) {
       try {
         const client = await this.clientsService.getEntity(username);
         
@@ -21,7 +21,7 @@ export class UserActions {
           throw new Error(ExceptionMessages.userAlreadyInUse);
         }
         else {
-          var newClient = new Client(dni, name, surname, username, birthDate, email);
+          var newClient = new Client(name, surname, username, birthDate, email);
         
           await firebase.auth().createUserWithEmailAndPassword(email, password);
           this.clientsService.addEntity(newClient.Username, newClient);
