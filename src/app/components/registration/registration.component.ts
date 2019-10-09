@@ -66,7 +66,7 @@ export class RegistrationComponent implements OnInit {
     var formValue = this.registration.value;
 
     this.userActions.registerNewUserAsync(
-        formValue.DNI, formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
+      formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
         .then(async () => await this.userSuccesfullyCreatedAlert())
         .catch(async (error) => {
           await this.errorCreatingUserAlert(error.message);
