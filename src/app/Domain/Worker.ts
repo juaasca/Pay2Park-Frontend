@@ -1,8 +1,8 @@
 import { Person } from './Person';
 
 export class Worker extends Person {
-    constructor(dni: string, name: string, surname: string, username: string, birthDate: Date, mail: string)
+    constructor(name: string, surname: string, username: string, birthDate: Date, email: string)
     {
-        super(dni, name, surname, username, birthDate, mail);
+        super(name, surname, username, birthDate, email);
     }
 }
