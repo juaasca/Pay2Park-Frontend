@@ -2,13 +2,15 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Client } from 'src/app/Domain/Client';
 import { ClientsService } from '../services/dao/clients.service';
+import { UsernameValidatorService } from '../services/validators/username.validator.service';
+import { ExceptionMessages } from '../resources/exception-messages';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class UserActions {
-  constructor(private clientsService: ClientsService) {
+  constructor(private clientsService: ClientsService, private usernameValidatorService: UsernameValidatorService) {
   }
     
   public async registerNewUserAsync(dni: string, name: string, surname: string, username: string, password: string, birthDate: Date, email: string) {
@@ -16,7 +18,7 @@ export class UserActions {
         const client = await this.clientsService.getEntity(username);
         
         if (client !== null) {
-          throw new Error('User already in use.');
+          throw new Error(ExceptionMessages.userAlreadyInUse);
         }
         else {
           var newClient = new Client(dni, name, surname, username, birthDate, email);
@@ -27,7 +29,27 @@ export class UserActions {
           this.usernameValidatorService.updateList();
         }
       } catch (error) {
-        throw new Error(error);
+        var message = '';
+        
+        switch (error.code) {
+          case 'auth/email-already-in-use': {
+            message = ExceptionMessages.emailAlreadyInUse;
+
+            break;
+          }
+          case 'auth/invalid-email': {
+            message = ExceptionMessages.invalidEmail;
+
+            break;
+          }
+          default: {
+            message = ExceptionMessages.errorCreatingUser;
+
+            break;
+          }
+        }
+
+        throw new Error(message);
       }
   }
 }
