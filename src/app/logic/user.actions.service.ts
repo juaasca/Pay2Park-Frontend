@@ -23,6 +23,8 @@ export class UserActions {
         
           await firebase.auth().createUserWithEmailAndPassword(email, password);
           this.clientsService.addEntity(newClient.Username, newClient);
+
+          this.usernameValidatorService.updateList();
         }
       } catch (error) {
         throw new Error(error);

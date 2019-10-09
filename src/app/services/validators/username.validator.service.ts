@@ -14,6 +14,10 @@ export class UsernameValidatorService {
     this.clientService.getEntitiesAsync().then((users) => UsernameValidatorService.ExistingUsers = users);
   }
 
+  updateList() {
+    this.clientService.getEntitiesAsync().then((users) => UsernameValidatorService.ExistingUsers = users);
+  }
+
   static validUsername (fc: FormControl){
     var userExists = UsernameValidatorService.ExistingUsers.some(user => {
       return fc.value.toLowerCase() === user.Username.toLowerCase();
