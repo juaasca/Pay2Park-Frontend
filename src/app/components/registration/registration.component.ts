@@ -79,11 +79,11 @@ export class RegistrationComponent implements OnInit {
 
   async userSuccesfullyCreatedAlert() {
     const alert = await this.alertController.create({
-      header: 'Success!',
-      message: 'User succesfully created. You can now log in.',
+      header: '¡Éxito!',
+      message: 'Usuario creado con éxito. Ahora puedes autenticarte en la aplicación.',
       buttons: [
         {
-          text: 'Ok',
+          text: 'Aceptar',
           handler: () => {
             this.back();
           }
@@ -96,17 +96,17 @@ export class RegistrationComponent implements OnInit {
 
   async errorCreatingUserAlert(error: string) {
     const alert = await this.alertController.create({
-      header: 'Error!',
+      header: '¡Error!',
       message: error,
       buttons: [
         {
-          text: 'Cancel',
+          text: 'Cancelar',
           handler: () => {
             this.back();
           }
         },
         {
-          text: 'Try again',
+          text: 'Intentar de nuevo',
           handler: () => {
             alert.dismiss();
           }
