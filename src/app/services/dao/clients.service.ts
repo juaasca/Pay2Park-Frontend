@@ -8,6 +8,7 @@ import { PersistenceService } from './persistence.service';
 })
 
 export class ClientsService extends PersistenceService<Client> {
+
     private refClients: firebase.database.Reference;
     private clientsDataBaseUrl: string = 'persons/clients';
 
