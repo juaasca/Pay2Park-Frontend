@@ -56,6 +56,15 @@ export class UserActions {
         }
     }
 
+    public async recoverPassword(email: string) {
+        try {
+            firebase.auth().sendPasswordResetEmail(email)
+        } catch (error) {
+            throw new Error(ExceptionMessages.invalidEmail);
+        }
+
+    }
+
     public async loginUserAsync(email: string, password: string) {
         firebase.auth().signInWithEmailAndPassword(email, password)
             .then((userCredential) => {

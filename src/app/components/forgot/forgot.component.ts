@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController } from '@ionic/angular';
+import { fromValue } from 'long';
 
 @Component({
   selector: 'app-forgot',
@@ -31,7 +32,12 @@ export class ForgotComponent implements OnInit {
   ngOnInit() {}
 
   recover() {
+    var formValue = this.forgot.value;
+
+    this.userActions.recoverPassword(formValue.Email);
+
     this.router.navigateByUrl('authentication');
+
   }
 
   back(){
