@@ -1,4 +1,3 @@
-
 <ion-card class="background-css">
   <ion-card-content class="title-style">
       <ion-title text-center> REGISTRAR USUARIO</ion-title>
@@ -13,8 +12,7 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Name">
-          <div *ngIf="registration.get('Name').hasError(validation.type) && (registration.get('Name').dirty 
-          || registration.get('Name').touched)" class="message-error">
+          <div *ngIf="registration.get('Name').hasError(validation.type) && (registration.get('Name').dirty || registration.get('Name').touched)" class="message-error">
             {{validation.message}}
           </div>
         </ng-container>
@@ -34,7 +32,7 @@
         <ion-label class="label-css" position="floating">Usuario:</ion-label>
         <ion-input class="input-css" formControlName="Username" type="text" placeholder="Usuario"></ion-input>
       </ion-item>
-      <div class="error_messages">
+      <div>
         <ng-container *ngFor="let validation of validation_messages.Username">
           <div class="message-error" *ngIf="registration.get('Username').hasError(validation.type) && (registration.get('Username').dirty || registration.get('Username').touched)">
             {{validation.message}}
@@ -45,7 +43,7 @@
           <ion-label class="label-css" position="floating">Contraseña:</ion-label>
           <ion-input class="input-css" formControlName="Password" type="password" placeholder="Contraseña"></ion-input>
         </ion-item>
-        <div class="error_messages">
+        <div>
           <ng-container *ngFor="let validation of validation_messages.Password">
             <div class="message-error" *ngIf="registration.get('Password').hasError(validation.type) && (registration.get('Password').dirty || registration.get('Password').touched)">
               {{validation.message}}
@@ -56,7 +54,7 @@
           <ion-label class="label-css" position="floating">Confirmar contraseña:</ion-label>
           <ion-input class="input-css" formControlName="ConfirmPassword" type="password" placeholder="Contraseña"></ion-input>
         </ion-item>
-        <div class="error_messages">
+        <div>
           <ng-container *ngFor="let validation of validation_messages.ConfirmPassword">
             <div class="message-error" *ngIf="registration.get('ConfirmPassword').hasError(validation.type) && (registration.get('ConfirmPassword').dirty || registration.get('ConfirmPassword').touched)">
               {{validation.message}}
@@ -67,7 +65,7 @@
         <ion-label class="label-css" position="floating">Fecha de nacimiento:</ion-label>
         <ion-datetime class="input-css" formControlName="Birthdate" type="date" displayFormat="DD-MM-YYYY" placeholder="DD-MM-YYYY"></ion-datetime>
       </ion-item>
-      <div class="error_messages">
+      <div>
         <ng-container *ngFor="let validation of validation_messages.Birthdate">
           <div class="message-error" *ngIf="registration.get('Birthdate').hasError(validation.type) && (registration.get('Birthdate').dirty || registration.get('Birthdate').touched)">
             {{validation.message}}
@@ -78,7 +76,7 @@
         <ion-label class="label-css" position="floating">Correo electrónico:</ion-label>
         <ion-input class="input-css" formControlName="Email" type="text" placeholder="Correo electrónico"></ion-input>
       </ion-item>
-      <div class="error_messages">
+      <div>
         <ng-container *ngFor="let validation of validation_messages.Email">
           <div class="message-error" *ngIf="registration.get('Email').hasError(validation.type) && (registration.get('Email').dirty || registration.get('Email').touched)">
             {{validation.message}}

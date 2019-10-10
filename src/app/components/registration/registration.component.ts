@@ -32,8 +32,7 @@ export class RegistrationComponent implements OnInit {
       ])),
       Username: new FormControl('', Validators.compose([
         Validators.required,
-        UsernameValidatorService.validUsername,
-        Validators.minLength(8)
+        UsernameValidatorService.validUsername
       ])),
       Password: new FormControl ('', Validators.compose([
          Validators.required,
@@ -124,9 +123,8 @@ export class RegistrationComponent implements OnInit {
       {type: 'pattern', message: 'El apellido no puede contener números ni caracteres especiales.'}
     ],
     'Username': [
-          {type: 'required', message: '· El nombre de usuario es obligatorio.'},
-          {type: 'minLength', message: '· La longitud mínima es de 8 caracteres.'},
-          {type: 'validUsername', message: '· El nombre de usuario ya está en uso.'}
+      {type: 'required', message: '· El nombre de usuario es obligatorio.'},
+      {type: 'validUsername', message: '· El nombre de usuario ya está en uso.'}
     ],
     'Password': [
       {type: 'required', message: '· La contraseña es obligatoria.'},
