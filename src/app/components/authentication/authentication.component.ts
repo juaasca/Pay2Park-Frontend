@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import * as firebase from 'firebase';
 
-import { environment } from '../../../environments/environment';
 import { ClientsService } from '../../services/dao/clients.service';
+import { UserActions } from 'src/app/logic/user.actions.service';
 
 @Component({
     selector: 'app-authentication',
@@ -14,8 +15,25 @@ export class AuthenticationComponent implements OnInit {
 
     auth: any;
     provider: any;
+    public loginForm: FormGroup;
 
-    constructor(private router: Router, private clientService: ClientsService) { }
+    constructor(private router: Router,
+        private clientService: ClientsService,
+        private userActions: UserActions,
+        private formBuilder: FormBuilder) {
+
+        this.loginForm = this.formBuilder.group({
+            Email: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+            ])),
+            Password: new FormControl('', Validators.compose([
+                Validators.required,
+                Validators.minLength(8),
+                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+            ]))
+        });
+    }
 
     ngOnInit() { }
 
@@ -51,6 +69,8 @@ export class AuthenticationComponent implements OnInit {
         this.router.navigateByUrl('forgot')
     }
     logIn() {
+        let formValue = this.loginForm.value;
 
+        this.userActions.loginUserAsync(formValue.Email, formValue.Password);
     }
 }

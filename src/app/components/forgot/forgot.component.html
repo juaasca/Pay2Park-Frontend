@@ -1,39 +1,40 @@
-<ion-card>
-  <ion-card-content>
+<ion-card class="title-background">
+  <ion-card-content class="title-text">
     <ion-title text-center> Recuperar contraseña</ion-title>
   </ion-card-content> 
 </ion-card>
 
-<ion-content>
-  <ion-card style="padding-top: 15px; padding-bottom: 20px">
-    <ion-card-header>
-        <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
-    </ion-card-header>
-    
+<ion-content class="body-background">
+  <ion-list>
     <ion-card-content>
-      <ion-label>
-        Si los datos son correctos, se enviará una nueva contraseña a la dirección de correo
-      </ion-label>
+        <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
     </ion-card-content>
     
     <ion-card-content>
-      <ion-chip >
+      <ion-label class="label-text">
+        Para restablecer la contraseña, indica la dirección de correo asociada
+        a tu cuenta. Se mandará un correo con las instrucciones para generar
+        una nueva contraseña.
+      </ion-label>
+    </ion-card-content>
+    
+    <ion-card-content text-center>
+      <ion-chip text-left>
         <ion-icon name="email"></ion-icon>
         <ion-input placeholder="Correo electrónico" type="password"></ion-input>
       </ion-chip>
     </ion-card-content>
+  </ion-list>
 
-    <ion-card-content>
-      <ion-chip>
-        <ion-icon name="id"></ion-icon>
-        <ion-input placeholder="Documento de identidad"></ion-input>
-      </ion-chip>
-    </ion-card-content>
-  
-  </ion-card>
     <div text-center>
       <ion-button (click)="recover()">
           Restaurar contraseña
+      </ion-button>
+    </div>
+
+    <div text-center>
+      <ion-button (click)="back()">
+        Atras
       </ion-button>
     </div>
 </ion-content>

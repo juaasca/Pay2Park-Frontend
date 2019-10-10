@@ -2,54 +2,55 @@ import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export abstract class PersistenceService<T> {
 
-  protected ref: firebase.database.Reference;
-  protected databaseRef: firebase.database.Reference;
+    protected ref: firebase.database.Reference;
+    protected databaseRef: firebase.database.Reference;
 
-  constructor() { 
-    this.initializeDatabase();
-  }
+    constructor() {
+        this.initializeDatabase();
+    }
 
-  private initializeDatabase() {
-    this.ref = firebase.app().database().ref();
-  }
+    private initializeDatabase() {
+        this.ref = firebase.app().database().ref();
+    }
 
-  public async showDatabase() {
-    let snapshot = await this.databaseRef.once('value');
-    
-    return snapshot.val();
-  }
+    public async showDatabase() {
+        let snapshot = await this.databaseRef.once('value');
 
-  public addEntity(key: string, administrator : T) {
-      this.databaseRef.child(key).set(administrator, error => console.error(error));
-  }
+        return snapshot.val();
+    }
 
-  public getEntity(key: string) {
-    return this.databaseRef.child(key).once('value').then(function (snapshot) {
-      var entity = <T> snapshot.val();
+    public addEntity(key: string, administrator: T) {
+        this.databaseRef.child(key).set(administrator, error => console.error(error));
+    }
 
-      return entity;
-    });
-  }
+    public getEntity(key: string) {
+        return this.databaseRef.child(key).once('value').then(function (snapshot) {
+            var entity = <T>snapshot.val();
 
-  public deleteEntity(key: string) {
-    this.databaseRef.child(key).remove();
-  }
+            return entity;
+        });
+    }
 
-  public async getEntitiesAsync() {
-    const clients : T[] = [];
+    public deleteEntity(key: string) {
+        this.databaseRef.child(key).remove();
+    }
 
-    await this.databaseRef.once('value').then(async function (snapshot) {
-        snapshot.forEach(childSnapshot => {
-            var client = <T> childSnapshot.val();
+    public async getEntitiesAsync() {
+        const clients: T[] = [];
 
-            clients.push(client);
-        })});
+        await this.databaseRef.once('value').then(async function (snapshot) {
+            snapshot.forEach(childSnapshot => {
+                var client = <T>childSnapshot.val();
 
-    return clients;
-  }
+                clients.push(client);
+            })
+        });
+
+        return clients;
+    }
 }
