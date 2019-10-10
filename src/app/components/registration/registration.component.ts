@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
 import { UserActions } from 'src/app/logic/user.actions.service';
+import { AgeValidatorService } from 'src/app/services/validators/age.validator.service';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
-import { AgeValidatorService } from 'src/app/services/validators/age.validator.service';
 
 @Component({
-  selector: 'app-registration',
-  templateUrl: './registration.component.html',
-  styleUrls: ['./registration.component.scss'],
+    selector: 'app-registration',
+    templateUrl: './registration.component.html',
+    styleUrls: ['./registration.component.scss'],
 })
 
 export class RegistrationComponent implements OnInit {
@@ -32,8 +32,7 @@ export class RegistrationComponent implements OnInit {
       ])),
       Username: new FormControl('', Validators.compose([
         Validators.required,
-        UsernameValidatorService.validUsername,
-        Validators.minLength(8)
+        UsernameValidatorService.validUsername
       ])),
       Password: new FormControl ('', Validators.compose([
          Validators.required,
@@ -57,62 +56,62 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-  ngOnInit() {}
+    ngOnInit() { }
 
-  async saveData(){
-    var formValue = this.registration.value;
+    async saveData() {
+        var formValue = this.registration.value;
 
-    this.userActions.registerNewUserAsync(
-      formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
-        .then(async () => await this.userSuccesfullyCreatedAlert())
-        .catch(async (error) => {
-          await this.errorCreatingUserAlert(error.message);
+        this.userActions.registerNewUserAsync(
+            formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
+            .then(async () => await this.userSuccesfullyCreatedAlert())
+            .catch(async (error) => {
+                await this.errorCreatingUserAlert(error.message);
+            });
+    }
+
+    back() {
+        this.router.navigateByUrl('authentication');
+    }
+
+    async userSuccesfullyCreatedAlert() {
+        const alert = await this.alertController.create({
+            header: 'Success!',
+            message: 'User succesfully created. You can now log in.',
+            buttons: [
+                {
+                    text: 'Ok',
+                    handler: () => {
+                        this.back();
+                    }
+                }
+            ]
         });
-  }
 
-  back(){
-    this.router.navigateByUrl('authentication');
-  }
+        await alert.present();
+    }
 
-  async userSuccesfullyCreatedAlert() {
-    const alert = await this.alertController.create({
-      header: 'Success!',
-      message: 'User succesfully created. You can now log in.',
-      buttons: [
-        {
-          text: 'Ok',
-          handler: () => {
-            this.back();
-          }
-        }
-      ]
-    });
+    async errorCreatingUserAlert(error: string) {
+        const alert = await this.alertController.create({
+            header: 'Error!',
+            message: error,
+            buttons: [
+                {
+                    text: 'Cancel',
+                    handler: () => {
+                        this.back();
+                    }
+                },
+                {
+                    text: 'Try again',
+                    handler: () => {
+                        alert.dismiss();
+                    }
+                }
+            ]
+        });
 
-    await alert.present();
-  }
-
-  async errorCreatingUserAlert(error: string) {
-    const alert = await this.alertController.create({
-      header: 'Error!',
-      message: error,
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: () => {
-            this.back();
-          }
-        },
-        {
-          text: 'Try again',
-          handler: () => {
-            alert.dismiss();
-          }
-        }
-      ]
-    });
-
-    await alert.present();
-  }
+        await alert.present();
+    }
 
   validation_messages = {
     'Name': [
@@ -124,9 +123,8 @@ export class RegistrationComponent implements OnInit {
       {type: 'pattern', message: 'El apellido no puede contener números ni caracteres especiales.'}
     ],
     'Username': [
-          {type: 'required', message: '· El nombre de usuario es obligatorio.'},
-          {type: 'minLength', message: '· La longitud mínima es de 8 caracteres.'},
-          {type: 'validUsername', message: '· El nombre de usuario ya está en uso.'}
+      {type: 'required', message: '· El nombre de usuario es obligatorio.'},
+      {type: 'validUsername', message: '· El nombre de usuario ya está en uso.'}
     ],
     'Password': [
       {type: 'required', message: '· La contraseña es obligatoria.'},
@@ -147,15 +145,15 @@ export class RegistrationComponent implements OnInit {
     ],
   }
 
-  equalTo(field_name): ValidatorFn {
-    return (control: AbstractControl): { [key: string]: any } => {
-        let input = control.value;
-        let isValid = control.root.value[field_name] == input;
-        if (!isValid)
-            return {'equalTo': {isValid}};
-        else
-            return null;
-    };
-  }
+    equalTo(field_name): ValidatorFn {
+        return (control: AbstractControl): { [key: string]: any } => {
+            let input = control.value;
+            let isValid = control.root.value[field_name] == input;
+            if (!isValid)
+                return { 'equalTo': { isValid } };
+            else
+                return null;
+        };
+    }
 
 }
