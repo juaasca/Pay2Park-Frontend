@@ -13,6 +13,7 @@ import { Router } from '@angular/router';
 })
 
 export class RegistrationComponent implements OnInit {
+  private registration: FormGroup;
 
   constructor(
     private router: Router,
