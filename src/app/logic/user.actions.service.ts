@@ -27,7 +27,7 @@ export class UserActions {
                 var newClient = new Client(name, surname, username, birthDate, email);
 
                 await firebase.auth().createUserWithEmailAndPassword(email, password);
-                this.clientsService.addEntity(newClient.Username, newClient);
+                this.clientsService.addEntity(newClient.Email, newClient);
 
                 this.usernameValidatorService.updateList();
             }
