@@ -19,6 +19,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
+import { FilterPipe } from './services/pipes/filter.pipe';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { ManageClientsComponent } from './components/administrator/manage.client
         RegistrationComponent,
         ForgotComponent,
         AdministratorComponent,
-        ManageClientsComponent
+        ManageClientsComponent,
+        FilterPipe
     ],
     entryComponents: [],
     imports: [

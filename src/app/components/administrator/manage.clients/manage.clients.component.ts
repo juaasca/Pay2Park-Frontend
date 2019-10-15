@@ -9,6 +9,7 @@ import { Client } from 'src/app/Domain/Client';
 })
 export class ManageClientsComponent implements OnInit {
   private users: Client[] = [];
+  private searchText = '';
   
   constructor(private clientsService: ClientsService) {
     this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
@@ -18,6 +19,15 @@ export class ManageClientsComponent implements OnInit {
 
   async showUsersAsync(){
     this.users = await this.clientsService.getEntitiesAsync();
+  }
+
+  getItems(event){
+    console.log(event.detail.value);
+    this.searchText = event.detail.value;
+  }
+
+  click(){
+    console.log("hola");
   }
 
 }
