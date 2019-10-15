@@ -25,13 +25,12 @@ export abstract class PersistenceService<T> {
     }
 
     public addEntity(key: string, administrator: T) {
-        this.databaseRef.child(key).set(administrator, error => console.error(error));
+        this.databaseRef.child(key.replace('.', '&&')).set(administrator, error => console.error(error));
     }
 
     public getEntity(key: string) {
-        return this.databaseRef.child(key).once('value').then(function (snapshot) {
+        return this.databaseRef.child(key.replace('.', '&&')).once('value').then(function (snapshot) {
             var entity = <T>snapshot.val();
-
             return entity;
         });
     }
