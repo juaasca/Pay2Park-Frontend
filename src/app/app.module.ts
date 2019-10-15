@@ -17,6 +17,8 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
+import { AdministratorComponent } from './components/administrator/administrator.component';
+import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 
 
 @NgModule({
@@ -29,7 +31,9 @@ import { ForgotComponent } from './components/forgot/forgot.component';
         WalletComponent,
         ProfileComponent,
         RegistrationComponent,
-        ForgotComponent
+        ForgotComponent,
+        AdministratorComponent,
+        ManageClientsComponent
     ],
     entryComponents: [],
     imports: [
