@@ -19,6 +19,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -40,6 +41,9 @@ import { ManageClientsComponent } from './components/administrator/manage.client
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
+          }),
         ReactiveFormsModule],
     providers: [
         StatusBar,
