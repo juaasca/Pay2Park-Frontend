@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController } from '@ionic/angular';
+import { ExceptionMessages } from 'src/app/resources/exception-messages';
 
 @Component({
   selector: 'app-forgot',
@@ -17,7 +18,8 @@ export class ForgotComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userActions : UserActions) { 
+    private userActions : UserActions,
+    private alertController : AlertController) { 
     this.forgot = this.formBuilder.group({
       Email: new FormControl('', Validators.compose([
           Validators.required,
@@ -28,14 +30,55 @@ export class ForgotComponent implements OnInit {
 
   ngOnInit() {}
 
-  recover() {
+  async recover() {
     var formValue = this.forgot.value;
 
-    this.userActions.recoverPassword(formValue.Email);
-
-    this.router.navigateByUrl('authentication');
+    this.userActions.recoverPassword(formValue.Email)
+      .then(async() => await this.userSuccesfullyCreatedAlert())
+      .catch(async(error) => await this.errorCreatingUserAlert(error.message));
+        //this.router.navigateByUrl('authentication');
 
   }
+
+  async userSuccesfullyCreatedAlert() {
+    const alert = await this.alertController.create({
+        header: 'Correcto',
+        message: 'Se ha enviado el correo a la dirección indicada',
+        buttons: [
+            {
+                text: 'Ok',
+                handler: () => {
+                    this.back();
+                }
+            }
+        ]
+    });
+
+    await alert.present();
+}
+
+async errorCreatingUserAlert(error: string) {
+    const alert = await this.alertController.create({
+        header: 'Error!',
+        message: error,
+        buttons: [
+            {
+                text: 'Cancel',
+                handler: () => {
+                    this.back();
+                }
+            },
+            {
+                text: 'Try again',
+                handler: () => {
+                    alert.dismiss();
+                }
+            }
+        ]
+    });
+
+    await alert.present();
+}
 
   back(){
     this.router.navigateByUrl('authentication');

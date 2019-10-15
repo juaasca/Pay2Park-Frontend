@@ -20,6 +20,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { FilterPipe } from './services/pipes/filter.pipe';
+import { AgmCoreModule } from '@agm/core';
 
 
 @NgModule({
@@ -42,6 +43,9 @@ import { FilterPipe } from './services/pipes/filter.pipe';
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
+        AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
+          }),
         ReactiveFormsModule],
     providers: [
         StatusBar,
