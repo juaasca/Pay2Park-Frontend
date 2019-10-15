@@ -76,14 +76,14 @@ export class UserActions {
     public async signinUserAsync() {
         let provider = new firebase.auth.GoogleAuthProvider();
 
-        this.auth.signInWithRedirect(provider)
+        this.auth.signInWithPopup(provider)
             .then(async (result: any) => {
                 let user = await this.clientService.getEntity(result.additionalUserInfo.profile.email)
                 if (result.additionalUserInfo.isNewUser || user == null) {
                     this.clientService.addEntity(result.additionalUserInfo.profile.email,
                         new Client(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 }
-                // Para añadir administrador 
+                // Para añadir administrador
                 //this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 this.router.navigateByUrl('tabs/park');
             })
