@@ -13,50 +13,48 @@ import { Router } from '@angular/router';
 })
 
 export class RegistrationComponent implements OnInit {
+  private registration: FormGroup;
 
-    public registration: FormGroup;
-
-    constructor(
-        private router: Router,
-        private formBuilder: FormBuilder,
-        private userActions: UserActions,
-        private usernameValidator: UsernameValidatorService,
-        private alertController: AlertController) {
-        this.registration = this.formBuilder.group({
-            Name: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.pattern('^[ A-Za-z]+$')
-            ])),
-            Surname: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.pattern('^[ A-Za-z]+$')
-            ])),
-            Username: new FormControl('', Validators.compose([
-                Validators.required,
-                UsernameValidatorService.validUsername,
-                Validators.minLength(8)
-            ])),
-            Password: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
-            ])),
-            ConfirmPassword: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.minLength(8),
-                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
-                this.equalTo('Password')
-            ])),
-            Birthdate: new FormControl('', Validators.compose([
-                Validators.required,
-                AgeValidatorService.overEighteen
-            ])),
-            Email: new FormControl('', Validators.compose([
-                Validators.required,
-                Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-            ])),
-        });
-    }
+  constructor(
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private userActions : UserActions,
+    private usernameValidator: UsernameValidatorService,
+    private alertController: AlertController) {
+    this.registration = this.formBuilder.group({
+      Name: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[ A-Za-z]+$')
+      ])),
+      Surname: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[ A-Za-z]+$')
+      ])),
+      Username: new FormControl('', Validators.compose([
+        Validators.required,
+        UsernameValidatorService.validUsername
+      ])),
+      Password: new FormControl ('', Validators.compose([
+         Validators.required,
+         Validators.minLength(8), 
+         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])),
+      ConfirmPassword: new FormControl('', Validators.compose([
+       Validators.required,
+       Validators.minLength(8), 
+       Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$'),
+       this.equalTo('Password')
+      ])),
+      Birthdate: new FormControl ('', Validators.compose([
+        Validators.required,
+        AgeValidatorService.overEighteen
+      ])),
+      Email: new FormControl ('', Validators.compose([
+        Validators.required, 
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+    });
+  }
 
     ngOnInit() { }
 
@@ -115,37 +113,37 @@ export class RegistrationComponent implements OnInit {
         await alert.present();
     }
 
-    validation_messages = {
-        'Name': [
-            { type: 'required', message: '· El nombre es obligatorio.' },
-            { type: 'pattern', message: 'El nombre no puede contener números ni caracteres especiales.' }
-        ],
-        'Surname': [
-            { type: 'required', message: 'El apellido es obligatorio.' },
-            { type: 'pattern', message: 'El apellido no puede contener números ni caracteres especiales.' }
-        ],
-        'Username': [
-            { type: 'required', message: '· El nombre de usuario es obligatorio.' },
-            { type: 'minLength', message: '· La longitud mínima es de 8 caracteres.' },
-            { type: 'validUsername', message: '· El nombre de usuario ya está en uso.' }
-        ],
-        'Password': [
-            { type: 'required', message: '· La contraseña es obligatoria.' },
-            { type: 'minLength', message: '· La longitud mínima es de 8 caracteres.' },
-            { type: 'pattern', message: '· La contraseña debe contener mínimo una letra minúscula, una letra mayúscula y un número. No puede contener caracteres especiales.' }
-        ],
-        'ConfirmPassword': [
-            { type: 'equalTo', message: '· Las contraseñas no coinciden.' },
-        ],
-        'Birthdate': [
-            { type: 'required', message: '· La fecha de nacimiento es obligatoria.' },
-            { type: 'ageValidation', message: '· Debes ser mayor de edad' }
-        ],
-        'Email': [
-            { type: 'required', message: '·El correo electrónico es obligatorio.' },
-            { type: 'pattern', message: '· Correo incorrecto.' }
-        ],
-    }
+  validation_messages = {
+    'Name': [
+          {type: 'required', message: '· El nombre es obligatorio.'},
+          {type: 'pattern', message: 'El nombre no puede contener números ni caracteres especiales.'}
+    ],
+    'Surname': [
+      {type: 'required', message: 'El apellido es obligatorio.'},
+      {type: 'pattern', message: 'El apellido no puede contener números ni caracteres especiales.'}
+    ],
+    'Username': [
+      {type: 'required', message: '· El nombre de usuario es obligatorio.'},
+      {type: 'validUsername', message: '· El nombre de usuario ya está en uso.'}
+    ],
+    'Password': [
+      {type: 'required', message: '· La contraseña es obligatoria.'},
+      {type: 'minLength', message: '· La longitud mínima es de 8 caracteres.'},
+      {type: 'pattern', message: '· La contraseña debe contener mínimo una letra minúscula, una letra mayúscula y un número. No puede contener caracteres especiales.'}
+    ],
+    'ConfirmPassword': [
+      {type: 'equalTo', message: '· Las contraseñas no coinciden.'},
+    ],
+    'Birthdate': [
+      {type: 'required', message: '· La fecha de nacimiento es obligatoria.'},
+      {type: 'ageValidation', message: '· Debes ser mayor de edad'}
+    ],
+    'Email': [
+      {type: 'required', message: '·El correo electrónico es obligatorio.'},
+      {type: 'pattern', message: '· Correo incorrecto.'}
+      
+    ],
+  }
 
     equalTo(field_name): ValidatorFn {
         return (control: AbstractControl): { [key: string]: any } => {

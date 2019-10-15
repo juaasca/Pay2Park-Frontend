@@ -4,39 +4,48 @@
   </ion-card-content> 
 </ion-card>
 
-<ion-content class="body-background">
-  <ion-list>
-    <ion-card-content>
-        <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
-    </ion-card-content>
-    
-    <ion-card-content>
-      <ion-label class="label-text">
-        Para restablecer la contraseña, indica la dirección de correo asociada
-        a tu cuenta. Se mandará un correo con las instrucciones para generar
-        una nueva contraseña.
-      </ion-label>
-    </ion-card-content>
-    
-    <ion-card-content text-center>
-      <ion-chip text-left>
-        <ion-icon name="email"></ion-icon>
-        <ion-input placeholder="Correo electrónico" type="password"></ion-input>
-      </ion-chip>
-    </ion-card-content>
-  </ion-list>
+<ion-content>
+  <form [formGroup]="forgot" (ngSubmit)="recover()"> 
+      <ion-list>
+        <ion-card-content>
+          <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
+        </ion-card-content>
 
-    <div text-center>
-      <ion-button (click)="recover()">
-          Restaurar contraseña
-      </ion-button>
-    </div>
+        <ion-card-content>
+          <ion-label class="label-text">
+            Para restablecer la contraseña, indica la dirección de correo asociada
+            a tu cuenta. Se mandará un correo con las instrucciones para generar
+            una nueva contraseña. 
+          </ion-label>
+        </ion-card-content>
 
-    <div text-center>
-      <ion-button (click)="back()">
-        Atras
-      </ion-button>
-    </div>
+        <ion-card-content text-center>
+            <ion-chip text-left>
+                <ion-icon name="email"></ion-icon>
+                <ion-input formControlName="Email" placeholder="Correo electrónico" type="text">
+                @</ion-input>
+              </ion-chip>
+        </ion-card-content>
+
+        <div>
+          <ng-container *ngFor="let validation of validation_messages.Email">
+            <div class="error-text" *ngIf="forgot.get('Email').hasError(validation.type)&& (forgot.get('Email').dirty || forgot.get('Email').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+
+        <div text-center>
+          <ion-button [disabled]=true class="button-css" (click)="recover()">
+              Restaurar contraseña
+          </ion-button>
+        </div>
+        
+        <div text-center>
+            <ion-button class="button-css" (click)="back()">
+                Atras
+            </ion-button>
+        </div>
+      </ion-list>
+  </form>
 </ion-content>
-
-

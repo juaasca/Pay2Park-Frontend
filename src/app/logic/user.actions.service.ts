@@ -27,7 +27,7 @@ export class UserActions {
                 var newClient = new Client(name, surname, username, birthDate, email);
 
                 await firebase.auth().createUserWithEmailAndPassword(email, password);
-                this.clientsService.addEntity(newClient.Username, newClient);
+                this.clientsService.addEntity(newClient.Email, newClient);
 
                 this.usernameValidatorService.updateList();
             }
@@ -54,6 +54,15 @@ export class UserActions {
 
             throw new Error(message);
         }
+    }
+
+    public async recoverPassword(email: string) {
+        try {
+            firebase.auth().sendPasswordResetEmail(email)
+        } catch (error) {
+            throw new Error(ExceptionMessages.invalidEmail);
+        }
+
     }
 
     public async loginUserAsync(email: string, password: string) {
