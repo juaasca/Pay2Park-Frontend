@@ -5,6 +5,8 @@ import { ClientsService } from '../services/dao/clients.service';
 import { UsernameValidatorService } from '../services/validators/username.validator.service';
 import { ExceptionMessages } from '../resources/exception-messages';
 import { Router } from '@angular/router';
+import { AdministratorsService } from '../services/dao/administrators.service';
+import { Administrator } from '../Domain/Administrator';
 
 @Injectable({
     providedIn: 'root'
@@ -16,7 +18,7 @@ export class UserActions {
     public auth: any;
     provider: any;
 
-    constructor(private clientService: ClientsService, private usernameValidatorService: UsernameValidatorService, private router: Router) {
+    constructor(private clientService: ClientsService, private adminService: AdministratorsService, private usernameValidatorService: UsernameValidatorService, private router: Router) {
         this.auth = firebase.auth();
         this.auth.languageCode = 'es';
     }
@@ -74,14 +76,15 @@ export class UserActions {
     public async signinUserAsync() {
         let provider = new firebase.auth.GoogleAuthProvider();
 
-        this.auth.signInWithPopup(provider)
+        this.auth.signInWithRedirect(provider)
             .then(async (result: any) => {
                 let user = await this.clientService.getEntity(result.additionalUserInfo.profile.email)
                 if (result.additionalUserInfo.isNewUser || user == null) {
                     this.clientService.addEntity(result.additionalUserInfo.profile.email,
                         new Client(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 }
-
+                // Para añadir administrador 
+                //this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 this.router.navigateByUrl('tabs/park');
             })
             .catch((error: any) => {
