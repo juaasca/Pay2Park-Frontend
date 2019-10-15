@@ -1,4 +1,4 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule, APP_INITIALIZER, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
@@ -17,6 +17,7 @@ import { WalletComponent } from './components/wallet/wallet.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
+import { GoogleMaps } from '@ionic-native/google-maps';
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        GoogleMaps,
     ],
     bootstrap: [AppComponent]
 })
