@@ -9,6 +9,8 @@ import { NotificationComponent } from './components/notification/notification.co
 import { WalletComponent } from './components/wallet/wallet.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
+import { AdministratorComponent } from './components/administrator/administrator.component';
+import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 
 const routes: Routes = [
     {
@@ -37,6 +39,14 @@ const routes: Routes = [
                 component: ProfileComponent
             }
         ]
+    },
+    {
+        path: 'admin',
+        component: AdministratorComponent,
+    },
+    {
+        path: 'manage-clients',
+        component: ManageClientsComponent
     },
     {
         path: 'registration',
