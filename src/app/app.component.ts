@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { Platform } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -13,7 +13,7 @@ import { environment } from 'src/environments/environment';
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
 
     public app: firebase.app.App;
 
@@ -23,6 +23,10 @@ export class AppComponent {
         private statusBar: StatusBar
     ) {
         this.initializeApp();
+    }
+
+    ngOnInit() {
+        
     }
 
     initializeApp() {
