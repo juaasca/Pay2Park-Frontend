@@ -5,4 +5,5 @@ export class ExceptionMessages {
     static errorSigninUser = 'Ha ocurrido un error al intentar acceder';
     static invalidEmail = 'El correo electrónico introducido no es correcto.';
     static invalidPassword = 'El correo electrónico o la contraseña son incorrectos';
+    static emailNotFound = 'No existe ningún usuario asociado a esta dirección de correo';
 }

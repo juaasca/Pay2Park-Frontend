@@ -23,7 +23,7 @@
             <ion-chip text-left>
                 <ion-icon name="email"></ion-icon>
                 <ion-input formControlName="Email" placeholder="Correo electrónico" type="text">
-                @</ion-input>
+                </ion-input>
               </ion-chip>
         </ion-card-content>
 
@@ -36,7 +36,7 @@
         </div>
 
         <div text-center>
-          <ion-button [disabled]=true class="button-css" (click)="recover()">
+          <ion-button [disabled]=!forgot.valid class="button-css" (click)="recover()">
               Restaurar contraseña
           </ion-button>
         </div>
