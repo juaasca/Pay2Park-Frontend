@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl, ValidatorFn, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController } from '@ionic/angular';
-import { fromValue } from 'long';
 
 @Component({
   selector: 'app-forgot',
@@ -18,13 +17,11 @@ export class ForgotComponent implements OnInit {
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,
-    private userActions : UserActions,
-    private usernameValidator: UsernameValidatorService,
-    private alertController: AlertController) { 
+    private userActions : UserActions) { 
     this.forgot = this.formBuilder.group({
       Email: new FormControl('', Validators.compose([
           Validators.required,
-          Validators.pattern('^[ A-Za-z]+$')
+          Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
         ]))
       })
     }
@@ -42,6 +39,13 @@ export class ForgotComponent implements OnInit {
 
   back(){
     this.router.navigateByUrl('authentication');
+  }
+
+  validation_messages = {
+    'Email' : [
+      {type:'required', message: 'El correo electrónico es obligatorio.'},
+      {type: 'pattern', message: 'Introduce una dirección de correo valida'}
+    ]
   }
 
 }

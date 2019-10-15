@@ -26,11 +26,21 @@
                 @</ion-input>
               </ion-chip>
         </ion-card-content>
+
+        <div>
+          <ng-container *ngFor="let validation of validation_messages.Email">
+            <div class="error-text" *ngIf="forgot.get('Email').hasError(validation.type)&& (forgot.get('Email').dirty || forgot.get('Email').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+
         <div text-center>
           <ion-button [disabled]=true class="button-css" (click)="recover()">
               Restaurar contraseña
           </ion-button>
         </div>
+        
         <div text-center>
             <ion-button class="button-css" (click)="back()">
                 Atras
