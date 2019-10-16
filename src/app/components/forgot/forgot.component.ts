@@ -32,21 +32,18 @@ export class ForgotComponent implements OnInit {
 
   async recover() {
     var formValue = this.forgot.value;
-
     this.userActions.recoverPassword(formValue.Email)
-      .then(async() => await this.userSuccesfullyCreatedAlert())
-      .catch(async(error) => await this.errorCreatingUserAlert(error.message));
-        //this.router.navigateByUrl('authentication');
-
+      .then(async() => await this.passSuccRecovered())
+      .catch(async(error) => await this.passFailedRecover(error.message));
   }
 
-  async userSuccesfullyCreatedAlert() {
+  async passSuccRecovered() {
     const alert = await this.alertController.create({
         header: 'Correcto',
         message: 'Se ha enviado el correo a la dirección indicada',
         buttons: [
             {
-                text: 'Ok',
+                text: 'Aceptar',
                 handler: () => {
                     this.back();
                 }
@@ -57,19 +54,19 @@ export class ForgotComponent implements OnInit {
     await alert.present();
 }
 
-async errorCreatingUserAlert(error: string) {
+async passFailedRecover(error: string) {
     const alert = await this.alertController.create({
-        header: 'Error!',
-        message: error,
+        header: 'Error',
+        message: 'La dirección de correo indicada no esta asociada a ninguna cuenta',
         buttons: [
             {
-                text: 'Cancel',
+                text: 'Cancelar',
                 handler: () => {
                     this.back();
                 }
             },
             {
-                text: 'Try again',
+                text: 'Reintentar',
                 handler: () => {
                     alert.dismiss();
                 }
