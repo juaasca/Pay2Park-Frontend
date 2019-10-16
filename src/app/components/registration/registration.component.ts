@@ -5,6 +5,8 @@ import { AgeValidatorService } from 'src/app/services/validators/age.validator.s
 import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { ExceptionCodes } from 'src/app/resources/exception.codes';
+import { ExceptionMessages } from 'src/app/resources/exception.messages';
 
 @Component({
     selector: 'app-registration',
@@ -56,63 +58,76 @@ export class RegistrationComponent implements OnInit {
     });
   }
 
-    ngOnInit() { }
+	ngOnInit() {}
 
-    async saveData() {
-        var formValue = this.registration.value;
+	async saveData() {
+		var formValue = this.registration.value;
 
-        this.userActions.registerNewUserAsync(
-            formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
-            .then(async () => await this.userSuccesfullyCreatedAlert())
-            .catch(async (error) => {
-                await this.errorCreatingUserAlert(error.message);
-            });
-    }
+		this.userActions
+			.registerNewUserAsync(formValue.Name, formValue.Surname, formValue.Username, formValue.Password, formValue.Birthdate, formValue.Email)
+			  .then(async () => await this.userSuccesfullyCreatedAlert())
+			  .catch(async error => {
+				  var message = this.getErrorMessageTranslated(error.code);
+          
+          await this.errorCreatingUserAlert(message);
+			  });
+  }
 
-    back() {
-        this.router.navigateByUrl('authentication');
-    }
+	getErrorMessageTranslated(code: string) {
+		switch (code) {
+			case ExceptionCodes.emailAlreadyInUse:
+				return ExceptionMessages.emailAlreadyInUse;
+			case ExceptionCodes.invalidEmail:
+				return ExceptionMessages.invalidEmail;
+			default:
+				return ExceptionMessages.errorCreatingUser;
+		}
+	}
 
-    async userSuccesfullyCreatedAlert() {
-        const alert = await this.alertController.create({
-            header: 'Success!',
-            message: 'User succesfully created. You can now log in.',
-            buttons: [
-                {
-                    text: 'Ok',
-                    handler: () => {
-                        this.back();
-                    }
-                }
-            ]
-        });
+	back() {
+		this.router.navigateByUrl('authentication');
+	}
 
-        await alert.present();
-    }
+	async userSuccesfullyCreatedAlert() {
+		const alert = await this.alertController.create({
+			header: '¡Éxito!',
+			message:
+				'Usuario creado con éxito. Ahora puede autentificarse en la aplicación.',
+			buttons: [
+				{
+					text: 'Aceptar',
+					handler: () => {
+						this.back();
+					},
+				},
+			],
+		});
 
-    async errorCreatingUserAlert(error: string) {
-        const alert = await this.alertController.create({
-            header: 'Error!',
-            message: error,
-            buttons: [
-                {
-                    text: 'Cancel',
-                    handler: () => {
-                        this.back();
-                    }
-                },
-                {
-                    text: 'Try again',
-                    handler: () => {
-                        alert.dismiss();
-                    }
-                }
-            ]
-        });
+		await alert.present();
+	}
 
-        await alert.present();
-    }
+	async errorCreatingUserAlert(error: string) {
+		const alert = await this.alertController.create({
+			header: '¡Error!',
+			message: error,
+			buttons: [
+				{
+					text: 'Cancelar',
+					handler: () => {
+						this.back();
+					},
+				},
+				{
+					text: 'Intentar de nuevo',
+					handler: () => {
+						alert.dismiss();
+					},
+				},
+			],
+		});
 
+		await alert.present();
+	}
   validation_messages = {
     'Name': [
           {type: 'required', message: '· El nombre es obligatorio.'},
@@ -141,19 +156,16 @@ export class RegistrationComponent implements OnInit {
     'Email': [
       {type: 'required', message: '·El correo electrónico es obligatorio.'},
       {type: 'pattern', message: '· Correo incorrecto.'}
-      
     ],
   }
 
-    equalTo(field_name): ValidatorFn {
-        return (control: AbstractControl): { [key: string]: any } => {
-            let input = control.value;
-            let isValid = control.root.value[field_name] == input;
-            if (!isValid)
-                return { 'equalTo': { isValid } };
-            else
-                return null;
-        };
-    }
 
+	equalTo(field_name): ValidatorFn {
+		return (control: AbstractControl): { [key: string]: any } => {
+			let input = control.value;
+			let isValid = control.root.value[field_name] == input;
+			if (!isValid) return { equalTo: { isValid } };
+			else return null;
+		};
+	}
 }
