@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
-import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController } from '@ionic/angular';
-import { ExceptionMessages } from 'src/app/resources/exception-messages';
 
 @Component({
   selector: 'app-forgot',

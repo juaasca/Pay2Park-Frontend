@@ -3,10 +3,9 @@ import * as firebase from 'firebase';
 import { Client } from 'src/app/Domain/Client';
 import { ClientsService } from '../services/dao/clients.service';
 import { UsernameValidatorService } from '../services/validators/username.validator.service';
-import { ExceptionMessages } from '../resources/exception-messages';
+import { ExceptionMessages } from '../resources/exception.messages';
 import { Router } from '@angular/router';
 import { AdministratorsService } from '../services/dao/administrators.service';
-import { Administrator } from '../Domain/Administrator';
 
 @Injectable({
     providedIn: 'root'
