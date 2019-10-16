@@ -29,10 +29,10 @@ export class ParkComponent implements OnInit {
         shadowUrl: 'assets/leaflet/images/marker-shadow.png'
       })
     }).addTo(map);
-    
-    
+  }
 
-
+  aparcar(){
+    
   }
 
 }
