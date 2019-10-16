@@ -1,0 +1,26 @@
+<ion-content>
+    <ion-card style=" text-align:center" color="primary">
+        <ion-card-title style="padding-top: 20px;font-size:30px; padding-bottom: 0px;">Lleva aparcado</ion-card-title>
+       
+       <ion-card-content style="padding-top: 0px;">
+           <ion-label style="font-size:70px;">{{tiempoRestante}} min</ion-label>
+           <p><ion-label style="font-size: 25px;"> Máximo: 2 horas</ion-label></p>
+       </ion-card-content>
+
+       
+        <ion-button style="padding-left: 50px;padding-right: 50px;padding-bottom: 10px ;" size="large" expand="block" color="light" (click)="botonPagar()">
+            Pagar                          
+        </ion-button>
+
+    </ion-card>
+
+
+    <div>
+        <ion-label style="padding-left: 50px;">Has aparcado en: </ion-label>        
+    </div>
+    <div>
+    <ion-label style="padding-left: 50px;font-weight:bold; font-size: 25px;">{{calle}}</ion-label>
+    </div>
+</ion-content>
+
+
