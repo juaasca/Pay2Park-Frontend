@@ -1,1 +1,24 @@
-<ion-button (click)="manageClients()">Gestionar clientes</ion-button>
+<ion-tabs>
+    <ion-tab-bar slot="bottom">
+        <ion-tab-button (click)="manageClients()">
+            <ion-icon name="people"></ion-icon>
+            <ion-label>Clientes</ion-label>
+        </ion-tab-button>
+        <ion-tab-button (click)="click(2)">
+            <ion-icon name="clipboard"></ion-icon>
+            <ion-label>Revisores</ion-label>
+        </ion-tab-button>
+        <ion-tab-button (click)="click(3)">
+            <ion-icon name="card"></ion-icon>
+            <ion-label>Tarifas</ion-label>
+        </ion-tab-button>
+        <ion-tab-button (click)="click(4)">
+            <ion-icon name="contact"></ion-icon>
+            <ion-label>Perfil</ion-label>
+        </ion-tab-button>
+        <ion-tab-button (click)="changeToClientView()">
+            <ion-icon name="card"></ion-icon>
+            <ion-label>Vista de cliente</ion-label>
+        </ion-tab-button>
+    </ion-tab-bar>
+</ion-tabs>
