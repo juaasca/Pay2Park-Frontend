@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ParkComponent } from './components/park/park.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { WalletComponent } from './components/wallet/wallet.component';
+import { PaymentComponent } from './components/payment/payment.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
@@ -31,7 +32,7 @@ const routes: Routes = [
             },
             {
                 path: 'wallet',
-                component: WalletComponent
+                component: PaymentComponent
             },
 
             {
