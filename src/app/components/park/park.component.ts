@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
+import { AlertController } from '@ionic/angular';
 
 
 
@@ -12,7 +13,7 @@ declare let L;
 })
 export class ParkComponent implements OnInit {
 
-  constructor() { }
+  constructor(public alertController: AlertController) { }
 
   ngOnInit() {
     const map = L.map('map').setView([39.482,-0.348], 16);
@@ -31,8 +32,32 @@ export class ParkComponent implements OnInit {
     }).addTo(map);
   }
 
-  aparcar(){
-    
+  async aparcar() {
+    const alert = await this.alertController.create({
+      header: '¿Desea aparcar aquí?',
+      message: 'El máximo es de 2 horas' ,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Aparcar',
+          handler: () => {
+            this.crearAparcamiento();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  crearAparcamiento(){
+
   }
 
 }
