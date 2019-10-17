@@ -35,24 +35,27 @@ const routes: Routes = [
                 path: 'wallet',
                 component: PaymentComponent
             },
-
             {
                 path: 'profile',
                 component: ProfileComponent
+            },
+            {
+                path: 'admin',
+                component: AdministratorComponent,
+                children: [
+                    {
+                        path: 'manage-clients',
+                        component: ManageClientsComponent,
+                        children: [
+                            {
+                                path: 'info-client',
+                                component: InfoClientComponent
+                            }
+                        ]
+                    },
+                ]
             }
         ]
-    },
-    {
-        path: 'admin',
-        component: AdministratorComponent,
-    },
-    {
-        path: 'manage-clients',
-        component: ManageClientsComponent
-    },
-    {
-        path: 'info-client',
-        component: InfoClientComponent
     },
     {
         path: 'registration',

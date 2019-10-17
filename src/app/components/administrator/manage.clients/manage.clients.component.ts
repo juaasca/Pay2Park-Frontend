@@ -23,13 +23,12 @@ export class ManageClientsComponent implements OnInit {
   }
 
   getItems(event){
-    console.log(event.detail.value);
     this.searchText = event.detail.value;
   }
 
   click(userName){
     var user = <Client>userName;
     console.log(user);
-    this.router.navigateByUrl('info-client');
+    this.router.navigateByUrl('main/admin/manage-clients/info-client');
   }
 }
