@@ -19,6 +19,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
+import { InfoClientComponent } from './components/administrator/manage.clients/info-client/info-client.component';
 import { FilterPipe } from './services/pipes/filter.pipe';
 import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
@@ -38,6 +39,7 @@ import { MainComponent } from './components/main/main.component';
         ForgotComponent,
         AdministratorComponent,
         ManageClientsComponent,
+        InfoClientComponent,
         FilterPipe
     ],
     entryComponents: [],

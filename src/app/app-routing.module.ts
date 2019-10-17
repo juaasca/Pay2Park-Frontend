@@ -12,6 +12,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { MainComponent } from './components/main/main.component';
+import { InfoClientComponent } from './components/administrator/manage.clients/info-client/info-client.component';
 
 const routes: Routes = [
     {
@@ -48,6 +49,10 @@ const routes: Routes = [
     {
         path: 'manage-clients',
         component: ManageClientsComponent
+    },
+    {
+        path: 'info-client',
+        component: InfoClientComponent
     },
     {
         path: 'registration',

@@ -11,7 +11,7 @@ export class FilterPipe implements PipeTransform {
         return array;
     }
     return array.filter( item => {
-        return item.Name.toLowerCase()
+        return (`${item.Name} ${item.Surname} - ${item.Username}`).toLowerCase()
             .includes(text.toLowerCase())
     });
   }

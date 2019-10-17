@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/dao/clients.service';
 import { Client } from 'src/app/Domain/Client';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-manage.clients',
@@ -11,7 +12,7 @@ export class ManageClientsComponent implements OnInit {
   private users: Client[] = [];
   private searchText = '';
   
-  constructor(private clientsService: ClientsService) {
+  constructor(private clientsService: ClientsService, private router: Router) {
     this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
    }
 
@@ -26,8 +27,9 @@ export class ManageClientsComponent implements OnInit {
     this.searchText = event.detail.value;
   }
 
-  click(){
-    console.log("hola");
+  click(userName){
+    var user = <Client>userName;
+    console.log(user);
+    this.router.navigateByUrl('info-client');
   }
-
 }
