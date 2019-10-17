@@ -27,6 +27,7 @@
     "@ionic-native/status-bar": "^5.0.0",
     "@ionic/angular": "^4.7.1",
     "cordova-android": "^8.1.0",
+    "cordova-plugin-stripe": "^1.5.3",
     "core-js": "^2.5.4",
     "firebase": "^6.6.2",
     "ionic-selectable": "^4.4.1",
@@ -78,7 +79,8 @@
       "cordova-plugin-ionic-webview": {
         "ANDROID_SUPPORT_ANNOTATIONS_VERSION": "27.+"
       },
-      "cordova-plugin-ionic-keyboard": {}
+      "cordova-plugin-ionic-keyboard": {},
+      "cordova-plugin-stripe": {}
     },
     "platforms": [
       "android"
