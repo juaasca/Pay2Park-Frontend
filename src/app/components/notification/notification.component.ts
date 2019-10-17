@@ -1,21 +1,35 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { Park } from '../../Domain/Park';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
-  tiempoRestante = 20;
-  calle = "Calle Zaragoza";
+  park: Park;
+  time: number;
+  calle: string;
   constructor(public alertController: AlertController) { }
-  precio= 2.3;
-  ngOnInit() {}
+  precio = 2.3;
+  ngOnInit() {
+    this.park = new Park(1, null, 'Calle Zaragoza', null, null);
+    this.time = this.park.getCurrentTime();
+    this.calle = this.park.Street;
+    setInterval(() => {
+      this.actualizar();
+  }, 1000);
+  }
 
-  async botonPagar(){
+
+  actualizar() {
+    this.time = this.park.getCurrentTime();
+  }
+
+  async botonPagar() {
     const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
-      message: 'El precio sera de: '+ this.precio,
+      message: 'El precio sera de: ' + this.precio,
       buttons: [
         {
           text: 'Cancelar',
@@ -32,13 +46,12 @@ export class NotificationComponent implements OnInit {
         }
       ]
     });
-    
-  
+
     await alert.present();
   }
-  
-  confirmPagar(){
-    console.log("Pagar")
+
+  confirmPagar() {
+    console.log(this.park.getCurrentTime());
   }
 
 }
