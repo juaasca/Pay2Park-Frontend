@@ -1,7 +1,7 @@
-import { NgModule, APP_INITIALIZER } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
-import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
@@ -10,7 +10,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthenticationComponent } from './components/authentication/authentication.component';
-import { TabsComponent } from './components/tabs/tabs.component';
 import { ParkComponent } from './components/park/park.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { WalletComponent } from './components/wallet/wallet.component';
@@ -21,13 +20,14 @@ import { AdministratorComponent } from './components/administrator/administrator
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { FilterPipe } from './services/pipes/filter.pipe';
 import { AgmCoreModule } from '@agm/core';
+import { MainComponent } from './components/main/main.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthenticationComponent,
-        TabsComponent,
+        MainComponent,
         ParkComponent,
         NotificationComponent,
         WalletComponent,

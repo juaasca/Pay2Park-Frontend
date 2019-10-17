@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationComponent } from './components/authentication/authentication.component';
-import { TabsComponent } from './components/tabs/tabs.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { ParkComponent } from './components/park/park.component';
 import { NotificationComponent } from './components/notification/notification.component';
@@ -11,6 +10,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
+import { MainComponent } from './components/main/main.component';
 
 const routes: Routes = [
     {
@@ -18,8 +18,8 @@ const routes: Routes = [
         component: AuthenticationComponent
     },
     {
-        path: 'tabs',
-        component: TabsComponent,
+        path: 'main',
+        component: MainComponent,
         children: [
             {
                 path: 'park',

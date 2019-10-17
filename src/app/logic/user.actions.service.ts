@@ -69,7 +69,7 @@ export class UserActions {
 				}
 				// Para añadir administrador
 				//this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
-				this.router.navigateByUrl('tabs/park');
+				this.router.navigateByUrl('main/park');
 			})
 			.catch((error: any) => {
 				// Handle Errors here.
@@ -93,7 +93,7 @@ export class UserActions {
 				}
 
 				console.log(this.user);
-				this.router.navigateByUrl('tabs/park');
+				this.router.navigateByUrl('main/park');
 			})
 			.catch(error => {
 				var message = '';
