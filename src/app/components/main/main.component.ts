@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 @Component({
   selector: 'app-main',
@@ -7,27 +8,34 @@ import { Router } from '@angular/router';
   styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-
-  constructor(private router: Router) { }
+    private isAdmin: boolean;
+    public AdminWindow: boolean = false;
+    constructor(private router: Router) {
+        this.isAdmin = CurrentUserData.IsAdmin;
+    }
 
     ngOnInit() {
 
     }
 
-    click(tab: number) {
+    click(tab: string) {
         switch (tab) {
-            case 1:
+            case "park":
                 this.router.navigateByUrl('main/park');
                 break;
-            case 2:
+            case "notifications":
                 this.router.navigateByUrl('main/notification');
                 break;
-            case 3:
+            case "wallet":
                 this.router.navigateByUrl('main/wallet');
                 break;
-            case 4:
+            case "profile":
                 this.router.navigateByUrl('main/profile');
                 break;
+            case "adminView":
+                this.AdminWindow = true;
+                this.router.navigateByUrl('main/admin/manage-clients');
+            break;
         }
     }
 
