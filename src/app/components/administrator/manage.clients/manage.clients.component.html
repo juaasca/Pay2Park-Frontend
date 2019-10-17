@@ -1,15 +1,15 @@
-<ion-header class="text">
-  <ion-toolbar>
-    <ion-title color="primary" class="title">
-      Buscar cliente
-    </ion-title>
+<ion-card color="primary">
+  <ion-card-content>
+    <ion-title class="title" text-center> BUSCAR USUARIO</ion-title>
+  </ion-card-content>
+</ion-card>
+<ion-toolbar>
     <ion-searchbar animated (ionChange)="getItems( $event )"></ion-searchbar>
-  </ion-toolbar>
-</ion-header>
-<ion-content class="text">
+</ion-toolbar>
+<ion-content>
   <ion-list>
-    <ion-item (click)="click(data)" *ngFor="let data of users | filter: searchText: 'column'"> 
-      {{data.Name}} {{data.Surname}} - {{data.Username}}
+    <ion-item class="font-style" (click)="click(data)" *ngFor="let data of users | filter: searchText: 'column'"> 
+      <ion-label >{{data.Name}} {{data.Surname}} - {{data.Username}}</ion-label>
     </ion-item>
   </ion-list>
 </ion-content>  
