@@ -13,10 +13,10 @@ export class InfoClientComponent implements OnInit {
   ngOnInit() {}
 
   showPlates(){
-    this.router.navigateByUrl('info-plates');
+    this.router.navigateByUrl('main/admin/manage-clients/info-client/info-plates');
   }
 
   showComplaints(){
-    this.router.navigateByUrl('info-complaints');
+    this.router.navigateByUrl('main/admin/manage-clients/info-client/info-complaints');
   }
 }

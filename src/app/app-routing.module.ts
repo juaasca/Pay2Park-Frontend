@@ -48,25 +48,20 @@ const routes: Routes = [
                     {
                         path: 'manage-clients',
                         component: ManageClientsComponent,
-                        children: [
-                            {
-                                path: 'info-client',
-                                component: InfoClientComponent,
-                                children: [
-                                    {
-                                        path: 'info-plates',
-                                        component: InfoPlatesComponent
-                                    },
-                                    {
-                                        path: 'info-complaints',
-                                        component: InfoComplaintsComponent
-                                    }
-                                ]
-                            }
-                        ]
                     },
+                    {   path: 'manage-clients/info-client',
+                        component: InfoClientComponent
+                    },
+                    {
+                        path: 'manage-clients/info-client/info-plates',
+                        component: InfoPlatesComponent
+                    },
+                    {
+                        path: 'manage-clients/info-clients/info-complaints',
+                        component: InfoComplaintsComponent
+                    }
                 ]
-            }
+            },
         ]
     },
     {
