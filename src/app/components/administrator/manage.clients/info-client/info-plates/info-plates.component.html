@@ -1,0 +1,13 @@
+<ion-header>
+  <ion-title>
+    LISTA DE MATRÍCULAS
+  </ion-title>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let data of plates">
+      <ion-icon name="create" (click)="editPlate()"></ion-icon>
+      <ion-label>{{data}}</ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -13,6 +13,8 @@ import { AdministratorComponent } from './components/administrator/administrator
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { MainComponent } from './components/main/main.component';
 import { InfoClientComponent } from './components/administrator/manage.clients/info-client/info-client.component';
+import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
+import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 
 const routes: Routes = [
     {
@@ -49,7 +51,17 @@ const routes: Routes = [
                         children: [
                             {
                                 path: 'info-client',
-                                component: InfoClientComponent
+                                component: InfoClientComponent,
+                                children: [
+                                    {
+                                        path: 'info-plates',
+                                        component: InfoPlatesComponent
+                                    },
+                                    {
+                                        path: 'info-complaints',
+                                        component: InfoComplaintsComponent
+                                    }
+                                ]
                             }
                         ]
                     },

@@ -7,6 +7,11 @@
   <ion-list>
     <ion-item>
       <ion-label>
+        Usuario:
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
         Nombre:
       </ion-label>
     </ion-item>
@@ -21,14 +26,13 @@
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>
-        Matriculas:
-      </ion-label>
-      <ion-select>
-        <ion-select-option>Hola</ion-select-option>
-        <ion-select-option>me llamo</ion-select-option>
-        <ion-select-option>batman</ion-select-option>
-      </ion-select>
-    </ion-item>
+        <ion-label>
+          Fecha de nacimiento:
+        </ion-label>
+      </ion-item>
+    <div padding>
+      <ion-button class="button-CSS" float-left (click)="showPlates()">Ver matriculas</ion-button>
+      <ion-button class="button-CSS" float-right (click)="showComplaints()">Ver denuncias</ion-button>
+    </div>  
   </ion-list>
 </ion-content>

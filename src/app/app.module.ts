@@ -23,6 +23,8 @@ import { InfoClientComponent } from './components/administrator/manage.clients/i
 import { FilterPipe } from './services/pipes/filter.pipe';
 import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
+import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
+import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 
 
 @NgModule({
@@ -40,6 +42,8 @@ import { MainComponent } from './components/main/main.component';
         AdministratorComponent,
         ManageClientsComponent,
         InfoClientComponent,
+        InfoPlatesComponent,
+        InfoComplaintsComponent,
         FilterPipe
     ],
     entryComponents: [],

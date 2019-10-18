@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info-client',
@@ -7,8 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InfoClientComponent implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {}
 
+  showPlates(){
+    this.router.navigateByUrl('info-plates');
+  }
+
+  showComplaints(){
+    this.router.navigateByUrl('info-complaints');
+  }
 }
