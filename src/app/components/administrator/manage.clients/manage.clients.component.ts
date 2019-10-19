@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ClientsService } from 'src/app/services/dao/clients.service';
 import { Client } from 'src/app/Domain/Client';
 import { Router } from '@angular/router';
+import { SelectedClient } from './selected.client';
 
 @Component({
   selector: 'app-manage.clients',
@@ -26,9 +27,9 @@ export class ManageClientsComponent implements OnInit {
     this.searchText = event.detail.value;
   }
 
-  click(userName){
-    var user = <Client>userName;
-    console.log(user);
+  click(client){
+    var selectedClient = <Client>client;
+    SelectedClient.selectedClient = selectedClient;
     this.router.navigateByUrl('main/admin/manage-clients/info-client');
   }
 }

@@ -7,27 +7,22 @@
   <ion-list>
     <ion-item>
       <ion-label>
-        Usuario:
+        Usuario: {{selectedClient.Username}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        Nombre:
+        Nombre: {{selectedClient.Name}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        Apellidos:
+        Email: {{selectedClient.Email}}
       </ion-label>
     </ion-item>
-    <ion-item>
-      <ion-label>
-        Email:
-      </ion-label>
-    </ion-item>
-    <ion-item>
+    <ion-item *ngIf="!birthDateIsNull">
         <ion-label>
-          Fecha de nacimiento:
+          Fecha de nacimiento: {{formattedBirthDate}}
         </ion-label>
       </ion-item>
     <div padding>
