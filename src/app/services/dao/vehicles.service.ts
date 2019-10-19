@@ -9,7 +9,7 @@ import { PersistenceService } from './persistence.service';
 
 export class VehiclesService extends PersistenceService<Vehicle> {
     private refVehicles: firebase.database.Reference;
-    private vehiclesDataBaseUrl: string = 'vehicles/cars';
+    private vehiclesDataBaseUrl = 'vehicles/cars';
 
     constructor() {
         super();

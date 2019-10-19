@@ -3,6 +3,8 @@ import { AlertController } from '@ionic/angular';
 import { Park } from '../../Domain/Park';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
+import { UserActions } from 'src/app/logic/user.actions.service';
+import { ParkService } from 'src/app/services/dao/parks.service';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -12,7 +14,7 @@ export class NotificationComponent implements OnInit {
   park: Park;
   time: number;
   calle: string;
-  constructor(public alertController: AlertController) { }
+  constructor(public alertController: AlertController, private parkService: ParkService) { }
   precio = 2.3;
   ngOnInit() {
     if(CurrentParkingData.park){
@@ -61,6 +63,7 @@ export class NotificationComponent implements OnInit {
   }
 
   confirmPagar() {
+    this.parkService.deleteEntity(CurrentParkingData.park.id.toString());
     console.log(this.park.getCurrentTime());
   }
 

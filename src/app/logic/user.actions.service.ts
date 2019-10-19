@@ -10,6 +10,11 @@ import { AdministratorsService } from '../services/dao/administrators.service';
 import { CustomError } from '../common/custom.error';
 import { ExceptionCodes } from '../resources/exception.codes';
 import { CurrentUserData } from '../data/current.user';
+import { Vehicle } from '../Domain/Vehicle';
+import { VehiclesService } from '../services/dao/vehicles.service';
+import { Fare } from '../Domain/Fare';
+import { Park } from '../Domain/Park';
+import { ParkService } from '../services/dao/parks.service';
 
 @Injectable({
 	providedIn: 'root',
@@ -21,6 +26,8 @@ export class UserActions {
 
 	constructor(
 		private clientService: ClientsService,
+		private vehicleService: VehiclesService,
+		private parkService: ParkService,
 		private adminService: AdministratorsService,
 		private usernameValidatorService: UsernameValidatorService,
 		private router: Router
@@ -125,5 +132,37 @@ export class UserActions {
 
 				throw new Error(message);
 			});
+	}
+
+	public async registerVehicle(licensePlate: string, name: string, description: string, owner: string[]) {
+		const vehicle = await this.clientService.getEntity(licensePlate);
+
+		if (vehicle !== null) {
+			throw new CustomError(
+				ExceptionMessages.emailAlreadyInUse,
+				ExceptionCodes.emailAlreadyInUse
+			);
+		} else {
+			const newCar = new Vehicle(licensePlate,name,description,owner);
+
+			this.vehicleService.addEntity(newCar.LicensePlate, newCar);
+
+			//this.usernameValidatorService.updateList();
+		}
+	}
+
+	public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
+		const park = await this.clientService.getEntity(id.toString());
+
+		if (park !== null) {
+			throw new CustomError(
+				ExceptionMessages.emailAlreadyInUse,
+				ExceptionCodes.emailAlreadyInUse
+			);
+		} else {
+			const newPark = new Park(id,vehicle,street,coordinates,fare);
+			this.parkService.addEntity(newPark.id.toString(), newPark);
+			//this.usernameValidatorService.updateList();
+		}
 	}
 }

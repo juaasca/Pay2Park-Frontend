@@ -26,6 +26,7 @@ import { MainComponent } from './components/main/main.component';
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
+import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
 
 
 @NgModule({
@@ -46,7 +47,8 @@ import { ParkConfirmComponent } from './components/park-confirm/park-confirm.com
         InfoPlatesComponent,
         InfoComplaintsComponent,
         FilterPipe,
-        ParkConfirmComponent
+        ParkConfirmComponent,
+        AnadirVehiculoComponent
     ],
     entryComponents: [],
     imports: [

@@ -16,6 +16,7 @@ import { InfoClientComponent } from './components/administrator/manage.clients/i
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
+import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
 
 const routes: Routes = [
     {
@@ -68,6 +69,10 @@ const routes: Routes = [
     {
         path: 'parkConfirm',
         component: ParkConfirmComponent
+    },
+    {
+        path: 'anadir-vehiculo',
+        component: AnadirVehiculoComponent
     },
     {
         path: 'registration',

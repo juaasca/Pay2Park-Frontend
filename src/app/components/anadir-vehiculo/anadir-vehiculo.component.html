@@ -1,0 +1,32 @@
+<ion-app>
+  <ion-header style="padding-bottom: 0px;">
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="/main/profile"></ion-back-button>
+          </ion-buttons>
+      <ion-title>Añadir Vehiculo</ion-title>
+    </ion-toolbar>
+    <form [formGroup]="registration">
+    <ion-item>
+      <ion-label position="floating">Matricula:</ion-label>
+      <ion-input formControlName="Matricula"  type="text" placeholder="Matricula"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Marca:</ion-label>
+      <ion-input formControlName="Marca"  type="text" placeholder="Marca"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="floating">Modelo:</ion-label>
+      <ion-input formControlName="Modelo"  type="text" placeholder="Modelo"></ion-input>
+    </ion-item>
+
+    <ion-button (click)= anadirVehiculo()>
+      Aceptar
+    </ion-button>
+    </form>
+
+
+  </ion-header>
+</ion-app>
