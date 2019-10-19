@@ -18,9 +18,11 @@ export class ParkConfirmComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    if(CurrentUserData.LoggedUser){
     this.vehicles = [
       new Vehicle('123', 'cocheRojo', 'esRojo', [CurrentUserData.LoggedUser.Email] )
     ];
+  }
   }
 
   aparcarVehiculo(vehiculo: Vehicle){
