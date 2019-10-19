@@ -1,12 +1,15 @@
-<ion-header>
-    <ion-title>
-      LISTA DE DENUNCIAS
-    </ion-title>
-  </ion-header>
-  <ion-content>
-    <ion-list>
-      <ion-item *ngFor="let data of complaints">
-        {{data}}  
-      </ion-item>
-    </ion-list>
-  </ion-content>
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="Volver"></ion-back-button>
+    </ion-buttons>
+    <ion-title>DENUNCIAS</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let data of complaints">
+      {{data}}  
+    </ion-item>
+  </ion-list>
+</ion-content>

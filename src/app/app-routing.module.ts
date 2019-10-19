@@ -59,7 +59,7 @@ const routes: Routes = [
                         component: InfoPlatesComponent
                     },
                     {
-                        path: 'manage-clients/info-clients/info-complaints',
+                        path: 'manage-clients/info-client/info-complaints',
                         component: InfoComplaintsComponent
                     }
                 ]
