@@ -2,9 +2,10 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
-
-
+import { OpenALPR } from "@ionic-native/openalpr/ngx";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import { Camera } from "@ionic-native/camera/ngx";
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -27,31 +28,11 @@ import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
+import { HomeComponent } from "./page/home/home.component";
+import { ResultModal } from "./page/result/result.component";
 
-
-
-//prueba open---------------------------------------------------------
- import { ResultModal } from "./page/result/result.component";
- import { OpenALPR } from "@ionic-native/openalpr/ngx";
- 
- import { CommonModule } from "@angular/common";
- 
- import { FormsModule } from "@angular/forms";
- 
- import { Camera } from "@ionic-native/camera/ngx";
- 
- import { HomeComponent } from "./page/home/home.component";
- //import { ResultComponent } from "./app/result/result.module";
-
-//--------------------------------------------------------------------
 @NgModule({
     declarations: [
-
-        
-     //openalpr---------------
-         ResultModal,
-     //-----------------------
-
         AppComponent,
         AuthenticationComponent,
         MainComponent,
@@ -68,43 +49,28 @@ import { InfoComplaintsComponent } from './components/administrator/manage.clien
         InfoPlatesComponent,
         InfoComplaintsComponent,
         FilterPipe,
-        HomeComponent
+        HomeComponent,
+        ResultModal,
     ],
-     entryComponents: [ResultModal ],
+    entryComponents: [ResultModal ],
     imports: [
         BrowserModule,
         IonicModule.forRoot(),
-
-     //open----------------------------------
-         IonicModule, 
-         CommonModule,
-         CommonModule,
-         FormsModule,
-         IonicModule,
-        
-    
-     //--------------------------------------
+        IonicModule,
+        CommonModule,
+        FormsModule,
         AppRoutingModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
           }),
         ReactiveFormsModule],
-    providers: [
+        providers: [
         StatusBar,
         SplashScreen,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-
-        
-         
-
-        
-     //open-------------------
          Camera,
          OpenALPR
-     //------------------------
-
     ],
     bootstrap: [AppComponent]
 })
 export class AppModule {}
-
