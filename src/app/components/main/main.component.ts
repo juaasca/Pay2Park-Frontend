@@ -36,6 +36,12 @@ export class MainComponent implements OnInit {
                 this.AdminWindow = true;
                 this.router.navigateByUrl('main/admin/manage-clients');
             break;
+            case "scan": 
+                this.router.navigateByUrl('main/scan');
+                break;
+             case "prueba": 
+                this.router.navigateByUrl('main/result');
+                break;
         }
     }
 

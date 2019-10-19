@@ -16,11 +16,15 @@ import { InfoClientComponent } from './components/administrator/manage.clients/i
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 
+import { HomeComponent } from './page/home/home.component';
+import { ResultModal } from './page/result/result.component';
+
 const routes: Routes = [
     {
         path: 'authentication',
         component: AuthenticationComponent
     },
+   
     {
         path: 'main',
         component: MainComponent,
@@ -62,8 +66,21 @@ const routes: Routes = [
                     }
                 ]
             },
+            {
+                path: 'scan',
+                component: HomeComponent
+                
+            }, 
+            {
+                path:'result',
+                component: ResultModal
+            }
         ]
+
     },
+    
+
+   
     {
         path: 'registration',
         component: RegistrationComponent
