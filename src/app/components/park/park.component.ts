@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
 import { AlertController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 
 
@@ -16,7 +17,7 @@ export class ParkComponent implements OnInit {
     private idWatch: any
 
 
-  constructor(public alertController: AlertController) { }
+  constructor(public alertController: AlertController, private router: Router) { }
 
   ngOnInit() {
     let map;
@@ -73,7 +74,7 @@ export class ParkComponent implements OnInit {
   }
 
   crearAparcamiento(){
-
+    this.router.navigateByUrl('parkConfirm');
   }
 
 }

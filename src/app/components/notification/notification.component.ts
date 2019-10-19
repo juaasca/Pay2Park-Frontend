@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Park } from '../../Domain/Park';
+import { CurrentUserData } from 'src/app/data/current.user';
+import { CurrentParkingData } from 'src/app/data/currentParking';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -13,9 +15,12 @@ export class NotificationComponent implements OnInit {
   constructor(public alertController: AlertController) { }
   precio = 2.3;
   ngOnInit() {
-    this.park = new Park(1, null, 'Calle Zaragoza', null, null);
+    if(CurrentParkingData.park){
+    this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
     this.calle = this.park.Street;
+    }
+    this.calle = 'Todavia no has aparcado';
     setInterval(() => {
       this.actualizar();
   }, 1000);
@@ -23,7 +28,12 @@ export class NotificationComponent implements OnInit {
 
 
   actualizar() {
-    this.time = this.park.getCurrentTime();
+    if(CurrentParkingData.park){
+      this.park = CurrentParkingData.park;
+      this.time = this.park.getCurrentTime();
+      this.calle = this.park.Street;
+      this.time = this.park.getCurrentTime();
+      }
   }
 
   async botonPagar() {

@@ -25,6 +25,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
+import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
 
 
 @NgModule({
@@ -44,7 +45,8 @@ import { InfoComplaintsComponent } from './components/administrator/manage.clien
         InfoClientComponent,
         InfoPlatesComponent,
         InfoComplaintsComponent,
-        FilterPipe
+        FilterPipe,
+        ParkConfirmComponent
     ],
     entryComponents: [],
     imports: [

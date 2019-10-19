@@ -22,6 +22,5 @@ export class Park {
         let horaInicio = this.Date.getMinutes();
         let horaActual = (new Date()).getMinutes();
         return horaActual - horaInicio;
-        
     }
 }

@@ -1,3 +1,4 @@
+// tslint:disable: indent
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
 import { Client } from 'src/app/Domain/Client';
@@ -8,6 +9,7 @@ import { Router } from '@angular/router';
 import { AdministratorsService } from '../services/dao/administrators.service';
 import { CustomError } from '../common/custom.error';
 import { ExceptionCodes } from '../resources/exception.codes';
+import { CurrentUserData } from '../data/current.user';
 
 @Injectable({
 	providedIn: 'root',
@@ -43,7 +45,7 @@ export class UserActions {
 				ExceptionCodes.emailAlreadyInUse
 			);
 		} else {
-			var newClient = new Client(name + ' ' + surname, username, birthDate, email);
+			const newClient = new Client(name + ' ' + surname, username, birthDate, email);
 
 			await firebase.auth().createUserWithEmailAndPassword(email, password);
 			this.clientService.addEntity(newClient.Email, newClient);
@@ -58,18 +60,22 @@ export class UserActions {
 
 	// Registrarse o login con google
 	public async signinUserAsync() {
-		let provider = new firebase.auth.GoogleAuthProvider();
+		const provider = new firebase.auth.GoogleAuthProvider();
 
-        this.auth.signInWithPopup(provider)
+  this.auth.signInWithPopup(provider)
         .then(async (result: any) => {
-                let user = await this.clientService.getEntity(result.additionalUserInfo.profile.email)
+                const user = await this.clientService.getEntity(result.additionalUserInfo.profile.email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
                     this.clientService.addEntity(result.additionalUserInfo.profile.email,
-                        new Client(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
+						new Client(result.additionalUserInfo.profile.name,
+							result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
+
 				}
 				// Para añadir administrador
-				//this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
-				this.router.navigateByUrl('main/park');
+				// this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
+							CurrentUserData.LoggedUser= new Client(result.additionalUserInfo.profile.name,
+								result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
+				            this.router.navigateByUrl('main/park');
 			})
 			.catch((error: any) => {
 				// Handle Errors here.
@@ -89,14 +95,18 @@ export class UserActions {
 		firebase.auth().signInWithEmailAndPassword(email, password)
 			.then(async (userCredential) => {
 				if (this.clientService.getEntity(email) == null) {
-					this.clientService.addEntity(email, new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
+					this.clientService.addEntity(email,
+						 new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
 				}
+				const client: Client = new Client(userCredential.user.displayName,
+					userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
 
-				console.log(this.user);
+				CurrentUserData.LoggedUser = client;
+
 				this.router.navigateByUrl('main/park');
 			})
 			.catch(error => {
-				var message = '';
+				let message = '';
 				console.log(error.message);
 				switch (error.code) {
 					case 'auth/wrong-password': {
