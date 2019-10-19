@@ -1,8 +1,7 @@
 import { Component } from "@angular/core";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
-import { OpenALPR, OpenALPROptions, OpenALPRResult } from "@ionic-native/openalpr/ngx";
+import { OpenALPROptions, OpenALPR, OpenALPRResult } from '@ionic-native/openalpr/ngx';
 import { Platform, ModalController } from "@ionic/angular";
-import { ResultModal } from "../result/result.component";
 import { Router } from '@angular/router';
 import { PruebaMatriculaService } from 'src/app/pruebas/prueba.matricula.service';
 
@@ -123,7 +122,7 @@ export class HomeComponent {
    */
   async showResult(result: OpenALPRResult[]) {
     this.pruebaMatriculaService.setData(result, this.getCountry());
-    this.router.navigateByUrl('result');
+    this.router.navigateByUrl('main/result');
     //this.router.navigate(['result', {result: result, country: this.getCountry() }]);
     // const modal = await this.modalController.create({
       //component: ResultModal,

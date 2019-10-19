@@ -1,50 +1,42 @@
-<p>
-  <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        OpenALPR Sample
-      </ion-title>
-    </ion-toolbar>
-  </ion-header>
-  
-  <ion-content padding>
-    <!-- Button for using the camera to get an image. -->
-    <ion-button
-      expand="full"
-      fill="solid"
-      color="primary"
-      (click)="scan('camera')"
+<ion-card color="primary">
+    <ion-card-content>
+        <ion-title text-center class="font-style">Búsqueda de matrícula</ion-title>
+    </ion-card-content>
+</ion-card>
+
+<ion-button
+    expand="full"
+    fill="solid"
+    color="primary"
+    (click)="scan('camera')"
     >
-      <ion-icon name="qr-scanner"></ion-icon>
-      &nbsp; Take picture
+    <ion-icon name="qr-scanner"></ion-icon>
+      &nbsp; Hacer foto
     </ion-button>
   
-    <!-- Button for using the photolibrary to get an image. -->
-    <ion-button expand="full" fill="solid" color="dark" (click)="scan('library')">
-      <ion-icon name="images"></ion-icon>
-      &nbsp; Select picture
-    </ion-button>
-  </ion-content>
-  
-  <ion-footer>
-    <ion-toolbar>
-      <ion-list>
-        <ion-item>
-          <ion-label>Country</ion-label>
-  
-          <!-- Field to select a country to check license plates for.-->
-          <ion-select
-            value="{{ getCountry() }}"
-            (ionChange)="setCountry($event.target.value)"
+<ion-button expand="full" fill="solid" color="dark" (click)="scan('library')">
+  <ion-icon name="images"></ion-icon>
+  &nbsp; Seleccionar foto
+</ion-button>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-list>
+      <ion-item>
+        <ion-label>País</ion-label>
+
+        <!-- Field to select a country to check license plates for.-->
+        <ion-select
+          value="{{ getCountry() }}"
+          (ionChange)="setCountry($event.target.value)"
+        >
+          <ion-select-option
+            *ngFor="let country of countries"
+            [value]="country.value"
+            >{{ country.label }}</ion-select-option
           >
-            <ion-select-option
-              *ngFor="let country of countries"
-              [value]="country.value"
-              >{{ country.label }}</ion-select-option
-            >
-          </ion-select>
-        </ion-item>
-      </ion-list>
-    </ion-toolbar>
-  </ion-footer>
-</p>
+        </ion-select>
+      </ion-item>
+    </ion-list>
+  </ion-toolbar>
+</ion-footer>
