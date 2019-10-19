@@ -20,7 +20,7 @@ import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { InfoClientComponent } from './components/administrator/manage.clients/info-client/info-client.component';
-import { FilterPipe } from './services/pipes/filter.pipe';
+import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
 import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
@@ -45,7 +45,7 @@ import { ParkConfirmComponent } from './components/park-confirm/park-confirm.com
         InfoClientComponent,
         InfoPlatesComponent,
         InfoComplaintsComponent,
-        FilterPipe,
+        FilterClientPipe,
         ParkConfirmComponent
     ],
     entryComponents: [],
