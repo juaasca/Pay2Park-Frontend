@@ -34,6 +34,7 @@
     "cordova-plugin-stripe": "^1.5.3",
     "core-js": "^2.5.4",
     "firebase": "^6.6.2",
+    "firebase-tools": "^7.6.1",
     "ionic-selectable": "^4.4.1",
     "leaflet": "^1.5.1",
     "leaflet-routing-machine": "^3.2.12",
