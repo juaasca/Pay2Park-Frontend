@@ -27,7 +27,7 @@ import { InfoPlatesComponent } from './components/administrator/manage.clients/i
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
 import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
-
+import { PayPal } from '@ionic-native/paypal/ngx';
 
 @NgModule({
     declarations: [
@@ -62,6 +62,7 @@ import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-veh
     providers: [
         StatusBar,
         SplashScreen,
+        PayPal,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     ],
     bootstrap: [AppComponent]
