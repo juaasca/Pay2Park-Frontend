@@ -1,0 +1,40 @@
+<ion-header class="header">
+  <ion-toolbar>
+    <ion-buttons slot="start">
+        <ion-back-button text="Volver"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Comprobación de matrícula</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="text">
+  <ion-list>
+    <ion-item>
+      <ion-label>
+        Matrícula: 1234ABC
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Usuario: jiero21
+      </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Modelo: Kia Rio
+      </ion-label>
+    </ion-item>
+    <ion-item>
+        <ion-label>
+          Aparcamiento: No
+        </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label>
+        Tiempo restante: -
+      </ion-label>
+    </ion-item>
+    <div align="center">
+      <ion-button color="success" (click)="deleteUserAsync()">Aceptar</ion-button>
+    </div>
+  </ion-list>
+</ion-content>

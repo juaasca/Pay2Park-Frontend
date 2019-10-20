@@ -6,6 +6,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { PayPal } from '@ionic-native/paypal/ngx';
+import { AgmCoreModule } from '@agm/core';
+
+import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -20,14 +24,13 @@ import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
 import { InfoClientComponent } from './components/administrator/manage.clients/info-client/info-client.component';
-import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
-import { AgmCoreModule } from '@agm/core';
 import { MainComponent } from './components/main/main.component';
 import { InfoPlatesComponent } from './components/administrator/manage.clients/info-client/info-plates/info-plates.component';
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
 import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
-import { PayPal } from '@ionic-native/paypal/ngx';
+import { CheckerComponent } from './components/checker/checker.component';
+import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 
 @NgModule({
     declarations: [
@@ -48,7 +51,9 @@ import { PayPal } from '@ionic-native/paypal/ngx';
         InfoComplaintsComponent,
         FilterClientPipe,
         ParkConfirmComponent,
-        AnadirVehiculoComponent
+        AnadirVehiculoComponent,
+        CheckerComponent,
+        CheckPlateComponent
     ],
     entryComponents: [],
     imports: [
