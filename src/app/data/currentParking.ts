@@ -6,6 +6,5 @@ import { CurrentUserData } from './current.user';
 export class CurrentParkingData {
    public static park: Park;
    public static parks: Park[];
-   private parkService: ParkService;
    
 }

@@ -163,21 +163,20 @@ export class UserActions {
 	}
 
 	public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
-		const park = await this.clientService.getEntity(id.toString());
-
-		if (park !== null) {
-			throw new CustomError(
-				ExceptionMessages.emailAlreadyInUse,
-				ExceptionCodes.emailAlreadyInUse
-			);
-		} else {
-			const newPark = new Park(id,vehicle,street,coordinates,fare, new Date());
+		let park = await this.parkService.getEntity(id.toString());
+			while(park){
+				id++;
+				park = await this.parkService.getEntity(id.toString());
+			}
+			console.log(id);
+		 
+			let newPark = new Park(id,vehicle,street,coordinates,fare, new Date());
 			this.parkService.addEntity(newPark.id.toString(), newPark);
 			//this.usernameValidatorService.updateList();
-		}
+		
 	}
 
 	getParks(){
-		this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks= parks);
+		this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
 	 }
 }
