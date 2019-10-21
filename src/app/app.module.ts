@@ -31,6 +31,7 @@ import { ParkConfirmComponent } from './components/park-confirm/park-confirm.com
 import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
 import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
+import { AuthGuard } from './security/authGuard';
 
 @NgModule({
     declarations: [
@@ -68,7 +69,9 @@ import { CheckPlateComponent } from './components/checker/check-plate/check-plat
         StatusBar,
         SplashScreen,
         PayPal,
+        AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        ManageClientsComponent
     ],
     bootstrap: [AppComponent]
 })

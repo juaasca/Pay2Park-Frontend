@@ -38,8 +38,8 @@ export abstract class PersistenceService<T> {
         });
     }
 
-    public deleteEntity(key: string) {
-        this.databaseRef.child(key.replace('.', '&&')).remove();
+    public deleteEntityAsync(key: string) {
+        return this.databaseRef.child(key.replace('.', '&&')).remove();
     }
 
     public async getEntitiesAsync() {

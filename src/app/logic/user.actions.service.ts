@@ -16,6 +16,7 @@ import { Fare } from '../Domain/Fare';
 import { Park } from '../Domain/Park';
 import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
+import { WorkersService } from '../services/dao/workers.service';
 
 @Injectable({
     providedIn: 'root',
@@ -32,6 +33,7 @@ export class UserActions {
         private vehicleService: VehiclesService,
         private parkService: ParkService,
         private adminService: AdministratorsService,
+        private workerService: WorkersService,
         private usernameValidatorService: UsernameValidatorService,
         private router: Router
     ) {
@@ -65,11 +67,12 @@ export class UserActions {
         }
     }
 
-    public deleteClient(client: Client) {
+    public deleteClientAsync(client: Client) {
         var deleteUserFunction = this.functions.httpsCallable('deleteUser');
-        deleteUserFunction(client)
-            .then(() => {
-                this.clientService.deleteEntity(client.Email);
+
+        return deleteUserFunction(client)
+            .then(async () => {
+                await this.clientService.deleteEntityAsync(client.Email);
             }).catch((error) => console.log(error));
     }
 
@@ -97,21 +100,8 @@ export class UserActions {
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
                     result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
 
-                this.adminService.getEntity(email)
-                    .then((admin) => {
-                        if (admin != null) {
-                            CurrentUserData.IsAdmin = true;
-                            CurrentUserData.IsChecker = true;
-                            console.log(CurrentUserData.LoggedUser);
-                        }
-                    })
-                    .catch(error => {
-                        console.error(error);
-                        throw new Error(error.message);
-                    })
-
-
-
+                this.checkAdmin(email);
+                this.checkWorker(email);
                 this.router.navigateByUrl('main/park');
             })
             .catch((error: any) => {
@@ -139,12 +129,13 @@ export class UserActions {
                     userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
 
                 CurrentUserData.LoggedUser = client;
-
+                this.checkAdmin(email);
+                this.checkWorker(email);
                 this.router.navigateByUrl('main/park');
             })
             .catch(error => {
                 let message = '';
-                console.log(error.message);
+                console.error(error.message);
                 switch (error.code) {
                     case 'auth/wrong-password': {
                         message = ExceptionMessages.invalidPassword;
@@ -197,5 +188,33 @@ export class UserActions {
 
     getParks() {
         this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
+    }
+
+    private checkAdmin(email: string) {
+        this.adminService.getEntity(email)
+            .then((admin) => {
+                if (admin != null) {
+                    CurrentUserData.IsAdmin = true;
+                    CurrentUserData.IsChecker = true;
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                throw new Error(error.message);
+            })
+    }
+
+    private checkWorker(email: string) {
+        this.workerService.getEntity(email)
+            .then((worker) => {
+                if (worker != null) {
+                    CurrentUserData.IsAdmin = false;
+                    CurrentUserData.IsChecker = true;
+                }
+            })
+            .catch(error => {
+                console.error(error);
+                throw new Error(error.message);
+            })
     }
 }

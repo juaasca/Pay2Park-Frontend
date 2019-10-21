@@ -88,7 +88,7 @@ export class NotificationComponent implements OnInit {
   }
 
   confirmPagar() {
-    this.parkService.deleteEntity(CurrentParkingData.park.id.toString());
+    this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
     this.payWithPaypal();
     console.log(this.park.getCurrentTime());

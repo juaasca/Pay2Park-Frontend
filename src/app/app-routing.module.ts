@@ -19,6 +19,7 @@ import { ParkConfirmComponent } from './components/park-confirm/park-confirm.com
 import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
 import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
+import { AuthGuard } from './security/authGuard';
 
 const routes: Routes = [
     {
@@ -28,6 +29,7 @@ const routes: Routes = [
     {
         path: 'main',
         component: MainComponent,
+        canActivate: [AuthGuard],
         children: [
             {
                 path: 'park',
