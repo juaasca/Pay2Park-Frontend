@@ -7,6 +7,8 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 import { ParkService } from 'src/app/services/dao/parks.service';
 import { PaymentComponent } from '../payment/payment.component';
 import { ProviderAstType } from '@angular/compiler';
+import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -16,8 +18,8 @@ export class NotificationComponent implements OnInit {
   park: Park;
   time: number;
   calle: string;
-  pay:PaymentComponent;
-  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions,
+  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions, 
+    private payPal: PayPal,  private router: Router
     ) { 
   }
   precio = 2.3;
@@ -47,7 +49,7 @@ export class NotificationComponent implements OnInit {
   }
 
   async botonPagar() {
-
+    if (CurrentParkingData.park) {
     const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
       message: 'El precio sera de: ' + this.precio,
@@ -69,13 +71,26 @@ export class NotificationComponent implements OnInit {
     });
 
     await alert.present();
+  }else{
+    const alert = await this.alertController.create({
+      header: 'Todavia no ha estacionado',
+      buttons: [{
+          text: 'OK',
+          handler: () => {
+            this.router.navigateByUrl('main/park');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
   }
 
   confirmPagar() {
     this.parkService.deleteEntity(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
-    this.pay.paymentAmount = this.precio.toString();
-    this.pay.payWithPaypal()
+    this.payWithPaypal();
     console.log(this.park.getCurrentTime());
   }
   
@@ -90,6 +105,31 @@ export class NotificationComponent implements OnInit {
         }
       }
     }
+  }
+
+  payWithPaypal() {
+    console.log(this.precio + 'paid');
+    this.payPal.init({
+      PayPalEnvironmentProduction: '',
+      PayPalEnvironmentSandbox: 'ASYqq-Tmw9Ug1ogXOuX3OtykohApnjEAtnP_lZGOJYfv4wRaxEdjFthHCo6_K02tzn6PgBSd9uGzMQNl'
+    }).then(() => {
+      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
+      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
+        // Only needed if you get an "Internal Service Error" after PayPal login!
+        //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
+      })).then(() => {
+        let payment = new PayPalPayment(this.precio.toString(), 'EUR', 'Description', 'sale');
+        this.payPal.renderSinglePaymentUI(payment).then((res) => {
+          console.log(res);
+        }, () => {
+          // Error or render dialog closed without being successful
+        });
+      }, () => {
+        // Error in configuration
+      });
+    }, () => {
+      // Error in initialization, maybe PayPal isn't supported or something else
+    });
   }
 
 }

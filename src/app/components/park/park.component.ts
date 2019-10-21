@@ -17,30 +17,30 @@ declare let L;
 })
 export class ParkComponent implements OnInit {
 
-    private idWatch: any
+    private idWatch: any;
 
 
   constructor(public alertController: AlertController, private router: Router) { }
 
   ngOnInit() {
     let map;
-    let options = {
+    const options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
       };
 
 
-    let actual = navigator.geolocation.getCurrentPosition((pos)=>{
+    const actual = navigator.geolocation.getCurrentPosition((pos) => {
          map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 16);
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-    }, () => {}, options)    
-    
+    }, () => {}, options);
+
     this.idWatch = navigator.geolocation.watchPosition((position) => {
-       
-        let posicion = marker([position.coords.latitude, position.coords.longitude], {
+
+        const posicion = marker([position.coords.latitude, position.coords.longitude], {
             icon: icon({
               iconSize: [ 25, 41 ],
               iconAnchor: [ 13, 41 ],
@@ -48,15 +48,17 @@ export class ParkComponent implements OnInit {
               shadowUrl: 'assets/leaflet/images/marker-shadow.png'
             })
           }).addTo(map);
-    }, () => {}, options)
-    
+        CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
+    }, () => {}, options);
+
+
   }
 
   async aparcar() {
-    let existe = this.comprobar();
-    if(existe){
+    const existe = this.comprobar();
+    if (existe) {
       this.errorAparcar();
-    }else{
+    } else {
     const alert = await this.alertController.create({
       header: '¿Desea aparcar aquí?',
       message: 'El máximo es de 2 horas' ,
@@ -81,7 +83,7 @@ export class ParkComponent implements OnInit {
   }
   }
 
-  async errorAparcar(){
+  async errorAparcar() {
     const alert = await this.alertController.create({
       header: 'Ya ha aparcado',
       buttons: [
@@ -97,17 +99,17 @@ export class ParkComponent implements OnInit {
     await alert.present();
   }
 
-  crearAparcamiento(){
+  crearAparcamiento() {
     this.router.navigateByUrl('parkConfirm');
   }
 
-  comprobar(){
-    if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
-    if(CurrentUserData.LoggedUser){
-      let aux1 = CurrentParkingData.parks;
-      while (aux1.length > 0){
-        let aux = aux1.pop();
-        if(aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email){
+  comprobar() {
+    if (CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {return true; }
+    if (CurrentUserData.LoggedUser) {
+      const aux1 = CurrentParkingData.parks;
+      while (aux1.length > 0) {
+        const aux = aux1.pop();
+        if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
           CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date));
           return true;
         }
