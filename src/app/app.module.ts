@@ -71,6 +71,7 @@ import { AuthGuard } from './security/authGuard';
         PayPal,
         AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        ManageClientsComponent
     ],
     bootstrap: [AppComponent]
 })
