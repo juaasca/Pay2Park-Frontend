@@ -13,7 +13,7 @@ export class VehiclesService extends PersistenceService<Vehicle> {
 
     constructor() {
         super();
-
+        this.path = this.vehiclesDataBaseUrl;
         this.refVehicles = this.ref.child(this.vehiclesDataBaseUrl);
         this.databaseRef = this.refVehicles;
     }

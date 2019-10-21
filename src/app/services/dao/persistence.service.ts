@@ -8,14 +8,17 @@ import * as firebase from 'firebase';
 export abstract class PersistenceService<T> {
 
     protected ref: firebase.database.Reference;
+    protected database: firebase.database.Database;
     protected databaseRef: firebase.database.Reference;
+    protected path: string;
 
     constructor() {
         this.initializeDatabase();
     }
 
     private initializeDatabase() {
-        this.ref = firebase.app().database().ref();
+        this.database = firebase.app().database();
+        this.ref = this.database.ref();
     }
 
     public async showDatabase() {
@@ -29,14 +32,14 @@ export abstract class PersistenceService<T> {
     }
 
     public getEntity(key: string) {
-        return this.databaseRef.child(key.replace('.', '&&')).once('value').then(function (snapshot) {
+        return this.database.ref(this.path + key.replace('.', '&&')).once('value').then((snapshot) => {
             var entity = <T>snapshot.val();
             return entity;
         });
     }
 
-    public deleteEntity(key: string) {
-        this.databaseRef.child(key.replace('.', '&&')).remove();
+    public deleteEntityAsync(key: string) {
+        return this.databaseRef.child(key.replace('.', '&&')).remove();
     }
 
     public async getEntitiesAsync() {

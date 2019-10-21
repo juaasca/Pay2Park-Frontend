@@ -18,6 +18,7 @@ export class ParkConfirmComponent implements OnInit {
   vehicles: Vehicle[];
   prueba : Park;
   fare: Fare;
+  calle : string;
   constructor(private router: Router, private vehiclesService: VehiclesService,private userActions: UserActions) {
     //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
     this.vehicles = [];
@@ -26,6 +27,9 @@ export class ParkConfirmComponent implements OnInit {
   ngOnInit() {
     //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
     this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
+    let lon = CurrentUserData.CurrentPosition[0];
+    let lat = CurrentUserData.CurrentPosition[1];
+    this.simpleReverseGeocoding(lat,lon);
   }
 
   vehiculosUsuario(vehicles:Vehicle[]){
@@ -40,11 +44,20 @@ export class ParkConfirmComponent implements OnInit {
   }
 
   aparcarVehiculo(vehiculo: Vehicle){
-
-    this.prueba = new Park(1,vehiculo,'Calle Zaragoza',[1,1], new Fare(true,'',1,1), new Date());
+    this.prueba = new Park(1,vehiculo,CurrentUserData.CurrentStreet.split(',')[0],CurrentUserData.CurrentPosition, new Fare(true,'',1,1), new Date());
     CurrentParkingData.park = this.prueba;
     this.userActions.registerPark(this.prueba.id,this.prueba.Vehicle,this.prueba.Street,this.prueba.Coordinates,this.prueba.Fare);
     this.router.navigateByUrl('main/notification');
+  }
+
+  simpleReverseGeocoding(lon, lat) {
+    fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat).then(
+      function(response) {
+      return response.json();
+    }).then(function(json) {
+      let calle = json.display_name;
+      CurrentUserData.CurrentStreet = calle;
+    })
   }
 
 }
