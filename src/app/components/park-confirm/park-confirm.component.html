@@ -1,12 +1,12 @@
 <ion-app>
-    <ion-header style="padding-bottom: 0px;">
+    <ion-header class="font" style="padding-bottom: 0px;">
       <ion-toolbar>
           <ion-buttons slot="start">
               <ion-back-button defaultHref="/main/park"></ion-back-button>
             </ion-buttons>
         <ion-title>Selecciona un vehículo</ion-title>
       </ion-toolbar>
-      <ion-list *ngFor="let item of vehicles">
+      <ion-list class="font" *ngFor="let item of vehicles">
         <ion-card style="font-size: 30px;" button="true" (click) = "aparcarVehiculo(item)">
           <ion-icon name="car"></ion-icon>
           {{item.Name}}
