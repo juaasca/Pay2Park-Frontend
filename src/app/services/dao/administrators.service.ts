@@ -9,11 +9,11 @@ import { PersistenceService } from './persistence.service';
 
 export class AdministratorsService extends PersistenceService<Administrator> {
     private refAdministrators: firebase.database.Reference;
-    private administratorsDataBaseUrl: string = 'persons/administrators';
+    private administratorsDataBaseUrl: string = 'persons/administrators/';
     
     constructor() {
         super();
-
+        this.path = this.administratorsDataBaseUrl;
         this.refAdministrators = this.ref.child(this.administratorsDataBaseUrl);
         this.databaseRef = this.refAdministrators;
     }

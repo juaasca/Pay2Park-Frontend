@@ -18,165 +18,184 @@ import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
 
 @Injectable({
-	providedIn: 'root',
+    providedIn: 'root',
 })
 export class UserActions {
-	public user: any;
-	public auth: any;
-	provider: any;
-	
-	private functions = firebase.functions();
+    public user: any;
+    public auth: any;
+    provider: any;
 
-	constructor(
-		private clientService: ClientsService,
-		private vehicleService: VehiclesService,
-		private parkService: ParkService,
-		private adminService: AdministratorsService,
-		private usernameValidatorService: UsernameValidatorService,
-		private router: Router
-	) {
-		this.auth = firebase.auth();
-		this.auth.languageCode = 'es';
-	}
+    private functions = firebase.functions();
 
-	public async registerNewUserAsync(
-		name: string,
-		surname: string,
-		username: string,
-		password: string,
-		birthDate: Date,
-		email: string
-	) {
-		const client = await this.clientService.getEntity(email);
+    constructor(
+        private clientService: ClientsService,
+        private vehicleService: VehiclesService,
+        private parkService: ParkService,
+        private adminService: AdministratorsService,
+        private usernameValidatorService: UsernameValidatorService,
+        private router: Router
+    ) {
+        this.auth = firebase.auth();
+        this.auth.languageCode = 'es';
+    }
 
-		if (client !== null) {
-			throw new CustomError(
-				ExceptionMessages.emailAlreadyInUse,
-				ExceptionCodes.emailAlreadyInUse
-			);
-		} else {
-			const newClient = new Client(name + ' ' + surname, username, birthDate, email);
+    public async registerNewUserAsync(
+        name: string,
+        surname: string,
+        username: string,
+        password: string,
+        birthDate: Date,
+        email: string
+    ) {
+        const client = await this.clientService.getEntity(email);
 
-			await firebase.auth().createUserWithEmailAndPassword(email, password);
-			this.clientService.addEntity(newClient.Email, newClient);
+        if (client !== null) {
+            throw new CustomError(
+                ExceptionMessages.emailAlreadyInUse,
+                ExceptionCodes.emailAlreadyInUse
+            );
+        } else {
+            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email);
 
-			this.usernameValidatorService.updateList();
-		}
-	}
+            await firebase.auth().createUserWithEmailAndPassword(email, password);
+            this.clientService.addEntity(newClient.Email, newClient);
+            this.user = newClient;
 
-	public deleteClient(client: Client) {
-		var deleteUserFunction = this.functions.httpsCallable('deleteUser');
-		deleteUserFunction(client)
-			.then(() => {
-				this.clientService.deleteEntity(client.Email);
-			}).catch((error) => console.log(error));
-	}
+            this.usernameValidatorService.updateList();
+        }
+    }
 
-	public recoverPassword(email: string) {
-		return firebase.auth().sendPasswordResetEmail(email);
-	}
+    public deleteClient(client: Client) {
+        var deleteUserFunction = this.functions.httpsCallable('deleteUser');
+        deleteUserFunction(client)
+            .then(() => {
+                this.clientService.deleteEntity(client.Email);
+            }).catch((error) => console.log(error));
+    }
 
-	// Registrarse o login con google
-	public async signinUserAsync() {
-		const provider = new firebase.auth.GoogleAuthProvider();
+    public recoverPassword(email: string) {
+        return firebase.auth().sendPasswordResetEmail(email);
+    }
 
-  		this.auth.signInWithPopup(provider)
-        .then(async (result: any) => {
-                const user = await this.clientService.getEntity(result.additionalUserInfo.profile.email);
+    // Registrarse o login con google
+    public async signinUserAsync() {
+        const provider = new firebase.auth.GoogleAuthProvider();
+
+        this.auth.signInWithPopup(provider)
+            .then(async (result: any) => {
+                let email = result.additionalUserInfo.profile.email;
+                let name = result.additionalUserInfo.profile.name;
+
+                const user = await this.clientService.getEntity(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
                     this.clientService.addEntity(result.additionalUserInfo.profile.email,
-						new Client(result.additionalUserInfo.profile.name,
-							result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
+                        new Client(name, name, new Date(), email));
 
-				}
-				// Para añadir administrador
-				// this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
-							CurrentUserData.LoggedUser= new Client(result.additionalUserInfo.profile.name,
-								result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
-				            this.router.navigateByUrl('main/park');
-			})
-			.catch((error: any) => {
-				// Handle Errors here.
-				const errorCode = error.code;
-				const errorMessage = error.message;
+                }
+                // Para añadir administrador
+                // this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
+                CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
+                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
 
-				// The email of the user's account used.
-				const email = error.email;
+                this.adminService.getEntity(email)
+                    .then((admin) => {
+                        if (admin != null) {
+                            CurrentUserData.IsAdmin = true;
+                            CurrentUserData.IsChecker = true;
+                            console.log(CurrentUserData.LoggedUser);
+                        }
+                    })
+                    .catch(error => {
+                        console.error(error);
+                        throw new Error(error.message);
+                    })
 
-				// The firebase.auth.AuthCredential type that was used.
-				const credential = error.credential;
-			});
-	}
 
-	// Login con usuario y contraseña
-	public async loginUserAsync(email: string, password: string) {
-		firebase.auth().signInWithEmailAndPassword(email, password)
-			.then(async (userCredential) => {
-				if (this.clientService.getEntity(email) == null) {
-					this.clientService.addEntity(email,
-						 new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
-				}
-				const client: Client = new Client(userCredential.user.displayName,
-					userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
 
-				CurrentUserData.LoggedUser = client;
+                this.router.navigateByUrl('main/park');
+            })
+            .catch((error: any) => {
+                // Handle Errors here.
+                const errorCode = error.code;
+                const errorMessage = error.message;
 
-				this.router.navigateByUrl('main/park');
-			})
-			.catch(error => {
-				let message = '';
-				console.log(error.message);
-				switch (error.code) {
-					case 'auth/wrong-password': {
-						message = ExceptionMessages.invalidPassword;
-						break;
-					}
-					case 'auth/invalid-email': {
-						message = ExceptionMessages.invalidEmail;
-						break;
-					}
-					default: {
-						message = ExceptionMessages.errorSigninUser;
-						break;
-					}
-				}
+                // The email of the user's account used.
+                const email = error.email;
 
-				throw new Error(message);
-			});
-	}
+                // The firebase.auth.AuthCredential type that was used.
+                const credential = error.credential;
+            });
+    }
 
-	public async registerVehicle(licensePlate: string, name: string, description: string, owner: string[]) {
-		const vehicle = await this.clientService.getEntity(licensePlate);
+    // Login con usuario y contraseña
+    public async loginUserAsync(email: string, password: string) {
+        firebase.auth().signInWithEmailAndPassword(email, password)
+            .then(async (userCredential) => {
+                if (this.clientService.getEntity(email) == null) {
+                    this.clientService.addEntity(email,
+                        new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
+                }
+                const client: Client = new Client(userCredential.user.displayName,
+                    userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
 
-		if (vehicle !== null) {
-			throw new CustomError(
-				ExceptionMessages.emailAlreadyInUse,
-				ExceptionCodes.emailAlreadyInUse
-			);
-		} else {
-			const newCar = new Vehicle(licensePlate,name,description,owner);
+                CurrentUserData.LoggedUser = client;
 
-			this.vehicleService.addEntity(newCar.LicensePlate, newCar);
+                this.router.navigateByUrl('main/park');
+            })
+            .catch(error => {
+                let message = '';
+                console.log(error.message);
+                switch (error.code) {
+                    case 'auth/wrong-password': {
+                        message = ExceptionMessages.invalidPassword;
+                        break;
+                    }
+                    case 'auth/invalid-email': {
+                        message = ExceptionMessages.invalidEmail;
+                        break;
+                    }
+                    default: {
+                        message = ExceptionMessages.errorSigninUser;
+                        break;
+                    }
+                }
 
-			//this.usernameValidatorService.updateList();
-		}
-	}
+                throw new Error(message);
+            });
+    }
 
-	public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
-		let park = await this.parkService.getEntity(id.toString());
-			while(park){
-				id++;
-				park = await this.parkService.getEntity(id.toString());
-			}
-			console.log(id);
-		 
-			let newPark = new Park(id,vehicle,street,coordinates,fare, new Date());
-			this.parkService.addEntity(newPark.id.toString(), newPark);
-			//this.usernameValidatorService.updateList();
-		
-	}
+    public async registerVehicle(licensePlate: string, name: string, description: string, owner: string[]) {
+        const vehicle = await this.clientService.getEntity(licensePlate);
 
-	getParks(){
-		this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
-	 }
+        if (vehicle !== null) {
+            throw new CustomError(
+                ExceptionMessages.emailAlreadyInUse,
+                ExceptionCodes.emailAlreadyInUse
+            );
+        } else {
+            const newCar = new Vehicle(licensePlate, name, description, owner);
+
+            this.vehicleService.addEntity(newCar.LicensePlate, newCar);
+
+            //this.usernameValidatorService.updateList();
+        }
+    }
+
+    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
+        let park = await this.parkService.getEntity(id.toString());
+        while (park) {
+            id++;
+            park = await this.parkService.getEntity(id.toString());
+        }
+        console.log(id);
+
+        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date());
+        this.parkService.addEntity(newPark.id.toString(), newPark);
+        //this.usernameValidatorService.updateList();
+
+    }
+
+    getParks() {
+        this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
+    }
 }

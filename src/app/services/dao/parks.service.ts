@@ -14,7 +14,7 @@ export class ParkService extends PersistenceService<Park> {
 
     constructor() {
         super();
-
+        this.path = this.vehiclesDataBaseUrl;
         this.refPark = this.ref.child(this.vehiclesDataBaseUrl);
         this.databaseRef = this.refPark;
     }
