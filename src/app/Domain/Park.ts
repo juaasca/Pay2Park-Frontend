@@ -9,14 +9,15 @@ export class Park {
     Street: string;
     Coordinates: [number, number];
     Fare: Fare;
-    Date: string;
-    constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare, date: Date) {
+    Date?: Date;
+    constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number],
+         fare: Fare, date?: Date) {
         this.id = id;
         this.Vehicle = vehicle;
         this.Street = street;
         this.Coordinates = coordinates;
         this.Fare = fare;
-        this.Date = date.toString();
+        this.Date = date;
     } 
     
     getCurrentTime(){

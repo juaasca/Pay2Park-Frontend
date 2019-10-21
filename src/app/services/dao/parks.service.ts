@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Vehicle } from 'src/app/Domain/Vehicle';
 import { PersistenceService } from './persistence.service';
 import { Park } from 'src/app/Domain/Park';
 
