@@ -5,4 +5,5 @@ export class CurrentUserData {
     public static IsChecker: boolean = false;
     public static CurrentPosition: [number, number];
     public static CurrentStreet : string;
+    public static LoggedUser: Person = null;
 }
