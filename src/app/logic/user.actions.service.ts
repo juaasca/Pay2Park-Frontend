@@ -207,12 +207,13 @@ export class UserActions {
     }
 
     private checkWorker(email: string) {
-        return this.workerService.getEntity(email)
-            .then((worker) => {
-                if (worker != null) {
+        // TODO: Check why it does not work with getEntity.
+        return this.workerService.getEntitiesAsync()
+            .then((workers) => {
+                if (workers.some(worker => worker.Email.toLowerCase() === email.toLowerCase())) {
                     CurrentUserData.IsAdmin = false;
                     CurrentUserData.IsChecker = true;
-                }
+                };
             })
             .catch(error => {
                 console.error(error);
