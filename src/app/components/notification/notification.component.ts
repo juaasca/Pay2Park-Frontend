@@ -5,6 +5,8 @@ import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { ParkService } from 'src/app/services/dao/parks.service';
+import { PaymentComponent } from '../payment/payment.component';
+import { ProviderAstType } from '@angular/compiler';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -14,13 +16,15 @@ export class NotificationComponent implements OnInit {
   park: Park;
   time: number;
   calle: string;
-  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions) { 
+  pay:PaymentComponent;
+  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions,
+    ) { 
   }
   precio = 2.3;
 
   ngOnInit() {
     this.comprobar();
-    if(CurrentParkingData.park){
+    if (CurrentParkingData.park) {
     this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
     this.calle = this.park.Street;
@@ -38,6 +42,7 @@ export class NotificationComponent implements OnInit {
       this.time = this.park.getCurrentTime();
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
+      this.precio = 0.01666 * this.time;
       }
   }
 
@@ -68,6 +73,9 @@ export class NotificationComponent implements OnInit {
 
   confirmPagar() {
     this.parkService.deleteEntity(CurrentParkingData.park.id.toString());
+    CurrentParkingData.park = null;
+    this.pay.paymentAmount = this.precio.toString();
+    this.pay.payWithPaypal()
     console.log(this.park.getCurrentTime());
   }
   
