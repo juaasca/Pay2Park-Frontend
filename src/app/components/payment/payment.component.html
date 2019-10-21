@@ -4,12 +4,13 @@
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
     <ion-title>
-      Paypal for App
+      Resumen de tu parada
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+<<<<<<< HEAD
   <ion-grid>
     <ion-row>
       <ion-col class="font">
@@ -23,19 +24,29 @@
       <ion-card-subtitle>Get Started</ion-card-subtitle>
       <ion-card-title>PayPal Sample</ion-card-title>
       <ion-row>
+=======
+  <ion-card class="welcome-card">
+    <ion-img src="assets/icon/Logosinfondo.jpg"></ion-img>
+    <ion-card-header>
+      <ion-label>Has aparcado en __ durante __ (tiempo)</ion-label>
+      <p></p>
+      <!-- <ion-card-title>PayPal Sample</ion-card-title> -->
+      <ion-row class="text">
+>>>>>>> d943a97cacd651b7023daa373aba88c37d0c3cf8
         <ion-col>
-          Total Payment
+          Total a pagar
         </ion-col>
         <ion-col>
-          {{currencyIcon}}{{paymentAmount}}
+          {{paymentAmount}} {{currencyIcon}}
         </ion-col>
       </ion-row>
     </ion-card-header>
     <ion-card-content class="font">
-      <ion-button expand="full" color="success" (click)="payWithPaypal()">Pay with PayPal</ion-button>
+      <ion-button expand="full" color="success" (click)="payWithPaypal()">Realizar pago</ion-button>
     </ion-card-content>
   </ion-card>
-  <ion-list class="font" lines="none">
+</ion-content>
+  <!--<ion-list lines="none">
     <ion-list-header>
       <ion-label>Resources</ion-label>
     </ion-list-header>
@@ -55,5 +66,4 @@
       <ion-icon slot="start" color="medium" name="color-fill"></ion-icon>
       <ion-label>More Enappd Starters</ion-label>
     </ion-item>
-  </ion-list>
-</ion-content>
+  </ion-list> -->

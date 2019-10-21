@@ -18,8 +18,8 @@ export class PaymentComponent {
   payWithPaypal() {
     console.log("Pay ????");
     this.payPal.init({
-      PayPalEnvironmentProduction: 'ASYqq-Tmw9Ug1ogXOuX3OtykohApnjEAtnP_lZGOJYfv4wRaxEdjFthHCo6_K02tzn6PgBSd9uGzMQNl',
-      PayPalEnvironmentSandbox: 'sb-tnab9405046@personal.example.com'
+      PayPalEnvironmentProduction: '',
+      PayPalEnvironmentSandbox: 'ASYqq-Tmw9Ug1ogXOuX3OtykohApnjEAtnP_lZGOJYfv4wRaxEdjFthHCo6_K02tzn6PgBSd9uGzMQNl'
     }).then(() => {
       // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
       this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({

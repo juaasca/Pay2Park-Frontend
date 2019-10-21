@@ -41,7 +41,7 @@ export class ParkConfirmComponent implements OnInit {
 
   aparcarVehiculo(vehiculo: Vehicle){
 
-    this.prueba = new Park(1,vehiculo,'esta calle',[1,1], new Fare(true,'',1,1));
+    this.prueba = new Park(1,vehiculo,'Calle Zaragoza',[1,1], new Fare(true,'',1,1), new Date());
     CurrentParkingData.park = this.prueba;
     this.userActions.registerPark(this.prueba.id,this.prueba.Vehicle,this.prueba.Street,this.prueba.Coordinates,this.prueba.Fare);
     this.router.navigateByUrl('main/notification');
