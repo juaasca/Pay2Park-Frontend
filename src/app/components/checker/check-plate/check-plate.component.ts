@@ -24,6 +24,7 @@ export class CheckPlateComponent implements OnInit {
 
   async ngOnInit() {
     await this.receivePlate(SelectedPlate.selectedPlate);
+    
     this.parkIsNull = this.park === undefined;
 
     if(!this.parkIsNull) {
@@ -47,7 +48,7 @@ export class CheckPlateComponent implements OnInit {
         this.parkIsValid = false;
       }
 
-      this.leftTime = `${minutesDifference}`;      
+      this.leftTime = minutesDifference.toFixed(2);      
     }
   }
 
