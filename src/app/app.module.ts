@@ -69,6 +69,7 @@ import { CheckPlateComponent } from './components/checker/check-plate/check-plat
         SplashScreen,
         PayPal,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+        ManageClientsComponent
     ],
     bootstrap: [AppComponent]
 })
