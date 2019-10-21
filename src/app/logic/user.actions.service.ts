@@ -102,7 +102,6 @@ export class UserActions {
                         if (admin != null) {
                             CurrentUserData.IsAdmin = true;
                             CurrentUserData.IsChecker = true;
-                            console.log(CurrentUserData.LoggedUser);
                         }
                     })
                     .catch(error => {
@@ -144,7 +143,7 @@ export class UserActions {
             })
             .catch(error => {
                 let message = '';
-                console.log(error.message);
+                console.error(error.message);
                 switch (error.code) {
                     case 'auth/wrong-password': {
                         message = ExceptionMessages.invalidPassword;
