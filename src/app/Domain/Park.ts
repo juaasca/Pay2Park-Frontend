@@ -20,9 +20,9 @@ export class Park {
     } 
     
     getCurrentTime(){
-        let horaInicio = new Date(this.Date).getMinutes();
-        let horaActual = (new Date()).getMinutes();
-        return horaActual - horaInicio;
+        let tiempoAhora = (new Date()).getTime() * 1.66667 * 0.00001;
+        let tiempo = (new Date(this.Date)).getTime() *1.66667 * 0.00001;
+        return Math.floor(tiempoAhora - tiempo);
         
     }
 }
