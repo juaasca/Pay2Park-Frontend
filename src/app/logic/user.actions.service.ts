@@ -65,17 +65,18 @@ export class UserActions {
         }
     }
 
-    public deleteClient(client: Client) {
-        var deleteUserFunction = this.functions.httpsCallable('deleteUser');
-        deleteUserFunction(client)
-            .then(() => {
-                this.clientService.deleteEntity(client.Email);
-            }).catch((error) => console.log(error));
-    }
+    public deleteClientAsync(client: Client) {
+		var deleteUserFunction = this.functions.httpsCallable('deleteUser');
+		
+		return deleteUserFunction(client)
+			.then(async () => {
+				await this.clientService.deleteEntityAsync(client.Email);
+			}).catch((error) => console.log(error));
+	}
 
     public recoverPassword(email: string) {
-        return firebase.auth().sendPasswordResetEmail(email);
-    }
+		return firebase.auth().sendPasswordResetEmail(email);
+	}
 
     // Registrarse o login con google
     public async signinUserAsync() {
