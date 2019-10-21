@@ -120,7 +120,7 @@ export class UserActions {
 
     // Login con usuario y contraseña
     public async loginUserAsync(email: string, password: string) {
-        firebase.auth().signInWithEmailAndPassword(email, password)
+        return firebase.auth().signInWithEmailAndPassword(email, password)
             .then(async (userCredential) => {
                 if (this.clientService.getEntity(email) == null) {
                     this.clientService.addEntity(email,
@@ -134,26 +134,6 @@ export class UserActions {
                 await this.checkWorker(email);
 
                 this.router.navigateByUrl('main/park');
-            })
-            .catch(error => {
-                let message = '';
-                console.error(error.message);
-                switch (error.code) {
-                    case 'auth/wrong-password': {
-                        message = ExceptionMessages.invalidPassword;
-                        break;
-                    }
-                    case 'auth/invalid-email': {
-                        message = ExceptionMessages.invalidEmail;
-                        break;
-                    }
-                    default: {
-                        message = ExceptionMessages.errorSigninUser;
-                        break;
-                    }
-                }
-
-                throw new Error(message);
             });
     }
 
@@ -207,12 +187,13 @@ export class UserActions {
     }
 
     private checkWorker(email: string) {
-        return this.workerService.getEntity(email)
-            .then((worker) => {
-                if (worker != null) {
+        // TODO: Check why it does not work with getEntity.
+        return this.workerService.getEntitiesAsync()
+            .then((workers) => {
+                if (workers.some(worker => worker.Email.toLowerCase() === email.toLowerCase())) {
                     CurrentUserData.IsAdmin = false;
                     CurrentUserData.IsChecker = true;
-                }
+                };
             })
             .catch(error => {
                 console.error(error);
