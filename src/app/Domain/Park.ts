@@ -9,20 +9,20 @@ export class Park {
     Street: string;
     Coordinates: [number, number];
     Fare: Fare;
-    constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
+    Date: string;
+    constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare, date: Date) {
         this.id = id;
         this.Vehicle = vehicle;
         this.Street = street;
         this.Coordinates = coordinates;
         this.Fare = fare;
-    }
+        this.Date = date.toString();
+    } 
     
     getCurrentTime(){
-        /*let horaInicio = this.Date.getMinutes();
-        console.log(this.Date);
+        let horaInicio = new Date(this.Date).getMinutes();
         let horaActual = (new Date()).getMinutes();
-        this.Minutes = horaActual - horaInicio;
-        return this.Minutes;*/
-        return 0;
+        return horaActual - horaInicio;
+        
     }
 }

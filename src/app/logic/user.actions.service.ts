@@ -171,7 +171,7 @@ export class UserActions {
 				ExceptionCodes.emailAlreadyInUse
 			);
 		} else {
-			const newPark = new Park(id,vehicle,street,coordinates,fare);
+			const newPark = new Park(id,vehicle,street,coordinates,fare, new Date());
 			this.parkService.addEntity(newPark.id.toString(), newPark);
 			//this.usernameValidatorService.updateList();
 		}
