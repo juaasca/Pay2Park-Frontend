@@ -12,13 +12,13 @@ export class MainComponent implements OnInit {
     private isChecker: boolean;
     public AdminWindow: boolean = false;
     CheckerWindow: boolean;
-    constructor(private router: Router) {
-        this.isAdmin = CurrentUserData.IsAdmin;
-        this.isChecker = CurrentUserData.IsChecker;
+
+    constructor(private router: Router) {    
     }
 
     ngOnInit() {
-
+        this.isAdmin = CurrentUserData.IsAdmin;
+        this.isChecker = CurrentUserData.IsChecker;
     }
 
     click(tab: string) {

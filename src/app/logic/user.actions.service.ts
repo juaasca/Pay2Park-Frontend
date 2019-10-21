@@ -23,8 +23,8 @@ import { WorkersService } from '../services/dao/workers.service';
 })
 export class UserActions {
     public user: any;
-    public auth: any;
-    provider: any;
+	public auth: any;
+	provider: any;
 
     private functions = firebase.functions();
 
@@ -42,30 +42,30 @@ export class UserActions {
     }
 
     public async registerNewUserAsync(
-        name: string,
-        surname: string,
-        username: string,
-        password: string,
-        birthDate: Date,
-        email: string
-    ) {
-        const client = await this.clientService.getEntity(email);
+		name: string,
+		surname: string,
+		username: string,
+		password: string,
+		birthDate: Date,
+		email: string
+	) {
+		const client = await this.clientService.getEntity(email);
 
-        if (client !== null) {
-            throw new CustomError(
-                ExceptionMessages.emailAlreadyInUse,
-                ExceptionCodes.emailAlreadyInUse
-            );
-        } else {
-            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email);
+		if (client !== null) {
+			throw new CustomError(
+				ExceptionMessages.emailAlreadyInUse,
+				ExceptionCodes.emailAlreadyInUse
+			);
+		} else {
+			const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email);
 
-            await firebase.auth().createUserWithEmailAndPassword(email, password);
+			await firebase.auth().createUserWithEmailAndPassword(email, password);
             this.clientService.addEntity(newClient.Email, newClient);
             this.user = newClient;
 
-            this.usernameValidatorService.updateList();
-        }
-    }
+			this.usernameValidatorService.updateList();
+		}
+	}
 
     public deleteClientAsync(client: Client) {
         var deleteUserFunction = this.functions.httpsCallable('deleteUser');
@@ -81,15 +81,15 @@ export class UserActions {
     }
 
     // Registrarse o login con google
-    public async signinUserAsync() {
-        const provider = new firebase.auth.GoogleAuthProvider();
+	public async signinUserAsync() {
+		const provider = new firebase.auth.GoogleAuthProvider();
 
-        this.auth.signInWithPopup(provider)
-            .then(async (result: any) => {
-                let email = result.additionalUserInfo.profile.email;
-                let name = result.additionalUserInfo.profile.name;
+  		this.auth.signInWithPopup(provider)
+        .then(async (result: any) => {
+            let email = result.additionalUserInfo.profile.email;
+            let name = result.additionalUserInfo.profile.name;
 
-                const user = await this.clientService.getEntity(email);
+            const user = await this.clientService.getEntity(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
                     this.clientService.addEntity(result.additionalUserInfo.profile.email,
                         new Client(name, name, new Date(), email));
@@ -100,8 +100,9 @@ export class UserActions {
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
                     result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
 
-                this.checkAdmin(email);
-                this.checkWorker(email);
+                await this.checkAdmin(email);
+                await this.checkWorker(email);
+                
                 this.router.navigateByUrl('main/park');
             })
             .catch((error: any) => {
@@ -129,8 +130,9 @@ export class UserActions {
                     userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
 
                 CurrentUserData.LoggedUser = client;
-                this.checkAdmin(email);
-                this.checkWorker(email);
+                await this.checkAdmin(email);
+                await this.checkWorker(email);
+
                 this.router.navigateByUrl('main/park');
             })
             .catch(error => {
@@ -191,11 +193,11 @@ export class UserActions {
     }
 
     private checkAdmin(email: string) {
-        this.adminService.getEntity(email)
+        return this.adminService.getEntity(email)
             .then((admin) => {
                 if (admin != null) {
                     CurrentUserData.IsAdmin = true;
-                    CurrentUserData.IsChecker = true;
+                    CurrentUserData.IsChecker = false;
                 }
             })
             .catch(error => {
@@ -205,7 +207,7 @@ export class UserActions {
     }
 
     private checkWorker(email: string) {
-        this.workerService.getEntity(email)
+        return this.workerService.getEntity(email)
             .then((worker) => {
                 if (worker != null) {
                     CurrentUserData.IsAdmin = false;
