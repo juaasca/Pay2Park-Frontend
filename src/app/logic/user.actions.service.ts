@@ -24,6 +24,8 @@ export class UserActions {
 	public user: any;
 	public auth: any;
 	provider: any;
+	
+	private functions = firebase.functions();
 
 	constructor(
 		private clientService: ClientsService,
@@ -62,6 +64,14 @@ export class UserActions {
 		}
 	}
 
+	public deleteClient(client: Client) {
+		var deleteUserFunction = this.functions.httpsCallable('deleteUser');
+		deleteUserFunction(client)
+			.then(() => {
+				this.clientService.deleteEntity(client.Email);
+			}).catch((error) => console.log(error));
+	}
+
 	public recoverPassword(email: string) {
 		return firebase.auth().sendPasswordResetEmail(email);
 	}
@@ -70,7 +80,7 @@ export class UserActions {
 	public async signinUserAsync() {
 		const provider = new firebase.auth.GoogleAuthProvider();
 
-  this.auth.signInWithPopup(provider)
+  		this.auth.signInWithPopup(provider)
         .then(async (result: any) => {
                 const user = await this.clientService.getEntity(result.additionalUserInfo.profile.email);
                 if (result.additionalUserInfo.isNewUser || user == null) {

@@ -15,7 +15,11 @@ export class ManageClientsComponent implements OnInit {
   
   constructor(private clientsService: ClientsService, private router: Router) {
     this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
-   }
+  }
+
+  updateClients() {
+    this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
+  }
 
   ngOnInit() {}
 

@@ -17,6 +17,8 @@ import { InfoPlatesComponent } from './components/administrator/manage.clients/i
 import { InfoComplaintsComponent } from './components/administrator/manage.clients/info-client/info-complaints/info-complaints.component';
 import { ParkConfirmComponent } from './components/park-confirm/park-confirm.component';
 import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-vehiculo.component';
+import { CheckerComponent } from './components/checker/checker.component';
+import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 
 const routes: Routes = [
     {
@@ -61,6 +63,16 @@ const routes: Routes = [
                     {
                         path: 'manage-clients/info-client/info-complaints',
                         component: InfoComplaintsComponent
+                    }
+                ]
+            },
+            {
+                path: 'checker',
+                component: CheckerComponent,
+                children: [
+                    {
+                        path: 'check-plate',
+                        component: CheckPlateComponent,
                     }
                 ]
             },
