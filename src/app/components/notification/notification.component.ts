@@ -14,9 +14,12 @@ export class NotificationComponent implements OnInit {
   park: Park;
   time: number;
   calle: string;
-  constructor(public alertController: AlertController, private parkService: ParkService) { }
+  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions) { 
+  }
   precio = 2.3;
+
   ngOnInit() {
+    this.comprobar();
     if(CurrentParkingData.park){
     this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
@@ -39,6 +42,7 @@ export class NotificationComponent implements OnInit {
   }
 
   async botonPagar() {
+
     const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
       message: 'El precio sera de: ' + this.precio,
@@ -65,6 +69,19 @@ export class NotificationComponent implements OnInit {
   confirmPagar() {
     this.parkService.deleteEntity(CurrentParkingData.park.id.toString());
     console.log(this.park.getCurrentTime());
+  }
+  
+  comprobar(){
+   // if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
+    if(CurrentUserData.LoggedUser){
+      let aux1 = CurrentParkingData.parks;
+      while (aux1.length > 0){
+        let aux = aux1.pop();
+        if(aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email){
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, aux.Minutes);
+        }
+      }
+    }
   }
 
 }

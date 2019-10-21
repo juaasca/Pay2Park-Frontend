@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { CurrentUserData } from 'src/app/data/current.user';
+import { CurrentParkingData } from 'src/app/data/currentParking';
+import { Park } from 'src/app/Domain/Park';
 
 
 
@@ -50,6 +53,10 @@ export class ParkComponent implements OnInit {
   }
 
   async aparcar() {
+    let existe = this.comprobar();
+    if(existe){
+      this.errorAparcar();
+    }else{
     const alert = await this.alertController.create({
       header: '¿Desea aparcar aquí?',
       message: 'El máximo es de 2 horas' ,
@@ -72,10 +79,39 @@ export class ParkComponent implements OnInit {
 
     await alert.present();
   }
+  }
+
+  async errorAparcar(){
+    const alert = await this.alertController.create({
+      header: 'Ya ha aparcado',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigateByUrl('main/notification');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
 
   crearAparcamiento(){
     this.router.navigateByUrl('parkConfirm');
   }
 
+  comprobar(){
+    if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
+    if(CurrentUserData.LoggedUser){
+      let aux1 = CurrentParkingData.parks;
+      while (aux1.length > 0){
+        let aux = aux1.pop();
+        if(aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email){
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, aux.Minutes);
+          return true;
+        }
+      }
+  }
+  }
 }
-

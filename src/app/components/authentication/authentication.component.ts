@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { UserActions } from 'src/app/logic/user.actions.service';
+import { CurrentParkingData } from 'src/app/data/currentParking';
 
 @Component({
     selector: 'app-authentication',
@@ -30,7 +31,9 @@ export class AuthenticationComponent implements OnInit {
         });
     }
 
-    ngOnInit() { }
+    ngOnInit() {
+        this.userActions.getParks();
+     }
 
     logWithGoogle() {
         this.userActions.signinUserAsync();

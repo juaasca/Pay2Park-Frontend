@@ -17,6 +17,7 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 export class ParkConfirmComponent implements OnInit {
   vehicles: Vehicle[];
   prueba : Park;
+  fare: Fare;
   constructor(private router: Router, private vehiclesService: VehiclesService,private userActions: UserActions) {
     //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
     this.vehicles = [];
@@ -39,7 +40,8 @@ export class ParkConfirmComponent implements OnInit {
   }
 
   aparcarVehiculo(vehiculo: Vehicle){
-    this.prueba = new Park(1,vehiculo,'esta calle',[1,1], null);
+
+    this.prueba = new Park(1,vehiculo,'esta calle',[1,1], new Fare(true,'',1,1));
     CurrentParkingData.park = this.prueba;
     this.userActions.registerPark(this.prueba.id,this.prueba.Vehicle,this.prueba.Street,this.prueba.Coordinates,this.prueba.Fare);
     this.router.navigateByUrl('main/notification');

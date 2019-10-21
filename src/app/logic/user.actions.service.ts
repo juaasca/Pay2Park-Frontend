@@ -15,6 +15,7 @@ import { VehiclesService } from '../services/dao/vehicles.service';
 import { Fare } from '../Domain/Fare';
 import { Park } from '../Domain/Park';
 import { ParkService } from '../services/dao/parks.service';
+import { CurrentParkingData } from '../data/currentParking';
 
 @Injectable({
 	providedIn: 'root',
@@ -165,4 +166,8 @@ export class UserActions {
 			//this.usernameValidatorService.updateList();
 		}
 	}
+
+	getParks(){
+		this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks= parks);
+	 }
 }
