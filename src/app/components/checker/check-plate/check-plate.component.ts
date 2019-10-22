@@ -23,8 +23,10 @@ export class CheckPlateComponent implements OnInit {
   constructor(private vehiclesService: VehiclesService, private parksService: ParkService) {}
 
   async ngOnInit() {
-    await this.receivePlate(SelectedPlate.selectedPlate);
-    
+    //await this.receivePlate(SelectedPlate.selectedPlate);
+    this.vehicle = new Vehicle("0123ABC", "Opel", "Astra", ["tester@test.es", "test@test.es"]);
+    this.park = new Park(1, this.vehicle, "Calle del Flow", [1,2], new Fare(true, "Esto es una prueba", 2, 20));
+
     this.parkIsNull = this.park === undefined;
 
     if(!this.parkIsNull) {
