@@ -22,7 +22,8 @@ export class AnadirVehiculoComponent implements OnInit {
 
     this.registration = this.formBuilder.group({
 			Matricula: new FormControl('', Validators.compose([
-					Validators.required
+          Validators.required,
+          Validators.pattern('^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$')
 				])),
 			Marca: new FormControl('', Validators.compose([
 					Validators.required
