@@ -6,4 +6,5 @@ export class CurrentUserData {
     public static CurrentPosition: [number, number];
     public static CurrentStreet : string;
     public static LoggedUser: Person = null;
+    public static price : string = null;
 }

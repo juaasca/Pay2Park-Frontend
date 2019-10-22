@@ -41,7 +41,7 @@ const routes: Routes = [
             },
             {
                 path: 'wallet',
-                component: PaymentComponent
+                component: WalletComponent
             },
             {
                 path: 'profile',
@@ -83,6 +83,10 @@ const routes: Routes = [
     {
         path: 'parkConfirm',
         component: ParkConfirmComponent
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent
     },
     {
         path: 'anadir-vehiculo',

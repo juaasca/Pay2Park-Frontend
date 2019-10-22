@@ -110,28 +110,8 @@ export class NotificationComponent implements OnInit {
   }
 
   payWithPaypal() {
-    console.log(this.precio + 'paid');
-    this.payPal.init({
-      PayPalEnvironmentProduction: '',
-      PayPalEnvironmentSandbox: 'ASYqq-Tmw9Ug1ogXOuX3OtykohApnjEAtnP_lZGOJYfv4wRaxEdjFthHCo6_K02tzn6PgBSd9uGzMQNl'
-    }).then(() => {
-      // Environments: PayPalEnvironmentNoNetwork, PayPalEnvironmentSandbox, PayPalEnvironmentProduction
-      this.payPal.prepareToRender('PayPalEnvironmentSandbox', new PayPalConfiguration({
-        // Only needed if you get an "Internal Service Error" after PayPal login!
-        //payPalShippingAddressOption: 2 // PayPalShippingAddressOptionPayPal
-      })).then(() => {
-        let payment = new PayPalPayment(this.precio.toString(), 'EUR', 'Description', 'sale');
-        this.payPal.renderSinglePaymentUI(payment).then((res) => {
-          console.log(res);
-        }, () => {
-          // Error or render dialog closed without being successful
-        });
-      }, () => {
-        // Error in configuration
-      });
-    }, () => {
-      // Error in initialization, maybe PayPal isn't supported or something else
-    });
+    CurrentUserData.price = this.precio.toString();
+    this.router.navigateByUrl('payment');
   }
 
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 declare var paypal;
 
@@ -10,7 +11,9 @@ declare var paypal;
 })
 export class PaymentComponent {
   constructor(private payPal: PayPal) {
-    
+    if(CurrentUserData.price){
+      this.paymentAmount = CurrentUserData.price;
+      }
     let _this = this;
     setTimeout(() => {
       // Render the PayPal button into #paypal-button-container
