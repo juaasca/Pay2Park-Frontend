@@ -11,9 +11,7 @@ declare var paypal;
 })
 export class PaymentComponent {
   constructor(private payPal: PayPal) {
-    if(CurrentUserData.price){
-      this.paymentAmount = CurrentUserData.price;
-      }
+    
     let _this = this;
     setTimeout(() => {
       // Render the PayPal button into #paypal-button-container
@@ -45,7 +43,7 @@ export class PaymentComponent {
     }, 500)
   }
 
-  paymentAmount: string = '3.33';
+  paymentAmount: string = '0.30';
   currency: string = 'EUR';
   currencyIcon: string = '€';
 

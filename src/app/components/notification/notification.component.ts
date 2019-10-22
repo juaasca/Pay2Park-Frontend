@@ -45,6 +45,7 @@ export class NotificationComponent implements OnInit {
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
       this.precio = 0.01666 * this.time;
+      console.log(this.precio);
       }
   }
 
@@ -52,7 +53,7 @@ export class NotificationComponent implements OnInit {
     if (CurrentParkingData.park) {
     const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
-      message: 'El precio sera de: ' + this.precio,
+      message: 'El precio sera de: ' + '0.30',
       buttons: [
         {
           text: 'Cancelar',
@@ -110,8 +111,8 @@ export class NotificationComponent implements OnInit {
   }
 
   payWithPaypal() {
-    CurrentUserData.price = this.precio.toString();
-    this.router.navigateByUrl('payment');
+    CurrentUserData.price = '0.1666';
+    this.router.navigateByUrl('main/wallet');
   }
 
 }
