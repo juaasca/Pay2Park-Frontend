@@ -10,6 +10,7 @@ import { CurrentUserData } from 'src/app/data/current.user';
 export class MainComponent implements OnInit {
     private isAdmin: boolean;
     private isChecker: boolean;
+    public HideBar: boolean = false;
     public AdminWindow: boolean = false;
     CheckerWindow: boolean;
 
@@ -40,12 +41,12 @@ export class MainComponent implements OnInit {
 
                 break;
             case "adminView":
-                this.AdminWindow = true;
+                this.HideBar = true;
                 this.router.navigateByUrl('main/admin/manage-clients');
 
                 break;
             case "checkerView":
-                this.CheckerWindow = true;
+                this.HideBar = true;
                 this.router.navigateByUrl('main/checker/check-plate');
 
                 break;

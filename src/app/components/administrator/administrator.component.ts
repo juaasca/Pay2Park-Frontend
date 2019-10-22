@@ -17,7 +17,7 @@ export class AdministratorComponent implements OnInit {
   }
 
   changeToClientView() {
-    this.mainComponent.AdminWindow = false;
+    this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');
   }
 

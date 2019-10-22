@@ -9,16 +9,13 @@ import { Router } from '@angular/router';
   styleUrls: ['./checker.component.scss'],
 })
 export class CheckerComponent implements OnInit {
-  private isChecker = false;
-
   constructor(private mainComponent: MainComponent, private router: Router) {
-    this.isChecker = CurrentUserData.IsChecker;
   }
 
   ngOnInit() {}
 
   changeToClientView() {
-    this.mainComponent.CheckerWindow = false;
+    this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');
   }
 }
