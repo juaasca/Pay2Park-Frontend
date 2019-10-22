@@ -10,11 +10,11 @@ declare var paypal;
 })
 export class PaymentComponent {
   constructor(private payPal: PayPal) {
-    /*
+    
     let _this = this;
     setTimeout(() => {
       // Render the PayPal button into #paypal-button-container
-      window.paypal.Buttons({
+      paypal.Buttons({
 
         // Set up the transaction
         createOrder: function (data, actions) {
@@ -39,7 +39,7 @@ export class PaymentComponent {
             })
         }
       }).render('#paypal-button-container');
-    }, 500)*/
+    }, 500)
   }
 
   paymentAmount: string = '3.33';
