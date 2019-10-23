@@ -35,6 +35,7 @@ import { AuthGuard } from './security/authGuard';
 import { ScanComponent } from './components/checker/scan/scan.component';
 import { ResultModal } from './components/checker/result/result.component';
 import { Camera } from "@ionic-native/camera/ngx";
+import { OpenALPR } from '@ionic-native/openalpr/ngx';
 
 @NgModule({
     declarations: [
@@ -78,7 +79,8 @@ import { Camera } from "@ionic-native/camera/ngx";
         AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
-        Camera
+        Camera,
+        OpenALPR    
     ],
     bootstrap: [AppComponent]
 })

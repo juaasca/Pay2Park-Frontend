@@ -18,4 +18,8 @@ export class CheckerComponent implements OnInit {
     this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');
   }
+
+  buscarMatricula(){
+    this.router.navigateByUrl('main/checker/scan');
+  }
 }
