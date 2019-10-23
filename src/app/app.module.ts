@@ -32,6 +32,9 @@ import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-veh
 import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 import { AuthGuard } from './security/authGuard';
+import { ScanComponent } from './components/checker/scan/scan.component';
+import { ResultModal } from './components/checker/result/result.component';
+import { Camera } from "@ionic-native/camera/ngx";
 
 @NgModule({
     declarations: [
@@ -54,7 +57,9 @@ import { AuthGuard } from './security/authGuard';
         ParkConfirmComponent,
         AnadirVehiculoComponent,
         CheckerComponent,
-        CheckPlateComponent
+        CheckPlateComponent,
+        ScanComponent,
+        ResultModal,
     ],
     entryComponents: [],
     imports: [
@@ -66,12 +71,14 @@ import { AuthGuard } from './security/authGuard';
           }),
         ReactiveFormsModule],
     providers: [
+        
         StatusBar,
         SplashScreen,
         PayPal,
         AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
-        ManageClientsComponent
+        ManageClientsComponent,
+        Camera
     ],
     bootstrap: [AppComponent]
 })
