@@ -20,6 +20,7 @@ import { AnadirVehiculoComponent } from './components/anadir-vehiculo/anadir-veh
 import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 import { AuthGuard } from './security/authGuard';
+import { ScanComponent } from './components/checker/scan/scan.component';
 
 const routes: Routes = [
     {
@@ -74,7 +75,11 @@ const routes: Routes = [
                 children: [
                     {
                         path: 'check-plate',
-                        component: CheckPlateComponent,
+                        component: CheckPlateComponent
+                    },
+                    {
+                        path: 'scan',
+                        component: ScanComponent
                     }
                 ]
             },
