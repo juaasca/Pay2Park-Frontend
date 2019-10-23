@@ -33,6 +33,7 @@
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "^8.1.0",
+    "cordova-plugin-openalpr": "^2.1.0",
     "cordova-plugin-stripe": "^1.5.3",
     "core-js": "^2.5.4",
     "firebase": "^6.6.2",
