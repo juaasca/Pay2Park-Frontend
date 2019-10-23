@@ -13,7 +13,6 @@ export class AdministratorsService extends PersistenceService<Administrator> {
     
     constructor() {
         super();
-        this.path = this.administratorsDataBaseUrl;
         this.refAdministrators = this.ref.child(this.administratorsDataBaseUrl);
         this.databaseRef = this.refAdministrators;
     }

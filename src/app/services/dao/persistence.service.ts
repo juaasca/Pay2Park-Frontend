@@ -10,7 +10,6 @@ export abstract class PersistenceService<T> {
     protected ref: firebase.database.Reference;
     protected database: firebase.database.Database;
     protected databaseRef: firebase.database.Reference;
-    protected path: string;
 
     constructor() {
         this.initializeDatabase();
@@ -27,32 +26,32 @@ export abstract class PersistenceService<T> {
         return snapshot.val();
     }
 
-    public addEntity(key: string, administrator: T) {
-        this.databaseRef.child(key.replace('.', '&&')).set(administrator, error => console.error(error));
+    public addEntityAsync(key: string, entity: T) {
+        return this.databaseRef.child(key.replace('.', '&&').toLowerCase()).set(entity);
     }
 
-    public getEntity(key: string) {
-        return this.database.ref(this.path + key.replace('.', '&&')).once('value').then((snapshot) => {
+    public getEntityAsync(key: string) {
+        return this.databaseRef.child(key.replace('.', '&&').toLowerCase()).once('value').then((snapshot) => {
             var entity = <T>snapshot.val();
             return entity;
         });
     }
 
     public deleteEntityAsync(key: string) {
-        return this.databaseRef.child(key.replace('.', '&&')).remove();
+        return this.databaseRef.child(key.replace('.', '&&').toLowerCase()).remove();
     }
 
-    public async getEntitiesAsync() {
+    public getEntitiesAsync() {
         const clients: T[] = [];
 
-        await this.databaseRef.once('value').then(async function (snapshot) {
+        return this.databaseRef.once('value').then((snapshot) => {
             snapshot.forEach(childSnapshot => {
                 var client = <T>childSnapshot.val();
 
                 clients.push(client);
-            })
-        });
+            });
 
-        return clients;
+            return clients;
+        });
     }
 }

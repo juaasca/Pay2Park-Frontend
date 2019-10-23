@@ -14,7 +14,6 @@ export class ClientsService extends PersistenceService<Client> {
 
     constructor() {
         super();
-        this.path = this.clientsDataBaseUrl;
         this.refClients = this.ref.child(this.clientsDataBaseUrl);
         this.databaseRef = this.refClients;
     }

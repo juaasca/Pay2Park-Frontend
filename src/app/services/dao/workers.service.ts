@@ -15,7 +15,6 @@ export class WorkersService extends PersistenceService<Worker>{
 
     constructor() {
         super();
-        this.path = this.workersDataBaseUrl;
         this.refWorkers = this.ref.child(this.workersDataBaseUrl);
         this.databaseRef = this.refWorkers;
     }
