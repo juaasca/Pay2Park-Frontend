@@ -1,11 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { SelectedPlate } from '../selectedPlate';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { ParkService } from 'src/app/services/dao/parks.service';
 import { Vehicle } from 'src/app/Domain/Vehicle';
-import { parseLazyRoute } from '@angular/compiler/src/aot/lazy_routes';
 import { Park } from 'src/app/Domain/Park';
-import { VirtualTimeScheduler } from 'rxjs';
 import { Fare } from 'src/app/Domain/Fare';
 
 @Component({
@@ -65,7 +62,7 @@ export class CheckPlateComponent implements OnInit {
   }
 
   findVehicle(selectedPlate){ 
-    return this.vehiclesService.getEntity(selectedPlate);
+    return this.vehiclesService.getEntityAsync(selectedPlate);
   }
 
   findPark(vehicle: Vehicle){

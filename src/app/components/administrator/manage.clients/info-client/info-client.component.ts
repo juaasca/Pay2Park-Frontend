@@ -45,9 +45,8 @@ export class InfoClientComponent implements OnInit {
 				},
 				{
 					text: 'Confirmar',
-					handler: () => {
-            this.userActions.deleteClientAsync(this.selectedClient);
-            this.manageClientsComponent.updateClients();
+					handler: async () => {
+            await this.userActions.deleteClientAsync(this.selectedClient);
             
             this.router.navigateByUrl("main/admin/manage-clients");
 					},

@@ -17,14 +17,14 @@ export class ManageClientsComponent implements OnInit {
     this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
   }
 
-  updateClients() {
-    this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
+  ngOnInit() {
+    setInterval(() => {
+      this.updateClientsAsync();
+    }, 1000);
   }
 
-  ngOnInit() {}
-
-  async showUsersAsync(){
-    this.users = await this.clientsService.getEntitiesAsync();
+  updateClientsAsync() {
+    this.clientsService.getEntitiesAsync().then((clients) => this.users = clients);
   }
 
   getItems(event){

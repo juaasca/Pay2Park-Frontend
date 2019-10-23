@@ -49,7 +49,7 @@ export class UserActions {
 		birthDate: Date,
 		email: string
 	) {
-		const client = await this.clientService.getEntity(email);
+		const client = await this.clientService.getEntityAsync(email);
 
 		if (client !== null) {
 			throw new CustomError(
@@ -60,7 +60,7 @@ export class UserActions {
 			const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email);
 
 			await firebase.auth().createUserWithEmailAndPassword(email, password);
-            this.clientService.addEntity(newClient.Email, newClient);
+            this.clientService.addEntityAsync(newClient.Email, newClient);
             this.user = newClient;
 
 			this.usernameValidatorService.updateList();
@@ -89,9 +89,9 @@ export class UserActions {
             let email = result.additionalUserInfo.profile.email;
             let name = result.additionalUserInfo.profile.name;
 
-            const user = await this.clientService.getEntity(email);
+            const user = await this.clientService.getEntityAsync(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
-                    this.clientService.addEntity(result.additionalUserInfo.profile.email,
+                    this.clientService.addEntityAsync(result.additionalUserInfo.profile.email,
                         new Client(name, name, new Date(), email));
 
                 }
@@ -122,8 +122,8 @@ export class UserActions {
     public async loginUserAsync(email: string, password: string) {
         return firebase.auth().signInWithEmailAndPassword(email, password)
             .then(async (userCredential) => {
-                if (this.clientService.getEntity(email) == null) {
-                    this.clientService.addEntity(email,
+                if (this.clientService.getEntityAsync(email) == null) {
+                    this.clientService.addEntityAsync(email,
                         new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
                 }
                 const client: Client = new Client(userCredential.user.displayName,
@@ -138,7 +138,7 @@ export class UserActions {
     }
 
     public async registerVehicle(licensePlate: string, name: string, description: string, owner: string[]) {
-        const vehicle = await this.clientService.getEntity(licensePlate);
+        const vehicle = await this.clientService.getEntityAsync(licensePlate);
 
         if (vehicle !== null) {
             throw new CustomError(
@@ -148,22 +148,22 @@ export class UserActions {
         } else {
             const newCar = new Vehicle(licensePlate, name, description, owner);
 
-            this.vehicleService.addEntity(newCar.LicensePlate, newCar);
+            this.vehicleService.addEntityAsync(newCar.LicensePlate, newCar);
 
             //this.usernameValidatorService.updateList();
         }
     }
 
     public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
-        let park = await this.parkService.getEntity(id.toString());
+        let park = await this.parkService.getEntityAsync(id.toString());
         while (park) {
             id++;
-            park = await this.parkService.getEntity(id.toString());
+            park = await this.parkService.getEntityAsync(id.toString());
         }
         console.log(id);
 
         let newPark = new Park(id, vehicle, street, coordinates, fare, new Date());
-        this.parkService.addEntity(newPark.id.toString(), newPark);
+        this.parkService.addEntityAsync(newPark.id.toString(), newPark);
         //this.usernameValidatorService.updateList();
 
     }
@@ -173,7 +173,7 @@ export class UserActions {
     }
 
     private checkAdmin(email: string) {
-        return this.adminService.getEntity(email)
+        return this.adminService.getEntityAsync(email)
             .then((admin) => {
                 if (admin != null) {
                     CurrentUserData.IsAdmin = true;
@@ -187,10 +187,9 @@ export class UserActions {
     }
 
     private checkWorker(email: string) {
-        // TODO: Check why it does not work with getEntity.
-        return this.workerService.getEntitiesAsync()
-            .then((workers) => {
-                if (workers.some(worker => worker.Email.toLowerCase() === email.toLowerCase())) {
+        return this.workerService.getEntityAsync(email)
+            .then((worker) => {
+                if (worker != null) {
                     CurrentUserData.IsAdmin = false;
                     CurrentUserData.IsChecker = true;
                 };

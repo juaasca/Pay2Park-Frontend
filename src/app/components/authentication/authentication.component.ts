@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
 import { UserActions } from 'src/app/logic/user.actions.service';
-import { CurrentParkingData } from 'src/app/data/currentParking';
 import { ExceptionCodes } from 'src/app/resources/exception.codes';
 import { ExceptionMessages } from 'src/app/resources/exception.messages';
 import { AlertController } from '@ionic/angular';
