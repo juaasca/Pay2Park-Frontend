@@ -36,6 +36,7 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ResultModal } from './components/checker/result/result.component';
 import { Camera } from "@ionic-native/camera/ngx";
 import { OpenALPR } from '@ionic-native/openalpr/ngx';
+import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers/manage.checkers.component';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { OpenALPR } from '@ionic-native/openalpr/ngx';
         CheckPlateComponent,
         ScanComponent,
         ResultModal,
+        ManageCheckersComponent
     ],
     entryComponents: [],
     imports: [
