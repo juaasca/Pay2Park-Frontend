@@ -21,7 +21,8 @@ import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 import { AuthGuard } from './security/authGuard';
 import { ScanComponent } from './components/checker/scan/scan.component';
-import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers/manage.checkers.component';
+import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
+import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 
 const routes: Routes = [
     {
@@ -71,6 +72,10 @@ const routes: Routes = [
                     {
                         path: 'manage-checkers',
                         component: ManageCheckersComponent
+                    },
+                    {
+                        path: 'manage-checkers/info-checker',
+                        component: InfoCheckerComponent
                     }
                 ]
             },
