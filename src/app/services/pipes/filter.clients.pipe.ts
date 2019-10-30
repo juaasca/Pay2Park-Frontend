@@ -1,15 +1,16 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Client } from 'src/app/Domain/Client';
 
 @Pipe({
-  name: 'filter'
+  name: 'filterClient'
 })
 export class FilterClientPipe implements PipeTransform {
-  transform(clients: any[], filter: string): any[] {
+  transform(clients: Client[], filter: string): any[] {
     if (filter === ''){
         return clients;
     }
     return clients.filter(client => {
-        return (`${client.Name} ${client.Surname} - ${client.Username}`).toLowerCase()
+        return (`${client.Name} - ${client.Username}`).toLowerCase()
             .includes(filter.toLowerCase())
     });
   }
