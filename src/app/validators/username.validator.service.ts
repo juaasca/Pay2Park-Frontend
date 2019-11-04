@@ -6,12 +6,13 @@ import { Client } from '../Domain/Client';
 @Injectable({
     providedIn: 'root'
 })
-
 export class UsernameValidatorService {
     static ExistingUsers: Client[] = [];
 
-    constructor(private clientService: ClientsService) {
-        this.clientService.getEntitiesAsync().then((users) => UsernameValidatorService.ExistingUsers = users);
+    constructor(private clientService: ClientsService) {        
+        setInterval(() => {
+            this.updateList();
+        }, 1000);
     }
 
     updateList() {
