@@ -10,21 +10,21 @@ import { SelectedClient } from './selected.client';
   styleUrls: ['./manage.clients.component.scss'],
 })
 export class ManageClientsComponent implements OnInit {
-  private users: Client[] = [];
+  private clients: Client[] = [];
   private searchText = '';
   
   constructor(private clientsService: ClientsService, private router: Router) {
-    this.clientsService.getEntitiesAsync().then(clients => this.users = clients);
+    this.updateClients();
   }
 
   ngOnInit() {
     setInterval(() => {
-      this.updateClientsAsync();
+      this.updateClients();
     }, 1000);
   }
 
-  updateClientsAsync() {
-    this.clientsService.getEntitiesAsync().then((clients) => this.users = clients);
+  updateClients() {
+    this.clientsService.getEntitiesAsync().then((clients) => this.clients = clients.sort((a, b) => this.sortNameAscending(a, b)));
   }
 
   getItems(event){
@@ -35,5 +35,14 @@ export class ManageClientsComponent implements OnInit {
     var selectedClient = <Client>client;
     SelectedClient.selectedClient = selectedClient;
     this.router.navigateByUrl('main/admin/manage-clients/info-client');
+  }
+
+  sortNameAscending(clientA: Client, clientB: Client) {
+      var nameA=clientA.Name.toLowerCase(), nameB=clientB.Name.toLowerCase()
+      if (nameA < nameB)
+          return -1 
+      if (nameA > nameB)
+          return 1
+      return 0
   }
 }

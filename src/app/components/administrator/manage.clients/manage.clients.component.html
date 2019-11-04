@@ -5,11 +5,11 @@
   </ion-card-content>
 </ion-card>
 <ion-toolbar>
-  <ion-searchbar animated (ionChange)="getItems( $event )"></ion-searchbar>
+  <ion-searchbar placeholder="Nombre o usuario del cliente..." animated (ionChange)="getItems( $event )"></ion-searchbar>
 </ion-toolbar>
 <ion-content>
   <ion-list>
-    <ion-item class="font-style" (click)="click(client)" *ngFor="let client of users | filterClient: searchText: 'column'"> 
+    <ion-item class="font-style" (click)="click(client)" *ngFor="let client of clients | filterClient: searchText: 'column'"> 
       <ion-label >{{client.Name}} - {{client.Username}}</ion-label>
     </ion-item>
   </ion-list> 
