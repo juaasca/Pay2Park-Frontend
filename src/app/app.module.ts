@@ -19,7 +19,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { WalletComponent } from './components/wallet/wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
@@ -39,6 +38,8 @@ import { OpenALPR } from '@ionic-native/openalpr/ngx';
 import { FilterCheckersPipe } from './services/pipes/filter.checkers.pipe';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
 
 @NgModule({
     declarations: [
@@ -66,7 +67,8 @@ import { InfoCheckerComponent } from './components/administrator/manage.checkers
         ResultModal,
         ManageCheckersComponent,
         FilterCheckersPipe,
-        InfoCheckerComponent
+        InfoCheckerComponent,
+        CreateCheckerComponent
     ],
     entryComponents: [],
     imports: [
