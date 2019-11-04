@@ -1,0 +1,94 @@
+<ion-header class="header">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="creatingPersonForm" (ngSumbit)="saveData()">
+    <ion-list>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Nombre:</ion-label>
+        <ion-input class="input-css" formControlName="Name" type="text" placeholder="Nombre"></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let validation of validation_messages.Name">
+          <div *ngIf="creatingPersonForm.get('Name').hasError(validation.type) && (creatingPersonForm.get('Name').dirty || creatingPersonForm.get('Name').touched)" class="message-error">
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Apellidos:</ion-label>
+        <ion-input class="input-css" formControlName="Surname" type="text" placeholder="Apellidos"></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let validation of validation_messages.Surname">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Surname').hasError(validation.type) && (creatingPersonForm.get('Surname').dirty || creatingPersonForm.get('Surname').touched)">
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Usuario:</ion-label>
+        <ion-input class="input-css" formControlName="Username" type="text" placeholder="Usuario"></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let validation of validation_messages.Username">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Username').hasError(validation.type) && (creatingPersonForm.get('Username').dirty || creatingPersonForm.get('Username').touched)">
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
+        <ion-item>
+          <ion-label class="label-css" position="floating">Contraseña:</ion-label>
+          <ion-input class="input-css" formControlName="Password" type="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <div>
+          <ng-container *ngFor="let validation of validation_messages.Password">
+            <div class="message-error" *ngIf="creatingPersonForm.get('Password').hasError(validation.type) && (creatingPersonForm.get('Password').dirty || creatingPersonForm.get('Password').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+        <ion-item>
+          <ion-label class="label-css" position="floating">Confirmar contraseña:</ion-label>
+          <ion-input class="input-css" formControlName="ConfirmPassword" type="password" placeholder="Contraseña"></ion-input>
+        </ion-item>
+        <div>
+          <ng-container *ngFor="let validation of validation_messages.ConfirmPassword">
+            <div class="message-error" *ngIf="creatingPersonForm.get('ConfirmPassword').hasError(validation.type) && (creatingPersonForm.get('ConfirmPassword').dirty || creatingPersonForm.get('ConfirmPassword').touched)">
+              {{validation.message}}
+            </div>
+          </ng-container>
+        </div>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Fecha de nacimiento:</ion-label>
+        <ion-datetime class="input-css" formControlName="Birthdate" type="date" displayFormat="DD-MM-YYYY" placeholder="DD-MM-YYYY"></ion-datetime>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let validation of validation_messages.Birthdate">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Birthdate').hasError(validation.type) && (creatingPersonForm.get('Birthdate').dirty || creatingPersonForm.get('Birthdate').touched)">
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Correo electrónico:</ion-label>
+        <ion-input class="input-css" formControlName="Email" type="text" placeholder="Correo electrónico"></ion-input>
+      </ion-item>
+      <div>
+        <ng-container *ngFor="let validation of validation_messages.Email">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Email').hasError(validation.type) && (creatingPersonForm.get('Email').dirty || creatingPersonForm.get('Email').touched)">
+            {{validation.message}}
+          </div>
+        </ng-container>
+      </div>
+    </ion-list>
+  </form>
+  <div align="center">
+    <ion-button class="font-style" [disabled]="!creatingPersonForm.valid" (click)="saveData()" color="primary">Crear</ion-button>
+  </div>
+</ion-content>
