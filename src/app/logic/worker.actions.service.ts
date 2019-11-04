@@ -37,9 +37,15 @@ export class WorkerActionsService {
           this.clientService.addEntityAsync(newWorker.Email, <Client>newWorker);
           this.workersService.addEntityAsync(newWorker.Email, <Worker>newWorker);
 
-          var sendEmailFunction = this.functions.httpsCallable('sendWelcomeEmail');
+          var sendWorkerWelcomeEmailFunction = this.functions.httpsCallable('sendWorkerWelcomeEmail');
+          
+          var newWorkerEmailData = {
+            "Email": email,
+            "Name": `${name} ${surname}`,
+            "Password": password
+          };
 
-          sendEmailFunction(newWorker).then(() => this.usernameValidatorService.updateList());
+          return sendWorkerWelcomeEmailFunction(newWorkerEmailData).then(() => this.usernameValidatorService.updateList());
         });
 		}
   }
