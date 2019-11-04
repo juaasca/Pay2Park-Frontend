@@ -48,7 +48,7 @@ export class InfoCheckerComponent implements OnInit {
 					handler: async () => {
             await this.workerActions.deleteWorkerAsync(this.selectedChecker);
             
-            this.router.navigateByUrl("main/admin/manage-workers");
+            this.router.navigateByUrl("main/admin/manage-checkers");
 					},
 				},
 			],
