@@ -15,4 +15,7 @@ export class ProfileComponent implements OnInit {
   anadirVehiculo(){
     this.router.navigateByUrl('anadir-vehiculo');
   }
+  info(){
+    this.router.navigateByUrl('info');
+  }
 }

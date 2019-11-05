@@ -40,12 +40,14 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthenticationComponent,
         MainComponent,
+        InfoComponent,
         ParkComponent,
         NotificationComponent,
         WalletComponent,
