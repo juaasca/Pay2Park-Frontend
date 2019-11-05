@@ -40,6 +40,8 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 
 @NgModule({
     declarations: [
@@ -68,7 +70,9 @@ import { CreateCheckerComponent } from './components/administrator/manage.checke
         ManageCheckersComponent,
         FilterCheckersPipe,
         InfoCheckerComponent,
-        CreateCheckerComponent
+        CreateCheckerComponent,
+        TariffComponent,
+        CreateTariffComponent
     ],
     entryComponents: [],
     imports: [

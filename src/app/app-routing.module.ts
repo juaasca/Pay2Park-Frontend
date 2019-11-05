@@ -22,6 +22,8 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 
 const routes: Routes = [
     {
@@ -31,7 +33,7 @@ const routes: Routes = [
     {
         path: 'main',
         component: MainComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         children: [
             {
                 path: 'park',
@@ -79,6 +81,14 @@ const routes: Routes = [
                     {
                         path: 'manage-checkers/create-checker',
                         component: CreateCheckerComponent
+                    },
+                    {
+                        path: 'manage-tariffs',
+                        component: TariffComponent
+                    },
+                    {
+                        path: 'manage-tariffs/create-tariff',
+                        component: CreateTariffComponent
                     }
                 ]
             },
