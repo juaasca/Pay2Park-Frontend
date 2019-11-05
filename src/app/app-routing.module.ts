@@ -94,11 +94,11 @@ const routes: Routes = [
                         component: CreateCheckerComponent
                     },
                     {
-                        path: 'manage-tariffs',
+                        path: 'tariff',
                         component: TariffComponent
                     },
                     {
-                        path: 'manage-tariffs/create-tariff',
+                        path: 'tariff/create-tariff',
                         component: CreateTariffComponent
                     }
                 ]

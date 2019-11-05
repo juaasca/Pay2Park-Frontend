@@ -13,7 +13,7 @@ export class TariffComponent implements OnInit {
   ngOnInit() {}
 
   create(){
-    this.router.navigateByUrl('main/admin/manage-tariffs/create-tariff');
+    this.router.navigateByUrl('main/admin/tariff/create-tariff');
   }
 
 }
