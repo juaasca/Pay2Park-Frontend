@@ -1,0 +1,34 @@
+<ion-header class="header">
+    <ion-toolbar color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button text="Volver" color="light"></ion-back-button>
+      </ion-buttons>
+      <ion-title>CREAR TARIFA</ion-title>
+    </ion-toolbar>
+  </ion-header>
+<ion-content>
+  <form [formGroup]="createTariff">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Descripción:</ion-label>
+        <ion-input formControlName="Description" type="text" placeholder="Descripcion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox formControlName="realTime"></ion-checkbox>
+        <ion-label>es tiempo real</ion-label>       
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Tiempo:</ion-label>
+        <ion-input formControlName="Time" type="text" placeholder="Tiempo"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Precio:</ion-label>
+        <ion-input formControlName="Price" type="text" placeholder="Precio"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div padding>
+      <ion-button float-left (click)="back()">Volver</ion-button>
+      <!--<ion-button float-right [disabled]="!createTariff.valid">Aceptar</ion-button>-->
+    </div>
+  </form>
+</ion-content>
