@@ -41,6 +41,8 @@ import { InfoCheckerComponent } from './components/administrator/manage.checkers
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
 import { InfoComponent } from './components/info/info.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 
 @NgModule({
     declarations: [
@@ -70,7 +72,9 @@ import { InfoComponent } from './components/info/info.component';
         ManageCheckersComponent,
         FilterCheckersPipe,
         InfoCheckerComponent,
-        CreateCheckerComponent
+        CreateCheckerComponent,
+        TariffComponent,
+        CreateTariffComponent
     ],
     entryComponents: [],
     imports: [
