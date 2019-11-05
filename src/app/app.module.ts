@@ -43,6 +43,7 @@ import { CreateCheckerComponent } from './components/administrator/manage.checke
 import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
+import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 
 @NgModule({
     declarations: [
@@ -74,7 +75,8 @@ import { CreateTariffComponent } from './components/tariff/create-tariff/create-
         InfoCheckerComponent,
         CreateCheckerComponent,
         TariffComponent,
-        CreateTariffComponent
+        CreateTariffComponent,
+        ManageTariffComponent
     ],
     entryComponents: [],
     imports: [
