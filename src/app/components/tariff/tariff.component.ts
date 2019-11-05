@@ -16,4 +16,8 @@ export class TariffComponent implements OnInit {
     this.router.navigateByUrl('main/admin/tariff/create-tariff');
   }
 
+  manage(){
+    this.router.navigateByUrl('main/admin/tariff/manage-tariff');
+  }
+
 }

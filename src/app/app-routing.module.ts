@@ -24,6 +24,7 @@ import { InfoCheckerComponent } from './components/administrator/manage.checkers
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
+import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 
 const routes: Routes = [
     {
@@ -89,7 +90,11 @@ const routes: Routes = [
                     {
                         path: 'tariff/create-tariff',
                         component: CreateTariffComponent
-                    }
+                    },
+                    {
+                        path: 'tariff/manage-tariff',
+                        component: ManageTariffComponent
+                    },
                 ]
             },
             {
