@@ -1,10 +1,13 @@
-<ion-card color="primary">
-    <ion-card-content>
-        <ion-title text-center class="font-style"> REGISTRAR USUARIO</ion-title>
-    </ion-card-content>
-</ion-card>
+<ion-header class="header">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Crear cuenta</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content>
-  <form [formGroup]="registration" (ngSumbit)="saveData()">
+  <form [formGroup]="creatingPersonForm" (ngSumbit)="saveData()">
     <ion-list>
       <ion-item>
         <ion-label class="label-css" position="floating">Nombre:</ion-label>
@@ -12,7 +15,7 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Name">
-          <div *ngIf="registration.get('Name').hasError(validation.type) && (registration.get('Name').dirty || registration.get('Name').touched)" class="message-error">
+          <div *ngIf="creatingPersonForm.get('Name').hasError(validation.type) && (creatingPersonForm.get('Name').dirty || creatingPersonForm.get('Name').touched)" class="message-error">
             {{validation.message}}
           </div>
         </ng-container>
@@ -23,7 +26,7 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Surname">
-          <div class="message-error" *ngIf="registration.get('Surname').hasError(validation.type) && (registration.get('Surname').dirty || registration.get('Surname').touched)">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Surname').hasError(validation.type) && (creatingPersonForm.get('Surname').dirty || creatingPersonForm.get('Surname').touched)">
             {{validation.message}}
           </div>
         </ng-container>
@@ -34,7 +37,7 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Username">
-          <div class="message-error" *ngIf="registration.get('Username').hasError(validation.type) && (registration.get('Username').dirty || registration.get('Username').touched)">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Username').hasError(validation.type) && (creatingPersonForm.get('Username').dirty || creatingPersonForm.get('Username').touched)">
             {{validation.message}}
           </div>
         </ng-container>
@@ -45,7 +48,7 @@
         </ion-item>
         <div>
           <ng-container *ngFor="let validation of validation_messages.Password">
-            <div class="message-error" *ngIf="registration.get('Password').hasError(validation.type) && (registration.get('Password').dirty || registration.get('Password').touched)">
+            <div class="message-error" *ngIf="creatingPersonForm.get('Password').hasError(validation.type) && (creatingPersonForm.get('Password').dirty || creatingPersonForm.get('Password').touched)">
               {{validation.message}}
             </div>
           </ng-container>
@@ -56,7 +59,7 @@
         </ion-item>
         <div>
           <ng-container *ngFor="let validation of validation_messages.ConfirmPassword">
-            <div class="message-error" *ngIf="registration.get('ConfirmPassword').hasError(validation.type) && (registration.get('ConfirmPassword').dirty || registration.get('ConfirmPassword').touched)">
+            <div class="message-error" *ngIf="creatingPersonForm.get('ConfirmPassword').hasError(validation.type) && (creatingPersonForm.get('ConfirmPassword').dirty || creatingPersonForm.get('ConfirmPassword').touched)">
               {{validation.message}}
             </div>
           </ng-container>
@@ -67,7 +70,7 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Birthdate">
-          <div class="message-error" *ngIf="registration.get('Birthdate').hasError(validation.type) && (registration.get('Birthdate').dirty || registration.get('Birthdate').touched)">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Birthdate').hasError(validation.type) && (creatingPersonForm.get('Birthdate').dirty || creatingPersonForm.get('Birthdate').touched)">
             {{validation.message}}
           </div>
         </ng-container>
@@ -78,15 +81,14 @@
       </ion-item>
       <div>
         <ng-container *ngFor="let validation of validation_messages.Email">
-          <div class="message-error" *ngIf="registration.get('Email').hasError(validation.type) && (registration.get('Email').dirty || registration.get('Email').touched)">
+          <div class="message-error" *ngIf="creatingPersonForm.get('Email').hasError(validation.type) && (creatingPersonForm.get('Email').dirty || creatingPersonForm.get('Email').touched)">
             {{validation.message}}
           </div>
         </ng-container>
       </div>
     </ion-list>
-    <div padding>
-      <ion-button class="font-style" float-left (click)="back()">Volver</ion-button>
-      <ion-button class="font-style" float-right [disabled]="!registration.valid" (click)="saveData()">Aceptar</ion-button>
-    </div>
   </form>
+  <div align="center">
+    <ion-button class="font-style" [disabled]="!creatingPersonForm.valid" (click)="saveData()" color="primary">Crear</ion-button>
+  </div>
 </ion-content>

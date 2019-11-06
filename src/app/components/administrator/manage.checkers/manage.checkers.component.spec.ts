@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateCheckerComponent } from './registration.component';
+import { ManageCheckersComponent } from './manage.checkers.component';
 
-describe('RegistrationComponent', () => {
-  let component: CreateCheckerComponent;
-  let fixture: ComponentFixture<CreateCheckerComponent>;
+describe('Manage.CheckersComponent', () => {
+  let component: ManageCheckersComponent;
+  let fixture: ComponentFixture<ManageCheckersComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CreateCheckerComponent ],
+      declarations: [ ManageCheckersComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateCheckerComponent);
+    fixture = TestBed.createComponent(ManageCheckersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

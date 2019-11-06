@@ -1,26 +1,26 @@
 <ion-header class="header">
-  <ion-toolbar>
+  <ion-toolbar color="primary">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
-    <ion-title>Información de cliente</ion-title>
+    <ion-title>Información de revisor</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content class="text">
   <ion-list>
     <ion-item>
       <ion-label>
-        Usuario: {{selectedClient.Username}}
+        Usuario: {{selectedChecker.Username}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        Nombre: {{selectedClient.Name}}
+        Nombre: {{selectedChecker.Name}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label>
-        Email: {{selectedClient.Email}}
+        Email: {{selectedChecker.Email}}
       </ion-label>
     </ion-item>
     <ion-item *ngIf="!birthDateIsNull">
@@ -28,12 +28,8 @@
           Fecha de nacimiento: {{formattedBirthDate}}
         </ion-label>
       </ion-item>
-    <div padding>
-      <ion-button class="button-CSS" float-left (click)="showPlates()">Ver matriculas</ion-button>
-      <ion-button class="button-CSS" float-right (click)="showComplaints()">Ver denuncias</ion-button>
-    </div>
     <div align="center">
-      <ion-button color="danger" (click)="deleteUserAsync()">Eliminar usuario</ion-button>
+      <ion-button color="danger" (click)="deleteCheckerAsync()">Eliminar revisor</ion-button>
     </div>
   </ion-list>
 </ion-content>

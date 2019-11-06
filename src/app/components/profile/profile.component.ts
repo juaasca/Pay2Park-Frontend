@@ -35,4 +35,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
       this.darkMode.lightMode();
     }
 }
+  info(){
+    this.router.navigateByUrl('info');
+  }
 }

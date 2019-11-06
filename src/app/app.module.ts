@@ -19,7 +19,6 @@ import { NotificationComponent } from './components/notification/notification.co
 import { WalletComponent } from './components/wallet/wallet.component';
 import { PaymentComponent } from './components/payment/payment.component';
 import { ProfileComponent } from './components/profile/profile.component';
-import { RegistrationComponent } from './components/registration/registration.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
@@ -36,13 +35,19 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ResultModal } from './components/checker/result/result.component';
 import { Camera } from "@ionic-native/camera/ngx";
 import { OpenALPR } from '@ionic-native/openalpr/ngx';
-import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers/manage.checkers.component';
+import { FilterCheckersPipe } from './services/pipes/filter.checkers.pipe';
+import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
+import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { InfoComponent } from './components/info/info.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthenticationComponent,
         MainComponent,
+        InfoComponent,
         ParkComponent,
         NotificationComponent,
         WalletComponent,
@@ -62,7 +67,10 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
         CheckPlateComponent,
         ScanComponent,
         ResultModal,
-        ManageCheckersComponent
+        ManageCheckersComponent,
+        FilterCheckersPipe,
+        InfoCheckerComponent,
+        CreateCheckerComponent
     ],
     entryComponents: [],
     imports: [
