@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { Park } from 'src/app/Domain/Park';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 
 
@@ -15,12 +17,12 @@ declare let L;
   templateUrl: './park.component.html',
   styleUrls: ['./park.component.scss'],
 })
-export class ParkComponent implements OnInit {
+export class ParkComponent implements OnInit, OnDestroy {
 
-    private idWatch: any;
-
-
-  constructor(public alertController: AlertController, private router: Router) { }
+  private idWatch: any;
+  color : string;
+  suscription : Subscription;
+  constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
     let map;
@@ -30,7 +32,9 @@ export class ParkComponent implements OnInit {
         maximumAge: 0
       };
 
-
+      this.suscription = this.darkMode.color.subscribe(color => {
+        this.color = color;
+      })
     const actual = navigator.geolocation.getCurrentPosition((pos) => {
          map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 16);
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -97,6 +101,9 @@ export class ParkComponent implements OnInit {
     });
 
     await alert.present();
+  }
+  ngOnDestroy() {
+    this.suscription.unsubscribe();
   }
 
   crearAparcamiento() {

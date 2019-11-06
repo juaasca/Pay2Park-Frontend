@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Park } from '../../Domain/Park';
 import { CurrentUserData } from 'src/app/data/current.user';
@@ -9,23 +9,30 @@ import { PaymentComponent } from '../payment/payment.component';
 import { ProviderAstType } from '@angular/compiler';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router } from '@angular/router';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { Subscription } from 'rxjs';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent implements OnInit {
+export class NotificationComponent implements OnInit, OnDestroy {
   park: Park;
   time: number;
   calle: string;
+  color: string;
+  suscription: Subscription;
   constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions, 
-    private payPal: PayPal,  private router: Router
+    private payPal: PayPal,  private router: Router, private darkMode : DarkModeService
     ) { 
   }
   precio = 2.3;
 
   ngOnInit() {
     this.comprobar();
+    this.suscription = this.darkMode.color.subscribe(color => {
+      this.color = color;
+    })
     if (CurrentParkingData.park) {
     this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
@@ -36,7 +43,9 @@ export class NotificationComponent implements OnInit {
       this.actualizar();
   }, 1000);
   }
-
+ngOnDestroy(){
+  this.suscription.unsubscribe();
+}
 
   actualizar() {
     if(CurrentParkingData.park){
@@ -58,7 +67,6 @@ export class NotificationComponent implements OnInit {
         {
           text: 'Cancelar',
           role: 'cancel',
-          cssClass: 'secondary',
           handler: () => {
             console.log('Confirm Cancel');
           }

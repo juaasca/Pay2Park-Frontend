@@ -1,6 +1,8 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { CurrentUserData } from 'src/app/data/current.user';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 declare var paypal;
 
@@ -9,8 +11,18 @@ declare var paypal;
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent {
-  constructor(private payPal: PayPal) {
+export class PaymentComponent  implements OnInit, OnDestroy{
+  ngOnDestroy() {
+    this.suscription.unsubscribe();
+  }
+  ngOnInit(){
+    this.suscription = this.darkMode.color.subscribe(color => {
+      this.color = color;
+    });
+  }
+  color:string;
+  suscription: Subscription;
+  constructor(private payPal: PayPal, private darkMode: DarkModeService) {
     
     let _this = this;
     setTimeout(() => {
