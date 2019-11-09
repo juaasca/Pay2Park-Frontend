@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { UserActions } from 'src/app/logic/user.actions.service';
@@ -6,18 +6,23 @@ import { UsernameValidatorService } from 'src/app/services/validators/username.v
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 @Component({
   selector: 'app-anadir-vehiculo',
   templateUrl: './anadir-vehiculo.component.html',
   styleUrls: ['./anadir-vehiculo.component.scss'],
 })
-export class AnadirVehiculoComponent implements OnInit {
+export class AnadirVehiculoComponent implements OnInit, OnDestroy {
+  public color: string;
+  public suscription: Subscription;
   private registration: FormGroup;
   constructor(private formBuilder: FormBuilder,
 		            private userActions: UserActions,
 		            private usernameValidator: UsernameValidatorService,
                 private alertController: AlertController,
+                private darkMode: DarkModeService,
                 private router: Router) {
 
     this.registration = this.formBuilder.group({
@@ -34,8 +39,14 @@ export class AnadirVehiculoComponent implements OnInit {
 		});
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.suscription = this.darkMode.color.subscribe(color => {
+      this.color = color;
+    });
+  }
+  ngOnDestroy(){
+    this.suscription.unsubscribe();
+  }
   anadirVehiculo() {
     if(CurrentUserData.LoggedUser){
     var formValue = this.registration.value;
