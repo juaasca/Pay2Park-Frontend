@@ -162,7 +162,7 @@ export class UserActions {
         }
         console.log(id);
 
-        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date());
+        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date().toString());
         this.parkService.addEntityAsync(newPark.id.toString(), newPark);
         //this.usernameValidatorService.updateList();
 

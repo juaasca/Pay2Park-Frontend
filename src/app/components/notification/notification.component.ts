@@ -54,7 +54,6 @@ ngOnDestroy(){
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
       this.precio = 0.01666 * this.time;
-      console.log(this.precio);
       }
   }
 
@@ -102,7 +101,6 @@ ngOnDestroy(){
     this.calle = 'Todavia no has aparcado';
     this.time = 0;
     this.payWithPaypal();
-    console.log(this.park.getCurrentTime());
   }
   
   comprobar(){
