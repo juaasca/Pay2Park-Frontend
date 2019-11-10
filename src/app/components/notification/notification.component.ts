@@ -22,17 +22,18 @@ export class NotificationComponent implements OnInit, OnDestroy {
   calle: string;
   color: string;
   suscription: Subscription;
-  constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions, 
-    private payPal: PayPal,  private router: Router, private darkMode : DarkModeService
-    ) { 
+  constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
+              private payPal: PayPal,  private router: Router, private darkMode: DarkModeService
+    ) {
   }
   precio = 2.3;
 
   ngOnInit() {
+    this.time = 0;
     this.comprobar();
     this.suscription = this.darkMode.color.subscribe(color => {
       this.color = color;
-    })
+    });
     if (CurrentParkingData.park) {
     this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
@@ -43,17 +44,20 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.actualizar();
   }, 1000);
   }
-ngOnDestroy(){
+ngOnDestroy() {
   this.suscription.unsubscribe();
 }
 
   actualizar() {
-    if(CurrentParkingData.park){
+    if (CurrentParkingData.park) {
       this.park = CurrentParkingData.park;
       this.time = this.park.getCurrentTime();
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
-      this.precio = 0.01666 * this.time;
+      this.precio = 1 + 0.20 * this.time;
+      } else {
+        this.calle = 'Todavia no has aparcado';
+        this.time = 0;
       }
   }
 
@@ -61,7 +65,7 @@ ngOnDestroy(){
     if (CurrentParkingData.park) {
     const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
-      message: 'El precio sera de: ' + '0.30',
+      message: 'El precio sera de: ' + this.precio.toString(),
       buttons: [
         {
           text: 'Cancelar',
@@ -79,7 +83,7 @@ ngOnDestroy(){
     });
 
     await alert.present();
-  }else{
+  } else {
     const alert = await this.alertController.create({
       header: 'Todavia no ha estacionado',
       buttons: [{
@@ -98,27 +102,20 @@ ngOnDestroy(){
   confirmPagar() {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
-    this.calle = 'Todavia no has aparcado';
-    this.time = 0;
-    this.payWithPaypal();
+    CurrentUserData.price = this.precio.toString();
+    this.router.navigateByUrl('payment');
   }
-  
-  comprobar(){
+
+  comprobar() {
    // if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
-    if(CurrentUserData.LoggedUser){
-      let aux1 = CurrentParkingData.parks;
-      while (aux1.length > 0){
-        let aux = aux1.pop();
-        if(aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email){
-          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare,new Date(aux.Date));
+    if (CurrentUserData.LoggedUser) {
+      const aux1 = CurrentParkingData.parks;
+      while (aux1.length > 0) {
+        const aux = aux1.pop();
+        if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
         }
       }
     }
   }
-
-  payWithPaypal() {
-    CurrentUserData.price = '0.1666';
-    this.router.navigateByUrl('main/wallet');
-  }
-
 }

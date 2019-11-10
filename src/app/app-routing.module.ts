@@ -30,6 +30,10 @@ const routes: Routes = [
         component: AuthenticationComponent
     },
     {
+        path: 'payment',
+        component: PaymentComponent
+    },
+    {
         path: 'main',
         component: MainComponent,
         canActivate: [AuthGuard],
