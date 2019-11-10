@@ -16,9 +16,10 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 })
 export class ParkConfirmComponent implements OnInit {
   vehicles: Vehicle[];
-  prueba : Park;
+  prueba: Park;
   fare: Fare;
-  calle : string;
+  calle: string;
+  color: string;
   constructor(private router: Router, private vehiclesService: VehiclesService,private userActions: UserActions) {
     //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
     this.vehicles = [];
@@ -30,6 +31,10 @@ export class ParkConfirmComponent implements OnInit {
     let lon = CurrentUserData.CurrentPosition[0];
     let lat = CurrentUserData.CurrentPosition[1];
     this.simpleReverseGeocoding(lat,lon);
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
   }
 
   vehiculosUsuario(vehicles:Vehicle[]){

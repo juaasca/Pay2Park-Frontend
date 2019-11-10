@@ -1,24 +1,23 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
   styleUrls: ['./info.component.scss'],
 })
-export class InfoComponent implements OnInit, OnDestroy {
+export class InfoComponent implements OnInit{
 
   constructor(private darkMode: DarkModeService) { }
 
-  ngOnDestroy() {
-    this.suscription.unsubscribe();
-  }
-  ngOnInit(){
-    this.suscription = this.darkMode.color.subscribe(color => {
-      this.color = color;
-    });
-  }
   color:string;
-  suscription: Subscription;
+  
+  ngOnInit(){
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
+  }
 }

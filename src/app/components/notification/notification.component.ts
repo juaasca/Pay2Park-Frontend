@@ -16,12 +16,11 @@ import { Subscription } from 'rxjs';
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
-export class NotificationComponent implements OnInit, OnDestroy {
+export class NotificationComponent implements OnInit {
   park: Park;
   time: number;
   calle: string;
   color: string;
-  suscription: Subscription;
   constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
               private payPal: PayPal,  private router: Router, private darkMode: DarkModeService
     ) {
@@ -30,10 +29,8 @@ export class NotificationComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.time = 0;
+    this.color = CurrentUserData.color;
     this.comprobar();
-    this.suscription = this.darkMode.color.subscribe(color => {
-      this.color = color;
-    });
     if (CurrentParkingData.park) {
     this.park = CurrentParkingData.park;
     this.time = this.park.getCurrentTime();
@@ -44,9 +41,6 @@ export class NotificationComponent implements OnInit, OnDestroy {
       this.actualizar();
   }, 1000);
   }
-ngOnDestroy() {
-  this.suscription.unsubscribe();
-}
 
   actualizar() {
     if (CurrentParkingData.park) {
@@ -55,6 +49,7 @@ ngOnDestroy() {
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
       this.precio = 1 + 0.20 * this.time;
+      this.color = CurrentUserData.color;
       } else {
         this.calle = 'Todavia no has aparcado';
         this.time = 0;

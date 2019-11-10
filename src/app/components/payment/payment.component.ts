@@ -13,22 +13,19 @@ declare var paypal;
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent  implements OnInit, OnDestroy{
+export class PaymentComponent  implements OnInit{
   paymentAmount: string = '0.30';
   currency: string = 'EUR';
   currencyIcon: string = '€';
-  ngOnDestroy() {
-    this.suscription.unsubscribe();
-  }
+ 
   ngOnInit(){
-    this.suscription = this.darkMode.color.subscribe(color => {
-      this.color = color;
-    });
+    this.color = CurrentUserData.color;
     this.paymentAmount = CurrentUserData.price;
-
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
   }
   color:string;
-  suscription: Subscription;
   constructor(private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService) {
     
     let _this = this;

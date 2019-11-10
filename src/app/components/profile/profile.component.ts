@@ -2,27 +2,25 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss'],
 })
-export class ProfileComponent implements OnInit, OnDestroy {
+export class ProfileComponent implements OnInit {
   color:string;
-  subcription: Subscription;
   
   constructor(private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
-    this.subcription = this.darkMode.color.subscribe(color => {
-      this.color = color;
-    })
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 100);
   }
 
-  ngOnDestroy() {
-    this.subcription.unsubscribe();
-  }
 
   anadirVehiculo(){
     this.router.navigateByUrl('anadir-vehiculo');

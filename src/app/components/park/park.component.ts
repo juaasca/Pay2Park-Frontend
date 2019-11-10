@@ -17,24 +17,20 @@ declare let L;
   templateUrl: './park.component.html',
   styleUrls: ['./park.component.scss'],
 })
-export class ParkComponent implements OnInit, OnDestroy {
+export class ParkComponent implements OnInit{
 
   private idWatch: any;
   color : string;
-  suscription : Subscription;
   constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
+    this.color = CurrentUserData.color;
     let map;
     const options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
       };
-
-      this.suscription = this.darkMode.color.subscribe(color => {
-        this.color = color;
-      })
     const actual = navigator.geolocation.getCurrentPosition((pos) => {
          map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 16);
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -55,6 +51,9 @@ export class ParkComponent implements OnInit, OnDestroy {
         CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
     }, () => {}, options);
 
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
 
   }
 
@@ -101,9 +100,6 @@ export class ParkComponent implements OnInit, OnDestroy {
     });
 
     await alert.present();
-  }
-  ngOnDestroy() {
-    this.suscription.unsubscribe();
   }
 
   crearAparcamiento() {

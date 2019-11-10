@@ -14,44 +14,39 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
   templateUrl: './anadir-vehiculo.component.html',
   styleUrls: ['./anadir-vehiculo.component.scss'],
 })
-export class AnadirVehiculoComponent implements OnInit, OnDestroy {
+export class AnadirVehiculoComponent implements OnInit {
   public color: string;
-  public suscription: Subscription;
   private registration: FormGroup;
-  constructor(private formBuilder: FormBuilder,
-		            private userActions: UserActions,
-		            private usernameValidator: UsernameValidatorService,
-                private alertController: AlertController,
-                private darkMode: DarkModeService,
-                private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userActions: UserActions, private usernameValidator: UsernameValidatorService,
+    private alertController: AlertController,
+    private darkMode: DarkModeService,
+    private router: Router) {
 
     this.registration = this.formBuilder.group({
-			Matricula: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.pattern('^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$')
-				])),
-			Marca: new FormControl('', Validators.compose([
-					Validators.required
-				])),
-			Modelo: new FormControl('', Validators.compose([
-					Validators.required
-				]))
-		});
+      Matricula: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$')
+      ])),
+      Marca: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      Modelo: new FormControl('', Validators.compose([
+        Validators.required
+      ]))
+    });
   }
 
   ngOnInit() {
-    this.suscription = this.darkMode.color.subscribe(color => {
-      this.color = color;
-    });
-  }
-  ngOnDestroy(){
-    this.suscription.unsubscribe();
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
   }
   anadirVehiculo() {
-    if(CurrentUserData.LoggedUser){
-    var formValue = this.registration.value;
-    this.userActions.registerVehicle(formValue.Matricula,formValue.Marca,formValue.Modelo,[CurrentUserData.LoggedUser.Email]);
-    this.router.navigateByUrl('main/profile');
-    }else{console.log('No estas logueado');}
+    if (CurrentUserData.LoggedUser) {
+      var formValue = this.registration.value;
+      this.userActions.registerVehicle(formValue.Matricula, formValue.Marca, formValue.Modelo, [CurrentUserData.LoggedUser.Email]);
+      this.router.navigateByUrl('main/profile');
+    } else { console.log('No estas logueado'); }
   }
 }
