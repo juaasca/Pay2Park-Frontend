@@ -38,6 +38,7 @@ export class NotificationComponent implements OnInit {
     }
     this.calle = 'Todavia no has aparcado';
     setInterval(() => {
+      this.color = CurrentUserData.color;
       this.actualizar();
   }, 1000);
   }
@@ -49,7 +50,6 @@ export class NotificationComponent implements OnInit {
       this.calle = this.park.Street;
       this.time = this.park.getCurrentTime();
       this.precio = 1 + 0.20 * this.time;
-      this.color = CurrentUserData.color;
       } else {
         this.calle = 'Todavia no has aparcado';
         this.time = 0;
