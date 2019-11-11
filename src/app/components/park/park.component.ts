@@ -113,7 +113,7 @@ export class ParkComponent implements OnInit{
       while (aux1.length > 0) {
         const aux = aux1.pop();
         if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
-          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date));
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
           return true;
         }
       }
