@@ -24,6 +24,7 @@ export class ParkComponent implements OnInit{
   constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
+    this.comprobar();
     this.color = CurrentUserData.color;
     let map;
     const options = {
@@ -50,6 +51,26 @@ export class ParkComponent implements OnInit{
           }).addTo(map);
         CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
     }, () => {}, options);
+
+    if(CurrentParkingData.parkPosition != undefined){
+      this.idWatch = navigator.geolocation.watchPosition((position) => {
+
+        const posicion = marker([position.coords.latitude, position.coords.longitude], {
+            icon: icon({
+              iconSize: [ 25, 41 ],
+              iconAnchor: [ 13, 41 ],
+              iconUrl: 'assets/leaflet/images/marker-rojo.png',
+              shadowUrl: 'assets/leaflet/images/marker-shadow.png'
+            })
+          }).addTo(map);
+        CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
+    }, () => {}, options);
+
+
+    }
+
+
+
 
     setInterval(() => {
       this.color = CurrentUserData.color;
@@ -103,6 +124,7 @@ export class ParkComponent implements OnInit{
   }
 
   crearAparcamiento() {
+    CurrentParkingData.parkPosition = CurrentUserData.CurrentPosition;
     this.router.navigateByUrl('parkConfirm');
   }
 
@@ -114,6 +136,7 @@ export class ParkComponent implements OnInit{
         const aux = aux1.pop();
         if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
           CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
+          CurrentParkingData.parkPosition = aux.Coordinates;
           return true;
         }
       }
