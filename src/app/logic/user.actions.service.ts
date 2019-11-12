@@ -12,7 +12,7 @@ import { ExceptionCodes } from '../resources/exception.codes';
 import { CurrentUserData } from '../data/current.user';
 import { Vehicle } from '../Domain/Vehicle';
 import { VehiclesService } from '../services/dao/vehicles.service';
-import { Fare } from '../Domain/Fare';
+import { Tariff } from '../Domain/Tariff';
 import { Park } from '../Domain/Park';
 import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
@@ -154,7 +154,7 @@ export class UserActions {
         }
     }
 
-    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
+    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Tariff) {
         let park = await this.parkService.getEntityAsync(id.toString());
         while (park) {
             id++;
