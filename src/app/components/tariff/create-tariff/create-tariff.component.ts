@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Tariff } from 'src/app/Domain/Tariff';
 
 @Component({
   selector: 'app-create-tariff',
@@ -8,15 +9,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-tariff.component.scss'],
 })
 export class CreateTariffComponent implements OnInit {
-  private createTariff: FormGroup;
+  private createTariffForm: FormGroup;
   constructor(
     router: Router,
-    private formBuilder: FormBuilder) {
-      this.createTariff = this.formBuilder.group({
+    private formBuilder: FormBuilder,
+    ) {
+      this.createTariffForm = this.formBuilder.group({
         Description: ['', Validators.required],
-        Time: ['', Validators.required],
+        Duration: ['', Validators.required],
         Price: ['', Validators.required],
-        realTime: ['false']
+        IsRealTime: ['false']
       })  
     }
 
