@@ -7,19 +7,19 @@
     </ion-toolbar>
   </ion-header>
 <ion-content>
-  <form [formGroup]="createTariff">
+  <form [formGroup]="createTariffForm">
     <ion-list>
       <ion-item>
         <ion-label position="floating">Descripción:</ion-label>
         <ion-input formControlName="Description" type="text" placeholder="Descripcion"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-checkbox formControlName="realTime"></ion-checkbox>
+        <ion-checkbox formControlName="IsRealTime"></ion-checkbox>
         <ion-label>es tiempo real</ion-label>       
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Tiempo:</ion-label>
-        <ion-input formControlName="Time" type="text" placeholder="Tiempo"></ion-input>
+        <ion-label position="floating">Duración:</ion-label>
+        <ion-input formControlName="Duration" type="text" placeholder="Duración"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Precio:</ion-label>
@@ -27,7 +27,7 @@
       </ion-item>
     </ion-list>
     <div padding>
-      <!--<ion-button float-right [disabled]="!createTariff.valid">Aceptar</ion-button>-->
+      <ion-button float-right [disabled]="!createTariffForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
     </div>
   </form>
 </ion-content>
