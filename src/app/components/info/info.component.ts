@@ -20,7 +20,7 @@ export class InfoComponent implements OnInit {
 
   ngOnInit() {
     console.log(this.input);
-    this.items = ['Alberique‎', 'Bétera‎', 'Burjassot', 'Cullera‎', 'El Puig‎ ', 'Fuenterrobles‎', 'Godella‎', 'Madrid', 'Barcelona', 'Leganes', 'Getafe', 'Tarragona', 'Lerida' ];
+    this.items = ['Valencia','Alberique‎', 'Bétera‎', 'Burjassot', 'Cullera‎', 'El Puig‎ ', 'Fuenterrobles‎', 'Godella‎', 'Madrid', 'Barcelona', 'Leganes', 'Getafe', 'Tarragona', 'Lerida' ];
     this.items.sort();
     this.filterItems = this.items;
 
