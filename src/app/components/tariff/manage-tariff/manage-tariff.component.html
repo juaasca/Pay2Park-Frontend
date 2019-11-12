@@ -1,11 +1,15 @@
 <ion-header class="header">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button text="Volver" color="light"></ion-back-button>
+      <ion-back-button color="light"></ion-back-button>
     </ion-buttons>
     <ion-title>TARIFAS</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  
+  <ion-list>
+    <ion-item  *ngFor="let tariff of tariffs"> 
+      <ion-label >{{tariff.Duration}} - {{tariff.IsRealTime}} - {{tariff.Price}}</ion-label>
+    </ion-item>
+  </ion-list> 
 </ion-content>

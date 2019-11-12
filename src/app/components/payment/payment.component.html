@@ -1,28 +1,32 @@
-<ion-header>
-  <ion-toolbar class="font" color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Resumen de tu parada
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-content color ={{color}}>
 
-<ion-content>
-  <ion-card class="welcome-card">
+      <ion-header class="font" style="padding-bottom: 0px;">
+          <ion-toolbar color = {{color}}>
+              <ion-buttons slot="start">
+                  <ion-back-button defaultHref="/main/park"></ion-back-button>
+                </ion-buttons>
+            <ion-title>Selecciona un método de pago</ion-title>
+          </ion-toolbar>
+      </ion-header>
+
+
+
+
+
+
+  <ion-card color = {{color}} class="welcome-card">
     <ion-img src="assets/icon/Logosinfondo.jpg"></ion-img>
-    <ion-card-header class="font">
+    <ion-card-header color = {{color}} class="font">
       <ion-label></ion-label>
       <p></p>
       <!-- <ion-card-title>PayPal Sample</ion-card-title> -->
       <ion-row class="text">
-        <ion-col>
-          Total a pagar
-        </ion-col>
-        <ion-col>
+        <ion-label color = "tertiary">
+          Total a pagar: &nbsp;      
+        </ion-label>
+        <ion-label color = "tertiary" >
           {{paymentAmount}} {{currencyIcon}}
-        </ion-col>
+        </ion-label>
       </ion-row>
     </ion-card-header>
     <ion-card-content class="font">
