@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { TariffService } from 'src/app/services/dao/tariff.service';
-import { Fare } from 'src/app/Domain/Fare';
+import { Tariff } from 'src/app/Domain/Tariff';
 
 @Component({
   selector: 'app-manage-tariff',
@@ -9,7 +9,7 @@ import { Fare } from 'src/app/Domain/Fare';
   styleUrls: ['./manage-tariff.component.scss'],
 })
 export class ManageTariffComponent implements OnInit {
-  private tariffs: Fare[] = [];
+  private tariffs: Tariff[] = [];
 
   constructor(private tariffService: TariffService,private router: Router) { 
     this.updateTariffs();
@@ -21,7 +21,7 @@ export class ManageTariffComponent implements OnInit {
     this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b)));
   }
 
-  sortNameAscending(tariffA: Fare, tariffB: Fare) {
+  sortNameAscending(tariffA: Tariff, tariffB: Tariff) {
     var nameA=tariffA.Price, nameB=tariffB.Price
     if (nameA < nameB)
         return -1 
