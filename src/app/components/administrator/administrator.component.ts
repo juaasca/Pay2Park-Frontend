@@ -20,6 +20,10 @@ export class AdministratorComponent implements OnInit {
     this.router.navigateByUrl('main/admin/manage-checkers');
   }
 
+  manageTariffs() {
+    this.router.navigateByUrl('main/admin/tariff');
+  }
+
   changeToClientView() {
     this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');
