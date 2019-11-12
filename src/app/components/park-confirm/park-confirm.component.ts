@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { CurrentUserData } from 'src/app/data/current.user';
-import { CurrentParkingData } from 'src/app/data/currentParking';
-import { Fare } from 'src/app/Domain/Fare';
+import { Tariff } from 'src/app/Domain/Tariff';
 import { Park } from 'src/app/Domain/Park';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
@@ -17,7 +16,7 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 export class ParkConfirmComponent implements OnInit {
   vehicles: Vehicle[];
   prueba: Park;
-  fare: Fare;
+  fare: Tariff;
   calle: string;
   color: string;
   constructor(private router: Router, private vehiclesService: VehiclesService,private userActions: UserActions) {
@@ -49,7 +48,7 @@ export class ParkConfirmComponent implements OnInit {
   }
 
   aparcarVehiculo(vehiculo: Vehicle){
-    this.prueba = new Park(1,vehiculo,CurrentUserData.CurrentStreet.split(',')[0],CurrentUserData.CurrentPosition, new Fare(true,'',1,1), new Date().toString());
+    this.prueba = new Park(1,vehiculo,CurrentUserData.CurrentStreet.split(',')[0],CurrentUserData.CurrentPosition, new Tariff(true,'',1,1), new Date().toString());
     this.userActions.registerPark(this.prueba.id,this.prueba.Vehicle,this.prueba.Street,this.prueba.Coordinates,this.prueba.Fare);
     this.router.navigateByUrl('main/notification');
   }
@@ -63,5 +62,4 @@ export class ParkConfirmComponent implements OnInit {
       CurrentUserData.CurrentStreet = calle;
     })
   }
-
 }

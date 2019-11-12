@@ -1,4 +1,4 @@
-export class Fare {
+export class Tariff {
     IsRealTime : boolean;
     Duration : number;
     Description : string;
