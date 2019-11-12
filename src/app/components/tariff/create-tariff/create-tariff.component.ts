@@ -11,6 +11,7 @@ import { Tariff } from 'src/app/Domain/Tariff';
 })
 export class CreateTariffComponent implements OnInit {
   private createTariffForm: FormGroup;
+  private isRealTimeChecked: boolean;
   constructor(
     router: Router,
     private formBuilder: FormBuilder,
@@ -24,7 +25,13 @@ export class CreateTariffComponent implements OnInit {
       })  
     }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.isRealTimeChecked = false;
+  }
+
+  checkRealTime(){
+      this.isRealTimeChecked = !this.isRealTimeChecked;
+  }
 
   acceptButtonClicked() {
     var formValue = this.createTariffForm.value;
