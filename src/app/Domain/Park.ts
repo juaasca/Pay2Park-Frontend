@@ -1,17 +1,15 @@
 import { Vehicle } from './Vehicle';
-import { Fare } from './Fare';
-import { VirtualTimeScheduler } from 'rxjs';
-
+import { Tariff } from './Tariff';
 
 export class Park {
     id: number;
     Vehicle: Vehicle;
     Street: string;
     Coordinates: [number, number];
-    Fare: Fare;
+    Fare: Tariff;
     Date: string;
     constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number],
-         fare: Fare, date: string) {
+         fare: Tariff, date: string) {
         this.id = id;
         this.Vehicle = vehicle;
         this.Street = street;
