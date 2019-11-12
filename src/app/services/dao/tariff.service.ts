@@ -1,16 +1,16 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Fare } from 'src/app/Domain/Fare';
 import { PersistenceService } from './persistence.service';
+import { Tariff } from 'src/app/Domain/Tariff';
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class TariffService extends PersistenceService<Fare> {
+export class TariffService extends PersistenceService<Tariff> {
 
     private refTariffs: firebase.database.Reference;
-    private tariffsDataBaseUrl: string = 'fare';
+    private tariffsDataBaseUrl: string = 'tariff';
 
     constructor() {
         super();
