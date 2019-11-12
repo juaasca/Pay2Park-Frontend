@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
 <ion-tabs>
-    <ion-tab-bar class="font" slot="bottom" *ngIf="!HideBar">
-        <ion-tab-button (click)="click('park')">
+    <ion-tab-bar color = {{color}} class="font" slot="bottom" *ngIf="!HideBar">
+        <ion-tab-button  (click)="click('park')">
             <ion-icon name="car"></ion-icon>
             <ion-label>Aparcar</ion-label>
         </ion-tab-button>

@@ -1,18 +1,20 @@
 <ion-app>
-    <ion-header class="font" style="padding-bottom: 0px;">
-        <ion-toolbar>
-            <ion-buttons slot="start">
-                <ion-back-button defaultHref="/main/park"></ion-back-button>
-            </ion-buttons>
-            <ion-title>Selecciona un vehículo</ion-title>
-        </ion-toolbar>
-        <ion-list class="font" *ngFor="let item of vehicles">
-            <ion-card style="font-size: 30px;" button="true" (click)="aparcarVehiculo(item)">
-                <ion-icon name="car"></ion-icon>
-                {{item.Name}}
-                {{item.LicensePlate}}
-                {{item.Description}}
-            </ion-card>
-        </ion-list>
-    </ion-header>
+    <ion-content color={{color}}>
+        <ion-header [ngStyle]="{'color' : color}" class="font" style="padding-bottom: 0px;">
+            <ion-toolbar color={{color}}>
+                <ion-buttons slot="start">
+                    <ion-back-button defaultHref="/main/park"></ion-back-button>
+                </ion-buttons>
+                <ion-title>Selecciona un vehículo</ion-title>
+            </ion-toolbar>
+            <ion-list [ngStyle]="{'color' : color}" class="font" *ngFor="let item of vehicles">
+                <ion-item color={{color}} style="font-size: 30px;" button="true" (click)="aparcarVehiculo(item)">
+                    <ion-icon name="car"></ion-icon>
+                    {{item.Name}}
+                    {{item.LicensePlate}}
+                    {{item.Description}}
+                </ion-item>
+            </ion-list>
+        </ion-header>
+    </ion-content>
 </ion-app>

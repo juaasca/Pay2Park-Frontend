@@ -22,11 +22,16 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { InfoComponent } from './components/info/info.component';
 
 const routes: Routes = [
     {
         path: 'authentication',
         component: AuthenticationComponent
+    },
+    {
+        path: 'payment',
+        component: PaymentComponent
     },
     {
         path: 'main',
@@ -101,6 +106,10 @@ const routes: Routes = [
     {
         path: 'parkConfirm',
         component: ParkConfirmComponent
+    },
+    {
+        path: 'info',
+        component: InfoComponent
     },
     {
         path: 'anadir-vehiculo',

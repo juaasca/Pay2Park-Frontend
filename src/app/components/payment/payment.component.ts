@@ -1,6 +1,10 @@
-import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { CurrentUserData } from 'src/app/data/current.user';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { CurrentParkingData } from 'src/app/data/currentParking';
+import { ParkService } from 'src/app/services/dao/parks.service';
 
 declare var paypal;
 
@@ -9,8 +13,20 @@ declare var paypal;
   templateUrl: './payment.component.html',
   styleUrls: ['./payment.component.scss']
 })
-export class PaymentComponent {
-  constructor(private payPal: PayPal) {
+export class PaymentComponent  implements OnInit{
+  paymentAmount: string = '0.30';
+  currency: string = 'EUR';
+  currencyIcon: string = '€';
+ 
+  ngOnInit(){
+    this.color = CurrentUserData.color;
+    this.paymentAmount = CurrentUserData.price;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
+  }
+  color:string;
+  constructor(private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService) {
     
     let _this = this;
     setTimeout(() => {
@@ -43,9 +59,6 @@ export class PaymentComponent {
     }, 500)
   }
 
-  paymentAmount: string = '0.30';
-  currency: string = 'EUR';
-  currencyIcon: string = '€';
 
   payWithPaypal() {
     console.log("Pay ????");

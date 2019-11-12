@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { AlertController } from '@ionic/angular';
 import { Park } from '../../Domain/Park';
 import { CurrentUserData } from 'src/app/data/current.user';
@@ -9,6 +9,8 @@ import { PaymentComponent } from '../payment/payment.component';
 import { ProviderAstType } from '@angular/compiler';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router } from '@angular/router';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-notification',
     templateUrl: './notification.component.html',
@@ -18,13 +20,16 @@ export class NotificationComponent implements OnInit {
     park: Park;
     time: number;
     calle: string;
+    color: string;
     constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
-        private payPal: PayPal, private router: Router
+        private payPal: PayPal, private router: Router, private darkMode: DarkModeService
     ) {
     }
     precio = 2.3;
 
     ngOnInit() {
+        this.time = 0;
+        this.color = CurrentUserData.color;
         this.comprobar();
         if (CurrentParkingData.park) {
             this.park = CurrentParkingData.park;
@@ -33,6 +38,7 @@ export class NotificationComponent implements OnInit {
         }
         this.calle = 'Todavia no has aparcado';
         setInterval(() => {
+            this.color = CurrentUserData.color;
             this.actualizar();
         }, 1000);
     }
@@ -43,8 +49,10 @@ export class NotificationComponent implements OnInit {
             this.time = this.park.getCurrentTime();
             this.calle = this.park.Street;
             this.time = this.park.getCurrentTime();
-            this.precio = 0.01666 * this.time;
-            console.log(this.precio);
+            this.precio = 1 + 0.20 * this.time;
+        } else {
+            this.calle = 'Todavia no has aparcado';
+            this.time = 0;
         }
     }
 
@@ -52,12 +60,11 @@ export class NotificationComponent implements OnInit {
         if (CurrentParkingData.park) {
             const alert = await this.alertController.create({
                 header: '¿Terminar Estacionamiento?',
-                message: 'El precio sera de: ' + '0.30',
+                message: 'El precio sera de: ' + this.precio.toString(),
                 buttons: [
                     {
                         text: 'Cancelar',
                         role: 'cancel',
-                        cssClass: 'secondary',
                         handler: () => {
                             console.log('Confirm Cancel');
                         }
@@ -79,39 +86,28 @@ export class NotificationComponent implements OnInit {
                     handler: () => {
                         this.router.navigateByUrl('main/park');
                     }
-                }
-                ]
+                }]
             });
-
-            await alert.present();
         }
     }
+
 
     confirmPagar() {
         this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
         CurrentParkingData.park = null;
-        this.calle = 'Todavia no has aparcado';
-        this.time = 0;
-        this.payWithPaypal();
-        console.log(this.park.getCurrentTime());
+        CurrentUserData.price = this.precio.toString();
+        this.router.navigateByUrl('payment');
     }
 
     comprobar() {
         // if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
         if (CurrentUserData.LoggedUser) {
-            let aux1 = CurrentParkingData.parks;
+            const aux1 = CurrentParkingData.parks;
             while (aux1.length > 0) {
-                let aux = aux1.pop();
+                const aux = aux1.pop();
                 if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
-                    CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date));
+                    CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
                 }
             }
         }
     }
-
-    payWithPaypal() {
-        CurrentUserData.price = '0.1666';
-        this.router.navigateByUrl('main/wallet');
-    }
-
-}

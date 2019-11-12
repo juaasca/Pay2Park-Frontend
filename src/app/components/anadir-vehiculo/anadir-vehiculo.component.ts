@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { UserActions } from 'src/app/logic/user.actions.service';
@@ -6,6 +6,8 @@ import { UsernameValidatorService } from 'src/app/services/validators/username.v
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 @Component({
   selector: 'app-anadir-vehiculo',
@@ -13,34 +15,38 @@ import { Router } from '@angular/router';
   styleUrls: ['./anadir-vehiculo.component.scss'],
 })
 export class AnadirVehiculoComponent implements OnInit {
+  public color: string;
   private registration: FormGroup;
-  constructor(private formBuilder: FormBuilder,
-		            private userActions: UserActions,
-		            private usernameValidator: UsernameValidatorService,
-                private alertController: AlertController,
-                private router: Router) {
+  constructor(private formBuilder: FormBuilder, private userActions: UserActions, private usernameValidator: UsernameValidatorService,
+    private alertController: AlertController,
+    private darkMode: DarkModeService,
+    private router: Router) {
 
     this.registration = this.formBuilder.group({
-			Matricula: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.pattern('^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$')
-				])),
-			Marca: new FormControl('', Validators.compose([
-					Validators.required
-				])),
-			Modelo: new FormControl('', Validators.compose([
-					Validators.required
-				]))
-		});
+      Matricula: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[0-9]{4}[BCDFGHJKLMNPRSTVWXYZ]{3}$')
+      ])),
+      Marca: new FormControl('', Validators.compose([
+        Validators.required
+      ])),
+      Modelo: new FormControl('', Validators.compose([
+        Validators.required
+      ]))
+    });
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
+  }
   anadirVehiculo() {
-    if(CurrentUserData.LoggedUser){
-    var formValue = this.registration.value;
-    this.userActions.registerVehicle(formValue.Matricula,formValue.Marca,formValue.Modelo,[CurrentUserData.LoggedUser.Email]);
-    this.router.navigateByUrl('main/profile');
-    }else{console.log('No estas logueado');}
+    if (CurrentUserData.LoggedUser) {
+      var formValue = this.registration.value;
+      this.userActions.registerVehicle(formValue.Matricula, formValue.Marca, formValue.Modelo, [CurrentUserData.LoggedUser.Email]);
+      this.router.navigateByUrl('main/profile');
+    } else { console.log('No estas logueado'); }
   }
 }

@@ -1,9 +1,12 @@
+
 <ion-header>
-  <ion-toolbar>
+  <ion-toolbar color ={{color}}>
     <ion-title class="font">Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-item class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+<ion-content color={{color}}>
+  <ion-item color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+  <ion-item color={{color}} class="font" (click)="modoOscuro()" detail>Modo Oscuro</ion-item>
+  <ion-item color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
 </ion-content>

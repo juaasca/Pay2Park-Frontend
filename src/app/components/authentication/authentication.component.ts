@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 
@@ -6,20 +6,24 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 import { ExceptionCodes } from 'src/app/resources/exception.codes';
 import { ExceptionMessages } from 'src/app/resources/exception.messages';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+import { AlertController } from '@ionic/angular';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-authentication',
     templateUrl: './authentication.component.html',
     styleUrls: ['./authentication.component.scss'],
 })
-export class AuthenticationComponent implements OnInit {
-
+export class AuthenticationComponent implements OnInit, OnDestroy {
+    color: string;
     public loginForm: FormGroup;
-
+    suscription: Subscription;
     constructor(private router: Router,
         private userActions: UserActions,
-        private formBuilder: FormBuilder) {
-
+        private formBuilder: FormBuilder,
+        private darkMode: DarkModeService,
+        private alertController: AlertController) {
         this.loginForm = this.formBuilder.group({
             Email: new FormControl('', Validators.compose([
                 Validators.required,
@@ -35,6 +39,12 @@ export class AuthenticationComponent implements OnInit {
 
     ngOnInit() {
         this.userActions.getParks();
+        this.suscription = this.darkMode.color.subscribe(color => {
+            this.color = color;
+        })
+    }
+    ngOnDestroy() {
+        this.suscription.unsubscribe();
     }
 
     logWithGoogle() {

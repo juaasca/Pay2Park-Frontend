@@ -3,7 +3,7 @@ import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { ParkService } from 'src/app/services/dao/parks.service';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { Park } from 'src/app/Domain/Park';
-import { Fare } from 'src/app/Domain/Fare';
+import { Tariff } from 'src/app/Domain/Tariff';
 
 @Component({
   selector: 'app-check-plate',
@@ -22,7 +22,7 @@ export class CheckPlateComponent implements OnInit {
   async ngOnInit() {
     //await this.receivePlate(SelectedPlate.selectedPlate);
     this.vehicle = new Vehicle("0123ABC", "Opel", "Astra", ["tester@test.es", "test@test.es"]);
-    this.park = new Park(1, this.vehicle, "Calle del Flow", [1,2], new Fare(true, "Esto es una prueba", 2, 20));
+    this.park = new Park(1, this.vehicle, "Calle del Flow", [1,2], new Tariff(true, "Esto es una prueba", 2, 20),(new Date()).toString());
 
     this.parkIsNull = this.park === undefined;
 

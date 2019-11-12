@@ -7,4 +7,5 @@ export class CurrentUserData {
     public static CurrentStreet : string;
     public static LoggedUser: Person = null;
     public static price : string = null;
+    public static color : string = 'light';
 }
