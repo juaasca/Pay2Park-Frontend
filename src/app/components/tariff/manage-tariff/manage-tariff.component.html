@@ -8,8 +8,11 @@
 </ion-header>
 <ion-content>
   <ion-list>
-    <ion-item  *ngFor="let tariff of tariffs"> 
-      <ion-label >{{tariff.Duration}} - {{tariff.IsRealTime}} - {{tariff.Price}}</ion-label>
+    <ion-item *ngFor="let tariff of tariffs">
+      <ion-label> - Duración: {{tariff.Duration}} min<br> - Es tiempo real: {{tariff.IsRealTime}}<br> - Precio: {{tariff.Price}}€ </ion-label>
+      <ion-button>
+        <ion-icon name="Create"></ion-icon>
+      </ion-button>
     </ion-item>
-  </ion-list> 
+  </ion-list>
 </ion-content>
