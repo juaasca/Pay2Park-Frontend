@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { ExceptionCodes } from 'src/app/resources/exception.codes';
 import { ExceptionMessages } from 'src/app/resources/exception.messages';
-import { AlertController } from '@ionic/angular';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 @Component({
     selector: 'app-authentication',
@@ -18,8 +18,7 @@ export class AuthenticationComponent implements OnInit {
 
     constructor(private router: Router,
         private userActions: UserActions,
-        private formBuilder: FormBuilder,
-        private alertController: AlertController) {
+        private formBuilder: FormBuilder) {
 
         this.loginForm = this.formBuilder.group({
             Email: new FormControl('', Validators.compose([
@@ -36,7 +35,7 @@ export class AuthenticationComponent implements OnInit {
 
     ngOnInit() {
         this.userActions.getParks();
-     }
+    }
 
     logWithGoogle() {
         this.userActions.signinUserAsync();
@@ -56,7 +55,7 @@ export class AuthenticationComponent implements OnInit {
         this.userActions.loginUserAsync(formValue.Email, formValue.Password)
             .catch(async (error) => {
                 var message = '';
-                
+
                 switch (error.code) {
                     case ExceptionCodes.invalidEmail: {
                         message = ExceptionMessages.invalidEmail;
@@ -97,7 +96,7 @@ export class AuthenticationComponent implements OnInit {
                 },
             ],
         });
-    
+
         await alert.present();
     }
 }

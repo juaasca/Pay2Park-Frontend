@@ -1,42 +1,43 @@
 <ion-card style="height: 100%;">
-        <ion-card-header>
-            <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
-            <!--<ion-img [src]="'assets/icon/logoUbicación.png'"></ion-img> -->
-        </ion-card-header>
-        <ion-card-content>
-            <form [formGroup]="loginForm" (ngSumbit)="logIn()">
-                <div style="padding-bottom: 10px;">
+    <ion-card-header>
+        <ion-img [src]="'assets/icon/Logosinfondo.jpg'"></ion-img>
+        <!--<ion-img [src]="'assets/icon/logoUbicación.png'"></ion-img> -->
+    </ion-card-header>
+    <ion-card-content>
+        <form [formGroup]="loginForm" (ngSumbit)="logIn()">
+            <div style="padding-bottom: 10px;">
                 <ion-chip class="font">
                     <ion-icon name="contact"></ion-icon>
                     <ion-input formControlName="Email" type="text" placeholder="Email"></ion-input>
                 </ion-chip>
-                </div>
+            </div>
 
-                <div>
+            <div>
                 <ion-chip class="font">
                     <ion-icon name="key"></ion-icon>
                     <ion-input formControlName="Password" placeholder="Contraseña" type="password"></ion-input>
                 </ion-chip>
-                </div>
-                <br>
-                <ion-label class="font" (click)="forgot()" color="primary" style="padding-left: 8px; padding-top: 15px;  ">
-                    <u>
-                        <b>
-                            He olvidado mi contraseña
-                        </b>
-                    </u>
-                </ion-label>
-                <ion-button class="font" style="margin-top: 10px; width: 100%;" shape="round" (click)="logIn()">
-                    Acceder
+            </div>
+            <br>
+            <ion-label class="font" (click)="forgot()" color="primary" style="padding-left: 8px; padding-top: 15px;  ">
+                <u>
+                    <b>
+                        He olvidado mi contraseña
+                    </b>
+                </u>
+            </ion-label>
+            <ion-button class="font" style="margin-top: 10px; width: 100%;" shape="round" (click)="logIn()">
+                Acceder
+            </ion-button>
+            <section>
+                <ion-button class="font" style="width: 48.5%" shape="round" (click)="logWithGoogle()">
+                    <ion-img style="width: 30px; margin-right: 15px " [src]="'assets/icon/googleLogo.png'"></ion-img>
+                    Google
                 </ion-button>
-                <section>
-                    <ion-button class="font" style="width: 48.5%" shape="round" (click)="logWithGoogle()">
-                        <ion-img style="width: 30px; margin-right: 15px " [src]="'assets/icon/googleLogo.png'"></ion-img>
-                        Google
-                    </ion-button>
-                    <ion-button class="font" style="width: 48.5%" shape="round" (click)="register()">Registrarse</ion-button>
-                </section>
-            </form>
-    
-        </ion-card-content>
-    </ion-card>
+                <ion-button class="font" style="width: 48.5%" shape="round" (click)="register()">Registrarse
+                </ion-button>
+            </section>
+        </form>
+
+    </ion-card-content>
+</ion-card>

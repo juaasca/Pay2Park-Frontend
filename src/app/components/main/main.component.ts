@@ -3,18 +3,18 @@ import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit {
-    private isAdmin: boolean;
-    private isChecker: boolean;
+    public isAdmin: boolean;
+    public isChecker: boolean;
     public HideBar: boolean = false;
     public AdminWindow: boolean = false;
     CheckerWindow: boolean;
 
-    constructor(private router: Router) {    
+    constructor(private router: Router) {
     }
 
     ngOnInit() {
@@ -26,7 +26,7 @@ export class MainComponent implements OnInit {
         switch (tab) {
             case "park":
                 this.router.navigateByUrl('main/park');
-                
+
                 break;
             case "notifications":
                 this.router.navigateByUrl('main/notification');

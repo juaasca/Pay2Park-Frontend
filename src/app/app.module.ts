@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PayPal } from '@ionic-native/paypal/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AgmCoreModule } from '@agm/core';
 
 import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
@@ -77,10 +78,10 @@ import { CreateCheckerComponent } from './components/administrator/manage.checke
         AppRoutingModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
-          }),
+        }),
         ReactiveFormsModule],
     providers: [
-        
+        LocalNotifications,
         StatusBar,
         SplashScreen,
         PayPal,
@@ -88,7 +89,7 @@ import { CreateCheckerComponent } from './components/administrator/manage.checke
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
         Camera,
-        OpenALPR    
+        OpenALPR
     ],
     bootstrap: [AppComponent]
 })

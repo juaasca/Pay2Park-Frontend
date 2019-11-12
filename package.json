@@ -25,6 +25,7 @@
     "@ionic-native/core": "^5.0.0",
     "@ionic-native/geolocation": "^5.15.0",
     "@ionic-native/in-app-browser": "^5.15.1",
+    "@ionic-native/local-notifications": "^5.16.0",
     "@ionic-native/openalpr": "^5.15.1",
     "@ionic-native/paypal": "^5.15.1",
     "@ionic-native/splash-screen": "^5.0.0",
@@ -33,6 +34,9 @@
     "card.io.cordova.mobilesdk": "^2.1.0",
     "com.paypal.cordova.mobilesdk": "^3.5.0",
     "cordova-android": "^8.1.0",
+    "cordova-plugin-badge": "^0.8.8",
+    "cordova-plugin-inappbrowser": "^3.1.0",
+    "cordova-plugin-local-notification": "^0.9.0-beta.2",
     "cordova-plugin-openalpr": "^2.1.0",
     "cordova-plugin-stripe": "^1.5.3",
     "core-js": "^2.5.4",
@@ -91,7 +95,8 @@
       "cordova-plugin-stripe": {},
       "cordova-plugin-inappbrowser": {},
       "com.paypal.cordova.mobilesdk": {},
-      "cordova-plugin-openalpr": {}
+      "cordova-plugin-openalpr": {},
+      "cordova-plugin-local-notification": {}
     },
     "platforms": [
       "android"
