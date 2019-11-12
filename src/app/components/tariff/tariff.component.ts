@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Tariff } from 'src/app/Domain/Tariff';
 
 @Component({
   selector: 'app-tariff',
@@ -8,7 +9,7 @@ import { Router } from '@angular/router';
 })
 export class TariffComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router){}
 
   ngOnInit() {}
 
