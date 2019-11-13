@@ -99,10 +99,11 @@ export class UserActions {
                 // Para añadir administrador
                 // this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
-                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, 0);
-
+                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet);
+                CurrentUserData.wallet = result.additionalUserInfo.profile.wallet;
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
+                
                 
                 this.router.navigateByUrl('main/park');
             })
@@ -132,6 +133,7 @@ export class UserActions {
                 }
 
                 CurrentUserData.LoggedUser = currentClient;
+                CurrentUserData.wallet = currentClient.Wallet;
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
 

@@ -1,4 +1,4 @@
-
+import { CurrentUserData } from 'src/app/data/current.user';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { UserActions } from 'src/app/logic/user.actions.service';
@@ -10,7 +10,9 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 })
 export class WalletComponent implements OnInit {
   private cartera: FormGroup;
-
+  email = CurrentUserData.LoggedUser.Email;
+  saldo = CurrentUserData.wallet;
+  
   constructor(
     private formBuilder: FormBuilder,
     private userActions : UserActions

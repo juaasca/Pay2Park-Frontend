@@ -8,4 +8,5 @@ export class CurrentUserData {
     public static LoggedUser: Person = null;
     public static price : string = null;
     public static color : string = 'light';
+    public static wallet : number = 11;
 }
