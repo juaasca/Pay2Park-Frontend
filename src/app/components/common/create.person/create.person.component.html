@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title>Crear cuenta</ion-title>
+    <ion-title>{{componentTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -89,6 +89,6 @@
     </ion-list>
   </form>
   <div align="center">
-    <ion-button class="font-style" [disabled]="!creatingPersonForm.valid" (click)="saveData()" color="primary">Crear</ion-button>
+    <ion-button class="font-style" [disabled]="!creatingPersonForm.valid" (click)="saveData()" color="primary">{{buttonTitle}}</ion-button>
   </div>
 </ion-content>

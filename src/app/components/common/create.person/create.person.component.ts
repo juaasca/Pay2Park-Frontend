@@ -10,6 +10,8 @@ import { ExceptionMessages } from 'src/app/resources/exception.messages';
 export abstract class CreatePersonComponent<T> implements OnInit {
   protected creatingPersonForm: FormGroup;
   protected backRoute: string;
+  protected componentTitle: string;
+  protected buttonTitle: string;
   
   constructor(
     protected formBuilder: FormBuilder,

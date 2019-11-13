@@ -20,6 +20,8 @@ export class RegistrationComponent extends CreatePersonComponent<Client> impleme
     ) {
         super(formBuilder, alertController, router);
         this.backRoute = 'authentication';
+        this.componentTitle = 'Crear cuenta';
+        this.buttonTitle = 'Crear cuenta';
     }
 
     ngOnInit() { }
