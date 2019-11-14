@@ -18,4 +18,10 @@ export class Tariff {
     public static getIdentifier(isRealTime: boolean, description: string, price: number, duration: number) {
         return StringUtils.getHashCode(`${isRealTime}${description}${price}${duration}`);
     }
+
+    public Equals(otherTariff: Tariff) {
+        return this.Description === otherTariff.Description && this.Duration === otherTariff.Duration
+            && this.Identifier === otherTariff.Identifier && this.IsRealTime === otherTariff.IsRealTime
+            && this.Price === otherTariff.Price;
+    }
 }
