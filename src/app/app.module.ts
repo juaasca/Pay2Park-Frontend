@@ -45,6 +45,7 @@ import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
+import { EditTariffComponent } from './components/tariff/edit-tariff/edit-tariff.component';
 
 @NgModule({
     declarations: [
@@ -77,7 +78,8 @@ import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-
         CreateCheckerComponent,
         TariffComponent,
         CreateTariffComponent,
-        ManageTariffComponent
+        ManageTariffComponent,
+        EditTariffComponent
     ],
     entryComponents: [],
     imports: [
