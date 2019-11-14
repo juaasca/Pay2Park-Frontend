@@ -9,6 +9,6 @@ export class TariffActionsService {
   constructor(private tariffService: TariffService) { }
 
   registerNewTariffAsync(tariff: Tariff) {
-    return this.tariffService.addEntityAsync(undefined, tariff);
+    return this.tariffService.addEntityAsync(tariff.Identifier, tariff);
   }
 }

@@ -27,11 +27,7 @@ export abstract class PersistenceService<T> {
     }
 
     public addEntityAsync(key: string, entity: T) {
-        if (key === undefined) {
-            return this.databaseRef.push(entity);
-        } else {
-            return this.databaseRef.child(key.replace('.', '&&').toLowerCase()).set(entity);
-        }
+        return this.databaseRef.child(key.replace('.', '&&').toLowerCase()).set(entity);
     }
 
     public getEntityAsync(key: string) {
