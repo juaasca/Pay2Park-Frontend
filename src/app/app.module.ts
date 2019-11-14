@@ -45,10 +45,7 @@ import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
-<<<<<<< HEAD
-=======
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
->>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
 
 @NgModule({
     declarations: [
@@ -81,12 +78,8 @@ import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff
         CreateCheckerComponent,
         TariffComponent,
         CreateTariffComponent,
-<<<<<<< HEAD
-        ManageTariffComponent
-=======
         ManageTariffComponent,
         ViewTariffComponent
->>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
     ],
     entryComponents: [],
     imports: [

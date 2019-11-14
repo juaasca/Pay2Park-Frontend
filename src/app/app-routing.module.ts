@@ -24,17 +24,11 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
 import { InfoComponent } from './components/info/info.component';
-<<<<<<< HEAD
-import { TariffComponent } from './components/tariff/tariff.component';
-import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
-import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
-=======
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
->>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
 
 const routes: Routes = [
     {
@@ -113,13 +107,10 @@ const routes: Routes = [
                         path: 'tariff/manage-tariff',
                         component: ManageTariffComponent
                     },
-<<<<<<< HEAD
-=======
                     {
                         path: 'tariff/view-tariff',
                         component: ViewTariffComponent
                     }
->>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
                 ]
             },
             {
