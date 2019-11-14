@@ -22,6 +22,9 @@ export class ParkConfirmComponent implements OnInit {
     fare: Tariff;
     calle: string;
     color: string;
+    tariffs: Tariff[];
+
+    
     constructor(private router: Router,
         private vehiclesService: VehiclesService,
         private userActions: UserActions,
@@ -50,6 +53,8 @@ export class ParkConfirmComponent implements OnInit {
         setInterval(() => {
             this.color = CurrentUserData.color;
         }, 1000);
+        this.fare = new Tariff(true,'Tiempo Real',0.1,0);
+        this.tariffs = [this.fare] ;
     }
 
     vehiculosUsuario(vehicles: Vehicle[]) {
@@ -65,6 +70,7 @@ export class ParkConfirmComponent implements OnInit {
 
     aparcarVehiculo(vehiculo: Vehicle) {
         this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, new Tariff(true, '', 1, 1), new Date().toString());
+        CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.sendNotifications();
         this.router.navigateByUrl('main/notification');
