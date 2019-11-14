@@ -6,12 +6,12 @@ import { Tariff } from 'src/app/Domain/Tariff';
 import { SelectedTariff } from '../selected.tariff';
 
 @Component({
-  selector: 'app-edit-tariff',
-  templateUrl: './edit-tariff.component.html',
-  styleUrls: ['./edit-tariff.component.scss'],
+  selector: 'app-view-tariff',
+  templateUrl: './view-tariff.component.html',
+  styleUrls: ['./view-tariff.component.scss'],
 })
-export class EditTariffComponent implements OnInit {
-  private checkTariffForm: FormGroup;
+export class ViewTariffComponent implements OnInit {
+  private viewTariffForm: FormGroup;
   private isRealTimeChecked: boolean;
   private originalTariff: Tariff;
   constructor(
@@ -25,7 +25,7 @@ export class EditTariffComponent implements OnInit {
     this.originalTariff = new Tariff(false, "Una descripción de prueba.", 10, 40);
     this.isRealTimeChecked = false;
 
-    this.checkTariffForm = this.formBuilder.group({
+    this.viewTariffForm = this.formBuilder.group({
       Description: [this.originalTariff.Description, Validators.required],
       Duration: [this.originalTariff.Duration, Validators.required],
       Price: [this.originalTariff.Price, Validators.required],
@@ -38,7 +38,7 @@ export class EditTariffComponent implements OnInit {
   }
 
   acceptButtonClicked() {
-    var formValue = this.checkTariffForm.value;
+    var formValue = this.viewTariffForm.value;
 
     let tariffToCreate = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
 
@@ -47,7 +47,7 @@ export class EditTariffComponent implements OnInit {
   }
 
   hasBeenModified() {
-    var formValue = this.checkTariffForm.value;
+    var formValue = this.viewTariffForm.value;
     var currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
 
     return this.originalTariff === currentTariff;

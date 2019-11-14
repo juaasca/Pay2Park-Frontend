@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditTariffComponent } from './edit-tariff.component';
+import { ViewTariffComponent } from './view-tariff.component';
 
 describe('EditTariffComponent', () => {
-  let component: EditTariffComponent;
-  let fixture: ComponentFixture<EditTariffComponent>;
+  let component: ViewTariffComponent;
+  let fixture: ComponentFixture<ViewTariffComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ EditTariffComponent ],
+      declarations: [ ViewTariffComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditTariffComponent);
+    fixture = TestBed.createComponent(ViewTariffComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

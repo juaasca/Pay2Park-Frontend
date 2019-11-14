@@ -28,7 +28,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
-import { EditTariffComponent } from './components/tariff/edit-tariff/edit-tariff.component';
+import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 
 const routes: Routes = [
     {
@@ -109,7 +109,7 @@ const routes: Routes = [
                     },
                     {
                         path: 'tariff/view-tariff',
-                        component: EditTariffComponent
+                        component: ViewTariffComponent
                     }
                 ]
             },

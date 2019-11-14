@@ -7,7 +7,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-<form [formGroup]="checkTariffForm">
+<form [formGroup]="viewTariffForm">
   <ion-list>
     <ion-item>
       <ion-label position="floating">Descripción:</ion-label>
@@ -27,7 +27,7 @@
     </ion-item>
   </ion-list>
   <div padding>
-    <ion-button float-right [disabled]="!checkTariffForm.valid && hasBeenModified()" (click)="acceptButtonClicked()">Modificar datos</ion-button>
+    <ion-button float-right [disabled]="!viewTariffForm.valid && hasBeenModified()" (click)="acceptButtonClicked()">Modificar datos</ion-button>
   </div>
 </form>
 </ion-content>
