@@ -6,7 +6,7 @@ import { Park } from 'src/app/Domain/Park';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
-import { AlertController, Platform } from '@ionic/angular';
+import { AlertController, Platform, LoadingController } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 
@@ -30,6 +30,7 @@ export class ParkConfirmComponent implements OnInit {
         private userActions: UserActions,
         private alertController: AlertController,
         private platform: Platform,
+        private loadingController: LoadingController,
         private localNotification: LocalNotifications) {
         //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
         this.vehicles = [];
@@ -69,11 +70,11 @@ export class ParkConfirmComponent implements OnInit {
     }
 
     aparcarVehiculo(vehiculo: Vehicle) {
+        this.carga();
         this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, new Tariff(true, '', 1, 1), new Date().toString());
         CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.sendNotifications();
-        this.router.navigateByUrl('main/notification');
     }
 
     simpleReverseGeocoding(lon, lat) {
@@ -126,5 +127,18 @@ export class ParkConfirmComponent implements OnInit {
             message: msg,
             buttons: ['Ok']
         }).then(alert => alert.present());
+    }
+
+    async carga(){
+        const loading = await this.loadingController.create({
+            message: 'Aparcando',
+            duration: 2000
+          });
+          await loading.present();
+      
+          const { role, data } = await loading.onDidDismiss();
+
+          
+        this.router.navigateByUrl('main/notification');
     }
 }
