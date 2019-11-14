@@ -8,6 +8,7 @@ import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController, Platform } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+import { CurrentParkingData } from 'src/app/data/currentParking';
 
 
 @Component({
@@ -21,6 +22,9 @@ export class ParkConfirmComponent implements OnInit {
     fare: Tariff;
     calle: string;
     color: string;
+    tariffs: Tariff[];
+
+    
     constructor(private router: Router, private vehiclesService: VehiclesService, private userActions: UserActions) {
         //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
         this.vehicles = [];
@@ -36,6 +40,8 @@ export class ParkConfirmComponent implements OnInit {
         setInterval(() => {
             this.color = CurrentUserData.color;
         }, 1000);
+        this.fare = new Tariff(true,'Tiempo Real',0.1,0);
+        this.tariffs = [this.fare] ;
     }
 
     vehiculosUsuario(vehicles: Vehicle[]) {
@@ -51,6 +57,7 @@ export class ParkConfirmComponent implements OnInit {
 
     aparcarVehiculo(vehiculo: Vehicle) {
         this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, new Tariff(true, '', 1, 1), new Date().toString());
+        CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.router.navigateByUrl('main/notification');
     }
