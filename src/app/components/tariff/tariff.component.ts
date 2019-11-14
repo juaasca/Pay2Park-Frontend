@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Tariff } from 'src/app/Domain/Tariff';
 import { TariffService } from 'src/app/services/dao/tariff.service';
+import { SelectedTariff } from './selected.tariff';
 
 @Component({
   selector: 'app-tariff',
@@ -23,6 +24,12 @@ export class TariffComponent implements OnInit {
     this.router.navigateByUrl('main/admin/tariff/create-tariff');
   }
 
+  manage(tariff){
+    var selectedTariff = <Tariff> tariff;
+    SelectedTariff.selectedTariff = selectedTariff;
+    this.router.navigateByUrl('main/admin/tariff/view-tariff');
+  }
+
   updateTariffs(){
     this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b)));
   }
@@ -35,5 +42,4 @@ export class TariffComponent implements OnInit {
         return 1
     return 0
   }
-
 }

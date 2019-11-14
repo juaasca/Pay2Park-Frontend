@@ -11,9 +11,9 @@ import { SelectedTariff } from '../selected.tariff';
   styleUrls: ['./view-tariff.component.scss'],
 })
 export class ViewTariffComponent implements OnInit {
+  private selectedTariff: Tariff = null;
   private viewTariffForm: FormGroup;
   private isRealTimeChecked: boolean;
-  private originalTariff: Tariff;
   constructor(
     router: Router,
     private formBuilder: FormBuilder,
@@ -22,14 +22,14 @@ export class ViewTariffComponent implements OnInit {
     }
 
   ngOnInit() {
-    this.originalTariff = new Tariff(false, "Una descripción de prueba.", 10, 40);
-    this.isRealTimeChecked = false;
+    this.selectedTariff = SelectedTariff.selectedTariff;
+    this.isRealTimeChecked = SelectedTariff.selectedTariff.IsRealTime;
 
     this.viewTariffForm = this.formBuilder.group({
-      Description: [this.originalTariff.Description, Validators.required],
-      Duration: [this.originalTariff.Duration, Validators.required],
-      Price: [this.originalTariff.Price, Validators.required],
-      IsRealTime: [this.originalTariff.IsRealTime]
+      Description: [this.selectedTariff.Description, Validators.required],
+      Duration: [this.selectedTariff.Duration, Validators.required],
+      Price: [this.selectedTariff.Price, Validators.required],
+      IsRealTime: [this.selectedTariff.IsRealTime]
     })
   }
 
@@ -50,7 +50,7 @@ export class ViewTariffComponent implements OnInit {
     var formValue = this.viewTariffForm.value;
     var currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
 
-    return this.originalTariff === currentTariff;
+    return this.selectedTariff === currentTariff;
   }
 
 }
