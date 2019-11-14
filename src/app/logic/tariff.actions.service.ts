@@ -11,4 +11,9 @@ export class TariffActionsService {
   registerNewTariffAsync(tariff: Tariff) {
     return this.tariffService.addEntityAsync(tariff.Identifier, tariff);
   }
+
+  updateExistingTariffAsync(originalTariff: Tariff, updatedTariff: Tariff) {
+    return this.tariffService.deleteEntityAsync(originalTariff.Identifier)
+      .then(() => { return this.tariffService.addEntityAsync(updatedTariff.Identifier, updatedTariff) });
+  }
 }
