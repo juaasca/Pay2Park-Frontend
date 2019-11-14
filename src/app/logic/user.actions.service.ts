@@ -81,6 +81,10 @@ export class UserActions {
         return firebase.auth().sendPasswordResetEmail(email);
     }
 
+    public updateWallet(email: string, operation: boolean, value: number) {
+        //this.clientService.refClients.child(email).set(null);
+    }
+ 
     // Registrarse o login con google
     public async signinUserAsync() {
         const provider = new firebase.auth.GoogleAuthProvider();

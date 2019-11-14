@@ -31,6 +31,7 @@ export class WalletComponent implements OnInit {
   anyadirSaldo(){
     var formValue = this.cartera.value;
     console.log(formValue.dinero);
+    this.userActions.updateWallet(this.email, true, 10);
     //this.userActions... añadir saldo
   }
 
