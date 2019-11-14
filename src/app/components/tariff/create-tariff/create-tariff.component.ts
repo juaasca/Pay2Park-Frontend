@@ -19,7 +19,7 @@ export class CreateTariffComponent implements OnInit {
     ) {
       this.createTariffForm = this.formBuilder.group({
         Description: ['', Validators.required],
-        Duration: [''],
+        Duration: ['', Validators.required],
         Price: ['', Validators.required],
         IsRealTime: ['false']
       })  
@@ -31,6 +31,12 @@ export class CreateTariffComponent implements OnInit {
 
   checkRealTime(){
       this.isRealTimeChecked = !this.isRealTimeChecked;
+      
+      if (this.isRealTimeChecked) {
+        this.createTariffForm.controls['Duration'].setValue(0);
+      } else {
+        this.createTariffForm.controls['Duration'].setValue('');
+      }
   }
 
   acceptButtonClicked() {
