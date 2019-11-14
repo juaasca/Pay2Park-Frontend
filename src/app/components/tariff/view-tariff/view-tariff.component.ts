@@ -19,18 +19,23 @@ export class ViewTariffComponent implements OnInit {
     private formBuilder: FormBuilder,
     private tariffActionsService: TariffActionsService
     ) {
+      this.viewTariffForm = this.formBuilder.group({
+        Description: ['', Validators.required],
+        Duration: ['', Validators.required],
+        Price: ['', Validators.required],
+        IsRealTime: ['']
+      })
     }
 
   ngOnInit() {
     this.selectedTariff = SelectedTariff.selectedTariff;
-    this.isRealTimeChecked = SelectedTariff.selectedTariff.IsRealTime;
-
-    this.viewTariffForm = this.formBuilder.group({
-      Description: [this.selectedTariff.Description, Validators.required],
-      Duration: [this.selectedTariff.Duration, Validators.required],
-      Price: [this.selectedTariff.Price, Validators.required],
-      IsRealTime: [this.selectedTariff.IsRealTime]
-    })
+    
+    this.viewTariffForm.controls['Description'].setValue(this.selectedTariff.Description);
+    this.viewTariffForm.controls['Duration'].setValue(this.selectedTariff.Duration);
+    this.viewTariffForm.controls['Price'].setValue(this.selectedTariff.Price);
+    this.viewTariffForm.controls['IsRealTime'].setValue(this.selectedTariff.IsRealTime);
+    
+    this.isRealTimeChecked = this.selectedTariff.IsRealTime;
   }
 
   checkRealTime(){

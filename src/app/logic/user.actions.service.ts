@@ -17,6 +17,7 @@ import { Park } from '../Domain/Park';
 import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
 import { WorkersService } from '../services/dao/workers.service';
+import { Person } from '../Domain/Person';
 
 @Injectable({
     providedIn: 'root',
@@ -81,8 +82,8 @@ export class UserActions {
         return firebase.auth().sendPasswordResetEmail(email);
     }
 
-    public updateWallet(email: string, operation: boolean, value: number) {
-        //this.clientService.refClients.child(email).set(null);
+    public updateWallet(user: Client) {
+        this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).set(user);
     }
  
     // Registrarse o login con google

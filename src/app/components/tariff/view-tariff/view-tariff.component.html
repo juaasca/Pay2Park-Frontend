@@ -11,19 +11,20 @@
   <ion-list>
     <ion-item>
       <ion-label position="floating">Descripción:</ion-label>
-      <ion-input formControlName="Description" type="text" value="{{ selectedTariff.Description }}"></ion-input>
+      <ion-input formControlName="Description" type="text" value=""></ion-input>
     </ion-item>
     <ion-item>
       <ion-checkbox formControlName="IsRealTime" (click)="checkRealTime()"></ion-checkbox>
       <ion-label>&nbsp;&nbsp;Es tiempo real</ion-label>       
     </ion-item>
-    <ion-item disabled="{{isRealTimeChecked}}">
+    <ion-item *ngIf=!isRealTimeChecked>
       <ion-label position="floating">Duración:</ion-label>
-      <ion-input formControlName="Duration" type="text" value="{{ selectedTariff.Duration }}"></ion-input>
+      <ion-input formControlName="Duration" type="text" value=""></ion-input>
     </ion-item>
     <ion-item>
-      <ion-label position="floating">Precio:</ion-label>
-      <ion-input formControlName="Price" type="text" value="{{ selectedTariff.Price }}"></ion-input>
+      <ion-label *ngIf=!isRealTimeChecked position="floating">Precio:</ion-label>
+      <ion-label *ngIf=isRealTimeChecked position="floating">Precio por minuto:</ion-label>
+      <ion-input formControlName="Price" type="text" value=""></ion-input>
     </ion-item>
   </ion-list>
   <div padding>
