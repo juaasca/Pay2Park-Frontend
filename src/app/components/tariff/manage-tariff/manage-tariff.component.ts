@@ -10,15 +10,13 @@ import { Tariff } from 'src/app/Domain/Tariff';
 })
 export class ManageTariffComponent implements OnInit {
   private tariffs: Tariff[] = [];
-  private tariff: Tariff = null;
 
-  constructor(private tariffService: TariffService, private router: Router) { 
-    /* this.updateTariffs(); */
-  }
+  constructor(private tariffService: TariffService, private router: Router){}
 
   ngOnInit() {
-    this.tariff = new Tariff(false, "PRUEBA", 20, 120);
-    this.tariffs[0] = this.tariff;
+    setInterval(() => {
+      this.updateTariffs();
+    }, 1000);
   }
 
   updateTariffs(){

@@ -19,7 +19,7 @@ export class CreateTariffComponent implements OnInit {
     ) {
       this.createTariffForm = this.formBuilder.group({
         Description: ['', Validators.required],
-        Duration: ['', Validators.required],
+        Duration: [''],
         Price: ['', Validators.required],
         IsRealTime: ['false']
       })  
