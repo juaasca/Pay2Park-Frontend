@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PayPal } from '@ionic-native/paypal/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AgmCoreModule } from '@agm/core';
 
 import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
@@ -44,6 +45,10 @@ import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
+<<<<<<< HEAD
+=======
+import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
+>>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
 
 @NgModule({
     declarations: [
@@ -76,7 +81,12 @@ import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-
         CreateCheckerComponent,
         TariffComponent,
         CreateTariffComponent,
+<<<<<<< HEAD
         ManageTariffComponent
+=======
+        ManageTariffComponent,
+        ViewTariffComponent
+>>>>>>> c1103b03ac55d1162c16268e3fbfa2f5ed7e5d71
     ],
     entryComponents: [],
     imports: [
@@ -85,10 +95,10 @@ import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-
         AppRoutingModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
-          }),
+        }),
         ReactiveFormsModule],
     providers: [
-        
+        LocalNotifications,
         StatusBar,
         SplashScreen,
         PayPal,
@@ -96,7 +106,7 @@ import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
         Camera,
-        OpenALPR    
+        OpenALPR
     ],
     bootstrap: [AppComponent]
 })

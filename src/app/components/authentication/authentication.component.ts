@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { ExceptionCodes } from 'src/app/resources/exception.codes';
 import { ExceptionMessages } from 'src/app/resources/exception.messages';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { AlertController } from '@ionic/angular';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
@@ -15,9 +16,9 @@ import { Subscription } from 'rxjs';
     styleUrls: ['./authentication.component.scss'],
 })
 export class AuthenticationComponent implements OnInit, OnDestroy {
-    color : string;
+    color: string;
     public loginForm: FormGroup;
-    suscription : Subscription;
+    suscription: Subscription;
     constructor(private router: Router,
         private userActions: UserActions,
         private formBuilder: FormBuilder,
@@ -40,11 +41,11 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
         this.userActions.getParks();
         this.suscription = this.darkMode.color.subscribe(color => {
             this.color = color;
-          })
-     }
-     ngOnDestroy(){
-         this.suscription.unsubscribe();
-     }
+        })
+    }
+    ngOnDestroy() {
+        this.suscription.unsubscribe();
+    }
 
     logWithGoogle() {
         this.userActions.signinUserAsync();
@@ -64,7 +65,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
         this.userActions.loginUserAsync(formValue.Email, formValue.Password)
             .catch(async (error) => {
                 var message = '';
-                
+
                 switch (error.code) {
                     case ExceptionCodes.invalidEmail: {
                         message = ExceptionMessages.invalidEmail;
@@ -105,7 +106,7 @@ export class AuthenticationComponent implements OnInit, OnDestroy {
                 },
             ],
         });
-    
+
         await alert.present();
     }
 }

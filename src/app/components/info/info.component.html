@@ -7,41 +7,11 @@
         <ion-title>¿Dónde opera Pay2park?</ion-title>
       </ion-toolbar>
       <ion-toolbar color = {{color}}>
-        <ion-searchbar></ion-searchbar>
+        <ion-searchbar (ionInput)="onInput($event);"></ion-searchbar>
       </ion-toolbar>
     </ion-header>
-    <ion-content color = {{color}}>
+    <ion-content color={{color}}>
       <ion-list>
-        <ion-item color = {{color}}>Amsterdam</ion-item>
-        <ion-item color = {{color}}>Bogota</ion-item>
-        <ion-item color = {{color}}>Buenos Aires</ion-item>
-        <ion-item color = {{color}}>Cairo</ion-item>
-        <ion-item color = {{color}}>Dhaka</ion-item>
-        <ion-item color = {{color}}>Edinburgh</ion-item>
-        <ion-item color = {{color}}>Geneva</ion-item>
-        <ion-item color = {{color}}>Genoa</ion-item>
-        <ion-item color = {{color}}>Glasglow</ion-item>
-        <ion-item color = {{color}}>Hanoi</ion-item>
-        <ion-item color = {{color}}>Hong Kong</ion-item>
-        <ion-item color = {{color}}>Islamabad</ion-item>
-        <ion-item color = {{color}}>Istanbul</ion-item>
-        <ion-item color = {{color}}>Jakarta</ion-item>
-        <ion-item color = {{color}}>Kiel</ion-item>
-        <ion-item color = {{color}}>Kyoto</ion-item>
+        <ion-item color={{color}} *ngFor="let item of filterItems">{{item}}</ion-item>
       </ion-list>
     </ion-content>
-
-  <script>
-    const searchbar = document.querySelector('ion-searchbar');
-    const items = Array.from(document.querySelector('ion-list').children);
-    searchbar.addEventListener('ionInput', handleInput);
-    function handleInput(event) {
-      const query = event.target.value.toLowerCase();
-      requestAnimationFrame(() => {
-        items.forEach(item => {
-          const shouldShow = item.textContent.toLowerCase().indexOf(query) > -1;
-          item.style.display = shouldShow ? 'block' : 'none';
-        });
-      });
-    }
-  </script>

@@ -6,60 +6,62 @@ import { Park } from 'src/app/Domain/Park';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
+import { AlertController, Platform } from '@ionic/angular';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 
 
 @Component({
-  selector: 'app-park-confirm',
-  templateUrl: './park-confirm.component.html',
-  styleUrls: ['./park-confirm.component.scss'],
+    selector: 'app-park-confirm',
+    templateUrl: './park-confirm.component.html',
+    styleUrls: ['./park-confirm.component.scss'],
 })
 export class ParkConfirmComponent implements OnInit {
-  vehicles: Vehicle[];
-  prueba: Park;
-  fare: Tariff;
-  calle: string;
-  color: string;
-  constructor(private router: Router, private vehiclesService: VehiclesService,private userActions: UserActions) {
-    //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
-    this.vehicles = [];
-  }
-  
-  ngOnInit() {
-    //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
-    this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
-    let lon = CurrentUserData.CurrentPosition[0];
-    let lat = CurrentUserData.CurrentPosition[1];
-    this.simpleReverseGeocoding(lat,lon);
-    this.color = CurrentUserData.color;
-    setInterval(() => {
-      this.color = CurrentUserData.color;
-  }, 1000);
-  }
-
-  vehiculosUsuario(vehicles:Vehicle[]){
-    if(CurrentUserData.LoggedUser){
-    while(vehicles.length > 0){
-      let aux = vehicles.pop();
-      if(aux.OwnersEmail[0] == CurrentUserData.LoggedUser.Email){
-        this.vehicles.push(aux);
-      }
+    vehicles: Vehicle[];
+    prueba: Park;
+    fare: Tariff;
+    calle: string;
+    color: string;
+    constructor(private router: Router, private vehiclesService: VehiclesService, private userActions: UserActions) {
+        //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
+        this.vehicles = [];
     }
-  }
-  }
 
-  aparcarVehiculo(vehiculo: Vehicle){
-    this.prueba = new Park(1,vehiculo,CurrentUserData.CurrentStreet.split(',')[0],CurrentUserData.CurrentPosition, new Tariff(true,'',1,1), new Date().toString());
-    this.userActions.registerPark(this.prueba.id,this.prueba.Vehicle,this.prueba.Street,this.prueba.Coordinates,this.prueba.Fare);
-    this.router.navigateByUrl('main/notification');
-  }
+    ngOnInit() {
+        //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
+        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
+        let lon = CurrentUserData.CurrentPosition[0];
+        let lat = CurrentUserData.CurrentPosition[1];
+        this.simpleReverseGeocoding(lat, lon);
+        this.color = CurrentUserData.color;
+        setInterval(() => {
+            this.color = CurrentUserData.color;
+        }, 1000);
+    }
 
-  simpleReverseGeocoding(lon, lat) {
-    fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat).then(
-      function(response) {
-      return response.json();
-    }).then(function(json) {
-      let calle = json.display_name;
-      CurrentUserData.CurrentStreet = calle;
-    })
-  }
+    vehiculosUsuario(vehicles: Vehicle[]) {
+        if (CurrentUserData.LoggedUser) {
+            while (vehicles.length > 0) {
+                let aux = vehicles.pop();
+                if (aux.OwnersEmail[0] == CurrentUserData.LoggedUser.Email) {
+                    this.vehicles.push(aux);
+                }
+            }
+        }
+    }
+
+    aparcarVehiculo(vehiculo: Vehicle) {
+        this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, new Tariff(true, '', 1, 1), new Date().toString());
+        this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
+        this.router.navigateByUrl('main/notification');
+    }
+
+    simpleReverseGeocoding(lon, lat) {
+        fetch('http://nominatim.openstreetmap.org/reverse?format=json&lon=' + lon + '&lat=' + lat).then(
+            function (response) {
+                return response.json();
+            }).then(function (json) {
+                let calle = json.display_name;
+                CurrentUserData.CurrentStreet = calle;
+            })
+    }
 }

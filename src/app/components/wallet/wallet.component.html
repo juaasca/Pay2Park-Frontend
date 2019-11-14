@@ -1,1 +1,51 @@
-
+<ion-header>
+    <ion-toolbar class="font" color="primary">
+      <ion-buttons slot="start">
+        <ion-menu-button></ion-menu-button>
+      </ion-buttons>
+      <ion-title>
+        Cartera
+      </ion-title>
+    </ion-toolbar>
+  </ion-header>
+  
+  <ion-content>
+    <form [formGroup]="cartera" (ngSubmit)="anyadirSaldo()">
+    <ion-card text-center class="card">
+      <p></p>
+      <ion-card-content>
+      <ion-label class="saldo">
+        € {{saldo}}
+      </ion-label>
+      </ion-card-content>
+      <p></p>
+    </ion-card>
+    <p></p>
+    <div text-center>
+      <ion-item>
+      <ion-label>Saldo a añadir</ion-label>
+      <ion-select formControlName="dinero">
+        <ion-select-option value="5">€ 5</ion-select-option>
+        <ion-select-option value="10">€ 10</ion-select-option>
+        <ion-select-option value="15">€ 15</ion-select-option>
+        <ion-select-option value="20">€ 20</ion-select-option>
+      </ion-select>
+    </ion-item>
+      <ion-button (click)="anyadirSaldo()">
+        Añadir saldo
+      </ion-button>
+    </div>
+    <ion-card text-center> 
+      <ion-list>
+        <ion-label>
+          Historial de transacciones
+        </ion-label>
+        <ion-item>
+          <ion-label>
+            10 € de saldo añadido
+          </ion-label>
+        </ion-item>
+      </ion-list>  
+    </ion-card>
+    </form>
+  </ion-content>

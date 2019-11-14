@@ -5,9 +5,9 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.scss'],
+    selector: 'app-main',
+    templateUrl: './main.component.html',
+    styleUrls: ['./main.component.scss'],
 })
 export class MainComponent implements OnInit, OnDestroy {
     private isAdmin: boolean;
@@ -16,8 +16,8 @@ export class MainComponent implements OnInit, OnDestroy {
     public AdminWindow: boolean = false;
     CheckerWindow: boolean;
     suscription: Subscription;
-    color : string;
-    constructor(private router: Router, private darkMode: DarkModeService) {    
+    color: string;
+    constructor(private router: Router, private darkMode: DarkModeService) {
     }
 
     ngOnInit() {
@@ -25,9 +25,9 @@ export class MainComponent implements OnInit, OnDestroy {
         this.isChecker = CurrentUserData.IsChecker;
         this.suscription = this.darkMode.color.subscribe(color => {
             this.color = color;
-          });
+        });
     }
-    ngOnDestroy(){
+    ngOnDestroy() {
         this.suscription.unsubscribe();
     }
 
@@ -35,7 +35,7 @@ export class MainComponent implements OnInit, OnDestroy {
         switch (tab) {
             case "park":
                 this.router.navigateByUrl('main/park');
-                
+
                 break;
             case "notifications":
                 this.router.navigateByUrl('main/notification');
