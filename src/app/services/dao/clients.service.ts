@@ -9,12 +9,12 @@ import { PersistenceService } from './persistence.service';
 
 export class ClientsService extends PersistenceService<Client> {
 
-    private refClients: firebase.database.Reference;
+    public refClients: firebase.database.Reference;
     private clientsDataBaseUrl: string = 'persons/clients';
 
     constructor() {
         super();
-        this.refClients = this.ref.child(this.clientsDataBaseUrl);
+        this.refClients = this.ref.child(this.clientsDataBaseUrl+"");
         this.databaseRef = this.refClients;
     }
 }
