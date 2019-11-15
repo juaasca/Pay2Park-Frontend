@@ -32,6 +32,11 @@ export class MainComponent implements OnInit {
                 this.router.navigateByUrl('main/notification');
 
                 break;
+
+            case "bonos":
+                 this.router.navigateByUrl('main/bonos');
+    
+                    break;
             case "wallet":
                 this.router.navigateByUrl('main/wallet');
 

@@ -1,10 +1,13 @@
+import { DatePipe } from '@angular/common';
+
 export class Person {
     Name: string;
     Username?: string;
     BirthDate?: Date;
     Email: string;
+    DuracionBono: Date;
 
-    constructor(name: string, username: string, birthDate: Date, email: string) {
+    constructor(name: string, username: string, birthDate: Date, email: string ) {
         this.Name = name;
         this.Username = username;
         this.BirthDate = birthDate;

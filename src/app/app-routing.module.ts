@@ -22,6 +22,7 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { BonosComponent } from './components/bonos/bonos.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,10 @@ const routes: Routes = [
         component: MainComponent,
         canActivate: [AuthGuard],
         children: [
+            {
+                path: 'bonos',
+                component: BonosComponent
+            },
             {
                 path: 'park',
                 component: ParkComponent

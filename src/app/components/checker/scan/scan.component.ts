@@ -36,8 +36,8 @@ export class ScanComponent {
   ) {
     //Set default camera options.
     this.cameraOptions = {
-      quality: 80,
-      destinationType: this.camera.DestinationType.DATA_URL,
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
       correctOrientation: true
