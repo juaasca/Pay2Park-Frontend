@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TariffActionsService } from 'src/app/logic/tariff.actions.service';
 import { Tariff } from 'src/app/Domain/Tariff';
 import { SelectedTariff } from '../selected.tariff';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-view-tariff',
@@ -14,10 +15,13 @@ export class ViewTariffComponent implements OnInit {
   private selectedTariff: Tariff = null;
   private viewTariffForm: FormGroup;
   private isRealTimeChecked: boolean;
+  private currentTariff: Tariff = null;
+
   constructor(
-    router: Router,
+    private router: Router,
     private formBuilder: FormBuilder,
-    private tariffActionsService: TariffActionsService
+    private tariffActionsService: TariffActionsService,
+    private alertController: AlertController
     ) {
       this.viewTariffForm = this.formBuilder.group({
         Description: ['', Validators.required],
@@ -45,17 +49,42 @@ export class ViewTariffComponent implements OnInit {
   acceptButtonClicked() {
     var formValue = this.viewTariffForm.value;
 
-    let tariffToCreate = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
+    this.currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, +formValue.Price, +formValue.Duration);
 
-    // TODO: Manage the returned Promise.
-    this.tariffActionsService.registerNewTariffAsync(tariffToCreate);
+    var hasBeenModified = !this.currentTariff.Equals(this.selectedTariff);
+
+    if (hasBeenModified) {
+      this.showTariffHasBeenModifiedAlert();
+    } else {
+      this.back();
+    }
   }
 
-  hasBeenModified() {
-    var formValue = this.viewTariffForm.value;
-    var currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
+  async showTariffHasBeenModifiedAlert() {
+    const alert = await this.alertController.create({
+        header: '¡Atención!',
+        message:
+            'La tarifa ha sido modificada. ¿Desea guardar los cambios?',
+        buttons: [
+            {
+              text: 'Aceptar',
+              handler: () => {
+                  this.tariffActionsService.updateExistingTariffAsync(this.selectedTariff, this.currentTariff);
+              },
+            },
+            {
+              text: 'Cancelar',
+              handler: () => {
+                alert.dismiss();
+              }
+            }
+        ],
+    });
 
-    return this.selectedTariff === currentTariff;
+    await alert.present();
   }
 
+  back() {
+    this.router.navigateByUrl('/main/admin/tariff');
+  }
 }
