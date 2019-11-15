@@ -1,8 +1,11 @@
-<ion-card class="title-background">
-  <ion-card-content class="title-text">
-    <ion-title text-center> Recuperar contraseña</ion-title>
-  </ion-card-content> 
-</ion-card>
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">RECUPERAR CONTRASEÑA</ion-title>
+  </ion-toolbar>
+</ion-header>
 
 <ion-content>
   <form [formGroup]="forgot" (ngSubmit)="recover()"> 
@@ -22,7 +25,7 @@
         <ion-card-content text-center>
             <ion-chip text-left>
                 <ion-icon name="email"></ion-icon>
-                <ion-input formControlName="Email" placeholder="Correo electrónico" type="text">
+                <ion-input class="font" formControlName="Email" placeholder="Correo electrónico" type="text">
                 </ion-input>
               </ion-chip>
         </ion-card-content>
@@ -36,13 +39,13 @@
         </div>
 
         <div text-center>
-          <ion-button [disabled]=!forgot.valid class="button-css" (click)="recover()">
+          <ion-button [disabled]=!forgot.valid class="font" (click)="recover()">
               Restaurar contraseña
           </ion-button>
         </div>
         
         <div text-center>
-            <ion-button class="button-css" (click)="back()">
+            <ion-button class="font" (click)="back()">
                 Atras
             </ion-button>
         </div>

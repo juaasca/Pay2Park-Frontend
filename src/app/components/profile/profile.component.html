@@ -1,10 +1,11 @@
-
 <ion-header>
-  <ion-toolbar color ={{color}}>
-    <ion-title class="font">Perfil</ion-title>
+  <ion-toolbar class="font" color={{color}}>
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">PERFIL</ion-title>
   </ion-toolbar>
 </ion-header>
-
 <ion-content color={{color}}>
   <ion-item color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
   <ion-item color={{color}} class="font" (click)="modoOscuro()" detail>Modo Oscuro</ion-item>
