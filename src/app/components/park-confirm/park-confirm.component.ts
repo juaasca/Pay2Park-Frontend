@@ -24,7 +24,7 @@ export class ParkConfirmComponent implements OnInit {
     color: string;
     tariffs: Tariff[];
 
-    
+
     constructor(private router: Router,
         private vehiclesService: VehiclesService,
         private userActions: UserActions,
@@ -54,8 +54,8 @@ export class ParkConfirmComponent implements OnInit {
         setInterval(() => {
             this.color = CurrentUserData.color;
         }, 1000);
-        this.fare = new Tariff(true,'Tiempo Real',0.1,0);
-        this.tariffs = [this.fare] ;
+        this.fare = new Tariff(true, 'Tiempo Real', 0.1, 0);
+        this.tariffs = [this.fare];
     }
 
     vehiculosUsuario(vehicles: Vehicle[]) {
@@ -115,9 +115,12 @@ export class ParkConfirmComponent implements OnInit {
             trigger: {
                 firstAt: today,
                 in: 30,
-                unit: ELocalNotificationTriggerUnit.MINUTE
+                unit: ELocalNotificationTriggerUnit.MINUTE,
+
             }
         });
+
+        setTimeout(() => this.localNotification.cancel(3), 2 * 3600 * 1000);
     }
 
     showAlert(header, sub, msg) {
@@ -129,16 +132,16 @@ export class ParkConfirmComponent implements OnInit {
         }).then(alert => alert.present());
     }
 
-    async carga(){
+    async carga() {
         const loading = await this.loadingController.create({
             message: 'Aparcando',
             duration: 2000
-          });
-          await loading.present();
-      
-          const { role, data } = await loading.onDidDismiss();
+        });
+        await loading.present();
 
-          
+        const { role, data } = await loading.onDidDismiss();
+
+
         this.router.navigateByUrl('main/notification');
     }
 }
