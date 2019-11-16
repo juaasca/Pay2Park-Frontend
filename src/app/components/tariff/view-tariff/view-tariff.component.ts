@@ -51,6 +51,12 @@ export class ViewTariffComponent implements OnInit {
 
   checkRealTime(){
       this.isRealTimeChecked = !this.isRealTimeChecked;
+
+      if (this.isRealTimeChecked) {
+        this.viewTariffForm.controls['Duration'].setValue(0);
+      } else {
+        this.viewTariffForm.controls['Duration'].setValue('');
+      }
   }
 
   acceptButtonClicked() {
