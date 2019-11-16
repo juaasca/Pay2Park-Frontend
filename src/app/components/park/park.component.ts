@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { Park } from 'src/app/Domain/Park';
+import { Subscription } from 'rxjs';
+import { DarkModeService } from 'src/app/services/dark-mode.service';
 
 
 
@@ -15,22 +17,21 @@ declare let L;
   templateUrl: './park.component.html',
   styleUrls: ['./park.component.scss'],
 })
-export class ParkComponent implements OnInit {
+export class ParkComponent implements OnInit{
 
-    private idWatch: any;
-
-
-  constructor(public alertController: AlertController, private router: Router) { }
+  private idWatch: any;
+  color : string;
+  constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
+    this.comprobar();
+    this.color = CurrentUserData.color;
     let map;
     const options = {
         enableHighAccuracy: true,
         timeout: 5000,
         maximumAge: 0
       };
-
-
     const actual = navigator.geolocation.getCurrentPosition((pos) => {
          map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 16);
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -51,6 +52,29 @@ export class ParkComponent implements OnInit {
         CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
     }, () => {}, options);
 
+    if(CurrentParkingData.parkPosition != undefined){
+      this.idWatch = navigator.geolocation.watchPosition((position) => {
+
+        const posicion = marker([position.coords.latitude, position.coords.longitude], {
+            icon: icon({
+              iconSize: [ 25, 41 ],
+              iconAnchor: [ 13, 41 ],
+              iconUrl: 'assets/leaflet/images/marker-rojo.png',
+              shadowUrl: 'assets/leaflet/images/marker-shadow.png'
+            })
+          }).addTo(map);
+        CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
+    }, () => {}, options);
+
+
+    }
+
+
+
+
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+  }, 1000);
 
   }
 
@@ -122,6 +146,7 @@ export class ParkComponent implements OnInit {
   }
 
   crearAparcamiento() {
+    CurrentParkingData.parkPosition = CurrentUserData.CurrentPosition;
     this.router.navigateByUrl('parkConfirm');
   }
 
@@ -132,7 +157,8 @@ export class ParkComponent implements OnInit {
       while (aux1.length > 0) {
         const aux = aux1.pop();
         if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
-          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date));
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
+          CurrentParkingData.parkPosition = aux.Coordinates;
           return true;
         }
       }

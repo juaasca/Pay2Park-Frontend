@@ -20,6 +20,8 @@ export class CreateCheckerComponent extends CreatePersonComponent<Worker> implem
     ) {
       super(formBuilder, alertController, router);
       this.backRoute = 'main/admin/manage-checkers';
+      this.componentTitle = 'Crear revisor';
+      this.buttonTitle = 'Crear revisor';
     }
     
     ngOnInit() {

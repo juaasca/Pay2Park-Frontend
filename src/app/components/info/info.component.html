@@ -1,0 +1,18 @@
+<ion-header translucent>
+  <ion-toolbar class="font" color={{color}} >
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/main/park"></ion-back-button>
+    </ion-buttons>
+    <ion-title>¿Dónde opera Pay2park?</ion-title>
+  </ion-toolbar>
+  <ion-toolbar class="font" color = {{color}}>
+    <ion-searchbar (ionInput)="onInput($event);"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content color={{color}}>
+  <ion-list>
+    <ion-item color={{color}} *ngFor="let item of filterItems">
+      <ion-label class="font"> {{item}} </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -1,14 +1,14 @@
 <router-outlet></router-outlet>
 <ion-tabs>
-    <ion-tab-bar class="font" slot="bottom" *ngIf="!HideBar">
-        <ion-tab-button (click)="click('park')">
+    <ion-tab-bar color = {{color}} slot="bottom" *ngIf="!HideBar">
+        <ion-tab-button  (click)="click('park')">
             <ion-icon name="car"></ion-icon>
-            <ion-label>Aparcar</ion-label>
+            <ion-label class="font">Aparcar</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('notifications')">
             <ion-icon name="time"></ion-icon>
-            <ion-label>Notificaciones</ion-label>
+            <ion-label class="font">Notificaciones</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('bonos')">
@@ -18,20 +18,20 @@
 
         <ion-tab-button (click)="click('wallet')">
             <ion-icon name="card"></ion-icon>
-            <ion-label>Cartera</ion-label>
+            <ion-label class="font">Cartera</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('profile')">
             <ion-icon name="contact"></ion-icon>
-            <ion-label>Perfil</ion-label>
+            <ion-label class="font">Perfil</ion-label>
         </ion-tab-button>
         <ion-tab-button *ngIf="isAdmin" (click)="click('adminView')">
-          <ion-icon name="card"></ion-icon>
-          <ion-label>Vista de administrador</ion-label>
-      </ion-tab-button>
-      <ion-tab-button *ngIf="isChecker" (click)="click('checkerView')">
-        <ion-icon name="card"></ion-icon>
-        <ion-label>Vista de revisor</ion-label>
-    </ion-tab-button>
+            <ion-icon name="card"></ion-icon>
+            <ion-label class="font">Vista de administrador</ion-label>
+        </ion-tab-button>
+        <ion-tab-button *ngIf="isChecker" (click)="click('checkerView')">
+            <ion-icon name="card"></ion-icon>
+            <ion-label class="font">Vista de revisor</ion-label>
+        </ion-tab-button>
     </ion-tab-bar>
 </ion-tabs>

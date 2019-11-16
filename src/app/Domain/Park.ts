@@ -1,17 +1,15 @@
 import { Vehicle } from './Vehicle';
-import { Fare } from './Fare';
-import { VirtualTimeScheduler } from 'rxjs';
-
+import { Tariff } from './Tariff';
 
 export class Park {
     id: number;
     Vehicle: Vehicle;
     Street: string;
     Coordinates: [number, number];
-    Fare: Fare;
-    Date?: Date;
+    Fare: Tariff;
+    Date: string;
     constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number],
-         fare: Fare, date?: Date) {
+         fare: Tariff, date: string) {
         this.id = id;
         this.Vehicle = vehicle;
         this.Street = street;
@@ -23,6 +21,7 @@ export class Park {
     getCurrentTime(){
         let tiempoAhora = (new Date()).getTime() * 1.66667 * 0.00001;
         let tiempo = (new Date(this.Date)).getTime() *1.66667 * 0.00001;
+        console.log()
         return Math.floor(tiempoAhora - tiempo);
         
     }

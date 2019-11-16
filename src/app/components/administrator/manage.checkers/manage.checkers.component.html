@@ -1,6 +1,6 @@
 <router-outlet></router-outlet>
-<ion-header class="header">
-    <ion-toolbar color="primary">
+<ion-header>
+    <ion-toolbar class="font" color="primary">
       <ion-buttons slot="end">
           <ion-button color="light" (click)="createChecker()">
             <ion-icon name="add-circle" color="light"></ion-icon>
@@ -11,12 +11,12 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-toolbar>
+  <ion-toolbar class="font">
     <ion-searchbar placeholder="Nombre o usuario del revisor..." animated (ionChange)="getItems( $event )"></ion-searchbar>
   </ion-toolbar>
     <ion-list>
       <ion-item class="font-style" (click)="click(checker)" *ngFor="let checker of checkers | filterCheckers: searchText: 'column'"> 
-        <ion-label >{{checker.Name}} {{checker.Surname}} - {{checker.Username}}</ion-label>
+        <ion-label class="font">{{checker.Name}} {{checker.Surname}} - {{checker.Username}}</ion-label>
       </ion-item>
     </ion-list>
 </ion-content>

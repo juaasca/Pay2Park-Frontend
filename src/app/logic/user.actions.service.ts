@@ -12,19 +12,20 @@ import { ExceptionCodes } from '../resources/exception.codes';
 import { CurrentUserData } from '../data/current.user';
 import { Vehicle } from '../Domain/Vehicle';
 import { VehiclesService } from '../services/dao/vehicles.service';
-import { Fare } from '../Domain/Fare';
+import { Tariff } from '../Domain/Tariff';
 import { Park } from '../Domain/Park';
 import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
 import { WorkersService } from '../services/dao/workers.service';
+import { Person } from '../Domain/Person';
 
 @Injectable({
     providedIn: 'root',
 })
 export class UserActions {
     public user: any;
-	public auth: any;
-	provider: any;
+    public auth: any;
+    provider: any;
 
     private functions = firebase.functions();
 
@@ -42,30 +43,31 @@ export class UserActions {
     }
 
     public async registerNewUserAsync(
-		name: string,
-		surname: string,
-		username: string,
-		password: string,
-		birthDate: Date,
-		email: string
-	) {
-		const client = await this.clientService.getEntityAsync(email);
+        name: string,
+        surname: string,
+        username: string,
+        password: string,
+        birthDate: Date,
+        email: string
+    ) {
+        const client = await this.clientService.getEntityAsync(email);
 
-		if (client !== null) {
-			throw new CustomError(
-				ExceptionMessages.emailAlreadyInUse,
-				ExceptionCodes.emailAlreadyInUse
-			);
-		} else {
-			const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email);
+        if (client !== null) {
+            throw new CustomError(
+                ExceptionMessages.emailAlreadyInUse,
+                ExceptionCodes.emailAlreadyInUse
+            );
+        } else {
+            //const wallet: Wallet = new Wallet(0);
+            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email, 0);
 
-			await firebase.auth().createUserWithEmailAndPassword(email, password);
+            await firebase.auth().createUserWithEmailAndPassword(email, password);
             this.clientService.addEntityAsync(newClient.Email, newClient);
             this.user = newClient;
 
-			this.usernameValidatorService.updateList();
-		}
-	}
+            this.usernameValidatorService.updateList();
+        }
+    }
 
     public deleteClientAsync(client: Client) {
         var deleteUserFunction = this.functions.httpsCallable('deleteUser');
@@ -80,28 +82,33 @@ export class UserActions {
         return firebase.auth().sendPasswordResetEmail(email);
     }
 
+    public updateWallet(user: Client) {
+        this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).set(user);
+    }
+ 
     // Registrarse o login con google
-	public async signinUserAsync() {
-		const provider = new firebase.auth.GoogleAuthProvider();
+    public async signinUserAsync() {
+        const provider = new firebase.auth.GoogleAuthProvider();
 
-  		this.auth.signInWithPopup(provider)
+        this.auth.signInWithPopup(provider)
         .then(async (result: any) => {
             let email = result.additionalUserInfo.profile.email;
             let name = result.additionalUserInfo.profile.name;
 
-            const user = await this.clientService.getEntityAsync(email);
+            let user = await this.clientService.getEntityAsync(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
-                    this.clientService.addEntityAsync(result.additionalUserInfo.profile.email,
-                        new Client(name, name, new Date(), email));
+                    user = new Client(name, name, new Date(), email, 0);
+                    this.clientService.addEntityAsync(email, user);
 
                 }
                 // Para añadir administrador
                 // this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
-                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email);
-
+                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet);
+                CurrentUserData.wallet = result.additionalUserInfo.profile.wallet;
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
+                
                 
                 this.router.navigateByUrl('main/park');
             })
@@ -122,14 +129,16 @@ export class UserActions {
     public async loginUserAsync(email: string, password: string) {
         return firebase.auth().signInWithEmailAndPassword(email, password)
             .then(async (userCredential) => {
-                if (this.clientService.getEntityAsync(email) == null) {
-                    this.clientService.addEntityAsync(email,
-                        new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email));
-                }
-                const client: Client = new Client(userCredential.user.displayName,
-                    userCredential.additionalUserInfo.username, new Date(), userCredential.user.email);
+                let currentClient = await this.clientService.getEntityAsync(email);
 
-                CurrentUserData.LoggedUser = client;
+                if (currentClient == null) {
+                    currentClient = new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email,0);
+                    
+                    await this.clientService.addEntityAsync(email, currentClient);
+                }
+
+                CurrentUserData.LoggedUser = currentClient;
+                CurrentUserData.wallet = currentClient.Wallet;
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
 
@@ -154,7 +163,7 @@ export class UserActions {
         }
     }
 
-    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Fare) {
+    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Tariff) {
         let park = await this.parkService.getEntityAsync(id.toString());
         while (park) {
             id++;
@@ -162,7 +171,7 @@ export class UserActions {
         }
         console.log(id);
 
-        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date());
+        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date().toString());
         this.parkService.addEntityAsync(newPark.id.toString(), newPark);
         //this.usernameValidatorService.updateList();
 

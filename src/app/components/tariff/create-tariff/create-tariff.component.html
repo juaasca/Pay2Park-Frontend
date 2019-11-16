@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">CREAR TARIFA</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="createTariffForm">
+    <ion-list>
+      <ion-item>
+        <ion-label class="font" position="floating">Descripción:</ion-label>
+        <ion-input class="font" formControlName="Description" type="text" placeholder="Descripcion"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-checkbox formControlName="IsRealTime" (click)="checkRealTime()"></ion-checkbox>
+        <ion-label class="font">&nbsp;&nbsp;Es tiempo real</ion-label>       
+      </ion-item>
+      <ion-item *ngIf=!isRealTimeChecked>
+        <ion-label class="font" position="floating">Duración:</ion-label>
+        <ion-input class="font" formControlName="Duration" type="text" placeholder="Duración"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label class="font" *ngIf=!isRealTimeChecked position="floating">Precio:</ion-label>
+        <ion-label class="font" *ngIf=isRealTimeChecked position="floating">Precio por minuto:</ion-label>
+        <ion-input class="font" formControlName="Price" type="text" placeholder="Precio"></ion-input>
+      </ion-item>
+    </ion-list>
+    <div align="center">
+      <ion-button [disabled]="!createTariffForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
+    </div>
+  </form>
+</ion-content>

@@ -38,4 +38,5 @@ export class AppComponent implements OnInit {
 
         this.app = firebase.initializeApp(environment.firebaseConfig);
     }
+
 }

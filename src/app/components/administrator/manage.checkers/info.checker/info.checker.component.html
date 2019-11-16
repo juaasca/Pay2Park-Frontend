@@ -1,5 +1,5 @@
-<ion-header class="header">
-  <ion-toolbar color="primary">
+<ion-header>
+  <ion-toolbar class="font" color="primary">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
@@ -9,27 +9,27 @@
 <ion-content class="text">
   <ion-list>
     <ion-item>
-      <ion-label>
+      <ion-label class="font">
         Usuario: {{selectedChecker.Username}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label class="font">
         Nombre: {{selectedChecker.Name}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label>
+      <ion-label class="font">
         Email: {{selectedChecker.Email}}
       </ion-label>
     </ion-item>
     <ion-item *ngIf="!birthDateIsNull">
-        <ion-label>
+        <ion-label class="font">
           Fecha de nacimiento: {{formattedBirthDate}}
         </ion-label>
       </ion-item>
     <div align="center">
-      <ion-button color="danger" (click)="deleteCheckerAsync()">Eliminar revisor</ion-button>
+      <ion-button color="danger" class="font" (click)="deleteCheckerAsync()">Eliminar revisor</ion-button>
     </div>
   </ion-list>
 </ion-content>

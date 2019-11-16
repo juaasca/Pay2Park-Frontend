@@ -1,32 +1,36 @@
-<ion-header>
-  <ion-toolbar class="font" color="primary">
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title>
-      Resumen de tu parada
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+  <ion-content color ={{color}}>
 
-<ion-content>
-  <ion-card class="welcome-card">
+      <ion-header style="padding-bottom: 0px;">
+          <ion-toolbar class="font" color = {{color}}>
+              <ion-buttons slot="start">
+                  <ion-back-button defaultHref="/main/park"></ion-back-button>
+                </ion-buttons>
+            <ion-title>Selecciona un método de pago</ion-title>
+          </ion-toolbar>
+      </ion-header>
+
+
+
+
+
+
+  <ion-card color = {{color}} class="welcome-card">
     <ion-img src="assets/icon/Logosinfondo.jpg"></ion-img>
-    <ion-card-header class="font">
-      <ion-label></ion-label>
+    <ion-card-header color = {{color}}>
+      <ion-label class="font"></ion-label>
       <p></p>
       <!-- <ion-card-title>PayPal Sample</ion-card-title> -->
       <ion-row class="text">
-        <ion-col>
-          Total a pagar
-        </ion-col>
-        <ion-col>
+        <ion-label class="font" color = "tertiary">
+          Total a pagar: &nbsp;      
+        </ion-label>
+        <ion-label class="font" color = "tertiary" >
           {{paymentAmount}} {{currencyIcon}}
-        </ion-col>
+        </ion-label>
       </ion-row>
     </ion-card-header>
-    <ion-card-content class="font">
-       <div id="paypal-button-container"></div>
+    <ion-card-content>
+       <div class="font" id="paypal-button-container"></div>
       <!--<ion-button expand="full" color="success" (click)="payWithPaypal()">Realizar pago</ion-button>-->
     </ion-card-content>
   </ion-card>

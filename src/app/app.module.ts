@@ -7,6 +7,7 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { PayPal } from '@ionic-native/paypal/ngx';
+import { LocalNotifications } from '@ionic-native/local-notifications/ngx';
 import { AgmCoreModule } from '@agm/core';
 
 import { FilterClientPipe } from './services/pipes/filter.clients.pipe';
@@ -40,13 +41,22 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+<<<<<<< HEAD
 import { BonosComponent } from './components/bonos/bonos.component';
+=======
+import { InfoComponent } from './components/info/info.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
+import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
+import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
+>>>>>>> master
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthenticationComponent,
         MainComponent,
+        InfoComponent,
         ParkComponent,
         NotificationComponent,
         WalletComponent,
@@ -70,7 +80,14 @@ import { BonosComponent } from './components/bonos/bonos.component';
         FilterCheckersPipe,
         InfoCheckerComponent,
         CreateCheckerComponent,
+<<<<<<< HEAD
         BonosComponent
+=======
+        TariffComponent,
+        CreateTariffComponent,
+        ManageTariffComponent,
+        ViewTariffComponent
+>>>>>>> master
     ],
     entryComponents: [],
     imports: [
@@ -79,10 +96,10 @@ import { BonosComponent } from './components/bonos/bonos.component';
         AppRoutingModule,
         AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBSDayklms5cTWbXXthMGhwhwy80WN-RA0'
-          }),
+        }),
         ReactiveFormsModule],
     providers: [
-        
+        LocalNotifications,
         StatusBar,
         SplashScreen,
         PayPal,
@@ -90,7 +107,7 @@ import { BonosComponent } from './components/bonos/bonos.component';
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
         Camera,
-        OpenALPR    
+        OpenALPR
     ],
     bootstrap: [AppComponent]
 })

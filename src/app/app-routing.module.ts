@@ -6,6 +6,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { ParkComponent } from './components/park/park.component';
 import { NotificationComponent } from './components/notification/notification.component';
 import { PaymentComponent } from './components/payment/payment.component';
+import { WalletComponent } from './components/wallet/wallet.component';
 import { ForgotComponent } from './components/forgot/forgot.component';
 import { AdministratorComponent } from './components/administrator/administrator.component';
 import { ManageClientsComponent } from './components/administrator/manage.clients/manage.clients.component';
@@ -22,7 +23,16 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+<<<<<<< HEAD
 import { BonosComponent } from './components/bonos/bonos.component';
+=======
+import { InfoComponent } from './components/info/info.component';
+import { RegistrationComponent } from './components/registration/registration.component';
+import { TariffComponent } from './components/tariff/tariff.component';
+import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
+import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
+import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
+>>>>>>> master
 
 const routes: Routes = [
     {
@@ -30,9 +40,13 @@ const routes: Routes = [
         component: AuthenticationComponent
     },
     {
+        path: 'payment',
+        component: PaymentComponent
+    },
+    {
         path: 'main',
         component: MainComponent,
-        canActivate: [AuthGuard],
+        //canActivate: [AuthGuard],
         children: [
             {
                 path: 'bonos',
@@ -48,6 +62,10 @@ const routes: Routes = [
             },
             {
                 path: 'wallet',
+                component: WalletComponent
+            },
+            {
+                path: 'payemnt',
                 component: PaymentComponent
             },
             {
@@ -84,6 +102,22 @@ const routes: Routes = [
                     {
                         path: 'manage-checkers/create-checker',
                         component: CreateCheckerComponent
+                    },
+                    {
+                        path: 'tariff',
+                        component: TariffComponent
+                    },
+                    {
+                        path: 'tariff/create-tariff',
+                        component: CreateTariffComponent
+                    },
+                    {
+                        path: 'tariff/manage-tariff',
+                        component: ManageTariffComponent
+                    },
+                    {
+                        path: 'tariff/view-tariff',
+                        component: ViewTariffComponent
                     }
                 ]
             },
@@ -108,12 +142,16 @@ const routes: Routes = [
         component: ParkConfirmComponent
     },
     {
+        path: 'info',
+        component: InfoComponent
+    },
+    {
         path: 'anadir-vehiculo',
         component: AnadirVehiculoComponent
     },
     {
         path: 'registration',
-        component: CreateCheckerComponent
+        component: RegistrationComponent
     },
     {
         path: 'forgot',
