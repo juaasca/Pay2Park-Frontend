@@ -21,42 +21,13 @@ export class PaymentComponent  implements OnInit{
   ngOnInit(){
     this.color = CurrentUserData.color;
     this.paymentAmount = CurrentUserData.price;
+    this.realizarPago();
     setInterval(() => {
       this.color = CurrentUserData.color;
   }, 1000);
   }
   color:string;
   constructor(private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService) {
-    
-    let _this = this;
-    setTimeout(() => {
-      // Render the PayPal button into #paypal-button-container
-      paypal.Buttons({
-
-        // Set up the transaction
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: _this.paymentAmount
-              }
-            }]
-          });
-        },
-
-        // Finalize the transaction
-        onApprove: function (data, actions) {
-          return actions.order.capture()
-            .then(function (details) {
-              // Show a success message to the buyer
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        }
-      }).render('#paypal-button-container');
-    }, 500)
   }
 
 
@@ -102,6 +73,38 @@ export class PaymentComponent  implements OnInit{
     }, () => {
       // Error in initialization, maybe PayPal isn't supported or something else
     });
+  }
+
+  realizarPago() {
+    let _this = this;
+    setTimeout(() => {
+      // Render the PayPal button into #paypal-button-container
+      paypal.Buttons({
+
+        // Set up the transaction
+        createOrder: function (data, actions) {
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: _this.paymentAmount
+              }
+            }]
+          });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+          return actions.order.capture()
+            .then(function (details) {
+              // Show a success message to the buyer
+              alert('Transaction completed by ' + details.payer.name.given_name + '!');
+            })
+            .catch(err => {
+              console.log(err);
+            })
+        }
+      }).render('#paypal-button-container');
+    }, 500)
   }
 }
 
