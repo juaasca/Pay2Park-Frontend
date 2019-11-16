@@ -84,6 +84,31 @@ export class ViewTariffComponent implements OnInit {
     await alert.present();
   }
 
+  async deleteTariffAsync() {
+    const alert = await this.alertController.create({
+			header: 'Eliminar tarifa',
+			message: '¿Está seguro que desea eliminar esta tarifa? Esta acción no podrá deshacerse.',
+			buttons: [
+				{
+					text: 'Cancelar',
+					handler: () => {
+						alert.dismiss();
+					},
+				},
+				{
+					text: 'Confirmar',
+					handler: async () => {
+            await this.tariffActionsService.deleteTariffAsync(this.selectedTariff);
+            
+            this.router.navigateByUrl("main/admin/tariff");
+					},
+				},
+			],
+		});
+
+		await alert.present();
+  }
+
   back() {
     this.router.navigateByUrl('/main/admin/tariff');
   }
