@@ -23,11 +23,11 @@ import { ScanComponent } from './components/checker/scan/scan.component';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { BonosComponent } from './components/bonos/bonos.component';
 import { InfoComponent } from './components/info/info.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
-import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 
 const routes: Routes = [
@@ -44,6 +44,10 @@ const routes: Routes = [
         component: MainComponent,
         //canActivate: [AuthGuard],
         children: [
+            {
+                path: 'bonos',
+                component: BonosComponent
+            },
             {
                 path: 'park',
                 component: ParkComponent
@@ -102,10 +106,6 @@ const routes: Routes = [
                     {
                         path: 'tariff/create-tariff',
                         component: CreateTariffComponent
-                    },
-                    {
-                        path: 'tariff/manage-tariff',
-                        component: ManageTariffComponent
                     },
                     {
                         path: 'tariff/view-tariff',

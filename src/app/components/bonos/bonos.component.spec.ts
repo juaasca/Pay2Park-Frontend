@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ManageTariffComponent } from './manage-tariff.component';
+import { BonosComponent } from './bonos.component';
 
-describe('ManageTariffComponent', () => {
-  let component: ManageTariffComponent;
-  let fixture: ComponentFixture<ManageTariffComponent>;
+describe('BonosComponent', () => {
+  let component: BonosComponent;
+  let fixture: ComponentFixture<BonosComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ManageTariffComponent ],
+      declarations: [ BonosComponent ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ManageTariffComponent);
+    fixture = TestBed.createComponent(BonosComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

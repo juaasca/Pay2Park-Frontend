@@ -7,8 +7,6 @@ import { Tariff } from '../Domain/Tariff';
   providedIn: 'root'
 })
 export class TariffActionsService {
-  private functions = firebase.functions();
-
   constructor(private tariffService: TariffService) { }
 
   registerNewTariffAsync(tariff: Tariff) {
@@ -21,12 +19,6 @@ export class TariffActionsService {
   }
 
   deleteTariffAsync(tariff: Tariff){
-    var deleteTariffFunction = this.functions.httpsCallable('deleteTariff');
-    
-    return deleteTariffFunction(tariff)
-    .then(async() => {
-              await this.tariffService.deleteEntityAsync(tariff.Description);
-      }).catch((error) => console.log(error));
-  }
-  
+    return this.tariffService.deleteEntityAsync(tariff.Identifier);
+  }  
 }

@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>
+      Adquirir bonos
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="bonos-card">
+    
+    <ion-card-header class="font">
+      <ion-label></ion-label>
+      <p></p>
+
+      <ion-segment color = 'primary'>
+        <ion-segment-button (ionSelect)="diarioClick(event)">
+            <ion-label>Diario</ion-label>
+          </ion-segment-button>
+          <ion-segment-button (ionSelect)="semanalClick(event)">
+              <ion-label>Semanal</ion-label>
+            </ion-segment-button>
+          <ion-segment-button (ionSelect)="mensualClick(event)">
+                <ion-label>Mensual</ion-label>
+              </ion-segment-button>
+          <ion-segment-button (ionSelect)="borrarClick(event)">
+                <ion-label>borrar</ion-label>
+               </ion-segment-button>
+        </ion-segment>
+
+        <ion-label></ion-label>
+        <p align="center"> 
+        <ion-row class="text">
+          <ion-col>
+            Precio del bono:
+          </ion-col>
+          <ion-col>
+            {{paymentAmount2}} {{currencyIcon}}
+          </ion-col>
+        </ion-row>
+        </p>
+        
+
+        <p></p>
+
+    </ion-card-header>
+
+    <ion-card-content class="font">   
+
+       <div id = "paypal-button-container-Bonos"></div>
+       
+    </ion-card-content>
+
+  </ion-card>
+</ion-content>
