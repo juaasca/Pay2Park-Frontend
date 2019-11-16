@@ -71,7 +71,7 @@ export class BonosComponent {
     console.log( + CurrentUserData.DuracionBono );
   }
   borrarClick(ev: any){
-    CurrentUserData.DuracionBono = null;
+    CurrentUserData.DuracionBono = 0;
     console.log( + CurrentUserData.DuracionBono );
   }  
   

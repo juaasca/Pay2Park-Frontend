@@ -60,8 +60,9 @@ export class NotificationComponent implements OnInit {
   }
 
   async botonPagar() {
-    if (CurrentParkingData.park) {
-      this.comprobarBono();
+    console.log(CurrentUserData.DuracionBono);
+    this.comprobarBono();
+    if (CurrentParkingData.park) {      
       if(this.activo){
       this.bonoActivo();
       this.confirmPagoBono();
@@ -123,7 +124,9 @@ export class NotificationComponent implements OnInit {
   //Comprueba que el bono esta activo
   activo: boolean = false;
   comprobarBono(){
-  if(CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+    console.log(CurrentUserData.DuracionBono);
+    if(CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+    else this.activo = false;
   } 
   
   //Alerta de aviso de que el bono esta activo

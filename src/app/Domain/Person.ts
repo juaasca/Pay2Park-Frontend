@@ -12,7 +12,7 @@ export class Person {
         this.Username = username;
         this.BirthDate = birthDate;
         this.Email = email;
-        this.DuracionBono = null;
+        this.DuracionBono = 0;
     }
 
 }
