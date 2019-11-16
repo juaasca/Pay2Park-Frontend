@@ -54,10 +54,18 @@ export class ParkComponent implements OnInit {
 
   }
 
+  activo: boolean = false;
+  comprobarBono(){
+    if(CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+  }
+
   async aparcar() {
     const existe = this.comprobar();
+    this.comprobarBono();
+    //if (this.activo) console.log('elefante');
     if (existe) {
-      this.errorAparcar();
+      if(this.activo) this.bonoActivo();
+      else this.errorAparcar();
     } else {
     const alert = await this.alertController.create({
       header: '¿Desea aparcar aquí?',
@@ -92,6 +100,20 @@ export class ParkComponent implements OnInit {
           handler: () => {
             this.router.navigateByUrl('main/notification');
           }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async bonoActivo() {
+    const alert = await this.alertController.create({
+      header: 'Ya ha aparcado',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {}
         }
       ]
     });

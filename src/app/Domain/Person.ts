@@ -5,13 +5,14 @@ export class Person {
     Username?: string;
     BirthDate?: Date;
     Email: string;
-    DuracionBono: Date;
+    DuracionBono: number;
 
-    constructor(name: string, username: string, birthDate: Date, email: string ) {
+    constructor(name: string, username: string, birthDate: Date, email: string) {
         this.Name = name;
         this.Username = username;
         this.BirthDate = birthDate;
         this.Email = email;
+        this.DuracionBono = null;
     }
 
 }

@@ -9,17 +9,20 @@ import { PaymentComponent } from '../payment/payment.component';
 import { ProviderAstType } from '@angular/compiler';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
   styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
+
   park: Park;
   time: number;
   calle: string;
+  
   constructor(public alertController: AlertController, private parkService: ParkService,private userActions:UserActions, 
-    private payPal: PayPal,  private router: Router
+    private payPal: PayPal,  private router: Router, public alertControllerBono: AlertController
     ) { 
   }
   precio = 2.3;
@@ -49,9 +52,48 @@ export class NotificationComponent implements OnInit {
       }
   }
 
+
+  //Comprueba que el bono esta activo
+  activo: boolean = false;
+  comprobarBono(){
+    if(CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+  }
+
+  //Alerta de aviso de que el bono esta activo
+  async bonoActivo() {
+    const alertBono = await this.alertControllerBono.create({
+      header: 'Su bono esta activo, hasta la proxima',
+      buttons: [
+        {
+          text: 'OK',
+          handler: () => {
+            this.router.navigateByUrl('main/park');
+          }
+        }
+      ]
+    });
+
+    await alertBono.present();
+  }
+
+  //Elimina el registro de parking del usuario variable del codigo para confirmacion del bono
+  confirmPagoBono() {
+    this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
+    CurrentParkingData.park = null;
+    this.calle = 'Todavia no has aparcado';
+    this.time = 0;
+    this.router.navigateByUrl('main/park');
+  }
+
   async botonPagar() {
     if (CurrentParkingData.park) {
-    const alert = await this.alertController.create({
+      this.comprobarBono();
+      if(this.activo){
+        this.bonoActivo();
+        this.confirmPagoBono();
+      }
+      else {
+      const alert = await this.alertController.create({
       header: '¿Terminar Estacionamiento?',
       message: 'El precio sera de: ' + '0.30',
       buttons: [
@@ -72,7 +114,7 @@ export class NotificationComponent implements OnInit {
     });
 
     await alert.present();
-  }else{
+  }}else{
     const alert = await this.alertController.create({
       header: 'Todavia no ha estacionado',
       buttons: [{
@@ -87,6 +129,8 @@ export class NotificationComponent implements OnInit {
     await alert.present();
   }
   }
+
+
 
   confirmPagar() {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());

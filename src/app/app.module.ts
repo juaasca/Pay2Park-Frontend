@@ -70,9 +70,6 @@ import { BonosComponent } from './components/bonos/bonos.component';
         FilterCheckersPipe,
         InfoCheckerComponent,
         CreateCheckerComponent,
-
-
-
         BonosComponent
     ],
     entryComponents: [],

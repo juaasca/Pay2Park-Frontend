@@ -10,73 +10,49 @@
 </ion-header>
 
 <ion-content>
-  <ion-card class="welcome-card">
+  <ion-card class="bonos-card">
     
     <ion-card-header class="font">
       <ion-label></ion-label>
       <p></p>
-      <!-- <ion-card-title>PayPal Sample</ion-card-title> -->
-      <ion-row class="text">
-        <!-- <ion-col>
-          <ion-button
-          expand = "full"
-          fill = "solid"
-          color = "primary"
-          
-          >
-          <ion-icon name="qr-scanner"></ion-icon>
-            &nbsp; Bono 1
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button
-          expand = "full"
-          fill = "solid"
-          color = "primary"
-          
-          >
-          <ion-icon name="qr-scanner"></ion-icon>
-            &nbsp; Bono 1
-          </ion-button>
-        </ion-col>
-        <ion-col>
-          <ion-button
-          expand = "full"
-          fill = "solid"
-          color = "primary"
-          
-          >
-          <ion-icon name="qr-scanner"></ion-icon>
-            &nbsp; Bono 1
-          </ion-button>
-        </ion-col> -->
 
-        <ion-tabs>
-          <ion-tab-bar class="font" slot="bottom" *ngIf="!HideBar">
+      <ion-segment color = 'primary'>
+        <ion-segment-button (ionSelect)="diarioClick(event)">
+            <ion-label>Diario</ion-label>
+          </ion-segment-button>
+          <ion-segment-button (ionSelect)="semanalClick(event)">
+              <ion-label>Semanal</ion-label>
+            </ion-segment-button>
+          <ion-segment-button (ionSelect)="mensualClick(event)">
+                <ion-label>Mensual</ion-label>
+              </ion-segment-button>
+          <ion-segment-button (ionSelect)="borrarClick(event)">
+                <ion-label>borrar</ion-label>
+               </ion-segment-button>
+        </ion-segment>
 
-              <ion-tab-button (click)="click('diaria')">
-                  <ion-icon name="cash"></ion-icon>
-                  <ion-label>5€</ion-label>
-              </ion-tab-button>
-      
-              <ion-tab-button (click)="click('semanal')">
-                  <ion-icon name="cash"></ion-icon>
-                  <ion-label>15€</ion-label>
-              </ion-tab-button>
+        <ion-label></ion-label>
+        <p align="center"> 
+        <ion-row class="text">
+          <ion-col>
+            Precio del bono:
+          </ion-col>
+          <ion-col>
+            {{paymentAmount2}} {{currencyIcon}}
+          </ion-col>
+        </ion-row>
+        </p>
+        
 
-              <ion-tab-button (click)="click('mensual')">
-                <ion-icon name="cash"></ion-icon>
-                <ion-label>40€</ion-label>
-            </ion-tab-button>
+        <p></p>
 
-          </ion-tab-bar>
-      </ion-tabs>
-
-      </ion-row>
     </ion-card-header>
-    <ion-card-content class="font">
-       <div id="paypal-button-container"></div>
-      <!--<ion-button expand="full" color="success" (click)="payWithPaypal()">Realizar pago</ion-button>-->
+
+    <ion-card-content class="font">   
+
+       <div id = "paypal-button-container-Bonos"></div>
+       
     </ion-card-content>
+
   </ion-card>
 </ion-content>
