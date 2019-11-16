@@ -6,13 +6,9 @@ import { Park } from 'src/app/Domain/Park';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { UserActions } from 'src/app/logic/user.actions.service';
-<<<<<<< HEAD
-import { AlertController } from '@ionic/angular';
-=======
 import { AlertController, Platform, LoadingController } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { CurrentParkingData } from 'src/app/data/currentParking';
->>>>>>> master
 
 
 @Component({

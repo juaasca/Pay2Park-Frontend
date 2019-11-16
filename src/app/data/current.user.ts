@@ -7,10 +7,7 @@ export class CurrentUserData {
     public static CurrentStreet : string;
     public static LoggedUser: Person = null;
     public static price : string = null;
-<<<<<<< HEAD
     public static DuracionBono: number = null;
-=======
     public static color : string = 'light';
     public static wallet : number = 11;
->>>>>>> master
 }
