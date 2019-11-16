@@ -29,7 +29,7 @@ export class CreateTariffComponent implements OnInit {
           Validators.required,
           Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
         ])),
-        IsRealTime: ['false']
+        IsRealTime: [false]
       })  
     }
 

@@ -28,7 +28,7 @@
     </ion-item>
   </ion-list>
   <div align="center">
-    <ion-button class="font" [disabled]="!viewTariffForm.valid && hasBeenModified()" (click)="acceptButtonClicked()">Aceptar</ion-button>
+    <ion-button class="font" [disabled]="!viewTariffForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
     <ion-button class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
   </div>
 </form>

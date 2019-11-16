@@ -5,7 +5,6 @@ import { TariffActionsService } from 'src/app/logic/tariff.actions.service';
 import { Tariff } from 'src/app/Domain/Tariff';
 import { SelectedTariff } from '../selected.tariff';
 import { AlertController } from '@ionic/angular';
-import { async } from 'q';
 
 @Component({
   selector: 'app-view-tariff',
@@ -34,7 +33,7 @@ export class ViewTariffComponent implements OnInit {
           Validators.required,
           Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
         ])),
-        IsRealTime: ['false']
+        IsRealTime: [false]
       })
     }
 
@@ -55,16 +54,15 @@ export class ViewTariffComponent implements OnInit {
       if (this.isRealTimeChecked) {
         this.viewTariffForm.controls['Duration'].setValue(0);
       } else {
-        this.viewTariffForm.controls['Duration'].setValue('');
+        this.viewTariffForm.controls['Duration'].setValue(this.selectedTariff.Duration);
       }
   }
 
   acceptButtonClicked() {
     var formValue = this.viewTariffForm.value;
 
-    this.currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, +formValue.Price, +formValue.Duration);
-    console.log(this.currentTariff);
-    console.log(this.selectedTariff);
+    this.currentTariff = new Tariff(formValue.IsRealTime === 'true', formValue.Description, +formValue.Price, +formValue.Duration);
+
     var hasBeenModified = !this.currentTariff.Equals(this.selectedTariff);
 
     if (hasBeenModified) {
