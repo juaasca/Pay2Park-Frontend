@@ -1,10 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { TariffActionsService } from 'src/app/logic/tariff.actions.service';
 import { Tariff } from 'src/app/Domain/Tariff';
 import { SelectedTariff } from '../selected.tariff';
 import { AlertController } from '@ionic/angular';
+import { async } from 'q';
 
 @Component({
   selector: 'app-view-tariff',
@@ -24,10 +25,16 @@ export class ViewTariffComponent implements OnInit {
     private alertController: AlertController
     ) {
       this.viewTariffForm = this.formBuilder.group({
-        Description: ['', Validators.required],
-        Duration: ['', Validators.required],
-        Price: ['', Validators.required],
-        IsRealTime: ['']
+        Description: new FormControl('', Validators.required),
+        Duration: new FormControl ('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+        ])),
+        Price: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
+        ])),
+        IsRealTime: ['false']
       })
     }
 
@@ -50,7 +57,8 @@ export class ViewTariffComponent implements OnInit {
     var formValue = this.viewTariffForm.value;
 
     this.currentTariff = new Tariff(formValue.IsRealTime, formValue.Description, +formValue.Price, +formValue.Duration);
-
+    console.log(this.currentTariff);
+    console.log(this.selectedTariff);
     var hasBeenModified = !this.currentTariff.Equals(this.selectedTariff);
 
     if (hasBeenModified) {
@@ -64,6 +72,12 @@ export class ViewTariffComponent implements OnInit {
     return this.showDeleteTariffAlertAsync();
   }
 
+  updateTariff() {
+    this.tariffActionsService.updateExistingTariffAsync(this.selectedTariff, this.currentTariff)
+      .then(() => this.showTariffSuccesfullyUpdatedAsync())
+      .catch(() => this.showErrorUpdatingTariffAsync());
+  }
+
   async showTariffHasBeenModifiedAlert() {
     const alert = await this.alertController.create({
         header: '¡Atención!',
@@ -73,7 +87,7 @@ export class ViewTariffComponent implements OnInit {
             {
               text: 'Aceptar',
               handler: () => {
-                  this.tariffActionsService.updateExistingTariffAsync(this.selectedTariff, this.currentTariff);
+                this.updateTariff();
               },
             },
             {
@@ -106,6 +120,46 @@ export class ViewTariffComponent implements OnInit {
           handler: () => {
             alert.dismiss();
           },
+        }
+			],
+		});
+
+		await alert.present();
+  }
+
+  async showTariffSuccesfullyUpdatedAsync() {
+    const alert = await this.alertController.create({
+			header: '¡Éxito!',
+			message: 'La tarifa ha sido actualizada con éxito.',
+			buttons: [
+        {
+          text: 'Aceptar',
+					handler: async () => {
+            this.back();
+					},
+				}
+			],
+		});
+
+		await alert.present();
+  }
+
+  async showErrorUpdatingTariffAsync() {
+    const alert = await this.alertController.create({
+			header: '¡Error!',
+			message: 'Se ha producido un error inesperado al actualizar la tarifa. ¿Desea intentarlo de nuevo?',
+			buttons: [
+        {
+          text: 'Aceptar',
+					handler: async () => {
+            this.updateTariff();
+					},
+        },
+        {
+          text: 'Cancelar',
+          handler: async () => {
+            this.back();
+          }
         }
 			],
 		});
