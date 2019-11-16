@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TariffActionsService } from 'src/app/logic/tariff.actions.service';
 import { Tariff } from 'src/app/Domain/Tariff';
@@ -18,10 +18,16 @@ export class CreateTariffComponent implements OnInit {
     private tariffActionsService: TariffActionsService
     ) {
       this.createTariffForm = this.formBuilder.group({
-        Description: ['', Validators.required],
-        Duration: ['', Validators.required],
-        Price: ['', Validators.required],
-        IsRealTime: ['false']
+        Description: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+        ])),
+        Duration: new FormControl ('', Validators.required),
+        Price: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
+        ])),
+        IsRealTime: new FormControl ['false']
       })  
     }
 

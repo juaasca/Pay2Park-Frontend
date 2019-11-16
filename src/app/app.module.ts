@@ -45,7 +45,6 @@ import { BonosComponent } from './components/bonos/bonos.component';
 import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
-import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 
 @NgModule({
@@ -80,7 +79,6 @@ import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff
         BonosComponent,
         TariffComponent,
         CreateTariffComponent,
-        ManageTariffComponent,
         ViewTariffComponent
     ],
     entryComponents: [],
