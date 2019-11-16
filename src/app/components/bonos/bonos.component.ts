@@ -11,9 +11,12 @@ declare var paypal;
   styleUrls: ['./bonos.component.scss']
 })
 export class BonosComponent {
-
+  color: string;
   constructor(private payPal: PayPal) {
-    
+    this.color = CurrentUserData.color;
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+    }, 1000);
     let _this = this;
     setTimeout(() => {
       // Render the PayPal button into #paypal-button-container

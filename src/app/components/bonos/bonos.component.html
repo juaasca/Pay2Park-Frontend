@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="font" color = {{color}}>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
@@ -16,7 +16,7 @@
       <ion-label></ion-label>
       <p></p>
 
-      <ion-segment color = 'primary'>
+      <ion-segment color = {{color}}>
         <ion-segment-button (ionSelect)="diarioClick(event)">
             <ion-label>Diario</ion-label>
           </ion-segment-button>
@@ -31,10 +31,10 @@
                </ion-segment-button>
         </ion-segment>
 
-        <ion-label></ion-label>
+        <ion-label ></ion-label>
         <p align="center"> 
-        <ion-row class="text">
-          <ion-col>
+        <ion-row class="text"  >
+          <ion-col >
             Precio del bono:
           </ion-col>
           <ion-col>
@@ -48,9 +48,9 @@
 
     </ion-card-header>
 
-    <ion-card-content class="font">   
+    <ion-card-content class="font" >   
 
-       <div id = "paypal-button-container-Bonos"></div>
+       <div id = "paypal-button-container-Bonos" ></div>
        
     </ion-card-content>
 
