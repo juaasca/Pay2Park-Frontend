@@ -60,6 +60,10 @@ export class ViewTariffComponent implements OnInit {
     }
   }
 
+  deleteButtonClickedAsync() {
+    return this.showDeleteTariffAlertAsync();
+  }
+
   async showTariffHasBeenModifiedAlert() {
     const alert = await this.alertController.create({
         header: '¡Atención!',
@@ -84,25 +88,25 @@ export class ViewTariffComponent implements OnInit {
     await alert.present();
   }
 
-  async deleteTariffAsync() {
+  async showDeleteTariffAlertAsync() {
     const alert = await this.alertController.create({
 			header: 'Eliminar tarifa',
 			message: '¿Está seguro que desea eliminar esta tarifa? Esta acción no podrá deshacerse.',
 			buttons: [
-				{
-					text: 'Cancelar',
-					handler: () => {
-						alert.dismiss();
-					},
-				},
-				{
-					text: 'Confirmar',
+        {
+          text: 'Confirmar',
 					handler: async () => {
             await this.tariffActionsService.deleteTariffAsync(this.selectedTariff);
             
-            this.router.navigateByUrl("main/admin/tariff");
+            this.back();
 					},
 				},
+        {
+          text: 'Cancelar',
+          handler: () => {
+            alert.dismiss();
+          },
+        }
 			],
 		});
 
