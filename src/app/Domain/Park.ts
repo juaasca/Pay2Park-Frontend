@@ -8,6 +8,7 @@ export class Park {
     Coordinates: [number, number];
     Fare: Tariff;
     Date: string;
+    Paid: boolean;
     constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number],
          fare: Tariff, date: string) {
         this.id = id;

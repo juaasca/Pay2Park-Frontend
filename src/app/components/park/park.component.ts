@@ -22,8 +22,9 @@ export class ParkComponent implements OnInit{
   private idWatch: any;
   color : string;
   constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
-
+  posicion : [number,number];
   ngOnInit() {
+    this.posicion = [39.482638,-0.348196];
     this.comprobar();
     this.color = CurrentUserData.color;
     let map;
@@ -32,16 +33,16 @@ export class ParkComponent implements OnInit{
         timeout: 5000,
         maximumAge: 0
       };
-    const actual = navigator.geolocation.getCurrentPosition((pos) => {
-         map = L.map('map').setView([pos.coords.latitude, pos.coords.longitude], 16);
+    //const actual = navigator.geolocation.getCurrentPosition((pos) => {
+         map = L.map('map').setView(this.posicion, 16);
          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
-    }, () => {}, options);
+    //}, () => {}, options);
 
-    this.idWatch = navigator.geolocation.watchPosition((position) => {
+   // this.idWatch = navigator.geolocation.watchPosition((position) => {
 
-        const posicion = marker([position.coords.latitude, position.coords.longitude], {
+        const posicion = marker(this.posicion, {
             icon: icon({
               iconSize: [ 25, 41 ],
               iconAnchor: [ 13, 41 ],
@@ -49,8 +50,8 @@ export class ParkComponent implements OnInit{
               shadowUrl: 'assets/leaflet/images/marker-shadow.png'
             })
           }).addTo(map);
-        CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
-    }, () => {}, options);
+        CurrentUserData.CurrentPosition = this.posicion;
+   // }, () => {}, options);
 
     if(CurrentParkingData.parkPosition != undefined){
       this.idWatch = navigator.geolocation.watchPosition((position) => {
