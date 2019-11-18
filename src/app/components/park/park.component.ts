@@ -56,7 +56,7 @@ export class ParkComponent implements OnInit{
     if(CurrentParkingData.parkPosition != undefined){
       this.idWatch = navigator.geolocation.watchPosition((position) => {
 
-        const posicion = marker([position.coords.latitude, position.coords.longitude], {
+        const posicion = marker(this.posicion, {
             icon: icon({
               iconSize: [ 25, 41 ],
               iconAnchor: [ 13, 41 ],
@@ -64,7 +64,7 @@ export class ParkComponent implements OnInit{
               shadowUrl: 'assets/leaflet/images/marker-shadow.png'
             })
           }).addTo(map);
-        CurrentUserData.CurrentPosition = [position.coords.latitude, position.coords.longitude];
+        CurrentUserData.CurrentPosition = this.posicion;
     }, () => {}, options);
 
 
