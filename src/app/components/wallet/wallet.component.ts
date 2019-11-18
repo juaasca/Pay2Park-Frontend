@@ -6,6 +6,7 @@ import { Client } from 'src/app/Domain/Client';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { disableDebugTools } from '@angular/platform-browser';
 import { Router } from '@angular/router';
+import { Transactions } from 'src/app/Domain/Transactions';
 
 declare var paypal;
 
@@ -33,11 +34,11 @@ export class WalletComponent implements OnInit {
     })
   }
 
-  ngOnInit() { 
+  ngOnInit() {
     this.color = CurrentUserData.color;
     setInterval(() => {
       this.color = CurrentUserData.color;
-  }, 1000);
+    }, 1000);
   }
 
   anyadirSaldo() {
@@ -48,10 +49,12 @@ export class WalletComponent implements OnInit {
     var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
+    var aaa = new Transactions('a', 'a', 'a');
+    this.userActions.addHistory(user,aaa);
     this.userActions.updateWallet(user);
     CurrentUserData.price = formValue.dinero.toString();
     this.router.navigateByUrl('payment');
-    
+
 
     /*let _this = this;
     setTimeout(() => {
