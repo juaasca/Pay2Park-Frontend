@@ -18,6 +18,7 @@ import { ParkService } from '../services/dao/parks.service';
 import { CurrentParkingData } from '../data/currentParking';
 import { WorkersService } from '../services/dao/workers.service';
 import { Person } from '../Domain/Person';
+import { Transactions } from '../Domain/Transactions';
 
 @Injectable({
     providedIn: 'root',
@@ -80,6 +81,10 @@ export class UserActions {
 
     public recoverPassword(email: string) {
         return firebase.auth().sendPasswordResetEmail(email);
+    }
+
+    public addHistory(user: Client, transaction: Transactions) {
+        this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).child('History').set(transaction);
     }
 
     public updateWallet(user: Client) {
