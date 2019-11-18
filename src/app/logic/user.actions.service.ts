@@ -62,7 +62,7 @@ export class UserActions {
             );
         } else {
             //const wallet: Wallet = new Wallet(0);
-            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email, 0);
+            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email, 0, 0);
 
             await firebase.auth().createUserWithEmailAndPassword(email, password);
             this.clientService.addEntityAsync(newClient.Email, newClient);
@@ -93,6 +93,10 @@ export class UserActions {
     public updateWallet(user: Client) {
         this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).set(user);
     }
+
+    public updateBono(user: Client) {
+        this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).set(user);
+    }
  
     // Registrarse o login con google
     public async signinUserAsync() {
@@ -105,20 +109,21 @@ export class UserActions {
 
             let user = await this.clientService.getEntityAsync(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
-                    user = new Client(name, name, new Date(), email, 0);
+                    user = new Client(name, name, new Date(), email, 0, 0);
                     this.clientService.addEntityAsync(email, user);
 
                 }
                 // Para añadir administrador
                 // this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
-                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet);
+                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet, result.additionalUserInfo.profile.DuracionBono);
                 CurrentUserData.wallet = result.additionalUserInfo.profile.wallet;
+                CurrentUserData.DuracionBono = result.additionalUserInfo.profile.DuracionBono;
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
                 
-                
                 this.router.navigateByUrl('main/park');
+                
             })
             .catch((error: any) => {
                 // Handle Errors here.
@@ -140,13 +145,15 @@ export class UserActions {
                 let currentClient = await this.clientService.getEntityAsync(email);
 
                 if (currentClient == null) {
-                    currentClient = new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email,0);
+                    currentClient = new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email,0, 0);
                     
                     await this.clientService.addEntityAsync(email, currentClient);
                 }
 
                 CurrentUserData.LoggedUser = currentClient;
                 CurrentUserData.wallet = currentClient.Wallet;
+                CurrentUserData.DuracionBono = currentClient.DuracionBono;
+
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
 
