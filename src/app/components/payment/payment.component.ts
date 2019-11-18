@@ -23,6 +23,7 @@ export class PaymentComponent  implements OnInit{
     this.color = CurrentUserData.color;
     this.paymentAmount = CurrentUserData.price;
     this.realizarPago();
+    console.log(this.paymentAmount);
     setInterval(() => {
       this.color = CurrentUserData.color;
   }, 1000);
