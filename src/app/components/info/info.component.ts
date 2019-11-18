@@ -11,25 +11,21 @@ import { Location } from 'src/app/Domain/Location';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-  private locations: Location[] = [];
+  private locations: Location[];
 
   @ViewChildren('searchBar') input: ElementRef;
 
-  items: string[];
-  filterItems: string[];
+  filteredLocations: Location[];
   color: string;
 
   constructor(private locationService: LocationService, private darkMode: DarkModeService) {
-    this.updateLocations();
+    this.updateLocations().then(() => this.filteredLocations = this.locations);
   }
 
   ngOnInit() {
-    console.log(this.input);
-    this.items = ['Valencia','Alberique‎', 'Bétera‎', 'Burjassot', 'Cullera‎', 'El Puig‎ ', 'Fuenterrobles‎', 'Godella‎', 'Madrid', 'Barcelona', 'Leganes', 'Getafe', 'Tarragona', 'Lerida' ];
-    this.items.sort();
-    this.filterItems = this.items;
-
+    this.filteredLocations = this.locations;
     this.color = CurrentUserData.color;
+
     setInterval(() => {
       this.color = CurrentUserData.color;
       this.updateLocations();
@@ -37,23 +33,30 @@ export class InfoComponent implements OnInit {
   }
 
   updateLocations() {
-    this.locationService.getEntitiesAsync().then((locations) => this.locations = locations.sort((a, b) => this.sortLocationAscending(a, b)));
+    return this.locationService.getEntitiesAsync()
+      .then((locations) => {
+        this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
+      });
   }
 
   onInput(event) {
     if (event.target.value == '')
-      this.filterItems = [...this.items];
+      this.filteredLocations = this.locations;
 
     else 
-      this.filterItems = this.items.filter(item => item.toLowerCase().includes(event.target.value.toLowerCase()));
+      this.filteredLocations = this.locations.filter(location => location.Name.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 
-  sortLocationAscending(locationA: Location, locationB: Location) {
-    var nameA=locationA.Name.toLowerCase(), nameB=locationB.Name.toLowerCase()
-    if (nameA < nameB)
-        return -1 
-    if (nameA > nameB)
-        return 1
-    return 0
-}
+  sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
+    var nameA = firstLocation.Name.toLowerCase();
+    var nameB = secondLocation.Name.toLowerCase();
+    
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
 }
