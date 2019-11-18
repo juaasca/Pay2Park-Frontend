@@ -7,6 +7,7 @@ import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal
 import { disableDebugTools } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { Transactions } from 'src/app/Domain/Transactions';
+import { HistoryService } from 'src/app/services/dao/history.service';
 
 declare var paypal;
 
@@ -17,12 +18,14 @@ declare var paypal;
 })
 export class WalletComponent implements OnInit {
   public color: string;
+  movements: Transactions[];
   private cartera: FormGroup;
   email = CurrentUserData.LoggedUser.Email;
   saldo = CurrentUserData.wallet;
 
   constructor(
     private formBuilder: FormBuilder,
+    private historyService: HistoryService,
     private userActions: UserActions,
     private router: Router
   ) {
@@ -35,25 +38,45 @@ export class WalletComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.historyService.getEntitiesAsync().then(movements => this.transaccionesUsuario(movements));
+
     this.color = CurrentUserData.color;
     setInterval(() => {
       this.color = CurrentUserData.color;
     }, 1000);
   }
 
+  transaccionesUsuario(movements: Transactions[]) {
+    if (CurrentUserData.LoggedUser) {
+        while (movements.length > 0) {
+            let aux = movements.pop();
+            if (aux.OwnersEmail[0] == CurrentUserData.LoggedUser.Email) {
+                this.movements.push(aux);
+            }
+        }
+    }
+}
+
   anyadirSaldo() {
     var formValue = this.cartera.value;
     console.log(formValue.dinero);
-    var nuevoSaldo = Number(formValue.dinero) + Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
+    var dinero = formValue.dinero;
+    var nuevoSaldo = Number(dinero) + Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
     var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
-    var aaa = new Transactions('a', 'a', 'a');
-    this.userActions.addHistory(user,aaa);
     this.userActions.updateWallet(user);
-    CurrentUserData.price = formValue.dinero.toString();
-    this.router.navigateByUrl('payment');
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    
+    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 1);
+    this.userActions.addHistory(user,transaccion);
+    CurrentUserData.price = dinero.toString();
+    //this.router.navigateByUrl('payment');
 
 
     /*let _this = this;

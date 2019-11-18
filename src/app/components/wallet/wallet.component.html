@@ -53,5 +53,12 @@
         </ion-list>
       </ion-card>
     </form>
+
+    <ion-list [ngStyle]="{'color' : color}" *ngFor="let item of movements">
+      <ion-item color={{color}} class="font" style="font-size: 30px;">
+          <ion-icon name="transaction"></ion-icon>
+          {{item.Date}}
+      </ion-item>
+  </ion-list>
   </ion-content>
 </ion-app>

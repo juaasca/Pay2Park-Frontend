@@ -1,11 +1,13 @@
 export class Transactions {
     
-    LicensePlate: string;
-    Name: string;
-    Description: string;
-    constructor(licensePlate: string, name: string, desciption: string) {
-        this.LicensePlate = licensePlate;
-        this.Name = name;
-        this.Description = desciption;
+    Amount: string;
+    Date: string;
+    Operation: number;
+    OwnersEmail: string[];
+    constructor(amount: string, date: string, owner: string[], operation) {
+        this.Amount = amount;
+        this.Date = date;
+        this.OwnersEmail = owner;
+        this.Operation = operation;
     }
 }

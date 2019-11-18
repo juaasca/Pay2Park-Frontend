@@ -19,6 +19,7 @@ import { CurrentParkingData } from '../data/currentParking';
 import { WorkersService } from '../services/dao/workers.service';
 import { Person } from '../Domain/Person';
 import { Transactions } from '../Domain/Transactions';
+import { HistoryService } from '../services/dao/history.service';
 
 @Injectable({
     providedIn: 'root',
@@ -33,6 +34,7 @@ export class UserActions {
     constructor(
         private clientService: ClientsService,
         private vehicleService: VehiclesService,
+        private historiesService: HistoryService,
         private parkService: ParkService,
         private adminService: AdministratorsService,
         private workerService: WorkersService,
@@ -84,7 +86,8 @@ export class UserActions {
     }
 
     public addHistory(user: Client, transaction: Transactions) {
-        this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()).child('History').set(transaction);
+        this.historiesService.addEntityAsync(transaction.Date, transaction);
+        //this.clientService.refClients.child(user.Email.replace('.', '&&').toLowerCase()+'/History/'+ transaction.Date).set(transaction);
     }
 
     public updateWallet(user: Client) {
