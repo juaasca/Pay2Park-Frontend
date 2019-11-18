@@ -12,14 +12,14 @@
     <ion-title>¿Dónde opera Pay2park?</ion-title>
   </ion-toolbar>
   <ion-toolbar class="font" color = {{color}}>
-    <ion-searchbar (ionInput)="onInput($event);"></ion-searchbar>
+    <ion-searchbar (ionChange)="getItems( $event )"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
   <ion-list>
-    <ion-item color={{color}} *ngFor="let location of filteredLocations">
+    <ion-item color={{color}} *ngFor="let location of locations | filterLocations: searchText: 'column'">
       <ion-label class="font"> {{location.Name}} </ion-label>
-      <ion-button *ngIf=currentUserIsAdmin color="danger">
+      <ion-button *ngIf=currentUserIsAdmin color="danger" (click)="delete(location)">
         <ion-icon name="trash"></ion-icon>
       </ion-button>
     </ion-item>

@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import * as firebase from 'firebase';
 import { LocationService } from '../services/dao/location.service';
 import { Location } from '../Domain/Location';
 
@@ -14,7 +13,11 @@ export class LocationActionsService {
         return this.locationService.addEntityAsync(location.Name, location);
     }
 
-    deleteTariffAsync(location: Location){
+    deleteLocationAsync(location: Location){
         return this.locationService.deleteEntityAsync(location.Name);
-    } 
+    }
+
+    getLocationsAsync() {
+        return this.locationService.getEntitiesAsync();
+    }
 }

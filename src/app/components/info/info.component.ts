@@ -4,6 +4,7 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { LocationService } from 'src/app/services/dao/location.service';
 import { Location } from 'src/app/Domain/Location';
+import { LocationActionsService } from 'src/app/logic/location.actions.service';
 
 @Component({
   selector: 'app-info',
@@ -11,42 +12,44 @@ import { Location } from 'src/app/Domain/Location';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
-  private locations: Location[];
+  private locations: Location[] = [];
+  private searchText = '';
   currentUserIsAdmin = false;
 
   @ViewChildren('searchBar') input: ElementRef;
 
-  filteredLocations: Location[];
   color: string;
 
-  constructor(private locationService: LocationService, private darkMode: DarkModeService) {
-    this.updateLocations().then(() => this.filteredLocations = this.locations);
+  constructor(
+    private locationActionsService: LocationActionsService,
+    private darkMode: DarkModeService) {
+    this.updateLocations();
   }
 
   ngOnInit() {
-    this.filteredLocations = this.locations;
     this.color = CurrentUserData.color;
     this.currentUserIsAdmin = CurrentUserData.IsAdmin;
 
-    setInterval(() => {
+    setInterval(async () => {
       this.color = CurrentUserData.color;
-      this.updateLocations();
-    }, 1000);
+      await this.updateLocations();
+    }, 2000);
+  }
+
+  getItems(event){
+    this.searchText = event.detail.value;
   }
 
   updateLocations() {
-    return this.locationService.getEntitiesAsync()
+    return this.locationActionsService.getLocationsAsync()
       .then((locations) => {
         this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
       });
   }
 
-  onInput(event) {
-    if (event.target.value == '')
-      this.filteredLocations = this.locations;
-
-    else 
-      this.filteredLocations = this.locations.filter(location => location.Name.toLowerCase().includes(event.target.value.toLowerCase()));
+  delete(location: Location) {
+    this.locationActionsService.deleteLocationAsync(location)
+      .catch((error) => console.log(error));
   }
 
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {

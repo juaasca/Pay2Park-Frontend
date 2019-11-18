@@ -47,6 +47,7 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
+import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
 
 @NgModule({
     declarations: [
@@ -81,7 +82,8 @@ import { CreateLocationComponent } from './components/info/create-location/creat
         TariffComponent,
         CreateTariffComponent,
         ViewTariffComponent,
-        CreateLocationComponent
+        CreateLocationComponent,
+        FilterLocationsPipe
     ],
     entryComponents: [],
     imports: [
