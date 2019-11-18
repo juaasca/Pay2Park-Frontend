@@ -48,10 +48,6 @@ export class InfoComponent implements OnInit {
       this.filterItems = this.items.filter(item => item.toLowerCase().includes(event.target.value.toLowerCase()));
   }
 
-  getItems(event){
-    this.searchText = event.detail.value;
-  }
-
   sortLocationAscending(locationA: Location, locationB: Location) {
     var nameA=locationA.Name.toLowerCase(), nameB=locationB.Name.toLowerCase()
     if (nameA < nameB)
