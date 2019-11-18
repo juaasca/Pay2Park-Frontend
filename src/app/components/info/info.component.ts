@@ -12,6 +12,7 @@ import { Location } from 'src/app/Domain/Location';
 })
 export class InfoComponent implements OnInit {
   private locations: Location[];
+  currentUserIsAdmin = false;
 
   @ViewChildren('searchBar') input: ElementRef;
 
@@ -25,6 +26,7 @@ export class InfoComponent implements OnInit {
   ngOnInit() {
     this.filteredLocations = this.locations;
     this.color = CurrentUserData.color;
+    this.currentUserIsAdmin = CurrentUserData.IsAdmin;
 
     setInterval(() => {
       this.color = CurrentUserData.color;
