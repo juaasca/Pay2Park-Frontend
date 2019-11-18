@@ -23,7 +23,7 @@ export class NotificationComponent implements OnInit {
   time: number;
   calle: string;
   color: string;
-
+  max: number;
   constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
       private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController
   ) { }
@@ -34,10 +34,13 @@ export class NotificationComponent implements OnInit {
     this.time = 0;
     this.color = CurrentUserData.color;
     this.comprobar();
+    
     if (CurrentParkingData.park) {
         this.park = CurrentParkingData.park;
         this.time = this.park.getCurrentTime();
         this.calle = this.park.Street;
+        this.max = this.park.Fare.Duration;
+        if(this.park.Fare.IsRealTime){this.max = 120;}
     }
     this.calle = 'Todavia no has aparcado';
     setInterval(() => {
@@ -52,7 +55,9 @@ export class NotificationComponent implements OnInit {
         this.time = this.park.getCurrentTime();
         this.calle = this.park.Street;
         this.time = this.park.getCurrentTime();
-        this.precio = 1 + 0.20 * this.time;
+        
+        this.max = this.park.Fare.Duration;
+        if(this.park.Fare.IsRealTime){this.max = 120;}
     } else {
         this.calle = 'Todavia no has aparcado';
         this.time = 0;
@@ -60,6 +65,8 @@ export class NotificationComponent implements OnInit {
   }
 
   async botonPagar() {
+    this.precio = this.park.Fare.Price;
+    if(this.park.Fare.IsRealTime){this.precio= this.park.Fare.Price * this.time;}
     console.log(CurrentUserData.DuracionBono);
     this.comprobarBono();
     if (CurrentParkingData.park) {      
@@ -70,7 +77,7 @@ export class NotificationComponent implements OnInit {
     else {
       const alert = await this.alertController.create({
         header: '¿Terminar Estacionamiento?',
-            message: 'El precio sera de: ' + this.precio.toString(),
+            message: 'El precio es: ' + this.precio.toString() + ' por una duración de ' +this.time.toString() + ' minutos.',
             buttons: [
               {
                 text: 'Cancelar',
@@ -79,7 +86,7 @@ export class NotificationComponent implements OnInit {
                     console.log('Confirm Cancel');
                 }
               }, {
-                text: 'Pagar',
+                text: 'Finalizar',
                 handler: () => {
                     this.confirmPagar();
                   }
@@ -104,8 +111,10 @@ export class NotificationComponent implements OnInit {
   confirmPagar() {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
+    if(this.park.Fare.IsRealTime){
     CurrentUserData.price = this.precio.toString();
     this.router.navigateByUrl('payment');
+    }
   }
 
   comprobar() {

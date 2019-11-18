@@ -5,6 +5,7 @@ import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { ParkService } from 'src/app/services/dao/parks.service';
+import { Router } from '@angular/router';
 
 declare var paypal;
 
@@ -28,7 +29,7 @@ export class PaymentComponent  implements OnInit{
   }, 1000);
   }
   color:string;
-  constructor(private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService) {
+  constructor(private router: Router,private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService) {
   }
 
 
@@ -106,6 +107,9 @@ export class PaymentComponent  implements OnInit{
         }
       }).render('#paypal-button-container');
     }, 500)
+  }
+  atras(){
+    this.router.navigateByUrl('main/notification');
   }
 }
 

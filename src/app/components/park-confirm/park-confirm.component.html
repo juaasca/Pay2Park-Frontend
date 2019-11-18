@@ -16,14 +16,13 @@
                 </ion-item>
             </ion-list>
            
-            <ion-list>
-                <ion-item *ngFor="let item of tariffs">
-                    <ion-label class="font">Tarifas</ion-label>
-                    <ion-select class="font" placeholder="Elige una tarifa">
-                        <ion-select-option>{{item.Description}}</ion-select-option>
-                    </ion-select>
-                </ion-item>
-            </ion-list>
+
+            <ion-segment>
+                <ion-segment-button (click)="seleccionaTarifa(item)" *ngFor="let item of tariffs">
+                    {{item.Description}}
+                </ion-segment-button>
+                <ion-segment-button> Pagar con Bono</ion-segment-button>
+              </ion-segment>
 
         </ion-header>
 
