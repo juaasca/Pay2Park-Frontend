@@ -17,6 +17,7 @@ declare var paypal;
   styleUrls: ['./wallet.component.scss'],
 })
 export class WalletComponent implements OnInit {
+
   public color: string;
   movements: Transactions[];
   private cartera: FormGroup;
@@ -29,6 +30,8 @@ export class WalletComponent implements OnInit {
     private userActions: UserActions,
     private router: Router
   ) {
+    
+    this.movements = [];
     this.cartera = this.formBuilder.group({
       dinero: new FormControl('', Validators.compose([
         Validators.required,
@@ -76,7 +79,7 @@ export class WalletComponent implements OnInit {
     var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 1);
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
-    //this.router.navigateByUrl('payment');
+    this.router.navigateByUrl('payment');
 
 
     /*let _this = this;
