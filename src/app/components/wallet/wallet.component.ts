@@ -49,9 +49,9 @@ export class WalletComponent implements OnInit {
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
-    /*CurrentUserData.price = formValue.dinero.toString();
+    CurrentUserData.price = formValue.dinero.toString();
     this.router.navigateByUrl('payment');
-    */
+    
 
     /*let _this = this;
     setTimeout(() => {
