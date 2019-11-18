@@ -2,6 +2,8 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren } fro
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { CurrentUserData } from 'src/app/data/current.user';
+import { LocationService } from 'src/app/services/dao/location.service';
+import { Location } from 'src/app/Domain/Location';
 
 @Component({
   selector: 'app-info',
@@ -9,6 +11,7 @@ import { CurrentUserData } from 'src/app/data/current.user';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
+  private locations: Location[] = [];
 
   @ViewChildren('searchBar') input: ElementRef;
 
@@ -16,7 +19,9 @@ export class InfoComponent implements OnInit {
   filterItems: string[];
   color: string;
 
-  constructor(private darkMode: DarkModeService) { }
+  constructor(private locationService: LocationService, private darkMode: DarkModeService) {
+    this.updateLocations();
+  }
 
   ngOnInit() {
     console.log(this.input);
@@ -27,7 +32,12 @@ export class InfoComponent implements OnInit {
     this.color = CurrentUserData.color;
     setInterval(() => {
       this.color = CurrentUserData.color;
+      this.updateLocations();
     }, 1000);
+  }
+
+  updateLocations() {
+    this.locationService.getEntitiesAsync().then((locations) => this.locations = locations.sort((a, b) => this.sortLocationAscending(a, b)));
   }
 
   onInput(event) {
@@ -37,4 +47,17 @@ export class InfoComponent implements OnInit {
     else 
       this.filterItems = this.items.filter(item => item.toLowerCase().includes(event.target.value.toLowerCase()));
   }
+
+  getItems(event){
+    this.searchText = event.detail.value;
+  }
+
+  sortLocationAscending(locationA: Location, locationB: Location) {
+    var nameA=locationA.Name.toLowerCase(), nameB=locationB.Name.toLowerCase()
+    if (nameA < nameB)
+        return -1 
+    if (nameA > nameB)
+        return 1
+    return 0
+}
 }
