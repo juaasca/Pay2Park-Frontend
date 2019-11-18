@@ -25,6 +25,7 @@ export class ParkConfirmComponent implements OnInit {
     color: string;
     tariffs: Tariff[];
     tariff: Tariff;
+    tieneBono:boolean;
 
     constructor(private router: Router,
         private tariffService: TariffService,
@@ -49,6 +50,7 @@ export class ParkConfirmComponent implements OnInit {
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
         this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
         this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff= this.tariffs[0]);
+        if(CurrentUserData.DuracionBono > Date.now()){this.tieneBono = true;}else{this.tieneBono = false;}
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
@@ -71,7 +73,7 @@ export class ParkConfirmComponent implements OnInit {
 
     aparcarVehiculo(vehiculo: Vehicle) {
         this.carga();
-        console.log(this.tariff.IsRealTime);
+        if(this.tieneBono){ this.tariff = new Tariff(false,'con bono',999,60);}
         this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
         CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
@@ -142,10 +144,16 @@ export class ParkConfirmComponent implements OnInit {
 
         const { role, data } = await loading.onDidDismiss();
 
-        
-        if(!this.prueba.Fare.IsRealTime){CurrentUserData.price = this.prueba.Fare.Price.toString();this.router.navigateByUrl('payment');}else{
+
+
+        if(!this.prueba.Fare.IsRealTime ){
+            if(this.tieneBono){this.router.navigateByUrl('main/notification');}else{
+
+            CurrentUserData.price = this.prueba.Fare.Price.toString();this.router.navigateByUrl('payment');}}else{
             console.log(this.prueba.Fare.IsRealTime);    
+            
             this.router.navigateByUrl('main/notification');
+            
         }
     }
 

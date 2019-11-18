@@ -32,6 +32,7 @@ export class NotificationComponent implements OnInit {
 
   ngOnInit() {
     this.time = 0;
+    this.max = 120;
     this.color = CurrentUserData.color;
     this.comprobar();
     
@@ -68,11 +69,11 @@ export class NotificationComponent implements OnInit {
     this.precio = this.park.Fare.Price;
     if(this.park.Fare.IsRealTime){this.precio= this.park.Fare.Price * this.time;}
     console.log(CurrentUserData.DuracionBono);
-    this.comprobarBono();
-    if (CurrentParkingData.park) {      
+    if (CurrentParkingData.park) {
+      this.comprobarBono();
       if(this.activo){
       this.bonoActivo();
-      this.confirmPagoBono();
+      //this.confirmPagoBono();
     }
     else {
       const alert = await this.alertController.create({
@@ -141,12 +142,13 @@ export class NotificationComponent implements OnInit {
   //Alerta de aviso de que el bono esta activo
   async bonoActivo() {
     const alertBono = await this.alertControllerBono.create({
-      header: 'Su bono esta activo, hasta la proxima',
+      header: 'Ha usado su bono para estacionar',
       buttons: [
         {
           text: 'OK',
           handler: () => {
-            this.router.navigateByUrl('main/park');
+            this.confirmPagoBono();
+            this.router.navigateByUrl('main/notification');
           }
         }
       ]
@@ -160,6 +162,7 @@ export class NotificationComponent implements OnInit {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
     this.calle = 'Todavia no has aparcado';
+    this.max = 120;
     this.time = 0;
     this.router.navigateByUrl('main/park');
   }

@@ -17,11 +17,10 @@
             </ion-list>
            
 
-            <ion-segment>
+            <ion-segment disabled= {{this.tieneBono}} >
                 <ion-segment-button (click)="seleccionaTarifa(item)" *ngFor="let item of tariffs">
                     {{item.Description}}
                 </ion-segment-button>
-                <ion-segment-button> Pagar con Bono</ion-segment-button>
               </ion-segment>
 
         </ion-header>
