@@ -46,7 +46,7 @@ export class CreateLocationComponent implements OnInit {
             {
               text: 'Aceptar',
               handler: () => {
-                  this.router.navigateByUrl("main/admin/info");
+                  this.router.navigateByUrl("info");
               },
             }
         ],
