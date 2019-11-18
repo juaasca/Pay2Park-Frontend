@@ -148,7 +148,7 @@ export class NotificationComponent implements OnInit {
           text: 'OK',
           handler: () => {
             this.confirmPagoBono();
-            this.router.navigateByUrl('main/notification');
+            this.router.navigateByUrl('main/park');
           }
         }
       ]

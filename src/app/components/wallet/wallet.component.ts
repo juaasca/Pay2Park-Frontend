@@ -45,7 +45,7 @@ export class WalletComponent implements OnInit {
     console.log(formValue.dinero);
     var nuevoSaldo = Number(formValue.dinero) + Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
-    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo);
+    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
@@ -89,7 +89,7 @@ export class WalletComponent implements OnInit {
     console.log(formValue.dinero);
     var nuevoSaldo = Number(formValue.dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
-    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo);
+    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
