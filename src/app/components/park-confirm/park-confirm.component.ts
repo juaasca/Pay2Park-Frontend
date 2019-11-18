@@ -26,7 +26,7 @@ export class ParkConfirmComponent implements OnInit {
     tariffs: Tariff[];
     tariff: Tariff;
     tieneBono:boolean;
-
+    bonoTexto:string;
     constructor(private router: Router,
         private tariffService: TariffService,
         private vehiclesService: VehiclesService,
@@ -50,7 +50,7 @@ export class ParkConfirmComponent implements OnInit {
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
         this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
         this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff= this.tariffs[0]);
-        if(CurrentUserData.DuracionBono > Date.now()){this.tieneBono = true;}else{this.tieneBono = false;}
+        if(CurrentUserData.DuracionBono > Date.now()){this.tieneBono = true; this.bonoTexto = 'Tienes un bono activo';}else{this.tieneBono = false;}
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);

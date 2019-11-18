@@ -16,7 +16,8 @@
                 </ion-item>
             </ion-list>
            
-
+            <ion-item color = {{color}} >{{bonoTexto}}</ion-item>
+            <ion-item color = {{color}} >Selecciona una tarifa:</ion-item>
             <ion-segment disabled= {{this.tieneBono}} >
                 <ion-segment-button (click)="seleccionaTarifa(item)" *ngFor="let item of tariffs">
                     {{item.Description}}

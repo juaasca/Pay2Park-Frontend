@@ -66,16 +66,14 @@ export class NotificationComponent implements OnInit {
   }
 
   async botonPagar() {
-    this.precio = this.park.Fare.Price;
-    if(this.park.Fare.IsRealTime){this.precio= this.park.Fare.Price * this.time;}
-    console.log(CurrentUserData.DuracionBono);
     if (CurrentParkingData.park) {
+      this.precio = this.park.Fare.Price;
+      if(this.park.Fare.IsRealTime){this.precio= this.park.Fare.Price * this.time;}
       this.comprobarBono();
       if(this.activo){
       this.bonoActivo();
       //this.confirmPagoBono();
-    }
-    else {
+     }else {
       const alert = await this.alertController.create({
         header: '¿Terminar Estacionamiento?',
             message: 'El precio es: ' + this.precio.toString() + ' por una duración de ' +this.time.toString() + ' minutos.',
@@ -105,7 +103,9 @@ export class NotificationComponent implements OnInit {
               this.router.navigateByUrl('main/park');                
             }            
         }]
-      });        
+      });   
+      
+      await alert.present();     
     }
   }
 
