@@ -19,7 +19,7 @@ export class CreateLocationComponent implements OnInit {
     private alertController: AlertController
   ) {
     this.createLocationForm = this.formBuilder.group({
-      Location: new FormControl ('', Validators.compose([
+      Name: new FormControl ('', Validators.compose([
         Validators.required,
         Validators.pattern('^[ A-Za-z]+$'),
       ]))

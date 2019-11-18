@@ -139,7 +139,7 @@ const routes: Routes = [
         component: InfoComponent,
     },
     {
-        path: 'add-location',
+        path: 'info/add-location',
         component: CreateLocationComponent
     },
     {

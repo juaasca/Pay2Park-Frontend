@@ -5,6 +5,7 @@ import { CurrentUserData } from 'src/app/data/current.user';
 import { LocationService } from 'src/app/services/dao/location.service';
 import { Location } from 'src/app/Domain/Location';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info',
@@ -21,6 +22,7 @@ export class InfoComponent implements OnInit {
   color: string;
 
   constructor(
+    private router: Router,
     private locationActionsService: LocationActionsService,
     private darkMode: DarkModeService) {
     this.updateLocations();
@@ -45,6 +47,10 @@ export class InfoComponent implements OnInit {
       .then((locations) => {
         this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
       });
+  }
+
+  create() {
+    this.router.navigateByUrl('info/add-location');
   }
 
   delete(location: Location) {
