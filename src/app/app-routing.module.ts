@@ -29,6 +29,7 @@ import { RegistrationComponent } from './components/registration/registration.co
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
+import { CreateLocationComponent } from './components/info/create-location/create-location.component';
 
 const routes: Routes = [
     {
@@ -135,7 +136,11 @@ const routes: Routes = [
     },
     {
         path: 'info',
-        component: InfoComponent
+        component: InfoComponent,
+    },
+    {
+        path: 'add-location',
+        component: CreateLocationComponent
     },
     {
         path: 'anadir-vehiculo',
