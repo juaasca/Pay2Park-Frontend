@@ -13,8 +13,7 @@ declare var paypal;
   templateUrl: './bonos.component.html',
   styleUrls: ['./bonos.component.scss']
 })
-export class BonosComponent {
-
+export class BonosComponent implements OnInit {
   color: string;
 
   constructor(private payPal: PayPal, private userActions: UserActions, private router: Router, public alertControllerConfirm: AlertController) {
@@ -68,6 +67,12 @@ export class BonosComponent {
     }, 500)
   }
   
+  ngOnInit(){
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+    }, 1000);
+  }
+
   PagadoPorBono = 0;
   paymentAmount2: string;
   check: boolean = false;
