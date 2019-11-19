@@ -6,10 +6,15 @@
     <ion-title align="center">Matrículas</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list>
+<ion-content class="margin">
+  <ion-list *ngIf="RelatedVehicles.length !== 0">
     <ion-item *ngFor="let vehicle of RelatedVehicles">
       <ion-label class="font">{{ vehicle.LicensePlate }} | {{ vehicle.Manufacturer }} | {{ vehicle.ModelName }}</ion-label>
     </ion-item>
   </ion-list>
+  <div align="center" *ngIf="RelatedVehicles.length === 0">
+    <ion-label>
+      No existen vehículos asociados a este usuario
+    </ion-label>
+  </div>
 </ion-content>
