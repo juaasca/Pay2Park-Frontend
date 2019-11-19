@@ -18,6 +18,8 @@ export class InfoPlatesComponent implements OnInit {
 
   ngOnInit() {
     this.SelectedClient = SelectedClient.selectedClient;
+    
+    this.updateVehicles();
 
     setInterval(() => this.updateVehicles(), 1000);
   }
