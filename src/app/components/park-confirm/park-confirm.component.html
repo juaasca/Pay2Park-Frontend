@@ -10,9 +10,9 @@
             <ion-list [ngStyle]="{'color' : color}" *ngFor="let item of vehicles">
                 <ion-item color={{color}} class="font" style="font-size: 30px;" button="true" (click)="aparcarVehiculo(item)">
                     <ion-icon name="car"></ion-icon>
-                    {{item.Name}}
+                    {{item.Manufacturer}}
                     {{item.LicensePlate}}
-                    {{item.Description}}
+                    {{item.ModelName}}
                 </ion-item>
             </ion-list>
            
