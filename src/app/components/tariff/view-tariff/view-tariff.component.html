@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">VER TARIFA</ion-title>
+    <ion-title align="center">EDITAR TARIFA</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -28,7 +28,8 @@
     </ion-item>
   </ion-list>
   <div align="center">
-    <ion-button class="font" [disabled]="!viewTariffForm.valid && hasBeenModified()" (click)="acceptButtonClicked()">Modificar datos</ion-button>
+    <ion-button class="font" [disabled]="!viewTariffForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
+    <ion-button class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
   </div>
 </form>
 </ion-content>

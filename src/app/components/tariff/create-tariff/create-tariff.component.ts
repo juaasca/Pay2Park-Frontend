@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+import { Validators, FormBuilder, FormGroup, FormControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TariffActionsService } from 'src/app/logic/tariff.actions.service';
 import { Tariff } from 'src/app/Domain/Tariff';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-create-tariff',
@@ -13,15 +14,22 @@ export class CreateTariffComponent implements OnInit {
   private createTariffForm: FormGroup;
   private isRealTimeChecked: boolean;
   constructor(
-    router: Router,
+    private router: Router,
     private formBuilder: FormBuilder,
-    private tariffActionsService: TariffActionsService
+    private tariffActionsService: TariffActionsService,
+    private alertController: AlertController
     ) {
       this.createTariffForm = this.formBuilder.group({
-        Description: ['', Validators.required],
-        Duration: ['', Validators.required],
-        Price: ['', Validators.required],
-        IsRealTime: ['false']
+        Description: new FormControl('', Validators.required),
+        Duration: new FormControl ('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[0-9]*$'),
+        ])),
+        Price: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^[+]?([0-9]+(?:[\.][0-9]*)?|\.[0-9]+)$'),
+        ])),
+        IsRealTime: [false]
       })  
     }
 
@@ -42,10 +50,52 @@ export class CreateTariffComponent implements OnInit {
   acceptButtonClicked() {
     var formValue = this.createTariffForm.value;
 
-    let tariffToCreate = new Tariff(formValue.IsRealTime, formValue.Description, formValue.Price, formValue.Duration);
+    let tariffToCreate = new Tariff(formValue.IsRealTime, formValue.Description, + formValue.Price, + formValue.Duration);
 
-    // TODO: Manage the returned Promise.
-    this.tariffActionsService.registerNewTariffAsync(tariffToCreate);
+    this.tariffActionsService.registerNewTariffAsync(tariffToCreate)
+      .then(() => this.showTariffHasBeenSuccesfullyCreatedAlert())
+      .catch(() => this.showErrorCreatingTariffAlert());
   }
 
+  async showTariffHasBeenSuccesfullyCreatedAlert() {
+    const alert = await this.alertController.create({
+        header: '¡Éxito!',
+        message:
+            '¡Tarifa creada con éxito!',
+        buttons: [
+            {
+              text: 'Aceptar',
+              handler: () => {
+                  this.router.navigateByUrl("main/admin/tariff");
+              },
+            }
+        ],
+    });
+
+    await alert.present();
+  }
+
+  async showErrorCreatingTariffAlert() {
+    const alert = await this.alertController.create({
+        header: '¡Error!',
+        message:
+            'Ha ocurrido un error inesperado creando la tarifa. ¿Desea intentarlo de nuevo?',
+        buttons: [
+            {
+              text: 'Aceptar',
+              handler: () => {
+                  this.acceptButtonClicked();
+              },
+            },
+            {
+              text: 'Cancelar',
+              handler: () => {
+                  alert.dismiss();
+              },
+            }
+        ],
+    });
+
+    await alert.present();
+  }
 }

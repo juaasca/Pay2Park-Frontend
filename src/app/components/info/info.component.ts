@@ -2,6 +2,10 @@ import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren } fro
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { CurrentUserData } from 'src/app/data/current.user';
+import { LocationService } from 'src/app/services/dao/location.service';
+import { Location } from 'src/app/Domain/Location';
+import { LocationActionsService } from 'src/app/logic/location.actions.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-info',
@@ -9,32 +13,61 @@ import { CurrentUserData } from 'src/app/data/current.user';
   styleUrls: ['./info.component.scss'],
 })
 export class InfoComponent implements OnInit {
+  private locations: Location[] = [];
+  private searchText = '';
+  currentUserIsAdmin = false;
 
   @ViewChildren('searchBar') input: ElementRef;
 
-  items: string[];
-  filterItems: string[];
   color: string;
 
-  constructor(private darkMode: DarkModeService) { }
-
-  ngOnInit() {
-    console.log(this.input);
-    this.items = ['Valencia','Alberique‎', 'Bétera‎', 'Burjassot', 'Cullera‎', 'El Puig‎ ', 'Fuenterrobles‎', 'Godella‎', 'Madrid', 'Barcelona', 'Leganes', 'Getafe', 'Tarragona', 'Lerida' ];
-    this.items.sort();
-    this.filterItems = this.items;
-
-    this.color = CurrentUserData.color;
-    setInterval(() => {
-      this.color = CurrentUserData.color;
-    }, 1000);
+  constructor(
+    private router: Router,
+    private locationActionsService: LocationActionsService,
+    private darkMode: DarkModeService) {
+    this.updateLocations();
   }
 
-  onInput(event) {
-    if (event.target.value == '')
-      this.filterItems = [...this.items];
+  ngOnInit() {
+    this.color = CurrentUserData.color;
+    this.currentUserIsAdmin = CurrentUserData.IsAdmin;
 
-    else 
-      this.filterItems = this.items.filter(item => item.toLowerCase().includes(event.target.value.toLowerCase()));
+    setInterval(async () => {
+      this.color = CurrentUserData.color;
+      await this.updateLocations();
+    }, 2000);
+  }
+
+  getItems(event){
+    this.searchText = event.detail.value;
+  }
+
+  updateLocations() {
+    return this.locationActionsService.getLocationsAsync()
+      .then((locations) => {
+        this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
+      });
+  }
+
+  create() {
+    this.router.navigateByUrl('info/add-location');
+  }
+
+  delete(location: Location) {
+    this.locationActionsService.deleteLocationAsync(location)
+      .catch((error) => console.log(error));
+  }
+
+  sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
+    var nameA = firstLocation.Name.toLowerCase();
+    var nameB = secondLocation.Name.toLowerCase();
+    
+    if (nameA < nameB) {
+      return -1;
+    } else if (nameA > nameB) {
+      return 1;
+    } else {
+      return 0;
+    }
   }
 }

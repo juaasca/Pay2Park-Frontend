@@ -9,6 +9,7 @@ import { UserActions } from 'src/app/logic/user.actions.service';
 import { AlertController, Platform, LoadingController } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { CurrentParkingData } from 'src/app/data/currentParking';
+import { TariffService } from 'src/app/services/dao/tariff.service';
 
 
 @Component({
@@ -23,16 +24,17 @@ export class ParkConfirmComponent implements OnInit {
     calle: string;
     color: string;
     tariffs: Tariff[];
-
-
+    tariff: Tariff;
+    tieneBono:boolean;
+    bonoTexto:string;
     constructor(private router: Router,
+        private tariffService: TariffService,
         private vehiclesService: VehiclesService,
         private userActions: UserActions,
         private alertController: AlertController,
         private platform: Platform,
         private loadingController: LoadingController,
         private localNotification: LocalNotifications) {
-        //this.prueba = new Vehicle('123','este','esta',['rmartinezdaniel@gmail.com']);
         this.vehicles = [];
 
         this.platform.ready().then(() => {
@@ -47,6 +49,8 @@ export class ParkConfirmComponent implements OnInit {
     ngOnInit() {
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
         this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
+        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff= this.tariffs[0]);
+        if(CurrentUserData.DuracionBono > Date.now()){this.tieneBono = true; this.bonoTexto = 'Tienes un bono activo';}else{this.tieneBono = false;}
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
@@ -54,8 +58,6 @@ export class ParkConfirmComponent implements OnInit {
         setInterval(() => {
             this.color = CurrentUserData.color;
         }, 1000);
-        this.fare = new Tariff(true, 'Tiempo Real', 0.1, 0);
-        this.tariffs = [this.fare];
     }
 
     vehiculosUsuario(vehicles: Vehicle[]) {
@@ -71,7 +73,8 @@ export class ParkConfirmComponent implements OnInit {
 
     aparcarVehiculo(vehiculo: Vehicle) {
         this.carga();
-        this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, new Tariff(true, '', 1, 1), new Date().toString());
+        if(this.tieneBono){ this.tariff = new Tariff(false,'con bono',999,60);}
+        this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
         CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.sendNotifications();
@@ -142,6 +145,30 @@ export class ParkConfirmComponent implements OnInit {
         const { role, data } = await loading.onDidDismiss();
 
 
-        this.router.navigateByUrl('main/notification');
+
+        if(!this.prueba.Fare.IsRealTime ){
+            if(this.tieneBono){this.router.navigateByUrl('main/notification');}else{
+
+            CurrentUserData.price = this.prueba.Fare.Price.toString();this.router.navigateByUrl('payment');}}else{
+            console.log(this.prueba.Fare.IsRealTime);    
+            
+            this.router.navigateByUrl('main/notification');
+            
+        }
     }
+
+    sortNameAscending(tariffA: Tariff, tariffB: Tariff) {
+        var nameA=tariffA.Price, nameB=tariffB.Price
+        if (nameA < nameB)
+            return -1 
+        if (nameA > nameB)
+            return 1
+        return 0
+      }
+    
+    seleccionaTarifa(t:Tariff){
+        this.tariff = t;
+        console.log(this.tariff.Description);
+    }
+
 }

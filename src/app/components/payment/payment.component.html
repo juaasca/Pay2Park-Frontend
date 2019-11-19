@@ -2,9 +2,15 @@
 
       <ion-header style="padding-bottom: 0px;">
           <ion-toolbar class="font" color = {{color}}>
-              <ion-buttons slot="start">
-                  <ion-back-button defaultHref="/main/park"></ion-back-button>
-                </ion-buttons>
+            <ion-buttons slot="start">
+              <ion-back-button defaultHref="/main/park"></ion-back-button>
+            </ion-buttons>
+            <ion-buttons slot="primary">
+              <ion-button (click) = "atras()">
+                <ion-icon slot="icon-only" name="arrow-forward"></ion-icon>
+                
+              </ion-button>
+            </ion-buttons>
             <ion-title>Selecciona un método de pago</ion-title>
           </ion-toolbar>
       </ion-header>

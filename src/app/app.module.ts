@@ -41,11 +41,13 @@ import { ManageCheckersComponent } from './components/administrator/manage.check
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
 import { RegistrationComponent } from './components/registration/registration.component';
 import { CreateCheckerComponent } from './components/administrator/manage.checkers/create.checker/create.checker.component';
+import { BonosComponent } from './components/bonos/bonos.component';
 import { InfoComponent } from './components/info/info.component';
 import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
-import { ManageTariffComponent } from './components/tariff/manage-tariff/manage-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
+import { CreateLocationComponent } from './components/info/create-location/create-location.component';
+import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
 
 @NgModule({
     declarations: [
@@ -76,10 +78,12 @@ import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff
         FilterCheckersPipe,
         InfoCheckerComponent,
         CreateCheckerComponent,
+        BonosComponent,
         TariffComponent,
         CreateTariffComponent,
-        ManageTariffComponent,
-        ViewTariffComponent
+        ViewTariffComponent,
+        CreateLocationComponent,
+        FilterLocationsPipe
     ],
     entryComponents: [],
     imports: [

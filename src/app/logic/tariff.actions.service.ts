@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import * as firebase from 'firebase';
 import { TariffService } from '../services/dao/tariff.service';
 import { Tariff } from '../Domain/Tariff';
 
@@ -16,4 +17,8 @@ export class TariffActionsService {
     return this.tariffService.deleteEntityAsync(originalTariff.Identifier)
       .then(() => { return this.tariffService.addEntityAsync(updatedTariff.Identifier, updatedTariff) });
   }
+
+  deleteTariffAsync(tariff: Tariff){
+    return this.tariffService.deleteEntityAsync(tariff.Identifier);
+  }  
 }

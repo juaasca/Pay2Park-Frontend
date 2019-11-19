@@ -3,16 +3,25 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/main/park"></ion-back-button>
     </ion-buttons>
+    <ion-buttons *ngIf=currentUserIsAdmin slot="end">
+      <ion-button (click)="create()">
+        <ion-icon name="add-circle"></ion-icon>
+          Añadir
+      </ion-button>
+    </ion-buttons>
     <ion-title>¿Dónde opera Pay2park?</ion-title>
   </ion-toolbar>
   <ion-toolbar class="font" color = {{color}}>
-    <ion-searchbar (ionInput)="onInput($event);"></ion-searchbar>
+    <ion-searchbar (ionChange)="getItems( $event )"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
   <ion-list>
-    <ion-item color={{color}} *ngFor="let item of filterItems">
-      <ion-label class="font"> {{item}} </ion-label>
+    <ion-item color={{color}} *ngFor="let location of locations | filterLocations: searchText: 'column'">
+      <ion-label class="font"> {{location.Name}} </ion-label>
+      <ion-button *ngIf=currentUserIsAdmin color="danger" (click)="delete(location)">
+        <ion-icon name="trash"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>
