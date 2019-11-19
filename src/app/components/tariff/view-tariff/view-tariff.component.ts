@@ -61,7 +61,7 @@ export class ViewTariffComponent implements OnInit {
   acceptButtonClicked() {
     var formValue = this.viewTariffForm.value;
 
-    this.currentTariff = new Tariff(formValue.IsRealTime === 'true', formValue.Description, +formValue.Price, +formValue.Duration);
+    this.currentTariff = new Tariff(this.isRealTimeChecked, formValue.Description, +formValue.Price, +formValue.Duration);
 
     var hasBeenModified = !this.currentTariff.Equals(this.selectedTariff);
 
