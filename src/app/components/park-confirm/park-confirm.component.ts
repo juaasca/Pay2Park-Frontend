@@ -89,7 +89,7 @@ export class ParkConfirmComponent implements OnInit {
 
     sendNotifications() {
         let today: Date = new Date();
-        today.setMinutes(60 + 45); // Notificación que recibirá a cuando le queden 15 min de estacionamiento
+        today.setMinutes(today.getMinutes() + 60 + 45); // Notificación que recibirá a cuando le queden 15 min de estacionamiento
 
         this.localNotification.schedule({
             id: 1,
@@ -98,7 +98,7 @@ export class ParkConfirmComponent implements OnInit {
             trigger: { at: today }
         });
 
-        today.setMinutes(10); // Notificación cuando quedan 5 minutos
+        today.setMinutes(today.getMinutes() + 10); // Notificación cuando quedan 5 minutos
         this.localNotification.schedule({
             id: 2,
             title: 'PRECAUCIÓN vehiculo estacionado',
@@ -107,11 +107,11 @@ export class ParkConfirmComponent implements OnInit {
         });
 
         today = new Date();
-        today.setMinutes(30);
+        today.setMinutes(today.getMinutes() + 30);
 
         this.localNotification.schedule({ // Notificación cada 30 minutos
             id: 3,
-            title: "Lleva " + CurrentParkingData.park.getCurrentTime() + " minutos estacionado",
+            title: "Lleva 30  minutos estacionado",
             trigger: {
                 firstAt: today,
                 in: 30,
