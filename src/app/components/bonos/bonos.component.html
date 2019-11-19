@@ -9,25 +9,25 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-card class="bonos-card">
+<ion-content color = {{color}}>
+  <ion-card color = {{color}} class="bonos-card">
     
-    <ion-card-header class="font">
+    <ion-card-header  class="font">
       <ion-label></ion-label>
       <p></p>
 
-      <ion-segment color = {{color}}>
-        <ion-segment-button (ionSelect)="diarioClick(event)">
-            <ion-label>Diario</ion-label>
+      <ion-segment>
+        <ion-segment-button  (ionSelect)="diarioClick(event)">
+            <ion-label color = "primary">Diario</ion-label>
           </ion-segment-button>
           <ion-segment-button (ionSelect)="semanalClick(event)">
-              <ion-label>Semanal</ion-label>
+              <ion-label color = "primary">Semanal</ion-label>
             </ion-segment-button>
           <ion-segment-button (ionSelect)="mensualClick(event)">
-                <ion-label>Mensual</ion-label>
+                <ion-label color = "primary">Mensual</ion-label>
               </ion-segment-button>
           <ion-segment-button (ionSelect)="borrarClick(event)">
-                <ion-label>borrar</ion-label>
+                <ion-label color = "primary">borrar</ion-label>
                </ion-segment-button>
         </ion-segment>
 
