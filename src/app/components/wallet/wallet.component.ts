@@ -76,7 +76,7 @@ export class WalletComponent implements OnInit {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 1);
+    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 'añadido');
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
     this.router.navigateByUrl('payment');

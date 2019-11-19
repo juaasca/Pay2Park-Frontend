@@ -41,24 +41,23 @@
       <!--<div class="font" id="paypal-button-container"></div>-->
 
       <ion-card text-center>
-        <ion-list>
+        <p></p>
           <ion-label>
-            Historial de transacciones
-          </ion-label>
-          <ion-item>
-            <ion-label>
-              10 € de saldo añadido
+              Historial de transacciones
             </ion-label>
+        <ion-list *ngFor="let item of movements">
+          <ion-item>
+            {{item.Amount}} € de saldo {{item.Operation}} el {{item.Date}}
           </ion-item>
         </ion-list>
       </ion-card>
     </form>
 
-    <ion-list [ngStyle]="{'color' : color}" *ngFor="let item of movements">
+    <!--<ion-list [ngStyle]="{'color' : color}" *ngFor="let item of movements">
       <ion-item color={{color}} class="font" style="font-size: 30px;">
           <ion-icon name="transaction"></ion-icon>
           {{item.Date}}
       </ion-item>
-  </ion-list>
+  </ion-list>-->
   </ion-content>
 </ion-app>
