@@ -9,9 +9,9 @@
     </ion-toolbar>
   </ion-header>
 
-  <ion-content>
+  <ion-content color={{color}}>
     <form [formGroup]="cartera" (ngSubmit)="anyadirSaldo()">
-      <ion-card text-center class="card">
+      <ion-card text-center class="card"  color={{color}}>
         <p></p>
         <ion-card-content>
           <ion-label class="saldo">
@@ -23,7 +23,7 @@
       <p></p>
 
       <div text-center>
-        <ion-item>
+        <ion-item color={{color}}>
           <ion-label>Saldo a añadir</ion-label>
           <ion-select formControlName="dinero">
             <ion-select-option value="5">€ 5</ion-select-option>
@@ -40,7 +40,7 @@
 
       <!--<div class="font" id="paypal-button-container"></div>-->
 
-      <ion-card text-center>
+      <ion-card color={{color}} text-center>
         <p></p>
           <ion-label>
               Historial de transacciones
