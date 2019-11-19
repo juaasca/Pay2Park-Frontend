@@ -19,10 +19,11 @@ declare var paypal;
 export class WalletComponent implements OnInit {
 
   public color: string;
-  movements: Transactions[];
+  movements: Transactions[] = [];
   private cartera: FormGroup;
   email = CurrentUserData.LoggedUser.Email;
   saldo = CurrentUserData.wallet;
+  saldoIsDefault = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,22 +31,22 @@ export class WalletComponent implements OnInit {
     private userActions: UserActions,
     private router: Router
   ) {
-    
-    this.movements = [];
     this.cartera = this.formBuilder.group({
       dinero: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('')
       ]))
-    })
+    });
   }
 
   ngOnInit() {
-    this.historyService.getEntitiesAsync().then(movements => this.transaccionesUsuario(movements));
-
+    this.updateMovements();
+    
     this.color = CurrentUserData.color;
-    setInterval(() => {
+
+    setInterval(async () => {
       this.color = CurrentUserData.color;
+      await this.updateMovements();
     }, 1000);
   }
 
@@ -58,6 +59,10 @@ export class WalletComponent implements OnInit {
             }
         }
     }
+}
+
+changeSaldo() {
+  this.saldoIsDefault = false;
 }
 
   anyadirSaldo() {
@@ -76,11 +81,17 @@ export class WalletComponent implements OnInit {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 'añadido');
+    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido');
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
+    
     this.router.navigateByUrl('payment');
-    this.transaccionesUsuario(this.movements);
+    //location.reload();
+  }
+
+  updateMovements() {
+    return this.historyService.getRelatedTransactionsAsync(<Client>CurrentUserData.LoggedUser)
+      .then((transactions) => this.movements = transactions);
   }
 
   restarSaldo() {
@@ -99,11 +110,10 @@ export class WalletComponent implements OnInit {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 'añadido');
+    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido');
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
     this.router.navigateByUrl('payment');
-    this.transaccionesUsuario(this.movements);
   }
 
 }
