@@ -80,48 +80,30 @@ export class WalletComponent implements OnInit {
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
     this.router.navigateByUrl('payment');
-
-
-    /*let _this = this;
-    setTimeout(() => {
-      // Render the PayPal button into #paypal-button-container
-      paypal.Buttons({
-
-        // Set up the transaction
-        createOrder: function (data, actions) {
-          return actions.order.create({
-            purchase_units: [{
-              amount: {
-                value: formValue.dinero
-              }
-            }]
-          });
-        },
-
-        // Finalize the transaction
-        onApprove: function (data, actions) {
-          return actions.order.capture()
-            .then(function (details) {
-              // Show a success message to the buyer
-              alert('Transaction completed by ' + details.payer.name.given_name + '!');
-            })
-            .catch(err => {
-              console.log(err);
-            })
-        }
-      }).render('#paypal-button-container');
-    }, 500) */
+    this.transaccionesUsuario(this.movements);
   }
 
   restarSaldo() {
     var formValue = this.cartera.value;
     console.log(formValue.dinero);
-    var nuevoSaldo = Number(formValue.dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
+    var dinero = formValue.dinero;
+    var nuevoSaldo = Number(dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
     var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
+
+    var today = new Date();
+    var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+    var dateTime = date+' '+time;
+    
+    var transaccion = new Transactions(dinero.toString(), dateTime , [CurrentUserData.LoggedUser.Email], 'añadido');
+    this.userActions.addHistory(user,transaccion);
+    CurrentUserData.price = dinero.toString();
+    this.router.navigateByUrl('payment');
+    this.transaccionesUsuario(this.movements);
   }
 
 }
