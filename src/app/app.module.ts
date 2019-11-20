@@ -48,6 +48,8 @@ import { CreateTariffComponent } from './components/tariff/create-tariff/create-
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
 import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
+import { WarningsComponent } from './components/warnings/warnings.component';
+import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
 
 @NgModule({
     declarations: [
@@ -83,7 +85,9 @@ import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
         CreateTariffComponent,
         ViewTariffComponent,
         CreateLocationComponent,
-        FilterLocationsPipe
+        FilterLocationsPipe,
+        WarningsComponent,
+        ManageWarningsComponent
     ],
     entryComponents: [],
     imports: [

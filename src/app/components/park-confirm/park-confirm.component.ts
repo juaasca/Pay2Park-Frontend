@@ -64,7 +64,7 @@ export class ParkConfirmComponent implements OnInit {
         if (CurrentUserData.LoggedUser) {
             while (vehicles.length > 0) {
                 let aux = vehicles.pop();
-                if (aux.OwnersEmail[0] == CurrentUserData.LoggedUser.Email) {
+                if (aux.OwnerEmail == CurrentUserData.LoggedUser.Email) {
                     this.vehicles.push(aux);
                 }
             }

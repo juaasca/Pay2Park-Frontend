@@ -45,7 +45,7 @@ export class AnadirVehiculoComponent implements OnInit {
   anadirVehiculo() {
     if (CurrentUserData.LoggedUser) {
       var formValue = this.registration.value;
-      this.userActions.registerVehicle(formValue.Matricula, formValue.Marca, formValue.Modelo, [CurrentUserData.LoggedUser.Email]);
+      this.userActions.registerVehicle(formValue.Matricula, formValue.Marca, formValue.Modelo, CurrentUserData.LoggedUser.Email);
       this.router.navigateByUrl('main/profile');
     } else { console.log('No estas logueado'); }
   }

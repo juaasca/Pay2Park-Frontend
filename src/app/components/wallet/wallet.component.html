@@ -25,14 +25,14 @@
       <div text-center>
         <ion-item color={{color}}>
           <ion-label>Saldo a añadir</ion-label>
-          <ion-select formControlName="dinero">
+          <ion-select formControlName="dinero" (ionChange)="changeSaldo()">
             <ion-select-option value="5">€ 5</ion-select-option>
             <ion-select-option value="10">€ 10</ion-select-option>
             <ion-select-option value="15">€ 15</ion-select-option>
             <ion-select-option value="20">€ 20</ion-select-option>
           </ion-select>
         </ion-item>
-        <ion-button (click)="anyadirSaldo()">
+        <ion-button (click)="anyadirSaldo()" [disabled]="saldoIsDefault">
           Añadir saldo
         </ion-button>
         <!--<div id="paypal-button-container"></div>-->

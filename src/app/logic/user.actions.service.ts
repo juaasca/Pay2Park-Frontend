@@ -164,7 +164,7 @@ export class UserActions {
             });
     }
 
-    public async registerVehicle(licensePlate: string, name: string, description: string, owner: string[]) {
+    public async registerVehicle(licensePlate: string, name: string, description: string, owner: string) {
         const vehicle = await this.clientService.getEntityAsync(licensePlate);
 
         if (vehicle !== null) {

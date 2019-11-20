@@ -124,7 +124,7 @@ export class NotificationComponent implements OnInit {
         const aux1 = CurrentParkingData.parks;
         while (aux1.length > 0) {
             const aux = aux1.pop();
-            if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
+            if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
                 CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
             }
         }

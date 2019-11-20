@@ -10,7 +10,7 @@ import { Transactions } from 'src/app/Domain/Transactions';
 
 export class HistoryService extends PersistenceService<Transactions> {
     private refTransactions: firebase.database.Reference;
-    private transactionsDataBaseUrl = 'Histories';
+    private transactionsDataBaseUrl = 'histories';
 
     constructor() {
         super();
@@ -24,7 +24,7 @@ export class HistoryService extends PersistenceService<Transactions> {
         return this.getEntitiesAsync()
           .then((transactions) => {
             transactions.forEach(transaction => {
-              if (transaction.OwnersEmail.some(email => client.Email === email)) {
+              if (transaction.OwnersEmail === client.Email) {
                 relatedTransactions.push(transaction);
               }
             });

@@ -8,8 +8,6 @@ import { Park } from 'src/app/Domain/Park';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 
-
-
 declare let L;
 
 @Component({
@@ -69,9 +67,6 @@ export class ParkComponent implements OnInit {
 
 
     }
-
-
-
 
     setInterval(() => {
       this.color = CurrentUserData.color;
@@ -188,12 +183,12 @@ export class ParkComponent implements OnInit {
   }
 
   comprobar() {
-    if (CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) { return true; }
+    if (CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {return true; }
     if (CurrentUserData.LoggedUser) {
       const aux1 = CurrentParkingData.parks;
       while (aux1.length > 0) {
         const aux = aux1.pop();
-        if (aux.Vehicle.OwnersEmail[0] === CurrentUserData.LoggedUser.Email) {
+        if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
           CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
           CurrentParkingData.parkPosition = aux.Coordinates;
           return true;

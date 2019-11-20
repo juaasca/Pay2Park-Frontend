@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationComponent } from './components/authentication/authentication.component';
@@ -30,6 +30,8 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
+import { WarningsComponent } from './components/warnings/warnings.component';
+import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
 
 const routes: Routes = [
     {
@@ -157,6 +159,16 @@ const routes: Routes = [
     {
         path: '**',
         redirectTo: 'authentication'
+    },
+    {
+        path: 'warnings',
+        component: WarningsComponent,
+        children: [
+            {
+                path: 'warnings/manage-warnings',
+                component: ManageWarningsComponent
+            }
+        ]
     }
 ];
 

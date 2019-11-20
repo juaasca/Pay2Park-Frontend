@@ -1,14 +1,13 @@
-import { Client } from './Client';
-
 export class Vehicle {
     LicensePlate: string;
-    Name: string;
-    Description: string;
-    OwnersEmail: string[];
-    constructor(licensePlate: string, name: string, desciption: string, owner: string[]) {
+    Manufacturer: string;
+    ModelName: string;
+    OwnerEmail: string;
+
+    constructor(licensePlate: string, manufacturer: string, modelName: string, ownerEmail: string) {
         this.LicensePlate = licensePlate;
-        this.Name = name;
-        this.Description = desciption;
-        this.OwnersEmail = owner;
+        this.Manufacturer = manufacturer;
+        this.ModelName = modelName;
+        this.OwnerEmail = ownerEmail;
     }
 }

@@ -1,8 +1,6 @@
-import { Component, OnInit, OnDestroy, ViewChild, ElementRef, ViewChildren } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, ElementRef, ViewChildren } from '@angular/core';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { CurrentUserData } from 'src/app/data/current.user';
-import { LocationService } from 'src/app/services/dao/location.service';
 import { Location } from 'src/app/Domain/Location';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Router } from '@angular/router';
@@ -23,8 +21,7 @@ export class InfoComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private locationActionsService: LocationActionsService,
-    private darkMode: DarkModeService) {
+    private locationActionsService: LocationActionsService) {
     this.updateLocations();
   }
 
