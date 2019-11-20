@@ -54,8 +54,12 @@ export class PaymentComponent implements OnInit {
         onApprove: function (data, actions) {
           return actions.order.capture()
             .then(function (details) {
+
               // Show a success message to the buyer
               _this.pagadoAlert();
+              
+              
+
             })
             .catch(err => {
               console.log(err);
