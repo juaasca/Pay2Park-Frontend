@@ -1,32 +1,49 @@
 <ion-app>
+    <ion-header [ngStyle]="{'color' : color}" style="padding-bottom: 0px;">
+        <ion-toolbar class="font" color={{color}}>
+            <ion-buttons slot="start">
+                <ion-back-button defaultHref="/main/park"></ion-back-button>
+            </ion-buttons>
+            <ion-title>Selecciona un vehículo</ion-title>
+        </ion-toolbar>
+    </ion-header>
     <ion-content color={{color}}>
-        <ion-header [ngStyle]="{'color' : color}" style="padding-bottom: 0px;">
-            <ion-toolbar class="font" color={{color}}>
-                <ion-buttons slot="start">
-                    <ion-back-button defaultHref="/main/park"></ion-back-button>
-                </ion-buttons>
-                <ion-title>Selecciona un vehículo</ion-title>
-            </ion-toolbar>
-            <ion-list [ngStyle]="{'color' : color}" *ngFor="let item of vehicles">
-                <ion-item color={{color}} class="font" style="font-size: 30px;" button="true" (click)="aparcarVehiculo(item)">
+        <ion-radio-group>
+            <ion-list [ngStyle]="{'color' : color}">
+                <ion-item disabled = {{this.item.Parked}} color={{color}} class="font" style="font-size: 30px;" button="true"
+                    *ngFor="let item of vehicles" (click)=seleccionarVehiculo(item)>
+                    <ion-radio checked="true" slot="start"></ion-radio>
                     <ion-icon name="car"></ion-icon>
                     {{item.Manufacturer}}
                     {{item.ModelName}}
                     {{item.LicensePlate}}
                 </ion-item>
             </ion-list>
-           
-            <ion-item color = {{color}} >{{bonoTexto}}</ion-item>
-            <ion-item color = {{color}} >Selecciona una tarifa:</ion-item>
-            <ion-segment disabled= {{this.tieneBono}} >
-                <ion-segment-button (click)="seleccionaTarifa(item)" *ngFor="let item of tariffs">
-                    {{item.Description}}
-                </ion-segment-button>
-              </ion-segment>
+        </ion-radio-group>
 
-        </ion-header>
+        <ion-item>{{bonoTexto}}</ion-item>
+        <ion-item color={{color}}>Selecciona tarifa:</ion-item> 
+        <ion-radio-group>
+            <ion-list [ngStyle]="{'color' : color}">
+                <ion-item color={{color}} class="font" style="font-size: 30px;" button="true"
+                    *ngFor="let item of tariffs" (click)=seleccionarTarifa(item)>
+                    <ion-radio checked="true" id={{item.Description}} slot="start"></ion-radio>
+                    {{item.Description}}
+                </ion-item>
+            </ion-list>
+        </ion-radio-group>
 
 
         
+        
+        
+        
+        
+        
     </ion-content>
+    <ion-footer>
+        <ion-toolbar>
+            <ion-button size = "block" (click) = "aparcarVehiculo()" >Aparcar</ion-button>
+        </ion-toolbar>
+    </ion-footer>
 </ion-app>

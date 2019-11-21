@@ -51,6 +51,7 @@ import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
 import { WarningsComponent } from './components/warnings/warnings.component';
 import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
 
+
 @NgModule({
     declarations: [
         AppComponent,

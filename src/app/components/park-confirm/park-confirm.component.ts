@@ -10,7 +10,7 @@ import { AlertController, Platform, LoadingController } from '@ionic/angular';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { TariffService } from 'src/app/services/dao/tariff.service';
-
+import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
     selector: 'app-park-confirm',
@@ -25,8 +25,11 @@ export class ParkConfirmComponent implements OnInit {
     color: string;
     tariffs: Tariff[];
     tariff: Tariff;
-    tieneBono:boolean;
-    bonoTexto:string;
+    tieneBono: boolean;
+    bonoTexto: string;
+    vehiculo: Vehicle;
+    tarifaFormGroup: FormGroup;
+    popoverController: any;
     constructor(private router: Router,
         private tariffService: TariffService,
         private vehiclesService: VehiclesService,
@@ -36,7 +39,6 @@ export class ParkConfirmComponent implements OnInit {
         private loadingController: LoadingController,
         private localNotification: LocalNotifications) {
         this.vehicles = [];
-
         this.platform.ready().then(() => {
             this.localNotification.on('trigger').subscribe(res => {
                 console.log('trigger: ', res);
@@ -48,9 +50,9 @@ export class ParkConfirmComponent implements OnInit {
 
     ngOnInit() {
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
-        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
-        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff= this.tariffs[0]);
-        if(CurrentUserData.DuracionBono > Date.now()){this.tieneBono = true; this.bonoTexto = 'Tienes un bono activo';}else{this.tieneBono = false;}
+        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(()=> this.vehiculo = this.vehicles[this.vehicles.length-1]);
+        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length -1]);
+        if (CurrentUserData.DuracionBono > Date.now()) { this.tieneBono = true; this.bonoTexto = 'Tienes un bono activo'; } else { this.tieneBono = false; }
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
@@ -58,6 +60,7 @@ export class ParkConfirmComponent implements OnInit {
         setInterval(() => {
             this.color = CurrentUserData.color;
         }, 1000);
+
     }
 
     vehiculosUsuario(vehicles: Vehicle[]) {
@@ -71,10 +74,16 @@ export class ParkConfirmComponent implements OnInit {
         }
     }
 
-    aparcarVehiculo(vehiculo: Vehicle) {
+    seleccionarVehiculo(v: Vehicle) {
+        this.vehiculo = v;
+    }
+
+    aparcarVehiculo() {
         this.carga();
-        if(this.tieneBono){ this.tariff = new Tariff(false,'con bono',999,60);}
-        this.prueba = new Park(1, vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
+        if (this.tieneBono) { this.tariff = new Tariff(false, 'con bono', 999, 60); }
+        this.vehiculo.Parked = true;
+        this.vehiclesService.addEntityAsync(this.vehiculo.LicensePlate, this.vehiculo);
+        this.prueba = new Park(1, this.vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
         CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.sendNotifications();
@@ -146,29 +155,30 @@ export class ParkConfirmComponent implements OnInit {
 
 
 
-        if(!this.prueba.Fare.IsRealTime ){
-            if(this.tieneBono){this.router.navigateByUrl('main/notification');}else{
+        if (!this.prueba.Fare.IsRealTime) {
+            if (this.tieneBono) { this.router.navigateByUrl('main/notification'); } else {
 
-            CurrentUserData.price = this.prueba.Fare.Price.toString();this.router.navigateByUrl('payment');}}else{
-            console.log(this.prueba.Fare.IsRealTime);    
-            
+                CurrentUserData.price = this.prueba.Fare.Price.toString(); this.router.navigateByUrl('payment');
+            }
+        } else {
+            console.log(this.prueba.Fare.IsRealTime);
+
             this.router.navigateByUrl('main/notification');
-            
+
         }
     }
 
     sortNameAscending(tariffA: Tariff, tariffB: Tariff) {
-        var nameA=tariffA.Price, nameB=tariffB.Price
+        var nameA = tariffA.Price, nameB = tariffB.Price
         if (nameA < nameB)
-            return -1 
+            return -1
         if (nameA > nameB)
             return 1
         return 0
-      }
-    
-    seleccionaTarifa(t:Tariff){
-        this.tariff = t;
-        console.log(this.tariff.Description);
+    }
+
+    seleccionarTarifa(i) {
+        this.tariff = i;
     }
 
 }
