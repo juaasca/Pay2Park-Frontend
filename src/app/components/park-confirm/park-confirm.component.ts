@@ -54,7 +54,7 @@ export class ParkConfirmComponent implements OnInit {
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
         this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(()=> this.vehiculo = this.vehicles[this.vehicles.length-1]);
         this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length -1]);
-        if (CurrentUserData.DuracionBono > Date.now()) { this.tieneBono = true; this.bonoColor= 'success'; this.bonoTexto = 'Tienes un bono activo incluye 60 min'} else { this.tieneBono = false; }
+        if (CurrentUserData.DuracionBono > Date.now()) { this.tieneBono = true; this.bonoColor= 'success'; this.bonoTexto = 'Tienes un bono activo incluye 120 min'} else { this.tieneBono = false; }
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
