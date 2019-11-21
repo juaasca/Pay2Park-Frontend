@@ -9,7 +9,7 @@
     </ion-header>
     <ion-content color={{color}}>
         <ion-radio-group>
-            <ion-list [ngStyle]="{'color' : color}">
+            <ion-list style="--ion-background-color:primary;">
                 <ion-item disabled = {{this.item.Parked}} color={{color}} class="font" style="font-size: 30px;" button="true"
                     *ngFor="let item of vehicles" (click)=seleccionarVehiculo(item)>
                     <ion-radio checked="true" slot="start"></ion-radio>
@@ -21,28 +21,22 @@
             </ion-list>
         </ion-radio-group>
 
-        <ion-item>{{bonoTexto}}</ion-item>
+        <ion-item color={{bonoColor}}>{{bonoTexto}}</ion-item>
         <ion-item color={{color}}>Selecciona tarifa:</ion-item> 
         <ion-radio-group>
-            <ion-list [ngStyle]="{'color' : color}">
-                <ion-item color={{color}} class="font" style="font-size: 30px;" button="true"
+            <ion-list style="--ion-background-color:primary;">
+                <ion-item disabled ={{tieneBono}} color={{color}} class="font" style="font-size: 30px;" button="true"
                     *ngFor="let item of tariffs" (click)=seleccionarTarifa(item)>
                     <ion-radio checked="true" id={{item.Description}} slot="start"></ion-radio>
                     {{item.Description}}
                 </ion-item>
             </ion-list>
         </ion-radio-group>
-
-
-        
-        
-        
-        
         
         
     </ion-content>
     <ion-footer>
-        <ion-toolbar>
+        <ion-toolbar color={{color}}>
             <ion-button size = "block" (click) = "aparcarVehiculo()" >Aparcar</ion-button>
         </ion-toolbar>
     </ion-footer>

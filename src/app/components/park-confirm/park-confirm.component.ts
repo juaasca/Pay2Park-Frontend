@@ -27,6 +27,7 @@ export class ParkConfirmComponent implements OnInit {
     tariff: Tariff;
     tieneBono: boolean;
     bonoTexto: string;
+    bonoColor: string;
     vehiculo: Vehicle;
     tarifaFormGroup: FormGroup;
     popoverController: any;
@@ -49,16 +50,19 @@ export class ParkConfirmComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.tieneBono= false;
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
         this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(()=> this.vehiculo = this.vehicles[this.vehicles.length-1]);
         this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length -1]);
-        if (CurrentUserData.DuracionBono > Date.now()) { this.tieneBono = true; this.bonoTexto = 'Tienes un bono activo'; } else { this.tieneBono = false; }
+        if (CurrentUserData.DuracionBono > Date.now()) { this.tieneBono = true; this.bonoColor= 'success'; this.bonoTexto = 'Tienes un bono activo incluye 60 min'} else { this.tieneBono = false; }
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
+        this.bonoColor = CurrentUserData.color;
         this.color = CurrentUserData.color;
         setInterval(() => {
             this.color = CurrentUserData.color;
+            if(this.tieneBono == false){this.bonoColor = CurrentUserData.color;}else{this.bonoColor = 'success';}
         }, 1000);
 
     }
