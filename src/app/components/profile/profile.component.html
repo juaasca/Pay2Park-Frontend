@@ -8,16 +8,13 @@
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
-  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="modoOscuro()" detail>Modo Oscuro</ion-item>
   <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
   <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="historialTransacciones()" detail>Historial de transacciones</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="pagos()" detail>Denuncias</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="denuncias()" detail>Pagos</ion-item>
-  <ion-item color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
-  <ion-item color={{color}} class="font">
+  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+  <ion-item *ngIf="!isHistorial" color={{color}} class="font">
     Modo Oscuro
     <ion-toggle slot="end" (click)="modoOscuro()"></ion-toggle>
   </ion-item>
-  <ion-item color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
 </ion-content>
