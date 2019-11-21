@@ -16,7 +16,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-list>
+  <ion-list style="--ion-background-color:primary;">
     <ion-item color={{color}} *ngFor="let location of locations | filterLocations: searchText: 'column'">
       <ion-label class="font"> {{location.Name}} </ion-label>
       <ion-button *ngIf=currentUserIsAdmin color="danger" (click)="delete(location)">
