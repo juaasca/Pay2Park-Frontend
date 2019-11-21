@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { icon, latLng, marker, polyline, tileLayer } from 'leaflet';
-import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { Park } from 'src/app/Domain/Park';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
+import { AlertController, Platform, LoadingController } from '@ionic/angular';
 
 declare let L;
 
@@ -19,9 +20,19 @@ export class ParkComponent implements OnInit {
 
   private idWatch: any;
   color: string;
-  constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService) { }
+  constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService, private localNotification: LocalNotifications,private platform:Platform,
+    ) {
+    this.platform.ready().then(() => {
+      this.localNotification.on('trigger').subscribe(res => {
+          console.log('trigger: ', res);
+          let msg = res.data ? res.data.mydata : '';
+          this.showAlert(res.title, res.text, msg)
+      });
+  })
+  }
   posicion: [number, number];
   ngOnInit() {
+    this.comprobar1HoraBono();
     this.posicion = [39.482638, -0.348196];
     this.comprobar();
     this.color = CurrentUserData.color;
@@ -182,6 +193,30 @@ export class ParkComponent implements OnInit {
     this.router.navigateByUrl('parkConfirm');
   }
 
+  comprobar1HoraBono(){
+   let tiempo: Date = new Date();
+    tiempo.setMilliseconds(100);
+    if(this.activo){
+      this.conversorHoras();
+      if(this.min == 60){
+        this.localNotification.schedule({
+          id: 1,
+          title: 'Finalizacion de bono',
+          text: 'Le queda una hora para que finalice el bono',
+          trigger: { at : tiempo }
+        });
+      }
+    }
+  }
+
+  showAlert(header, sub, msg) {
+    this.alertController.create({
+        header: header,
+        subHeader: sub,
+        message: msg,
+        buttons: ['Ok']
+    }).then(alert => alert.present());
+}
   comprobar() {
     if (CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {return true; }
     if (CurrentUserData.LoggedUser) {
