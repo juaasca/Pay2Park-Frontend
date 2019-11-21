@@ -7,6 +7,7 @@ import { CurrentParkingData } from 'src/app/data/currentParking';
 import { ParkService } from 'src/app/services/dao/parks.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { Location } from '@angular/common';
 
 declare var paypal;
 
@@ -30,7 +31,7 @@ export class PaymentComponent implements OnInit {
     }, 1000);
   }
   color: string;
-  constructor(private router: Router, private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService, public alertControllerConfirm: AlertController) {
+  constructor(private router: Router,private location: Location, private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService, public alertControllerConfirm: AlertController) {
   }
 
   realizarPago() {
@@ -57,9 +58,7 @@ export class PaymentComponent implements OnInit {
 
               // Show a success message to the buyer
               _this.pagadoAlert();
-              
-              
-
+              _this.location.back();
             })
             .catch(err => {
               console.log(err);
@@ -69,6 +68,7 @@ export class PaymentComponent implements OnInit {
     }, 500)
   }
   atras() {
+    //this.location.back();
     this.router.navigateByUrl('main/notification');
   }
 
@@ -79,7 +79,7 @@ export class PaymentComponent implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.router.navigateByUrl('main/park');
+            //this.router.navigateByUrl('main/park');
           }
         }
       ]
