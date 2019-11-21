@@ -12,11 +12,13 @@ import { LoadingController } from '@ionic/angular';
 })
 export class ProfileComponent implements OnInit {
   color:string;
+  isHistorial:boolean;
   
   constructor(private loadingController: LoadingController, private router: Router, private darkMode: DarkModeService) { }
 
   ngOnInit() {
     this.color = CurrentUserData.color;
+    this.isHistorial = false;
     setInterval(() => {
       this.color = CurrentUserData.color;
   }, 100);
@@ -26,6 +28,20 @@ export class ProfileComponent implements OnInit {
   anadirVehiculo(){
     this.router.navigateByUrl('anadir-vehiculo');
   }
+
+  historialTransacciones() {
+    this.isHistorial=!this.isHistorial;
+    //this.router.navigateByUrl('historial-usuario');
+  }
+
+  pagos() {
+    this.router.navigateByUrl('pagos');
+  }
+
+  denuncias() {
+    this.router.navigateByUrl('denuncias');
+  }
+
   modoOscuro(){
     
     
