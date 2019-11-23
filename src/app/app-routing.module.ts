@@ -113,6 +113,10 @@ const routes: Routes = [
                     {
                         path: 'tariff/view-tariff',
                         component: ViewTariffComponent
+                    },
+                    {
+                        path: 'manage-subscriptions/create-subscription',
+                        component: CreateSubscriptionComponent
                     }
                 ]
             },

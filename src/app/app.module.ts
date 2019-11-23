@@ -88,7 +88,8 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
         CreateLocationComponent,
         FilterLocationsPipe,
         WarningsComponent,
-        ManageWarningsComponent
+        ManageWarningsComponent,
+        CreateSubscriptionComponent
     ],
     entryComponents: [],
     imports: [
