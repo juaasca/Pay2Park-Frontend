@@ -32,6 +32,7 @@ import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
 import { WarningsComponent } from './components/warnings/warnings.component';
 import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
+import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
 
@@ -115,6 +116,10 @@ const routes: Routes = [
                     {
                         path: 'tariff/view-tariff',
                         component: ViewTariffComponent
+                    },
+                    {
+                        path: 'manage-subscriptions',
+                        component: ManageSubscriptionsComponent
                     },
                     {
                         path: 'manage-subscriptions/create-subscription',

@@ -1,0 +1,34 @@
+<ion-header>
+    <ion-toolbar class="font" color="primary">
+      <ion-buttons slot="start">
+        <ion-back-button text="Volver" color="light"></ion-back-button>
+      </ion-buttons>
+      <ion-buttons slot="end">
+        <ion-button color="light" (click)="create()">
+          <ion-icon name="add-circle" color="light"></ion-icon>
+            Crear
+        </ion-button>
+      </ion-buttons>
+      <ion-title align="center">BONOS</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-card>
+      <ion-segment value="simple">
+        <ion-segment-button value="simple" (ionSelect)="simpleSelected($event)">
+          <ion-label>Simple</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="multiCar" (ionSelect)="multiCarSelected($event)">
+          <ion-label>Multi coche</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+  </ion-card>
+  <ion-list>
+    <ion-item *ngFor="let subscription of subscriptions">
+      <ion-label class="font"><b>{{subscription.Name}}</b> <br> {{subscription.Price}}€</ion-label>
+        <ion-button (click)="manage(subscription)">
+          <ion-icon name="Create"></ion-icon>
+        </ion-button>
+    </ion-item>
+  </ion-list>
+  </ion-content>
