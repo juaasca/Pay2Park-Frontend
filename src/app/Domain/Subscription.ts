@@ -20,4 +20,10 @@ export class Subscription {
     public static getIdentifier(name: string, durationInDays: number, durationInMilliseconds: number, price: number, isMultiCar: boolean) {
         return StringUtils.getHashCode(`${name}${durationInDays}${durationInMilliseconds}${price}${isMultiCar}`);
     }
+
+    public Equals(otherSubscription: Subscription) {
+        return this.Name === otherSubscription.Name && this.DurationInDays === otherSubscription.DurationInDays
+            && this.DurationInMilliseconds === otherSubscription.DurationInMilliseconds && this.Price === otherSubscription.Price
+            && this.IsMultiCar === otherSubscription.IsMultiCar && this.Identifier === otherSubscription.Identifier;
+    }
 }

@@ -50,6 +50,8 @@ import { CreateLocationComponent } from './components/info/create-location/creat
 import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
 import { WarningsComponent } from './components/warnings/warnings.component';
 import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
+import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
+import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
 
 
 @NgModule({
@@ -89,7 +91,8 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
         FilterLocationsPipe,
         WarningsComponent,
         ManageWarningsComponent,
-        CreateSubscriptionComponent
+        CreateSubscriptionComponent,
+        ViewSubscriptionComponent 
     ],
     entryComponents: [],
     imports: [
