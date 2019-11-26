@@ -13,6 +13,7 @@ import { AlertController } from '@ionic/angular';
 export class CreateTariffComponent implements OnInit {
   private createTariffForm: FormGroup;
   private isRealTimeChecked: boolean;
+  
   constructor(
     private router: Router,
     private formBuilder: FormBuilder,

@@ -109,7 +109,7 @@ export class ViewTariffComponent implements OnInit {
   async showDeleteTariffAlertAsync() {
     const alert = await this.alertController.create({
 			header: 'Eliminar tarifa',
-			message: '¿Está seguro que desea eliminar esta tarifa? Esta acción no podrá deshacerse.',
+			message: '¿Está seguro de que desea eliminar esta tarifa? Esta acción no podrá deshacerse.',
 			buttons: [
         {
           text: 'Confirmar',

@@ -11,8 +11,8 @@
             <ion-label class="font">Notificaciones</ion-label>
         </ion-tab-button>
 
-        <ion-tab-button (click)="click('bonos')">
-            <ion-icon name="card"></ion-icon>
+        <ion-tab-button (click)="click('subscriptions')">
+            <ion-icon name="paper"></ion-icon>
             <ion-label>Bonos</ion-label>
         </ion-tab-button>
 
@@ -27,11 +27,11 @@
         </ion-tab-button>
         <ion-tab-button *ngIf="isAdmin" (click)="click('adminView')">
             <ion-icon name="card"></ion-icon>
-            <ion-label class="font">Vista de administrador</ion-label>
+            <ion-label class="font">Vista Administrador</ion-label>
         </ion-tab-button>
         <ion-tab-button *ngIf="isChecker" (click)="click('checkerView')">
             <ion-icon name="card"></ion-icon>
-            <ion-label class="font">Vista de revisor</ion-label>
+            <ion-label class="font">Vista Revisor</ion-label>
         </ion-tab-button>
     </ion-tab-bar>
 </ion-tabs>

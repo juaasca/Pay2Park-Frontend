@@ -66,16 +66,19 @@ changeSaldo() {
 }
 
   anyadirSaldo() {
+    //Preparar cobro
     var formValue = this.cartera.value;
     console.log(formValue.dinero);
     var dinero = formValue.dinero;
     var nuevoSaldo = Number(dinero) + Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
+    CurrentUserData.price = dinero.toString();
+    //Añadir saldo al usuario
     var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
-
+    //Guardar transaccion en el historial
     var today = new Date();
     var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
@@ -83,10 +86,9 @@ changeSaldo() {
     
     var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido');
     this.userActions.addHistory(user,transaccion);
-    CurrentUserData.price = dinero.toString();
     
+    //Ir a realizar el pago
     this.router.navigateByUrl('payment');
-    //location.reload();
   }
 
   updateMovements() {

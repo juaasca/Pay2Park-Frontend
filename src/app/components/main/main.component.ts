@@ -41,11 +41,10 @@ export class MainComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl('main/notification');
 
                 break;
-
-            case "bonos":
-                 this.router.navigateByUrl('main/bonos');
+            case "subscriptions":
+                this.router.navigateByUrl('main/bonos');
     
-                    break;
+                break;
             case "wallet":
                 this.router.navigateByUrl('main/wallet');
 

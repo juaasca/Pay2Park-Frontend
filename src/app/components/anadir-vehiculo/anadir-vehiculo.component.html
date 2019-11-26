@@ -1,34 +1,51 @@
-<ion-app >
-  <ion-header  style="padding-bottom: 0px;">
-    <ion-toolbar class="font" color = {{color}} >
-        <ion-buttons slot="start">
-            <ion-back-button defaultHref="/main/profile"></ion-back-button>
-          </ion-buttons>
+<ion-app>
+  <ion-header style="padding-bottom: 0px;">
+    <ion-toolbar class="font" color={{color}}>
+      <ion-buttons slot="start">
+        <ion-back-button defaultHref="/main/profile"></ion-back-button>
+      </ion-buttons>
       <ion-title align="center">AÑADIR VEHÍCULO</ion-title>
     </ion-toolbar>
-    
-    
+
+
   </ion-header>
-  <ion-content color = {{color}}>
-      <form [formGroup]="registration">
-      <ion-item color = {{color}}>
+  <ion-content color={{color}}>
+    <form [formGroup]="registration">
+      <ion-item color={{color}}>
         <ion-label class="font" position="floating">Matricula:</ion-label>
-        <ion-input class="font" formControlName="Matricula"  type="text" placeholder="Matricula"></ion-input>
+        <ion-input class="font" formControlName="Matricula" type="text" placeholder="Matricula"></ion-input>
       </ion-item>
-  
-      <ion-item color = {{color}}>
+
+      <ion-item color={{color}}>
         <ion-label class="font" position="floating">Marca:</ion-label>
-        <ion-input class="font" formControlName="Marca"  type="text" placeholder="Marca"></ion-input>
+        <ion-input class="font" formControlName="Marca" type="text" placeholder="Marca"></ion-input>
       </ion-item>
-  
-      <ion-item color = {{color}}>
+
+      <ion-item color={{color}}>
         <ion-label class="font" position="floating">Modelo:</ion-label>
-        <ion-input class="font" formControlName="Modelo"  type="text" placeholder="Modelo"></ion-input>
+        <ion-input class="font" formControlName="Modelo" type="text" placeholder="Modelo"></ion-input>
       </ion-item>
-  
-      <ion-button class="font" (click)= anadirVehiculo()>
+
+
+    </form>
+
+    <ion-item style="padding-top: 20px; padding-left: 15px;font-size: 20px;" class="font" position="floating" color={{color}}>Tus vehiculos:</ion-item>
+    <ion-list style="--ion-background-color:primary;">
+      <ion-item color={{color}} class="font" style="font-size: 20px;" *ngFor="let item of vehicles">
+        <ion-icon name="arrow-forward"></ion-icon>
+        {{item.Manufacturer}}
+        {{item.ModelName}}
+        Matrícula: 
+        {{item.LicensePlate}}
+      </ion-item>
+    </ion-list>
+
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar color={{color}}>
+      <ion-button size=block class="font" (click)=anadirVehiculo()>
         Aceptar
       </ion-button>
-      </form>
-    </ion-content>
+    </ion-toolbar>
+  </ion-footer>
 </ion-app>

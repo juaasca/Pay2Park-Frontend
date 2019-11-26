@@ -12,6 +12,8 @@ import { Router } from '@angular/router';
 
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
+import { Vehicle } from 'src/app/Domain/Vehicle';
+import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 @Component({
     selector: 'app-notification',
     templateUrl: './notification.component.html',
@@ -25,7 +27,8 @@ export class NotificationComponent implements OnInit {
   color: string;
   max: number;
   constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
-      private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController
+      private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController,
+      private vehicleService: VehiclesService
   ) { }
 
   precio = 2.3;
@@ -111,6 +114,9 @@ export class NotificationComponent implements OnInit {
 
   confirmPagar() {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
+    let coche: Vehicle = CurrentParkingData.park.Vehicle;
+    coche.Parked = false;
+    this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
     CurrentParkingData.park = null;
     if(this.park.Fare.IsRealTime){
     CurrentUserData.price = this.precio.toString();
@@ -159,6 +165,9 @@ export class NotificationComponent implements OnInit {
 
   //Elimina el registro de parking del usuario variable del codigo para confirmacion del bono
   confirmPagoBono() {
+    let coche: Vehicle = CurrentParkingData.park.Vehicle;
+    coche.Parked = false;
+    this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
     this.calle = 'Todavia no has aparcado';
