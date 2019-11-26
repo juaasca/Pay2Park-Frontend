@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
+  <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="info()" detail>¿Dónde operamos?</ion-item>
   <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="historialTransacciones()" detail>Historial de transacciones</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="pagos()" detail>Denuncias</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="denuncias()" detail>Pagos</ion-item>
