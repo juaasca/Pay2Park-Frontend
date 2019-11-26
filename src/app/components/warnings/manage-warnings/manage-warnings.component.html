@@ -1,3 +1,14 @@
-<p>
-  manage-warnings works!
-</p>
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-title align="center">Avisos en {{selectedLocation.Name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list> 
+    <ion-item *ngFor="let warning of warnings">
+      <ion-label>
+        Título: {{warning.Title}}
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
