@@ -117,6 +117,14 @@ const routes: Routes = [
                 ]
             },
             {
+                path: 'warnings',
+                component: WarningsComponent,
+            },
+            {
+                path: 'warnings/manage-warnings',
+                component: ManageWarningsComponent
+            },
+            {
                 path: 'checker',
                 component: CheckerComponent,
                 children: [
@@ -159,16 +167,6 @@ const routes: Routes = [
     {
         path: '**',
         redirectTo: 'authentication'
-    },
-    {
-        path: 'warnings',
-        component: WarningsComponent,
-        children: [
-            {
-                path: 'warnings/manage-warnings',
-                component: ManageWarningsComponent
-            }
-        ]
     }
 ];
 

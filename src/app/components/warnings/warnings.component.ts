@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
+import { SelectedLocation } from './selectedLocation';
 
 @Component({
   selector: 'app-warnings',
@@ -31,6 +32,12 @@ export class WarningsComponent implements OnInit {
       .then((locations) => {
         this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
       });
+  }
+
+  locationWarnings(location){
+    var selectedLocation = <Location> location;
+    SelectedLocation.selectedLocation = selectedLocation;
+    this.router.navigateByUrl('main/warnings/manage-warnings');
   }
 
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
