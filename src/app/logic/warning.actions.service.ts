@@ -12,7 +12,7 @@ export class WarningActionsService {
     getWarningsByLocationAsync(location: Location) {
         return this.warningsService.getEntitiesAsync()
             .then((warnings) => {
-                return warnings.filter((warning) => warning.Location === location.Name)
+                return warnings.filter((warning) => warning.LocationName === location.Name)
             });
     }
 }
