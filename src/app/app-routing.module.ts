@@ -37,9 +37,7 @@ import { ViewSubscriptionComponent } from './components/administrator/manage.sub
 import { HistorialesComponent } from './components/historiales/historiales.component';
 import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
 import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
-
-
-import { CreateWarningComponent } from './components/warnings/manage-warnings/create-warning/create-warning.component';
+import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/manage.warnings/administrator.manage.warnings.component';
 
 const routes: Routes = [

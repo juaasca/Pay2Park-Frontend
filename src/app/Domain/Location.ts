@@ -2,7 +2,7 @@ import { Warning } from './Warning';
 
 export class Location {
     Name: string;
-    private Warnings: Warning[];
+    Warnings: Warning[];
 
     constructor(name: string){
         this.Name = name;
@@ -14,7 +14,11 @@ export class Location {
     }
 
     addWarning(warning: Warning) {
-        this.Warnings.push(warning);
+        if (this.Warnings === undefined) {
+            this.Warnings = [warning];
+        } else {
+            this.Warnings.push(warning);
+        }
     }
 
     removeWarning(warning: Warning) {
