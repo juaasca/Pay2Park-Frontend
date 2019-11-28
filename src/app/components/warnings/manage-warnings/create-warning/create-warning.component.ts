@@ -2,42 +2,26 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
-import { SelectedLocation } from './selectedLocation';
 
 @Component({
-  selector: 'app-warnings',
-  templateUrl: './warnings.component.html',
-  styleUrls: ['./warnings.component.scss'],
+  selector: 'app-create-warning',
+  templateUrl: './create-warning.component.html',
+  styleUrls: ['./create-warning.component.scss'],
 })
-export class WarningsComponent implements OnInit {
+export class CreateWarningComponent implements OnInit {
   private locations: Location[] = [];
-  private searchText = '';
 
-  constructor(private router: Router, private locationActionsService: LocationActionsService) { 
+  constructor(private router: Router, private locationActionsService: LocationActionsService) {
     this.updateLocations();
-  }
+   }
 
-  ngOnInit() {
-        setInterval(async () => {
-      await this.updateLocations();
-    }, 2000);
-  }
+  ngOnInit() {}
 
-  getItems(event){
-    this.searchText = event.detail.value;
-  }
-
-  updateLocations() {
+  updateLocations(){
     return this.locationActionsService.getLocationsAsync()
       .then((locations) => {
         this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
       });
-  }
-
-  locationWarnings(location){
-    var selectedLocation = <Location> location;
-    SelectedLocation.selectedLocation = selectedLocation;
-    this.router.navigateByUrl('main/warnings/manage-warnings');
   }
 
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {

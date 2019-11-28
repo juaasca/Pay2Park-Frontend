@@ -35,6 +35,7 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
+import { CreateWarningComponent } from './components/warnings/manage-warnings/create-warning/create-warning.component';
 
 const routes: Routes = [
     {
@@ -138,6 +139,10 @@ const routes: Routes = [
             {
                 path: 'warnings/manage-warnings',
                 component: ManageWarningsComponent
+            },
+            {
+                path: 'warnings/create-warning',
+                component: CreateWarningComponent
             },
             {
                 path: 'checker',

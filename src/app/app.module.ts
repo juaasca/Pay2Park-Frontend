@@ -53,6 +53,7 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
+import { CreateWarningComponent } from './components/warnings/manage-warnings/create-warning/create-warning.component';
 
 
 @NgModule({
@@ -94,7 +95,8 @@ import { ViewSubscriptionComponent } from './components/administrator/manage.sub
         ManageWarningsComponent,
         ManageSubscriptionsComponent,
         CreateSubscriptionComponent,
-        ViewSubscriptionComponent 
+        ViewSubscriptionComponent,
+        CreateWarningComponent
     ],
     entryComponents: [],
     imports: [
