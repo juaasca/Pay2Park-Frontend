@@ -53,11 +53,17 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
+import { HistorialesComponent } from './components/historiales/historiales.component';
+import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
+import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
 
 
 @NgModule({
     declarations: [
         AppComponent,
+        HistorialesComponent,
+        HistorialDenunciasComponent,
+        HistorialPagosComponent,
         AuthenticationComponent,
         MainComponent,
         InfoComponent,

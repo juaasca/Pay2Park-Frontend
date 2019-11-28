@@ -8,6 +8,9 @@ import { ParkService } from 'src/app/services/dao/parks.service';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
 import { Location } from '@angular/common';
+import { Transactions } from 'src/app/Domain/Transactions';
+import { UserActions } from 'src/app/logic/user.actions.service';
+import { Client } from 'src/app/Domain/Client';
 
 declare var paypal;
 
@@ -31,7 +34,8 @@ export class PaymentComponent implements OnInit {
     }, 1000);
   }
   color: string;
-  constructor(private router: Router,private location: Location, private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService, public alertControllerConfirm: AlertController) {
+  constructor(private userActions: UserActions,
+    private router: Router, private location: Location, private payPal: PayPal, private darkMode: DarkModeService, private parkService: ParkService, public alertControllerConfirm: AlertController) {
   }
 
   realizarPago() {
@@ -57,6 +61,13 @@ export class PaymentComponent implements OnInit {
             .then(function (details) {
 
               // Show a success message to the buyer
+              var today = new Date();
+              var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+              var dateTime = date + ' ' + time;
+              var transaction = new Transactions(_this.paymentAmount.toString(), dateTime, CurrentUserData.LoggedUser.Email, 'gastado', 'nocartera', 'motivo(a completar)');
+              var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.DuracionBono);
+              _this.userActions.addHistory(user,transaction);
               _this.pagadoAlert();
               _this.location.back();
             })

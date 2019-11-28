@@ -35,11 +35,28 @@ import { ManageWarningsComponent } from './components/warnings/manage-warnings/m
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
+import { HistorialesComponent } from './components/historiales/historiales.component';
+import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
+import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
+
+
 
 const routes: Routes = [
     {
         path: 'authentication',
         component: AuthenticationComponent
+    },
+    {
+        path: 'historiales',
+        component: HistorialesComponent
+    },
+    {
+        path: 'historialDenuncias',
+        component: HistorialDenunciasComponent
+    },
+    {
+        path: 'historialPagos',
+        component: HistorialPagosComponent
     },
     {
         path: 'payment',
