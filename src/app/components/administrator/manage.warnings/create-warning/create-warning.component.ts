@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
+import { AgeValidatorService } from 'src/app/services/validators/age.validator.service';
 
 @Component({
   selector: 'app-create-warning',
@@ -10,8 +13,27 @@ import { Location } from 'src/app/Domain/Location';
 })
 export class CreateWarningComponent implements OnInit {
   private locations: Location[] = [];
+  private createWarningForm: FormGroup;
 
-  constructor(private router: Router, private locationActionsService: LocationActionsService) {
+  constructor(private formBuilder: FormBuilder, private router: Router, private locationActionsService: LocationActionsService) {
+    this.createWarningForm = this.formBuilder.group({
+      Title: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      Description: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      InitialDateTime: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      FinalDateTime: new FormControl('', Validators.compose([
+        Validators.required,
+      ])),
+      Locations: new FormControl('', Validators.compose([
+        Validators.required,
+      ]))
+    });
+    
     this.updateLocations();
    }
 
