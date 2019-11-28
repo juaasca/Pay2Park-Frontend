@@ -165,6 +165,9 @@ export class NotificationComponent implements OnInit {
 
   //Elimina el registro de parking del usuario variable del codigo para confirmacion del bono
   confirmPagoBono() {
+    let coche: Vehicle = CurrentParkingData.park.Vehicle;
+    coche.Parked = false;
+    this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
     this.calle = 'Todavia no has aparcado';

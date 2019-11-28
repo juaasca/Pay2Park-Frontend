@@ -3,6 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
+    <ion-buttons *ngIf=isAdministrator slot="end">
+      <ion-button (click)="create()">
+        <ion-icon name="add-circle"></ion-icon>
+          Crear
+      </ion-button>
+    </ion-buttons>
     <ion-title align="center">AVISOS</ion-title>
   </ion-toolbar>
   <ion-toolbar class="font">
@@ -13,6 +19,9 @@
   <ion-list>
     <ion-item *ngFor="let location of locations | filterLocations: searchText: 'column'">
       <ion-label class="font"> {{location.Name}} </ion-label>
+      <ion-button (click)="locationWarnings(location)">
+        <ion-icon name="eye"></ion-icon>
+      </ion-button>
     </ion-item>
   </ion-list>
 </ion-content>

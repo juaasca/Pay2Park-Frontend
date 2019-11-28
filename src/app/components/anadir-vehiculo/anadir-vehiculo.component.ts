@@ -8,6 +8,7 @@ import { CurrentUserData } from 'src/app/data/current.user';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
+import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 
 @Component({
   selector: 'app-anadir-vehiculo',
@@ -17,11 +18,12 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 export class AnadirVehiculoComponent implements OnInit {
   public color: string;
   private registration: FormGroup;
+  vehicles: Vehicle[];
   constructor(private formBuilder: FormBuilder, private userActions: UserActions, private usernameValidator: UsernameValidatorService,
     private alertController: AlertController,
     private darkMode: DarkModeService,
-    private router: Router) {
-
+    private router: Router, private vehiclesService: VehiclesService) {
+      this.vehicles = [];
     this.registration = this.formBuilder.group({
       Matricula: new FormControl('', Validators.compose([
         Validators.required,
@@ -37,6 +39,7 @@ export class AnadirVehiculoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles));
     this.color = CurrentUserData.color;
     setInterval(() => {
       this.color = CurrentUserData.color;
@@ -49,4 +52,15 @@ export class AnadirVehiculoComponent implements OnInit {
       this.router.navigateByUrl('main/profile');
     } else { console.log('No estas logueado'); }
   }
+
+  vehiculosUsuario(vehicles: Vehicle[]) {
+    if (CurrentUserData.LoggedUser) {
+        while (vehicles.length > 0) {
+            let aux = vehicles.pop();
+            if (aux.OwnerEmail == CurrentUserData.LoggedUser.Email) {
+                this.vehicles.push(aux);
+            }
+        }
+    }
+}
 }

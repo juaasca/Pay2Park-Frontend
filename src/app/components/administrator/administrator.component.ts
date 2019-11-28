@@ -28,6 +28,10 @@ export class AdministratorComponent implements OnInit {
     this.router.navigateByUrl('main/admin/manage-subscriptions');
   }
 
+  manageWarnings() {
+    this.router.navigateByUrl('main/admin/manage-warnings');
+  }
+
   changeToClientView() {
     this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');

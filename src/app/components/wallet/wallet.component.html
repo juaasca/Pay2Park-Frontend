@@ -45,8 +45,8 @@
           <ion-label>
               Historial de transacciones
             </ion-label>
-        <ion-list *ngFor="let item of movements">
-          <ion-item>
+        <ion-list style="--ion-background-color:primary;" *ngFor="let item of movements">
+          <ion-item color={{color}} >
             {{item.Amount}} € de saldo {{item.Operation}} el {{item.Date}}
           </ion-item>
         </ion-list>
