@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
-import { SelectedLocation } from '../../warnings/selectedLocation';
+import { SelectedLocation } from './selectedLocation';
 
 export abstract class WarningsComponent implements OnInit {
   protected locations: Location[] = [];
@@ -11,8 +11,8 @@ export abstract class WarningsComponent implements OnInit {
   protected isAdministrator = false;
 
   constructor(
-    private router: Router,
-    private locationActionsService: LocationActionsService) { 
+    protected router: Router,
+    protected locationActionsService: LocationActionsService) { 
     this.updateLocations();
   }
 
