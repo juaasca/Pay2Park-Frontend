@@ -3,6 +3,12 @@
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
+    <ion-buttons *ngIf=isAdministrator slot="end">
+      <ion-button (click)="create()">
+        <ion-icon name="add-circle"></ion-icon>
+          Crear
+      </ion-button>
+    </ion-buttons>
     <ion-title align="center">AVISOS</ion-title>
   </ion-toolbar>
   <ion-toolbar class="font">

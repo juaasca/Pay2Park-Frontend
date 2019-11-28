@@ -48,12 +48,12 @@ import { CreateTariffComponent } from './components/tariff/create-tariff/create-
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
 import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
-import { WarningsComponent } from './components/warnings/warnings.component';
-import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
 import { CreateWarningComponent } from './components/warnings/manage-warnings/create-warning/create-warning.component';
+import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/manage.warnings/administrator.manage.warnings.component';
+import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
 
 
 @NgModule({
@@ -91,8 +91,8 @@ import { CreateWarningComponent } from './components/warnings/manage-warnings/cr
         ViewTariffComponent,
         CreateLocationComponent,
         FilterLocationsPipe,
-        WarningsComponent,
-        ManageWarningsComponent,
+        ClientWarningsComponent,
+        AdministratorWarningsComponent,
         ManageSubscriptionsComponent,
         CreateSubscriptionComponent,
         ViewSubscriptionComponent,
