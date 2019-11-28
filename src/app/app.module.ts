@@ -51,7 +51,7 @@ import { FilterLocationsPipe } from './services/pipes/filter.locations.pipe';
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
-import { CreateWarningComponent } from './components/warnings/manage-warnings/create-warning/create-warning.component';
+import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/manage.warnings/administrator.manage.warnings.component';
 import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
 
