@@ -14,4 +14,8 @@ export class AdministratorWarningsComponent extends WarningsComponent {
 
     this.isAdministrator = true;
   }
+
+  create() {
+    this.router.navigateByUrl('main/admin/manage-warnings/create-warning');
+  }
 }
