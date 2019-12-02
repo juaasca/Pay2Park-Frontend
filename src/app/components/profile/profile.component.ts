@@ -18,7 +18,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
     this.color = CurrentUserData.color;
-    this.isHistorial = false;
+    //this.isHistorial = false;
     setInterval(() => {
       this.color = CurrentUserData.color;
   }, 100);
@@ -29,17 +29,8 @@ export class ProfileComponent implements OnInit {
     this.router.navigateByUrl('anadir-vehiculo');
   }
 
-  historialTransacciones() {
-    this.isHistorial=!this.isHistorial;
-    //this.router.navigateByUrl('historial-usuario');
-  }
-
-  pagos() {
-    this.router.navigateByUrl('pagos');
-  }
-
-  denuncias() {
-    this.router.navigateByUrl('denuncias');
+  historiales() {
+    this.router.navigateByUrl('historiales');
   }
 
   modoOscuro(){

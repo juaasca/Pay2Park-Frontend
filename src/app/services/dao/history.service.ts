@@ -18,13 +18,13 @@ export class HistoryService extends PersistenceService<Transactions> {
         this.databaseRef = this.refTransactions;
     }
 
-    getRelatedTransactionsAsync(client: Client) {
+    getRelatedTransactionsAsync(client: Client, tipo: string) {
         var relatedTransactions: Transactions[] = [];
         
         return this.getEntitiesAsync()
           .then((transactions) => {
             transactions.forEach(transaction => {
-              if (transaction.OwnersEmail === client.Email) {
+              if (transaction.OwnersEmail === client.Email && transaction.Tipo === tipo) {
                 relatedTransactions.push(transaction);
               }
             });

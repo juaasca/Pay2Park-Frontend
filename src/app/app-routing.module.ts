@@ -1,4 +1,4 @@
-import { NgModule, Component } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
 import { AuthenticationComponent } from './components/authentication/authentication.component';
@@ -30,16 +30,32 @@ import { TariffComponent } from './components/tariff/tariff.component';
 import { CreateTariffComponent } from './components/tariff/create-tariff/create-tariff.component';
 import { ViewTariffComponent } from './components/tariff/view-tariff/view-tariff.component';
 import { CreateLocationComponent } from './components/info/create-location/create-location.component';
-import { WarningsComponent } from './components/warnings/warnings.component';
-import { ManageWarningsComponent } from './components/warnings/manage-warnings/manage-warnings.component';
+import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
 import { ManageSubscriptionsComponent } from './components/administrator/manage.subscriptions/manage.subscriptions.component';
 import { CreateSubscriptionComponent } from './components/administrator/manage.subscriptions/create.subscription/create.subscription.component';
 import { ViewSubscriptionComponent } from './components/administrator/manage.subscriptions/view.subscription/view.subscription.component';
+import { HistorialesComponent } from './components/historiales/historiales.component';
+import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
+import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
+import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
+import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/manage.warnings/administrator.manage.warnings.component';
 
 const routes: Routes = [
     {
         path: 'authentication',
         component: AuthenticationComponent
+    },
+    {
+        path: 'historiales',
+        component: HistorialesComponent
+    },
+    {
+        path: 'historialDenuncias',
+        component: HistorialDenunciasComponent
+    },
+    {
+        path: 'historialPagos',
+        component: HistorialPagosComponent
     },
     {
         path: 'payment',
@@ -128,16 +144,20 @@ const routes: Routes = [
                     {
                         path: 'manage-subscriptions/view-subscription',
                         component: ViewSubscriptionComponent
+                    },
+                    {
+                        path: 'manage-warnings',
+                        component: AdministratorWarningsComponent
+                    },
+                    {
+                        path: 'manage-warnings/create-warning',
+                        component: CreateWarningComponent
                     }
                 ]
             },
             {
                 path: 'warnings',
-                component: WarningsComponent,
-            },
-            {
-                path: 'warnings/manage-warnings',
-                component: ManageWarningsComponent
+                component: ClientWarningsComponent,
             },
             {
                 path: 'checker',

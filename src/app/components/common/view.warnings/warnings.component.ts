@@ -1,24 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
 import { SelectedLocation } from './selectedLocation';
 
-@Component({
-  selector: 'app-warnings',
-  templateUrl: './warnings.component.html',
-  styleUrls: ['./warnings.component.scss'],
-})
-export class WarningsComponent implements OnInit {
-  private locations: Location[] = [];
+export abstract class WarningsComponent implements OnInit {
+  protected locations: Location[] = [];
   private searchText = '';
 
-  constructor(private router: Router, private locationActionsService: LocationActionsService,) { 
+  protected isAdministrator = false;
+
+  constructor(
+    protected router: Router,
+    protected locationActionsService: LocationActionsService) { 
     this.updateLocations();
   }
 
   ngOnInit() {
-        setInterval(async () => {
+    setInterval(async () => {
       await this.updateLocations();
     }, 2000);
   }
@@ -34,7 +33,7 @@ export class WarningsComponent implements OnInit {
       });
   }
 
-  locationWarnings(location){
+  locationWarnings(location: Location){
     var selectedLocation = <Location> location;
     SelectedLocation.selectedLocation = selectedLocation;
     this.router.navigateByUrl('main/warnings/manage-warnings');

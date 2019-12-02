@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from 'src/app/Domain/Location';
-import { SelectedLocation } from '../selectedLocation';
-import { WarningActionsService } from 'src/app/logic/warning.actions.service';
+import { SelectedLocation } from '../../common/view.warnings/selectedLocation';
 import { Warning } from 'src/app/Domain/Warning';
 import { Router } from '@angular/router';
+import { LocationActionsService } from 'src/app/logic/location.actions.service';
 
 @Component({
   selector: 'app-manage-warnings',
@@ -14,11 +14,18 @@ export class ManageWarningsComponent implements OnInit {
   private selectedLocation: Location;
   private warnings: Warning[]=[];
   
-  constructor(private router: Router, private warningActionsService: WarningActionsService) { }
+  constructor(
+    private router: Router,
+    private locationActionsService: LocationActionsService) { }
 
   ngOnInit() {
     this.selectedLocation = SelectedLocation.selectedLocation;
-    this.updateWarnings();
+    
+    if (this.selectedLocation.Warnings === undefined) {
+      this.warnings = [];
+    } else {
+      this.warnings = this.selectedLocation.Warnings;
+    }
     
     setInterval(async () => {
       await this.updateWarnings();
@@ -26,9 +33,13 @@ export class ManageWarningsComponent implements OnInit {
   }
 
   updateWarnings(){
-    return this.warningActionsService.getWarningsByLocationAsync(this.selectedLocation)
-      .then((warnings) => {
-        this.warnings = warnings.sort((a, b) => this.sortWarningAscendingByDate(a, b));
+    return this.locationActionsService.getLocationAsync(this.selectedLocation)
+      .then((location) => {
+        if (location.Warnings === undefined) {
+          this.warnings = [];
+        } else {
+          this.warnings = location.Warnings.sort((a, b) => this.sortWarningAscendingByDate(a, b));
+        }
       });
   }
 

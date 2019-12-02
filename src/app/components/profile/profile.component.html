@@ -1,19 +1,15 @@
 <ion-header>
   <ion-toolbar class="font" color={{color}}>
     <ion-buttons slot="start">
-      <!-- <ion-back-button text="Volver" color="light"></ion-back-button> -->
-      <ion-icon *ngIf="isHistorial "name="arrow-round-back" (click)="historialTransacciones()"></ion-icon>
     </ion-buttons>
     <ion-title align="center">PERFIL</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="info()" detail>¿Dónde operamos?</ion-item>
-  <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="historialTransacciones()" detail>Historial de transacciones</ion-item>
-  <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="pagos()" detail>Denuncias</ion-item>
-  <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="denuncias()" detail>Pagos</ion-item>
-  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehículo</ion-item>
-  <ion-item *ngIf="!isHistorial" color={{color}} class="font">
+  <ion-item  color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
+  <ion-item  color = {{color}} class="font" (click)="historiales()" detail>Historial de transacciones</ion-item>
+  <ion-item  color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+  <ion-item  color={{color}} class="font">
     Modo Oscuro
     <ion-toggle slot="end" (click)="modoOscuro()"></ion-toggle>
   </ion-item>

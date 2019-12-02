@@ -84,7 +84,7 @@ changeSaldo() {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido');
+    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido', 'cartera', 'cartera');
     this.userActions.addHistory(user,transaccion);
     
     //Ir a realizar el pago
@@ -92,7 +92,7 @@ changeSaldo() {
   }
 
   updateMovements() {
-    return this.historyService.getRelatedTransactionsAsync(<Client>CurrentUserData.LoggedUser)
+    return this.historyService.getRelatedTransactionsAsync(<Client>CurrentUserData.LoggedUser, 'cartera')
       .then((transactions) => this.movements = transactions);
   }
 
@@ -112,7 +112,7 @@ changeSaldo() {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido');
+    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido','cartera', 'cartera');
     this.userActions.addHistory(user,transaccion);
     CurrentUserData.price = dinero.toString();
     this.router.navigateByUrl('payment');
