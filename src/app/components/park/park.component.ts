@@ -4,10 +4,10 @@ import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { CurrentParkingData } from 'src/app/data/currentParking';
 import { Park } from 'src/app/Domain/Park';
-import { Subscription } from 'rxjs';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { AlertController, Platform, LoadingController } from '@ionic/angular';
+import { Subscription } from 'src/app/Domain/Subscription';
 
 declare let L;
 
@@ -17,7 +17,7 @@ declare let L;
   styleUrls: ['./park.component.scss'],
 })
 export class ParkComponent implements OnInit {
-
+  private subscription: Subscription;
   private idWatch: any;
   color: string;
   constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService, private localNotification: LocalNotifications,private platform:Platform,
@@ -32,6 +32,9 @@ export class ParkComponent implements OnInit {
   }
   posicion: [number, number];
   ngOnInit() {
+
+    //this.subscription = CurrentUserData.subscription;
+    this.subscription = new Subscription("prueba", 23,2,true);
     this.comprobar1HoraBono();
     this.posicion = [39.482638, -0.348196];
     this.comprobar();
@@ -117,7 +120,7 @@ export class ParkComponent implements OnInit {
   async aparcar() {
     const existe = this.comprobar();
     this.comprobarBono();
-    if (existe) {
+    if (existe && !this.subscription.IsMultiCar) {
       this.errorAparcar();
     } else {
       if (this.activo) {

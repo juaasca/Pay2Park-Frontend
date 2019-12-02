@@ -12,7 +12,7 @@
   <ion-item *ngIf="!isHistorial" color = {{color}} class="font" (click)="historialTransacciones()" detail>Historial de transacciones</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="pagos()" detail>Denuncias</ion-item>
   <ion-item *ngIf="isHistorial" color = {{color}} class="font" (click)="denuncias()" detail>Pagos</ion-item>
-  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+  <ion-item *ngIf="!isHistorial" color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehículo</ion-item>
   <ion-item *ngIf="!isHistorial" color={{color}} class="font">
     Modo Oscuro
     <ion-toggle slot="end" (click)="modoOscuro()"></ion-toggle>

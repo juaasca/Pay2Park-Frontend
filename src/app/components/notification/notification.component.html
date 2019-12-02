@@ -1,26 +1,42 @@
 <ion-content color={{color}}>
     <ion-card style=" text-align:center" color="primary">
-        <ion-card-title class="font" style="padding-top: 20px;font-size:30px; padding-bottom: 0px;">Lleva aparcado</ion-card-title>
-       
-       <ion-card-content style="padding-top: 0px;">
-           <ion-label class="font" style="font-size:70px;">{{time}} min</ion-label>
-           <p><ion-label class="font" style="font-size: 25px;"> Máximo: {{max}} minutos</ion-label></p>
-       </ion-card-content>
+        <ion-card-title class="font" style="padding-top: 20px;font-size:30px; padding-bottom: 0px;">Lleva aparcado
+        </ion-card-title>
 
-       
-        <ion-button style="padding-left: 50px;padding-right: 50px;padding-bottom: 10px ;" size="large" expand="block" color="light" (click)="botonPagar()">
-            Finalizar                       
+        <ion-card-content style="padding-top: 0px;">
+            <ion-label class="font" style="font-size:70px;">{{time}} min</ion-label>
+            <p>
+                <ion-label class="font" style="font-size: 25px;"> Máximo: {{max}} minutos</ion-label>
+            </p>
+        </ion-card-content>
+
+
+        <ion-button style="padding-left: 50px;padding-right: 50px;padding-bottom: 10px ;" size="large" expand="block"
+            color="light" (click)="botonPagar()">
+            Finalizar
         </ion-button>
 
     </ion-card>
 
 
     <div>
-        <ion-label class="font" style="padding-left: 50px;">Has aparcado en: </ion-label>        
+        <ion-label class="font" style="padding-left: 15px;">Has aparcado en: </ion-label>
     </div>
-    <div style="padding-left: 50px;padding-right: 25px;font-weight:bold; font-size: 25px;">
-    <ion-label class="font">{{calle}}</ion-label>
+    <div style="padding-left: 15px;padding-right: 15px;font-weight:bold; font-size: 25px;">
+        <ion-label class="font">{{calle}}</ion-label>
     </div>
+
+    <ion-item color={{color}}>Tus aparcamientos actuales:</ion-item>
+
+    <ion-radio-group>
+        <ion-list style="--ion-background-color:primary;">
+            <ion-item button="true" (click)="seleccionarPark(park)" color={{color}} *ngFor="let park of parks">
+                {{park.Vehicle.LicensePlate}}
+                {{park.Vehicle.Manufacturer}}
+                {{park.Vehicle.ModelName}}
+                <ion-radio slot="start"></ion-radio>
+            </ion-item>
+        </ion-list>
+    </ion-radio-group>
+
 </ion-content>
-
-
