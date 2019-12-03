@@ -91,6 +91,7 @@ export class ParkConfirmComponent implements OnInit {
         CurrentParkingData.park = this.prueba;
         this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
         this.sendNotifications();
+        CurrentParkingData.parks.push(this.prueba);
     }
 
     simpleReverseGeocoding(lon, lat) {
