@@ -34,13 +34,12 @@ export class NotificationComponent implements OnInit {
   precio = 2.3;
 
   ngOnInit() {
-    this.parks = [];
+    this.parks = CurrentParkingData.parks;
     this.parkService.getEntitiesAsync().then(parks => this.parksUsuario(parks));
     this.time = 0;
     this.max = 120;
     this.color = CurrentUserData.color;
     this.comprobar();
-
     if (CurrentParkingData.park) {
       this.park = CurrentParkingData.park;
       this.time = this.park.getCurrentTime();
@@ -52,13 +51,13 @@ export class NotificationComponent implements OnInit {
     setInterval(() => {
       this.color = CurrentUserData.color;
       this.actualizar();
-    }, 1000);
+    }, 100);
   }
 
   actualizar() {
     if (CurrentParkingData.park) {
       this.park = CurrentParkingData.park;
-      this.time = this.park.getCurrentTime();
+      this.time = CurrentParkingData.park.getCurrentTime();
       this.calle = this.park.Street;
       this.max = this.park.Fare.Duration;
       if (this.park.Fare.IsRealTime) { this.max = 120; }
@@ -124,6 +123,8 @@ export class NotificationComponent implements OnInit {
       CurrentUserData.price = this.precio.toString();
       this.router.navigateByUrl('payment');
     }
+    this.parks.splice(this.parks.findIndex(x => x.id == this.park.id),1);
+    console.log(this.parks);
   }
 
   comprobar() {
@@ -172,6 +173,7 @@ export class NotificationComponent implements OnInit {
     this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
+
     this.calle = 'Todavia no has aparcado';
     this.max = 120;
     this.time = 0;
@@ -179,6 +181,7 @@ export class NotificationComponent implements OnInit {
   }
 
   parksUsuario(parks: Park[]) {
+    let auxParks = [];
     if (CurrentUserData.LoggedUser) {
       while (parks.length > 0) {
         let aux = parks.pop();
@@ -190,8 +193,14 @@ export class NotificationComponent implements OnInit {
   }
 
   seleccionarPark(park:Park){
-    CurrentParkingData.park= park;
     this.park = park;
+    CurrentParkingData.park = new Park(null,null,null,null,null,null);
+    CurrentParkingData.park.Coordinates = park.Coordinates;
+    CurrentParkingData.park.Date = park.Date;
+    CurrentParkingData.park.Fare = park.Fare;
+    CurrentParkingData.park.Street = park.Street;
+    CurrentParkingData.park.Vehicle = park.Vehicle;
+    CurrentParkingData.park.id = park.id;
   }
 
 }
