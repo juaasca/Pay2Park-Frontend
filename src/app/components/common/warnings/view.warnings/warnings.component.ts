@@ -1,8 +1,8 @@
 import { OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Location } from '../../../../Domain/Location';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
-import { Location } from 'src/app/Domain/Location';
-import { SelectedLocation } from './selectedLocation';
+import { SelectedLocation } from '../selectedLocation';
 
 export abstract class WarningsComponent implements OnInit {
   protected locations: Location[] = [];

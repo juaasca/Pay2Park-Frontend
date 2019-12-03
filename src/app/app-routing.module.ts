@@ -38,7 +38,7 @@ import { HistorialesComponent } from './components/historiales/historiales.compo
 import { HistorialPagosComponent } from './components/historial-pagos/historial-pagos.component';
 import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
 import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
-import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/manage.warnings/administrator.manage.warnings.component';
+import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
 
 const routes: Routes = [
     {

@@ -21,7 +21,7 @@ describe('HistorialDenunciasComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('creado coorectamente', () => {
     expect(component).toBeTruthy();
   });
 });
