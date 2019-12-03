@@ -77,6 +77,7 @@ export class NotificationComponent implements OnInit {
         this.bonoActivo();
         //this.confirmPagoBono();
       } else {
+        Math.round(this.precio * 100) / 100
         const alert = await this.alertController.create({
           header: '¿Terminar Estacionamiento?',
           message: 'El precio es: ' + this.precio.toString() + ' por una duración de ' + this.time.toString() + ' minutos.',
