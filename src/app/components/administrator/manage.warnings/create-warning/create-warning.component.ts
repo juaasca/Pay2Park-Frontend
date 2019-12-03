@@ -25,11 +25,11 @@ export class CreateWarningComponent implements OnInit {
       ])),
       InitialDateTime: new FormControl('', Validators.compose([
         Validators.required,
-        this.initialDateLaterNow,
+        DateValidatorService.initialDateLaterNow,
       ])),
       FinalDateTime: new FormControl('', Validators.compose([
         Validators.required,
-        this.finalDateLater
+        DateValidatorService.finalDateLater,
       ])),
       Locations: new FormControl('', Validators.compose([
         Validators.required,
@@ -57,29 +57,5 @@ export class CreateWarningComponent implements OnInit {
     } else {
       return 0;
     }
-  }
-
-  initialDateLaterNow(fc: FormControl){
-    var now = new Date();
-
-    if(now < fc.value){
-      return ({initialDateLaterNow: true});
-    } else {
-      return (null);
-    }
-  }
-
-  finalDateLater()
-  { return (field: FormControl): {[key: string] : any} => {
-      if(field.get('InitialDateTime').value < field.get('FinalDateTime').value){
-        return ({finalDateLater: true});
-      } else {
-        return (null);
-      } 
-    }
-  }
-
-  saveData(){
-    var formValue = this.createWarningForm.value;
   }
 }
