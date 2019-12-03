@@ -1,6 +1,10 @@
+<ion-router-outlet></ion-router-outlet>
 <ion-header>
   <ion-toolbar class="font" color="primary">
-    CREAR AVISO
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">CREAR AVISO</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
@@ -24,7 +28,7 @@
       </ion-item>
       <ion-item>
         <ion-label position="floating">Localidades</ion-label>
-        <ion-select formControlName="Locations" multiple="true" cancelText="Cancelar" okText="Acpetar">
+        <ion-select formControlName="Locations" multiple="true" cancelText="Cancelar" okText="Aceptar">
           <ion-select-option *ngFor="let location of locations">
             {{location.Name}}
           </ion-select-option>
@@ -32,4 +36,7 @@
       </ion-item>
     </ion-list>
   </form>
+  <div align="center">
+    <ion-button [disabled]="!createWarningForm.valid" color="primary">Crear</ion-button>
+  </div>
 </ion-content>
