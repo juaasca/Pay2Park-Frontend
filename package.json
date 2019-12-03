@@ -46,6 +46,7 @@
     "firebase": "^6.6.2",
     "firebase-tools": "^7.6.1",
     "ionic-selectable": "^4.4.1",
+    "jasmine": "^3.5.0",
     "leaflet": "^1.5.1",
     "leaflet-routing-machine": "^3.2.12",
     "rxjs": "~6.5.1",

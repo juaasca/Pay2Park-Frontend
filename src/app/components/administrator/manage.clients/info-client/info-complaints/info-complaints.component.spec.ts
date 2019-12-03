@@ -21,7 +21,7 @@ describe('InfoComplaintsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it('creado correctamente', () => {
     expect(component).toBeTruthy();
   });
 });

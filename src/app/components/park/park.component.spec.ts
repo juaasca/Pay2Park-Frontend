@@ -1,27 +1,26 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed, async } from '@angular/core/testing';
 import { ParkComponent } from './park.component';
+import { CurrentUserData } from 'src/app/data/current.user';
+
+
 
 describe('ParkComponent', () => {
-  let component: ParkComponent;
-  let fixture: ComponentFixture<ParkComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ParkComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [ParkComponent],
+      }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ParkComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
-
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+it('obtener coordenadas', () => {
+    const posicion = [39.482638, -0.348196];
+    expect(CurrentUserData.getCurrentPosition()).toEqual(posicion);
 });
+it('obtener calle', () => {
+    let calle = 'Escuela Técnica Superior de Ingeniería Informática';
+    expect(CurrentUserData.getCalle()).toEqual(calle);
+})
+
+})
+

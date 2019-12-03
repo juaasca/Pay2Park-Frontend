@@ -15,100 +15,101 @@ import { Subscription } from 'rxjs';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 @Component({
-    selector: 'app-notification',
-    templateUrl: './notification.component.html',
-    styleUrls: ['./notification.component.scss'],
+  selector: 'app-notification',
+  templateUrl: './notification.component.html',
+  styleUrls: ['./notification.component.scss'],
 })
 export class NotificationComponent implements OnInit {
-    
+  parks: Park[];
   park: Park;
   time: number;
   calle: string;
   color: string;
   max: number;
   constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
-      private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController,
-      private vehicleService: VehiclesService
+    private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController,
+    private vehicleService: VehiclesService
   ) { }
 
   precio = 2.3;
 
   ngOnInit() {
+    this.parks = [];
+    this.parkService.getEntitiesAsync().then(parks => this.parksUsuario(parks));
     this.time = 0;
     this.max = 120;
     this.color = CurrentUserData.color;
     this.comprobar();
-    
+
     if (CurrentParkingData.park) {
-        this.park = CurrentParkingData.park;
-        this.time = this.park.getCurrentTime();
-        this.calle = this.park.Street;
-        this.max = this.park.Fare.Duration;
-        if(this.park.Fare.IsRealTime){this.max = 120;}
+      this.park = CurrentParkingData.park;
+      this.time = this.park.getCurrentTime();
+      this.calle = this.park.Street;
+      this.max = this.park.Fare.Duration;
+      if (this.park.Fare.IsRealTime) { this.max = 120; }
     }
     this.calle = 'Todavia no has aparcado';
     setInterval(() => {
-        this.color = CurrentUserData.color;
-        this.actualizar();
+      this.color = CurrentUserData.color;
+      this.actualizar();
     }, 1000);
   }
 
   actualizar() {
     if (CurrentParkingData.park) {
-        this.park = CurrentParkingData.park;
-        this.time = this.park.getCurrentTime();
-        this.calle = this.park.Street;
-        this.time = this.park.getCurrentTime();
-        
-        this.max = this.park.Fare.Duration;
-        if(this.park.Fare.IsRealTime){this.max = 120;}
+      this.park = CurrentParkingData.park;
+      this.time = this.park.getCurrentTime();
+      this.calle = this.park.Street;
+      this.max = this.park.Fare.Duration;
+      if (this.park.Fare.IsRealTime) { this.max = 120; }
     } else {
-        this.calle = 'Todavia no has aparcado';
-        this.time = 0;
+      this.calle = 'Todavia no has aparcado';
+      this.time = 0;
     }
   }
 
   async botonPagar() {
     if (CurrentParkingData.park) {
       this.precio = this.park.Fare.Price;
-      if(this.park.Fare.IsRealTime){this.precio= this.park.Fare.Price * this.time;}
+      if (this.park.Fare.IsRealTime) { this.precio = this.park.Fare.Price * this.time; }
       this.comprobarBono();
-      if(this.activo){
-      this.bonoActivo();
-      //this.confirmPagoBono();
-     }else {
-      const alert = await this.alertController.create({
-        header: '¿Terminar Estacionamiento?',
-            message: 'El precio es: ' + this.precio.toString() + ' por una duración de ' +this.time.toString() + ' minutos.',
-            buttons: [
-              {
-                text: 'Cancelar',
-                role: 'cancel',
-                handler: () => {
-                    console.log('Confirm Cancel');
-                }
-              }, {
-                text: 'Finalizar',
-                handler: () => {
-                    this.confirmPagar();
-                  }
-                }
-              ]
-            });
+      if (this.activo) {
+        this.bonoActivo();
+        //this.confirmPagoBono();
+      } else {
+        const alert = await this.alertController.create({
+          header: '¿Terminar Estacionamiento?',
+          message: 'El precio es: ' + this.precio.toString() + ' por una duración de ' + this.time.toString() + ' minutos.',
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              handler: () => {
+                console.log('Confirm Cancel');
+              }
+            }, {
+              text: 'Finalizar',
+              handler: () => {
+                this.confirmPagar();
+              }
+            }
+          ]
+        });
 
         await alert.present();
-    }} else {
+      }
+    } else {
       const alert = await this.alertController.create({
         header: 'Todavia no ha estacionado',
         buttons: [{
           text: 'OK',
-            handler: () => {
-              this.router.navigateByUrl('main/park');                
-            }            
+          handler: () => {
+            this.router.navigateByUrl('main/park');
+          }
         }]
-      });   
-      
-      await alert.present();     
+      });
+
+      await alert.present();
     }
   }
 
@@ -118,33 +119,33 @@ export class NotificationComponent implements OnInit {
     coche.Parked = false;
     this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
     CurrentParkingData.park = null;
-    if(this.park.Fare.IsRealTime){
-    CurrentUserData.price = this.precio.toString();
-    this.router.navigateByUrl('payment');
+    if (this.park.Fare.IsRealTime) {
+      CurrentUserData.price = this.precio.toString();
+      this.router.navigateByUrl('payment');
     }
   }
 
   comprobar() {
     // if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
     if (CurrentUserData.LoggedUser) {
-        const aux1 = CurrentParkingData.parks;
-        while (aux1.length > 0) {
-            const aux = aux1.pop();
-            if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
-                CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
-            }
+      const aux1 = CurrentParkingData.parks;
+      while (aux1.length > 0) {
+        const aux = aux1.pop();
+        if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
+          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
         }
+      }
     }
   }
 
   //Comprueba que el bono esta activo
   activo: boolean = false;
-  comprobarBono(){
+  comprobarBono() {
     console.log(CurrentUserData.DuracionBono);
-    if(CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+    if (CurrentUserData.DuracionBono > Date.now()) this.activo = true;
     else this.activo = false;
-  } 
-  
+  }
+
   //Alerta de aviso de que el bono esta activo
   async bonoActivo() {
     const alertBono = await this.alertControllerBono.create({
@@ -174,6 +175,22 @@ export class NotificationComponent implements OnInit {
     this.max = 120;
     this.time = 0;
     this.router.navigateByUrl('main/park');
+  }
+
+  parksUsuario(parks: Park[]) {
+    if (CurrentUserData.LoggedUser) {
+      while (parks.length > 0) {
+        let aux = parks.pop();
+        if (aux.Vehicle.OwnerEmail == CurrentUserData.LoggedUser.Email) {
+          this.parks.push(aux);
+        }
+      }
+    }
+  }
+
+  seleccionarPark(park:Park){
+    CurrentParkingData.park= park;
+    this.park = park;
   }
 
 }

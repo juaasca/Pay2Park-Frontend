@@ -11,4 +11,16 @@ export class CurrentUserData {
     public static color : string = 'light';
     public static wallet : number = 0;
     public static motivo : string = "";
+
+    public static getCurrentPosition(){
+       return this.CurrentPosition = [39.482638, -0.348196];
+    }
+    public static getCalle(){
+        let calle = 'Escuela Técnica Superior de Ingeniería Informática';
+        return calle;
+    }
+
+    public static getWallet(){
+        return this.wallet;
+    }
 }

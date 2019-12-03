@@ -1,27 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { TestBed, async } from '@angular/core/testing';
+import { CurrentUserData } from 'src/app/data/current.user';
 import { WalletComponent } from './wallet.component';
 
+
+
 describe('WalletComponent', () => {
-  let component: WalletComponent;
-  let fixture: ComponentFixture<WalletComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [ WalletComponent ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    })
-    .compileComponents();
-  }));
+    beforeEach(async(() => {
+      TestBed.configureTestingModule({
+        declarations: [WalletComponent],
+      }).compileComponents();
+    }));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(WalletComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+it('saldo en cartera es 11', () => {
+    let precio = CurrentUserData.getWallet();
+    expect(precio).toBe(11);
+})
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
-});
+})
+
