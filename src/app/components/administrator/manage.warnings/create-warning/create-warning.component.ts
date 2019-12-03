@@ -3,8 +3,7 @@ import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import { UsernameValidatorService } from 'src/app/services/validators/username.validator.service';
-import { AgeValidatorService } from 'src/app/services/validators/age.validator.service';
+import { DateValidatorService } from 'src/app/services/validators/date.validator.service';
 
 @Component({
   selector: 'app-create-warning',
@@ -25,9 +24,11 @@ export class CreateWarningComponent implements OnInit {
       ])),
       InitialDateTime: new FormControl('', Validators.compose([
         Validators.required,
+        DateValidatorService.initialDateLaterNow
       ])),
       FinalDateTime: new FormControl('', Validators.compose([
         Validators.required,
+        DateValidatorService.finalDateLater('InitialDateTime', 'FinalDateTime'),
       ])),
       Locations: new FormControl('', Validators.compose([
         Validators.required,
