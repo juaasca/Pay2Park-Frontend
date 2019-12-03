@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Location } from 'src/app/Domain/Location';
-import { SelectedLocation } from '../../common/view.warnings/selectedLocation';
 import { Warning } from 'src/app/Domain/Warning';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
+import { SelectedLocation } from '../../common/warnings/selectedLocation';
 
 @Component({
   selector: 'app-manage-warnings',
