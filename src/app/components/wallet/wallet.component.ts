@@ -86,6 +86,7 @@ changeSaldo() {
     
     var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido', 'cartera', 'cartera');
     this.userActions.addHistory(user,transaccion);
+    CurrentUserData.motivo = "cartera";
     
     //Ir a realizar el pago
     this.router.navigateByUrl('payment');
