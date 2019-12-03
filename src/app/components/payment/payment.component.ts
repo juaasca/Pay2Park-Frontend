@@ -65,7 +65,7 @@ export class PaymentComponent implements OnInit {
               var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
               var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
               var dateTime = date + ' ' + time;
-              var transaction = new Transactions(_this.paymentAmount.toString(), dateTime, CurrentUserData.LoggedUser.Email, 'gastado', 'nocartera', 'motivo(a completar)');
+              var transaction = new Transactions(_this.paymentAmount.toString(), dateTime, CurrentUserData.LoggedUser.Email, 'gastado', 'nocartera', CurrentUserData.motivo);
               var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.DuracionBono);
               _this.userActions.addHistory(user,transaction);
               _this.pagadoAlert();

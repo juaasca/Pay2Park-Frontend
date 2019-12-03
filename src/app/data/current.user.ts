@@ -9,5 +9,6 @@ export class CurrentUserData {
     public static price : string = null;
     public static DuracionBono: number = 0;
     public static color : string = 'light';
-    public static wallet : number = 11;
+    public static wallet : number = 0;
+    public static motivo : string = "";
 }
