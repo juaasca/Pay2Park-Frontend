@@ -5,7 +5,7 @@ import { DarkModeService } from './dark-mode.service';
 describe('DarkModeService', () => {
   beforeEach(() => TestBed.configureTestingModule({}));
 
-  it('should be created', () => {
+  it('creado correctamente', () => {
     const service: DarkModeService = TestBed.get(DarkModeService);
     expect(service).toBeTruthy();
   });
