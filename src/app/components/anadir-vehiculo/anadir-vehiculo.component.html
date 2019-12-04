@@ -1,6 +1,6 @@
 <ion-app>
   <ion-header style="padding-bottom: 0px;">
-    <ion-toolbar class="font" color={{color}}>
+    <ion-toolbar class="font-style" color={{color}}>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/main/profile"></ion-back-button>
       </ion-buttons>
@@ -12,18 +12,18 @@
   <ion-content color={{color}}>
     <form [formGroup]="registration">
       <ion-item color={{color}}>
-        <ion-label class="font" position="floating">Matrícula:</ion-label>
-        <ion-input class="font" formControlName="Matricula" type="text" placeholder="Matricula"></ion-input>
+        <ion-label class="label-css" position="floating">Matrícula:</ion-label>
+        <ion-input class="input-css" formControlName="Matricula" type="text" placeholder="Matricula"></ion-input>
       </ion-item>
 
       <ion-item color={{color}}>
-        <ion-label class="font" position="floating">Marca:</ion-label>
-        <ion-input class="font" formControlName="Marca" type="text" placeholder="Marca"></ion-input>
+        <ion-label class="label-css" position="floating">Marca:</ion-label>
+        <ion-input class="input-css" formControlName="Marca" type="text" placeholder="Marca"></ion-input>
       </ion-item>
 
       <ion-item color={{color}}>
-        <ion-label class="font" position="floating">Modelo:</ion-label>
-        <ion-input class="font" formControlName="Modelo" type="text" placeholder="Modelo"></ion-input>
+        <ion-label class="label-css" position="floating">Modelo:</ion-label>
+        <ion-input class="input-css" formControlName="Modelo" type="text" placeholder="Modelo"></ion-input>
       </ion-item>
 
 
@@ -31,7 +31,7 @@
 
     <ion-item style="padding-top: 20px; padding-left: 15px;font-size: 20px;" class="font" position="floating" color={{color}}>Tus vehiculos:</ion-item>
     <ion-list style="--ion-background-color:primary;">
-      <ion-item color={{color}} class="font" style="font-size: 20px;" *ngFor="let item of vehicles">
+      <ion-item color={{color}} class="font-style" style="font-size: 20px;" *ngFor="let item of vehicles">
         <ion-icon name="arrow-forward"></ion-icon>
         {{item.Manufacturer}}
         {{item.ModelName}}

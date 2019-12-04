@@ -8,7 +8,7 @@ import { DateValidatorService } from 'src/app/services/validators/date.validator
 @Component({
   selector: 'app-create-warning',
   templateUrl: './create-warning.component.html',
-  styleUrls: ['./create-warning.component.scss'],
+  styleUrls: ['./create-warning.component.scss', './../../../../../formulario.scss'],
 })
 export class CreateWarningComponent implements OnInit {
   private locations: Location[] = [];

@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="font-style" color="primary">
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
@@ -10,12 +10,12 @@
   <form [formGroup]="createLocationForm">
     <ion-list>
       <ion-item>
-        <ion-label class="font" position="floating">Nombre de la localidad:</ion-label>
-        <ion-input class="font" formControlName="Name" type="text" placeholder="Localidad"></ion-input>
+        <ion-label class="label-css" position="floating">Nombre de la localidad:</ion-label>
+        <ion-input class="input-css" formControlName="Name" type="text" placeholder="Localidad"></ion-input>
       </ion-item>
     </ion-list>
     <div align="center">
-      <ion-button [disabled]="!createLocationForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
+      <ion-button class="font-style" [disabled]="!createLocationForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
     </div>
   </form>
 </ion-content>

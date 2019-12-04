@@ -11,24 +11,24 @@
   <form [formGroup]="createWarningForm">
     <ion-list>
       <ion-item>
-        <ion-label class="font" position="floating">Título</ion-label>
-        <ion-input class="font" type="text" formControlName="Title" placeholder="Título"></ion-input>
+        <ion-label class="label-css" position="floating">Título</ion-label>
+        <ion-input class="input-css" type="text" formControlName="Title" placeholder="Título"></ion-input>
       </ion-item>
       <ion-item>
-        <ion-label class="font" position="floating">Descripción</ion-label>
-        <ion-textarea placeholder="Descripción..." formControlName="Description" autoGrow="true"></ion-textarea>
+        <ion-label class="label-css" position="floating">Descripción</ion-label>
+        <ion-textarea class="font-style" placeholder="Descripción..." formControlName="Description" autoGrow="true"></ion-textarea>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Fecha de inicio</ion-label>
-        <ion-datetime formControlName="InitialDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
+        <ion-label class="label-css" position="floating">Fecha de inicio</ion-label>
+        <ion-datetime class="font-style" formControlName="InitialDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Fecha de fin</ion-label>
-        <ion-datetime formControlName="FinalDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
+        <ion-label class="label-css" position="floating">Fecha de fin</ion-label>
+        <ion-datetime class="font-syle" formControlName="FinalDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
       </ion-item>
       <ion-item>
-        <ion-label position="floating">Localidades</ion-label>
-        <ion-select formControlName="Locations" multiple="true" cancelText="Cancelar" okText="Aceptar">
+        <ion-label class="label-css" position="floating">Localidades</ion-label>
+        <ion-select class="font-style" formControlName="Locations" multiple="true" cancelText="Cancelar" okText="Aceptar">
           <ion-select-option *ngFor="let location of locations">
             {{location.Name}}
           </ion-select-option>
@@ -37,6 +37,6 @@
     </ion-list>
   </form>
   <div align="center">
-    <ion-button [disabled]="!createWarningForm.valid" color="primary">Crear</ion-button>
+    <ion-button class="font-syle" [disabled]="!createWarningForm.valid" color="primary">Crear</ion-button>
   </div>
 </ion-content>
