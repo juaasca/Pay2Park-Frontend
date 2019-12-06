@@ -33,7 +33,7 @@ export class ManageWarningsComponent implements OnInit {
   }
 
   updateWarnings(){
-    return this.locationActionsService.getLocationAsync(this.selectedLocation)
+    return this.locationActionsService.getLocationByNameAsync(this.selectedLocation.Name)
       .then((location) => {
         if (location.Warnings === undefined) {
           this.warnings = [];
