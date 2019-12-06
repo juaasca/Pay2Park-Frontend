@@ -57,6 +57,7 @@ import { HistorialDenunciasComponent } from './components/historial-denuncias/hi
 import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
 import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
+import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
 
 
 @NgModule({
@@ -102,7 +103,8 @@ import { ClientWarningsComponent } from './components/warnings/client.warnings.c
         ManageSubscriptionsComponent,
         CreateSubscriptionComponent,
         ViewSubscriptionComponent,
-        CreateWarningComponent
+        CreateWarningComponent,
+        EditWarningComponent
     ],
     entryComponents: [],
     imports: [

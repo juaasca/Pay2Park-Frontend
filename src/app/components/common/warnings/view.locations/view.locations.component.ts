@@ -4,7 +4,7 @@ import { Location } from '../../../../Domain/Location';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { SelectedLocation } from '../selectedLocation';
 
-export abstract class WarningsComponent implements OnInit {
+export abstract class ViewLocationsComponent implements OnInit {
   protected locations: Location[] = [];
   private searchText = '';
 

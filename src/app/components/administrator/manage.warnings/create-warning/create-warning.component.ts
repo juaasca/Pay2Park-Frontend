@@ -1,61 +1,49 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
+import { FormBuilder } from '@angular/forms';
+import { ViewWarningComponent } from 'src/app/components/common/warnings/view-warning/view-warning.component';
+import { Warning } from 'src/app/Domain/Warning';
 import { Location } from 'src/app/Domain/Location';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
-import { DateValidatorService } from 'src/app/services/validators/date.validator.service';
 
 @Component({
   selector: 'app-create-warning',
-  templateUrl: './create-warning.component.html',
-  styleUrls: ['./create-warning.component.scss', './../../../../../formulario.scss'],
+  templateUrl: '../../../common/warnings/view-warning/view-warning.component.html',
+  styleUrls: ['../../../common/warnings/view-warning/view-warning.component.scss'],
 })
-export class CreateWarningComponent implements OnInit {
-  private locations: Location[] = [];
-  private createWarningForm: FormGroup;
-
-  constructor(private formBuilder: FormBuilder, private router: Router, private locationActionsService: LocationActionsService) {
-    this.updateLocations();
-    this.createWarningForm = this.formBuilder.group({
-      Title: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
-      Description: new FormControl('', Validators.compose([
-        Validators.required,
-      ])),
-      InitialDateTime: new FormControl('', Validators.compose([
-        Validators.required,
-        DateValidatorService.initialDateLaterNow,
-      ])),
-      FinalDateTime: new FormControl('', Validators.compose([
-        Validators.required,
-        DateValidatorService.finalDateLater,
-      ])),
-      Locations: new FormControl('', Validators.compose([
-        Validators.required,
-      ]))
+export class CreateWarningComponent extends ViewWarningComponent {
+  constructor(formBuilder: FormBuilder, router: Router, locationActionsService: LocationActionsService) {
+    super(formBuilder, router, locationActionsService);
+    this.componentTitle = 'CREAR AVISO';
+  }
+  
+  customOnInit() {};
+  
+  acceptButtonClicked() {
+    var formValue = this.viewWarningForm.value;
+    var createdWarning = new Warning(formValue.Title, formValue.Description, <Date>formValue.InitialDateTime, <Date>formValue.FinalDateTime);
+    
+    (<string[]>formValue.Locations).forEach(async (locationName) => {
+      var originalLocation = await this.locationActionsService.getLocationByNameAsync(locationName.trim());
+      var updatedLocation = this.addWarningToExistingLocation(originalLocation, createdWarning);
+      
+      await this.locationActionsService.updateExistingLocation(originalLocation, updatedLocation);
     });
   }
-
-  ngOnInit() {}
-
-  updateLocations(){
-    return this.locationActionsService.getLocationsAsync()
-      .then((locations) => {
-        this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
-      });
+      
+  private addWarningToExistingLocation(originalLocation: Location, createdWarning: Warning) {
+    var updatedLocation = new Location(originalLocation.Name);
+    if (originalLocation.Warnings === undefined) {
+      updatedLocation.setWarnings([createdWarning]);
+    }
+    else {
+      updatedLocation.setWarnings(originalLocation.Warnings);
+      updatedLocation.addWarning(createdWarning);
+    }
+    return updatedLocation;
   }
 
-  sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
-    var nameA = firstLocation.Name.toLowerCase();
-    var nameB = secondLocation.Name.toLowerCase();
-    
-    if (nameA < nameB) {
-      return -1;
-    } else if (nameA > nameB) {
-      return 1;
-    } else {
-      return 0;
-    }
+  deleteButtonClickedAsync() {
+    throw new Error("Method not implemented.");
   }
 }
