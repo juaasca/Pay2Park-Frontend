@@ -3,12 +3,15 @@ import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { Warning } from 'src/app/Domain/Warning';
 
 export abstract class ViewWarningComponent implements OnInit {
   protected locations: Location[] = [];
   protected viewWarningForm: FormGroup;
   protected componentTitle: string;
   protected canEditWarning = false;
+
+  protected selectedWarning: Warning;
 
   constructor(protected formBuilder: FormBuilder, protected router: Router, protected locationActionsService: LocationActionsService) {
     this.viewWarningForm = this.formBuilder.group({
@@ -26,6 +29,9 @@ export abstract class ViewWarningComponent implements OnInit {
       ])),
       Locations: new FormControl('', Validators.compose([
         Validators.required,
+      ])),
+      WarningType: new FormControl('', Validators.compose([
+        Validators.required
       ]))
     });
   }

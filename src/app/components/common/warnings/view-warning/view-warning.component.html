@@ -34,6 +34,14 @@
           </ion-select-option>
         </ion-select>
       </ion-item>
+      <ion-item>
+        <ion-label class="label-css" position="floating">Tipo de aviso</ion-label>
+        <ion-select class="font-style" formControlName="WarningType" multiple="false" cancelText="Cancelar" okText="Aceptar">
+          <ion-select-option value="Information">Información</ion-select-option>
+          <ion-select-option value="Caution">Aviso</ion-select-option>
+          <ion-select-option value="Prohibition">Prohibición</ion-select-option>
+        </ion-select>
+      </ion-item>
     </ion-list>
   </form>
     <div align="center">

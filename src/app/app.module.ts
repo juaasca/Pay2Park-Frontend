@@ -58,6 +58,8 @@ import { CreateWarningComponent } from './components/administrator/manage.warnin
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
 import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
 import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
+import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
+import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
 
 
 @NgModule({
@@ -104,7 +106,9 @@ import { EditWarningComponent } from './components/administrator/manage.warnings
         CreateSubscriptionComponent,
         ViewSubscriptionComponent,
         CreateWarningComponent,
-        EditWarningComponent
+        EditWarningComponent,
+        ViewLocationWarnings,
+        ClientViewWarningComponent
     ],
     entryComponents: [],
     imports: [

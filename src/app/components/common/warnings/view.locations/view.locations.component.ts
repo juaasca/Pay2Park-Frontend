@@ -9,6 +9,7 @@ export abstract class ViewLocationsComponent implements OnInit {
   private searchText = '';
 
   protected isAdministrator = false;
+  protected viewWarningsByLocationRoute: string;
 
   constructor(
     protected router: Router,
@@ -36,7 +37,8 @@ export abstract class ViewLocationsComponent implements OnInit {
   locationWarnings(location: Location){
     var selectedLocation = <Location> location;
     SelectedLocation.selectedLocation = selectedLocation;
-    this.router.navigateByUrl('main/warnings/manage-warnings');
+
+    this.router.navigateByUrl(this.viewWarningsByLocationRoute);
   }
 
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {

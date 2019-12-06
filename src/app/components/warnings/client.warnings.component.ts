@@ -11,5 +11,7 @@ import { ViewLocationsComponent } from '../common/warnings/view.locations/view.l
 export class ClientWarningsComponent extends ViewLocationsComponent {
   constructor(router: Router, locationActionsService: LocationActionsService) {
     super(router, locationActionsService);
+    
+    this.viewWarningsByLocationRoute = 'main/warnings/view-warnings-by-location';
   }
 }

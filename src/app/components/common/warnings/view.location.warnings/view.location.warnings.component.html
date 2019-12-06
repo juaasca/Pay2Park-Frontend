@@ -1,0 +1,26 @@
+<ion-router-outlet></ion-router-outlet>
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Avisos en {{selectedLocation.Name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list> 
+    <ion-item *ngFor="let warning of warnings" (click)="viewWarning(warning)">
+      <ion-avatar slot="start">
+        <img *ngIf="warning.WarningType === 'Information'" src="../../assets/warnings/information.png">
+        <img *ngIf="warning.WarningType === 'Prohibition'" src="../../assets/warnings/prohibition.png">
+        <img *ngIf="warning.WarningType === 'Caution'" src="../../assets/warnings/caution.png">
+      </ion-avatar>
+      <ion-label>
+        <h2>{{warning.Title}}</h2>
+        <h3>Inicio: {{dateToString(warning.InitialDate)}}</h3>
+        <h3>Fin: {{dateToString(warning.FinishDate)}}</h3>
+        <p>{{warning.Description}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>

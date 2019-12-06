@@ -40,6 +40,8 @@ import { HistorialDenunciasComponent } from './components/historial-denuncias/hi
 import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
 import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
+import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
+import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
 
 const routes: Routes = [
     {
@@ -151,6 +153,10 @@ const routes: Routes = [
                         component: AdministratorWarningsComponent
                     },
                     {
+                        path: 'manage-warnings/view-warnings-by-location',
+                        component: ViewLocationWarnings
+                    },
+                    {
                         path: 'manage-warnings/create-warning',
                         component: CreateWarningComponent
                     },
@@ -163,6 +169,14 @@ const routes: Routes = [
             {
                 path: 'warnings',
                 component: ClientWarningsComponent,
+            },
+            {
+                path: 'warnings/view-warnings-by-location',
+                component: ViewLocationWarnings
+            },
+            {
+                path: 'warnings/view-warning',
+                component: ClientViewWarningComponent
             },
             {
                 path: 'checker',
