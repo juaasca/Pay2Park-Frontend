@@ -1,21 +1,24 @@
 import { StringUtils } from '../logic/utils/string.utils';
+import { WarningType } from './WarningType';
 
 export class Warning {
     Identifier: String;
     Title: string;
     Description: string;
-    InitalDate: Date;
+    InitialDate: Date;
     FinishDate: Date;
+    WarningType: WarningType;
 
-    constructor(title: string, description: string, initialDate: Date, finishDate: Date) {
+    constructor(title: string, description: string, initialDate: Date, finishDate: Date, warningType: WarningType) {
         this.Title = title;
         this.Description = description;
-        this.InitalDate = initialDate;
+        this.InitialDate = initialDate;
         this.FinishDate = finishDate;
-        this.Identifier = Warning.getIdentifier(this.Title, this.Description, this.InitalDate, this.FinishDate);
+        this.WarningType = warningType;
+        this.Identifier = Warning.getIdentifier(this.Title, this.Description, this.InitialDate, this.FinishDate, this.WarningType);
     }
 
-    public static getIdentifier(title: string, description: string, initialDate: Date, finishDate: Date) {
-        return StringUtils.getHashCode(`${title}${description}${initialDate}${finishDate}`);
+    public static getIdentifier(title: string, description: string, initialDate: Date, finishDate: Date, warningType: WarningType) {
+        return StringUtils.getHashCode(`${title}${description}${initialDate}${finishDate}${warningType}`);
     }
 }

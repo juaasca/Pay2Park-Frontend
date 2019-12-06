@@ -21,7 +21,7 @@ export class CreateWarningComponent extends ViewWarningComponent {
   
   acceptButtonClicked() {
     var formValue = this.viewWarningForm.value;
-    var createdWarning = new Warning(formValue.Title, formValue.Description, <Date>formValue.InitialDateTime, <Date>formValue.FinalDateTime);
+    var createdWarning = new Warning(formValue.Title, formValue.Description, <Date>formValue.InitialDateTime, <Date>formValue.FinalDateTime, <WarningType>formValue.WarningType);
     
     (<string[]>formValue.Locations).forEach(async (locationName) => {
       var originalLocation = await this.locationActionsService.getLocationByNameAsync(locationName.trim());
