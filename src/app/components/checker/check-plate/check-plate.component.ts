@@ -4,6 +4,8 @@ import { ParkService } from 'src/app/services/dao/parks.service';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { Park } from 'src/app/Domain/Park';
 import { Tariff } from 'src/app/Domain/Tariff';
+import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
+import { SelectedPlate } from '../selectedPlate';
 
 @Component({
   selector: 'app-check-plate',
@@ -17,11 +19,14 @@ export class CheckPlateComponent implements OnInit {
   private isParkedBetweenHours: string = 'No';
   private parkIsValid: boolean = false;
   private leftTime: string = '-'
-  constructor(private vehiclesService: VehiclesService, private parksService: ParkService) {}
+  constructor(private vehicleActionsService: VehicleActionsService, private parksService: ParkService) {
+    this.vehicle = new Vehicle('', '', '', '');
+  }
 
   async ngOnInit() {
-    //await this.receivePlate(SelectedPlate.selectedPlate);
-    this.vehicle = new Vehicle("0123ABC", "Opel", "Astra", "tester@test.es");
+    this.vehicleActionsService.getVehicleByPlate(SelectedPlate.selectedPlate)
+      .then((vehicle) => this.vehicle = vehicle);
+
     this.park = new Park(1, this.vehicle, "Calle del Flow", [1,2], new Tariff(true, "Esto es una prueba", 2, 20),(new Date()).toString());
 
     this.parkIsNull = this.park === undefined;
@@ -54,21 +59,5 @@ export class CheckPlateComponent implements OnInit {
   getMinutesBetweenDates(startDate, endDate) {
     var diff = endDate.getTime() - startDate.getTime();
     return (diff / 60000);
-}
-
-  async receivePlate(plate: string){
-    this.vehicle = await this.findVehicle(plate);
-    this.park = await this.findPark(this.vehicle);
-  }
-
-  findVehicle(selectedPlate){ 
-    return this.vehiclesService.getEntityAsync(selectedPlate);
-  }
-
-  findPark(vehicle: Vehicle){
-    return this.parksService.getEntitiesAsync()
-      .then((parks) => {
-        return parks.find(park => park.Vehicle.LicensePlate === vehicle.LicensePlate);
-      });
   }
 }

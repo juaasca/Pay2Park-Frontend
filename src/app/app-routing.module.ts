@@ -42,6 +42,8 @@ import { AdministratorWarningsComponent } from './components/administrator/manag
 import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
 import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
 import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
+import { ChoosePlateComponent } from './components/checker/scan/choose.plate/choose.plate.component';
+import { PlateCheckOptionsComponent } from './components/checker/plate.check.options/plate.check.options.component';
 
 const routes: Routes = [
     {
@@ -183,12 +185,20 @@ const routes: Routes = [
                 component: CheckerComponent,
                 children: [
                     {
-                        path: 'check-plate',
-                        component: CheckPlateComponent
+                        path: 'plate-check-options',
+                        component: PlateCheckOptionsComponent
                     },
                     {
                         path: 'scan',
                         component: ScanComponent
+                    },
+                    {
+                        path: 'scan/choose-plate',
+                        component: ChoosePlateComponent
+                    },
+                    {
+                        path: 'check-plate',
+                        component: CheckPlateComponent
                     }
                 ]
             },

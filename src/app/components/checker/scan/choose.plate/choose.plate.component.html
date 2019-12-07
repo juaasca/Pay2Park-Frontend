@@ -1,0 +1,27 @@
+<ion-router-outlet></ion-router-outlet>
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Escaneo automático</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <h3>
+    Seleccione la matrícula deseada:
+  </h3>
+  <form [formGroup]="choosePlateForm">
+    <ion-item>
+      <ion-label>Matrícula</ion-label>
+      <ion-select formControlName=ChosenPlate okText="Aceptar" cancelText="Cancelar">
+        <ion-select-option *ngFor="let plate of recognisedPlates" [value]="plate">{{plate}}</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </form>
+  <ion-item>
+    <!--<ion-button [disabled]="!choosePlateForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>-->
+    <ion-button (click)="acceptButtonClicked()">Aceptar</ion-button>
+    <ion-button (click)="repeatScan()">Repetir foto</ion-button>
+  </ion-item>
+</ion-content>
