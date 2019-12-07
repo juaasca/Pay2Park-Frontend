@@ -6,41 +6,11 @@
     <ion-title align="center">BÚSQUEDA DE MATRÍCULA</ion-title>
   </ion-toolbar>
 </ion-header>
-
-<ion-button
-  class="font"
-  expand="full"
-  fill="solid"
-  color="primary"
-  (click)="scan('camera')"
-  >
+<ion-button color="primary" (click)="scan('camera')">
   <ion-icon name="qr-scanner"></ion-icon>
-    &nbsp; Hacer foto
-  </ion-button>
-
-<ion-button class="font" expand="full" fill="solid" color="dark" (click)="scan('library')">
-<ion-icon name="images"></ion-icon>
-&nbsp; Seleccionar foto
+  Hacer foto
 </ion-button>
-
-<ion-footer>
-<ion-toolbar class="font">
-  <ion-list>
-    <ion-item>
-      <ion-label>País</ion-label>
-
-      <!-- Field to select a country to check license plates for.-->
-      <ion-select
-        value="{{ getCountry() }}"
-        (ionChange)="setCountry($event.target.value)"
-      >
-        <ion-select-option
-          *ngFor="let country of countries"
-          [value]="country.value"
-          >{{ country.label }}</ion-select-option
-        >
-      </ion-select>
-    </ion-item>
-  </ion-list>
-</ion-toolbar>
-</ion-footer>
+<ion-button color="dark" (click)="scan('library')">
+  <ion-icon name="images"></ion-icon>
+  Seleccionar foto
+</ion-button>
