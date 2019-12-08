@@ -63,7 +63,7 @@ export class MainComponent implements OnInit, OnDestroy {
                 break;
             case "checkerView":
                 this.HideBar = true;
-                this.router.navigateByUrl('main/checker/check-plate');
+                this.router.navigateByUrl('main/checker/plate-check-options');
 
                 break;
         }

@@ -4,15 +4,19 @@ import * as firebase from 'firebase';
 @Injectable({
     providedIn: 'root'
 })
-
 export abstract class PersistenceService<T> {
-
     protected ref: firebase.database.Reference;
     protected database: firebase.database.Database;
     protected databaseRef: firebase.database.Reference;
 
     constructor() {
         this.initializeDatabase();
+    }
+
+    // This method is used to set the database for testing data.
+    public setDatabase(database: firebase.database.Database) {
+        this.database = database;
+        this.ref = this.database.ref();
     }
 
     private initializeDatabase() {

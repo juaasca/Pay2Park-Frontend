@@ -19,7 +19,7 @@ export class CheckerComponent implements OnInit {
     this.router.navigateByUrl('main/park');
   }
 
-  buscarMatricula(){
-    this.router.navigateByUrl('main/checker/scan');
+  comprobarMatricula(){
+    this.router.navigateByUrl('main/checker/plate-check-options');
   }
 }

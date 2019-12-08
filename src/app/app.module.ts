@@ -33,9 +33,7 @@ import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 import { AuthGuard } from './security/authGuard';
 import { ScanComponent } from './components/checker/scan/scan.component';
-import { ResultModal } from './components/checker/result/result.component';
 import { Camera } from "@ionic-native/camera/ngx";
-import { OpenALPR } from '@ionic-native/openalpr/ngx';
 import { FilterCheckersPipe } from './services/pipes/filter.checkers.pipe';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
@@ -60,6 +58,8 @@ import { ClientWarningsComponent } from './components/warnings/client.warnings.c
 import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
 import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
 import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
+import { ChoosePlateComponent } from './components/checker/scan/choose.plate/choose.plate.component';
+import { PlateCheckOptionsComponent } from './components/checker/plate.check.options/plate.check.options.component';
 
 
 @NgModule({
@@ -87,9 +87,10 @@ import { ClientViewWarningComponent } from './components/warnings/client.view.wa
         ParkConfirmComponent,
         AnadirVehiculoComponent,
         CheckerComponent,
+        PlateCheckOptionsComponent,
+        ChoosePlateComponent,
         CheckPlateComponent,
         ScanComponent,
-        ResultModal,
         ManageCheckersComponent,
         FilterCheckersPipe,
         InfoCheckerComponent,
@@ -128,8 +129,7 @@ import { ClientViewWarningComponent } from './components/warnings/client.view.wa
         AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
-        Camera,
-        OpenALPR
+        Camera
     ],
     bootstrap: [AppComponent]
 })

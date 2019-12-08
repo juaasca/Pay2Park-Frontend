@@ -1,0 +1,18 @@
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Opciones</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-button (click)="insertManually()">Introducir manualmente</ion-button>
+    </ion-item>
+    <ion-item>
+      <ion-button (click)="useCamera()">Escanear</ion-button>
+    </ion-item>
+  </ion-list>
+</ion-content>

@@ -4,6 +4,7 @@ export class Vehicle {
     ModelName: string;
     OwnerEmail: string;
     Parked: boolean;
+    
     constructor(licensePlate: string, manufacturer: string, modelName: string, ownerEmail: string) {
         this.LicensePlate = licensePlate;
         this.Manufacturer = manufacturer;
