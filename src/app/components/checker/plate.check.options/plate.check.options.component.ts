@@ -11,7 +11,9 @@ export class PlateCheckOptionsComponent implements OnInit {
 
   ngOnInit() {}
 
-  insertManually() {}
+  insertManually() {
+    this.router.navigateByUrl('main/checker/check-plate')
+  }
 
   useCamera() {
     this.router.navigateByUrl('main/checker/scan');

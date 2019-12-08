@@ -20,6 +20,6 @@ export class CheckerComponent implements OnInit {
   }
 
   comprobarMatricula(){
-    this.router.navigateByUrl('main/checker/plate-check-options');
+    this.router.navigateByUrl('main/checker/check-plate');
   }
 }
