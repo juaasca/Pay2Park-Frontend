@@ -24,8 +24,7 @@ export class CheckPlateComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.vehicleActionsService.getVehicleByPlate(SelectedPlate.selectedPlate)
-      .then((vehicle) => this.vehicle = vehicle);
+    this.vehicle = await this.vehicleActionsService.getVehicleByPlate(SelectedPlate.selectedPlate);
 
     this.park = new Park(1, this.vehicle, "Calle del Flow", [1,2], new Tariff(true, "Esto es una prueba", 2, 20),(new Date()).toString());
 

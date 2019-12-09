@@ -1,0 +1,22 @@
+<ion-router-outlet></ion-router-outlet>
+<ion-header>
+  <ion-toolbar class="font" color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button text="Volver" color="light"></ion-back-button>
+    </ion-buttons>
+    <ion-title align="center">Inserción manual</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <form [formGroup]="manuallyInsertPlateForm">
+    <ion-list>
+      <ion-item>
+        <ion-label position="floating">Matrícula</ion-label>
+        <ion-input type="text" formControlName="Plate" placeholder="Matrícula"></ion-input>
+      </ion-item>
+    </ion-list>
+  </form>
+    <div align="center">
+      <ion-button [disabled]="!manuallyInsertPlateForm.valid" color="primary" (click)="checkButtonClicked()">Comprobar</ion-button>
+    </div>
+</ion-content>
