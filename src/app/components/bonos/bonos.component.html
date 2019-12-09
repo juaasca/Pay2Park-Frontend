@@ -16,20 +16,29 @@
       <ion-label></ion-label>
       <p></p>
 
-      <ion-segment value = "bonosDefault">
-        <ion-segment-button value = "bonosDefault" (ionSelect)="diarioClick(event)">
-            <ion-label color = "primary">Diario</ion-label>
-          </ion-segment-button>
-          <ion-segment-button (ionSelect)="semanalClick(event)">
-              <ion-label color = "primary">Semanal</ion-label>
-            </ion-segment-button>
-          <ion-segment-button (ionSelect)="mensualClick(event)">
-                <ion-label color = "primary">Mensual</ion-label>
-              </ion-segment-button>
-          <ion-segment-button (ionSelect)="borrarClick(event)">
-                <ion-label color = "primary">borrar</ion-label>
-               </ion-segment-button>
-        </ion-segment>
+      <ion-button color={{color}} class="font" style="width: 100%;" (click)="borrarClick()">
+          Borrar registro de bonos
+      </ion-button>  
+
+        <ion-list>
+          <ion-list-header>Selecciona un bono</ion-list-header>
+        
+          <ion-item>
+            <ion-label>Tipo</ion-label>
+            <ion-select (ionChange) = "TipoSeleccionado($event)" placeholder="Elige un tipo" okText="Seleccionar" cancelText="Cancelar">
+              <ion-select-option>Individual</ion-select-option>
+              <ion-select-option>Multicoche</ion-select-option>
+            </ion-select>
+          </ion-item>
+        
+          <ion-item>
+            <ion-label>Bonos</ion-label>
+            <ion-select (ionChange)="Cambiando($event)" placeholder="Elige un bono" okText="Seleccionar" cancelText="Cancelar">
+              <ion-select-option *ngFor="let Bono of BonosAMostrar">{{Bono.Name}}</ion-select-option>
+            </ion-select>
+          </ion-item>
+        
+        </ion-list>
 
         <ion-label ></ion-label>
         <p align="center"> 

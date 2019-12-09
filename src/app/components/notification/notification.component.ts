@@ -14,6 +14,7 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
+import { Client } from 'src/app/Domain/Client';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -143,8 +144,8 @@ export class NotificationComponent implements OnInit {
   //Comprueba que el bono esta activo
   activo: boolean = false;
   comprobarBono() {
-    console.log(CurrentUserData.DuracionBono);
-    if (CurrentUserData.DuracionBono > Date.now()) this.activo = true;
+    console.log(CurrentUserData.FechaFinalizacion);
+    if (CurrentUserData.FechaFinalizacion > Date.now()) this.activo = true;
     else this.activo = false;
   }
 
@@ -168,11 +169,18 @@ export class NotificationComponent implements OnInit {
 
   //Elimina el registro de parking del usuario variable del codigo para confirmacion del bono
   confirmPagoBono() {
+    if(CurrentUserData.EsMultiBono){
+      CurrentUserData.CochesAparcados--;
+      this.quitarCochesAparcados();
+    }
+
+    this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     let coche: Vehicle = CurrentParkingData.park.Vehicle;
     coche.Parked = false;
     this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
-    this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     CurrentParkingData.park = null;
+    this.parks.splice(this.parks.findIndex(x => x.id == this.park.id),1);
+    console.log(this.parks);
 
     this.calle = 'Todavia no has aparcado';
     this.max = 120;
@@ -203,4 +211,10 @@ export class NotificationComponent implements OnInit {
     CurrentParkingData.park.id = park.id;
   }
 
+  quitarCochesAparcados(){
+    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
+    CurrentUserData.LoggedUser = user;
+    this.userActions.updateBono(user);
+  }
+  
 }

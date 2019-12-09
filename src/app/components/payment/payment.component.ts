@@ -67,7 +67,7 @@ export class PaymentComponent implements OnInit {
               var dateTime = date + ' ' + time;
               //Cuando haya denuncias, en 'nocartera' habra que poner o eso o denuncia
               var transaction = new Transactions(_this.paymentAmount.toString(), dateTime, CurrentUserData.LoggedUser.Email, 'gastado', 'nocartera', CurrentUserData.motivo);
-              var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.DuracionBono);
+              var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
               _this.userActions.addHistory(user,transaction);
               _this.pagadoAlert();
               _this.location.back();
