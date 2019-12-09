@@ -44,6 +44,7 @@ import { ViewLocationWarnings } from './components/common/warnings/view.location
 import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
 import { ChoosePlateComponent } from './components/checker/scan/choose.plate/choose.plate.component';
 import { PlateCheckOptionsComponent } from './components/checker/plate.check.options/plate.check.options.component';
+import { ManuallyInsertPlateComponent } from './components/checker/manually/manually.insert.plate.component';
 
 const routes: Routes = [
     {
@@ -195,6 +196,10 @@ const routes: Routes = [
                     {
                         path: 'scan/choose-plate',
                         component: ChoosePlateComponent
+                    },
+                    {
+                        path: 'manually-insert',
+                        component: ManuallyInsertPlateComponent
                     },
                     {
                         path: 'check-plate',

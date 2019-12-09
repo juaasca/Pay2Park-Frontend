@@ -20,10 +20,12 @@ export class CheckPlateComponent implements OnInit {
   private parkIsValid: boolean = true;
   private leftTime: string = '-';
   private createplate: FormGroup;
+  vehicleActionsService: any;
   constructor(private vehiclesService: VehiclesService, private parksService: ParkService, protected formBuilderPlate: FormBuilder ) { }
 
 
   async ngOnInit() {
+    this.vehicle = await this.vehicleActionsService.getVehicleByPlate(SelectedPlate.selectedPlate);
     this.vehicle = new Vehicle("", "", "", "");
     this.park = new Park(1, this.vehicle, "Calle del Flow", [1, 2], new Tariff(true, "Esto es una prueba", 2, 20), (new Date()).toString());
 
