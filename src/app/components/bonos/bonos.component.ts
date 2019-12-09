@@ -1,10 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { PayPal, PayPalPayment, PayPalConfiguration } from '@ionic-native/paypal/ngx';
 import { CurrentUserData } from 'src/app/data/current.user';
-import { IonSegment, AlertController } from '@ionic/angular';
+import { IonSegment, AlertController, PickerController } from '@ionic/angular';
 import { Client } from 'src/app/Domain/Client';
 import { UserActions } from 'src/app/logic/user.actions.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'src/app/Domain/Subscription';
+import { SubscriptionService } from 'src/app/services/dao/subscription.service';
+import { SubscriptionsActionsService } from 'src/app/logic/subscriptions.actions.service';
+import { PickerOptions } from '@ionic/core';
 
 declare var paypal;
 
@@ -14,11 +18,21 @@ declare var paypal;
   styleUrls: ['./bonos.component.scss']
 })
 export class BonosComponent implements OnInit {
-  color: string;
 
-  constructor(private payPal: PayPal, private userActions: UserActions, private router: Router, public alertControllerConfirm: AlertController) {
+  color: string;
+  TodosLosBonos: Subscription[];
+  BonosSimple: Subscription[];
+  BonosMulti: Subscription[];
+  BonosAMostrar: Subscription[];
+  BonoSeleccionado: Subscription;
+  columnas: string;
+
+  constructor(private payPal: PayPal, private userActions: UserActions,
+    private router: Router, public alertControllerConfirm: AlertController,
+    public subscriptionService: SubscriptionService, public pickerController: PickerController) {
 
     this.color = CurrentUserData.color;
+
     setInterval(() => {
       this.color = CurrentUserData.color;
     }, 1000);
@@ -48,14 +62,12 @@ export class BonosComponent implements OnInit {
               _this.bonoActivo();
 
               // 86400000 Son los milisegundos que trascurren durante un dia
-              if (_this.PagadoPorBono == 5) CurrentUserData.DuracionBono = Date.now() + 86400000;
-              else if (_this.PagadoPorBono == 15) CurrentUserData.DuracionBono = Date.now() + (86400000 * 7);
-              else if (_this.PagadoPorBono == 40)  CurrentUserData.DuracionBono = Date.now() + (86400000 * 30);
-              console.log( + CurrentUserData.DuracionBono );
+              CurrentUserData.FechaFinalizacion = Date.now() + (86400000 * _this.BonoSeleccionado.DurationInDays);
+              CurrentUserData.EsMultiBono = _this.BonoSeleccionado.IsMultiCar;
+              CurrentUserData.CochesAparcados = 0;
+              console.log( + CurrentUserData.FechaFinalizacion );
               
-              var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.DuracionBono);
-              CurrentUserData.LoggedUser = user;
-              _this.userActions.updateBono(user);
+              _this.anyadirBono();
 
             })
             .catch(err => {
@@ -66,41 +78,34 @@ export class BonosComponent implements OnInit {
       }).render('#paypal-button-container-Bonos');
     }, 500)
   }
+
+  currency: string = 'EUR';
+  currencyIcon: string = '€';
+  PagadoPorBono = 0;
+  paymentAmount2: string = '0';
   
   ngOnInit(){
+
+    this.subscriptionService.getEntitiesAsync().then((TodosLosBonos) => this.TodosLosBonos = TodosLosBonos.sort((a, b) => this.sortSubscriptionByDuration(a, b)));
     setInterval(() => {
       this.color = CurrentUserData.color;
     }, 1000);
   }
 
-  PagadoPorBono = 0;
-  paymentAmount2: string;
-  check: boolean = false;
+  crearlistaBonosSimples(){
+    this.BonosAMostrar = this.TodosLosBonos.filter(a => (a.IsMultiCar == false));
+  }
 
-  //Dinero a pagar
-  diarioClick(ev: any) {
-    this.paymentAmount2 = '5';
-    console.log( + CurrentUserData.DuracionBono );
+  crearlistaBonosMulti(){
+    this.BonosAMostrar = this.TodosLosBonos.filter(a => a.IsMultiCar);
   }
-  semanalClick(ev: any) {
-    this.paymentAmount2 = '15';
-    console.log( + CurrentUserData.DuracionBono );
-  }
-  mensualClick(ev: any) {
-    this.paymentAmount2 = '40';
-    console.log( + CurrentUserData.DuracionBono );
-  }
-  borrarClick(ev: any){
-    CurrentUserData.DuracionBono = 0;
-    console.log( + CurrentUserData.DuracionBono );
-  }  
 
-  // Metodo para añadir los bonos a la base de datos
-  anyadirBono(){
-    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.DuracionBono);
-    CurrentUserData.LoggedUser = user;
-    this.userActions.updateBono(user);
-  }
+    // Metodo para añadir los bonos a la base de datos
+    anyadirBono(){
+      var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
+      CurrentUserData.LoggedUser = user;
+      this.userActions.updateBono(user);
+    }
 
   // Alerta pago realizado con exito
   async bonoActivo() {
@@ -118,9 +123,40 @@ export class BonosComponent implements OnInit {
 
     await alertBono.present();
   }
-  
-  currency: string = 'EUR';
-  currencyIcon: string = '€';
 
+  // Tipo de bono seleccionado
+  Cambiando(event){
+    this.BonoSeleccionado = this.BonosAMostrar.find(bono => bono.Name == event.detail.value);
+    this.paymentAmount2 = this.BonoSeleccionado.Price.toString();
+    console.log(CurrentUserData.FechaFinalizacion);
+    console.log(CurrentUserData.EsMultiBono);
+    console.log(CurrentUserData.CochesAparcados);
+  }
+
+  //Bono seleccionado
+  TipoSeleccionado(event){
+    this.paymentAmount2 = '0';
+    if(event.detail.value == 'Individual') this.crearlistaBonosSimples();
+    else this.crearlistaBonosMulti();
+  }
+
+  sortSubscriptionByDuration(first: Subscription, second: Subscription) {
+    var firstDuration = first.DurationInDays;
+    var secondDuration = second.DurationInDays;
+
+    if (firstDuration < secondDuration) {
+      return -1;
+    } else if (firstDuration > secondDuration) {
+      return 1;
+    } else {
+      return 0;
+    }
+  }
+
+  // DURANTE PRUEBAS permite borrar tu registro de bonos
+  borrarClick(ev: any){
+    CurrentUserData.FechaFinalizacion = 0;
+    console.log( + CurrentUserData.FechaFinalizacion );
+  } 
 }
 

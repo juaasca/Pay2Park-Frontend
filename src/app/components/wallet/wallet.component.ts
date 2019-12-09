@@ -74,7 +74,7 @@ changeSaldo() {
     this.saldo = nuevoSaldo;
     CurrentUserData.price = dinero.toString();
     //Añadir saldo al usuario
-    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
+    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
@@ -103,7 +103,7 @@ changeSaldo() {
     var dinero = formValue.dinero;
     var nuevoSaldo = Number(dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
-    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.DuracionBono);
+    var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
     CurrentUserData.LoggedUser = user;
     CurrentUserData.wallet = this.saldo;
     this.userActions.updateWallet(user);
