@@ -27,7 +27,7 @@ export class ViewLocationWarnings implements OnInit {
     
     setInterval(async () => {
       await this.updateWarnings();
-    }, 5000);
+    }, 3000);
   }
 
   updateWarnings(){

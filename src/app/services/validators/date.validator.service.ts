@@ -14,16 +14,4 @@ export class DateValidatorService {
     } 
     return (null);
   }
-
-  static finalDateLater()
-  { return (field: FormControl): {[key: string] : any} => {
-      var startDate = new Date(field.get('InitialDateTime').value);
-      var endDate = new Date(field.get('FinalDateTime').value);
-      if(field.get('InitialDateTime').value < field.get('FinalDateTime').value){
-        return ({finalDateLater: true});
-      } else {
-        return (null);
-      } 
-    }
-  }
 }

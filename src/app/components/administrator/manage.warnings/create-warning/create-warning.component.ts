@@ -28,18 +28,21 @@ export class CreateWarningComponent extends ViewWarningComponent {
   acceptButtonClicked() {
     var formValue = this.viewWarningForm.value;
     var createdWarning = new Warning(formValue.Title, formValue.Description, <Date>formValue.InitialDateTime, <Date>formValue.FinalDateTime, <WarningType>formValue.WarningType);
-    
-    try {
-      (<string[]>formValue.Locations).forEach(async (locationName) => {
-        var originalLocation = await this.locationActionsService.getLocationByNameAsync(locationName.trim());
-        var updatedLocation = this.addWarningToExistingLocation(originalLocation, createdWarning);
+    if(createdWarning.InitialDate > createdWarning.FinishDate) {
+      this.showDateAlert();
+    } else {
+      try {
+        (<string[]>formValue.Locations).forEach(async (locationName) => {
+          var originalLocation = await this.locationActionsService.getLocationByNameAsync(locationName.trim());
+          var updatedLocation = this.addWarningToExistingLocation(originalLocation, createdWarning);
         
-        await this.locationActionsService.updateExistingLocation(originalLocation, updatedLocation);
-      });
+          await this.locationActionsService.updateExistingLocation(originalLocation, updatedLocation);
+          });
 
-      this.showWarningHasBeenSuccesfullyCreatedAlert();
-    } catch(error) {
-      this.showErrorCreatingWarningAlert();
+          this.showWarningHasBeenSuccesfullyCreatedAlert();
+        } catch(error) {
+          this.showErrorCreatingWarningAlert();
+        }
     }
   }
 
@@ -75,6 +78,24 @@ export class CreateWarningComponent extends ViewWarningComponent {
           },
           {
             text: 'Cancelar',
+            handler: () => {
+                alert.dismiss();
+            },
+          }
+      ],
+    });
+
+    await alert.present();
+  }
+
+  async showDateAlert() {
+    const alert = await this.alertController.create({
+      header: '¡Atención!',
+      message:
+          'La fecha de fin debe de ser posterior a la fecha inicial',
+      buttons: [
+            {
+            text: 'Aceptar',
             handler: () => {
                 alert.dismiss();
             },

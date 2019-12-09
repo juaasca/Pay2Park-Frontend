@@ -4,6 +4,8 @@ import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { Location } from 'src/app/Domain/Location';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { Warning } from 'src/app/Domain/Warning';
+import { DateValidatorService } from 'src/app/services/validators/date.validator.service';
+import { AlertController } from '@ionic/angular';
 
 export abstract class ViewWarningComponent implements OnInit {
   protected locations: Location[] = [];
@@ -12,6 +14,8 @@ export abstract class ViewWarningComponent implements OnInit {
   protected canEditWarning = false;
 
   protected selectedWarning: Warning;
+
+  private alertControl: AlertController;
 
   constructor(protected formBuilder: FormBuilder, protected router: Router, protected locationActionsService: LocationActionsService) {
     this.viewWarningForm = this.formBuilder.group({
@@ -22,7 +26,8 @@ export abstract class ViewWarningComponent implements OnInit {
         Validators.required,
       ])),
       InitialDateTime: new FormControl('', Validators.compose([
-        Validators.required
+        Validators.required,
+        DateValidatorService.initialDateLaterNow
       ])),
       FinalDateTime: new FormControl('', Validators.compose([
         Validators.required
