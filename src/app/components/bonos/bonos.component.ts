@@ -9,6 +9,7 @@ import { Subscription } from 'src/app/Domain/Subscription';
 import { SubscriptionService } from 'src/app/services/dao/subscription.service';
 import { SubscriptionsActionsService } from 'src/app/logic/subscriptions.actions.service';
 import { PickerOptions } from '@ionic/core';
+import { Transactions } from 'src/app/Domain/Transactions';
 
 declare var paypal;
 
@@ -66,8 +67,8 @@ export class BonosComponent implements OnInit {
               CurrentUserData.EsMultiBono = _this.BonoSeleccionado.IsMultiCar;
               CurrentUserData.CochesAparcados = 0;
               console.log( + CurrentUserData.FechaFinalizacion );
-              
               _this.anyadirBono();
+              _this.anyadirHistorial();
 
             })
             .catch(err => {
@@ -156,7 +157,18 @@ export class BonosComponent implements OnInit {
   // DURANTE PRUEBAS permite borrar tu registro de bonos
   borrarClick(ev: any){
     CurrentUserData.FechaFinalizacion = 0;
+    CurrentUserData.EsMultiBono = false;
     console.log( + CurrentUserData.FechaFinalizacion );
   } 
+
+  anyadirHistorial(){
+    var today = new Date();
+              var date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+              var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
+              var dateTime = date + ' ' + time;
+              var transaction = new Transactions(this.paymentAmount2.toString(), dateTime, CurrentUserData.LoggedUser.Email, 'gastado', 'nocartera', 'compra de bono');
+              var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
+              this.userActions.addHistory(user,transaction);
+  }
 }
 
