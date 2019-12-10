@@ -11,7 +11,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-create-warning',
   templateUrl: '../../../common/warnings/view-warning/view-warning.component.html',
-  styleUrls: ['../../../common/warnings/view-warning/view-warning.component.scss'],
+  styleUrls: ['../../../common/warnings/view-warning/view-warning.component.scss', '../../../../globalCSS/form.scss'],
 })
 export class CreateWarningComponent extends ViewWarningComponent {
   constructor(

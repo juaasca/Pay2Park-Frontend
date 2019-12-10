@@ -14,23 +14,29 @@ import { CurrentUserData } from 'src/app/data/current.user';
 })
 export class ViewLocationWarnings implements OnInit {
   private selectedLocation: Location;
-  private warnings: Warning[]=[];
-  
+  private warnings: Warning[] = [];
+  color: string;
   constructor(
     private router: Router,
-    private locationActionsService: LocationActionsService) { }
+    private locationActionsService: LocationActionsService) {
+    this.color = CurrentUserData.color;
+
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+    }, 1000);
+  }
 
   ngOnInit() {
     this.selectedLocation = SelectedLocation.selectedLocation;
-    
+
     this.updateWarnings();
-    
+
     setInterval(async () => {
       await this.updateWarnings();
     }, 3000);
   }
 
-  updateWarnings(){
+  updateWarnings() {
     return this.locationActionsService.getLocationByNameAsync(this.selectedLocation.Name)
       .then((location) => {
         if (location.Warnings === undefined) {
@@ -48,7 +54,7 @@ export class ViewLocationWarnings implements OnInit {
       this.router.navigateByUrl('main/admin/manage-warnings/edit-warning');
     } else {
       this.router.navigateByUrl('main/warnings/view-warning');
-    }    
+    }
   }
 
   sortWarningAscendingByDate(firstWarning: Warning, secondWarning: Warning) {
@@ -60,7 +66,7 @@ export class ViewLocationWarnings implements OnInit {
     } else if (warningA < warningB) {
       return 1;
     } else {
-      
+
       return 0;
     }
   }
@@ -68,6 +74,6 @@ export class ViewLocationWarnings implements OnInit {
   dateToString(date: Date) {
     date = new Date(date);
 
-    return `${('0'+ date.getDate()).slice(-2)}-${('0'+ (date.getMonth() + 1)).slice(-2)} ${('0'+ date.getHours()).slice(-2)}:${('0'+ date.getMinutes()).slice(-2)}`;
+    return `${('0' + date.getDate()).slice(-2)}-${('0' + (date.getMonth() + 1)).slice(-2)} ${('0' + date.getHours()).slice(-2)}:${('0' + date.getMinutes()).slice(-2)}`;
   }
 }

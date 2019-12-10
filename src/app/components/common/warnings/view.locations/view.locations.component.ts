@@ -3,18 +3,24 @@ import { Router } from '@angular/router';
 import { Location } from '../../../../Domain/Location';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { SelectedLocation } from '../selectedLocation';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 export abstract class ViewLocationsComponent implements OnInit {
   protected locations: Location[] = [];
   private searchText = '';
-
+  color: string;
   protected isAdministrator = false;
   protected viewWarningsByLocationRoute: string;
 
   constructor(
     protected router: Router,
-    protected locationActionsService: LocationActionsService) { 
+    protected locationActionsService: LocationActionsService) {
     this.updateLocations();
+    this.color = CurrentUserData.color;
+
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+    }, 1000);
   }
 
   ngOnInit() {
@@ -23,7 +29,7 @@ export abstract class ViewLocationsComponent implements OnInit {
     }, 2000);
   }
 
-  getItems(event){
+  getItems(event) {
     this.searchText = event.detail.value;
   }
 
@@ -34,8 +40,8 @@ export abstract class ViewLocationsComponent implements OnInit {
       });
   }
 
-  locationWarnings(location: Location){
-    var selectedLocation = <Location> location;
+  locationWarnings(location: Location) {
+    var selectedLocation = <Location>location;
     SelectedLocation.selectedLocation = selectedLocation;
 
     this.router.navigateByUrl(this.viewWarningsByLocationRoute);
@@ -44,7 +50,7 @@ export abstract class ViewLocationsComponent implements OnInit {
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
     var nameA = firstLocation.Name.toLowerCase();
     var nameB = secondLocation.Name.toLowerCase();
-    
+
     if (nameA < nameB) {
       return -1;
     } else if (nameA > nameB) {

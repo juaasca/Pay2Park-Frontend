@@ -9,7 +9,7 @@ import { Client } from 'src/app/Domain/Client';
 @Component({
     selector: 'app-registration',
     templateUrl: '../common/create.person/create.person.component.html',
-    styleUrls: ['../common/create.person/create.person.component.scss'],
+    styleUrls: ['../common/create.person/create.person.component.scss', '../../globalCSS/form.scss'],
 })
 export class RegistrationComponent extends CreatePersonComponent<Client> implements OnInit {
     constructor(
