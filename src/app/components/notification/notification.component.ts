@@ -37,6 +37,7 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.parks = CurrentParkingData.parks;
     this.parkService.getEntitiesAsync().then(parks => this.parksUsuario(parks));
+    console.log(this.parks);
     this.time = 0;
     this.max = 120;
     this.color = CurrentUserData.color;
@@ -115,6 +116,8 @@ export class NotificationComponent implements OnInit {
   }
 
   confirmPagar() {
+    console.log(CurrentParkingData.park.id);
+    console.log(CurrentParkingData.park.Vehicle.Manufacturer);
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
     let coche: Vehicle = CurrentParkingData.park.Vehicle;
     coche.Parked = false;
@@ -209,6 +212,7 @@ export class NotificationComponent implements OnInit {
     CurrentParkingData.park.Street = park.Street;
     CurrentParkingData.park.Vehicle = park.Vehicle;
     CurrentParkingData.park.id = park.id;
+    console.log(this.parks);
   }
 
   quitarCochesAparcados(){
