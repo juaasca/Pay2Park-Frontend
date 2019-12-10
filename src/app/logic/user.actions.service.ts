@@ -187,12 +187,6 @@ export class UserActions {
     }
 
     public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Tariff) {
-        let park = await this.parkService.getEntityAsync(id.toString());
-        while (park) {
-            id++;
-            park = await this.parkService.getEntityAsync(id.toString());
-        }
-        console.log(id);
 
         let newPark = new Park(id, vehicle, street, coordinates, fare, new Date().toString());
         this.parkService.addEntityAsync(newPark.id.toString(), newPark);
@@ -200,6 +194,15 @@ export class UserActions {
 
     }
 
+    public async newId(id:number){
+        let park = await this.parkService.getEntityAsync(id.toString());
+        while (park) {
+            id++;
+            park = await this.parkService.getEntityAsync(id.toString());
+        }
+        return id;
+    }
+    
     getParks() {
         this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
     }

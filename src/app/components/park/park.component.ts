@@ -36,7 +36,7 @@ export class ParkComponent implements OnInit {
     //this.subscription = CurrentUserData.subscription;
     this.subscription = new Subscription("prueba", 23,2,true);
     this.comprobar1HoraBono();
-    this.posicion = [39.482638, -0.348196];
+    this.posicion = [39.482765, -0.346754];
     this.comprobar();
     this.color = CurrentUserData.color;
     let map;
