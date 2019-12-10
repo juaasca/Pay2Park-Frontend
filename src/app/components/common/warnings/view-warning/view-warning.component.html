@@ -7,36 +7,41 @@
     <ion-title align="center">{{componentTitle}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content color={{color}}>
   <form [formGroup]="viewWarningForm">
-    <ion-list>
-      <ion-item>
+    <ion-list style="--ion-background-color:primary;">
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Título</ion-label>
         <ion-input class="input-css" type="text" formControlName="Title" placeholder="Título"></ion-input>
       </ion-item>
-      <ion-item>
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Descripción</ion-label>
-        <ion-textarea class="font-style" placeholder="Descripción..." formControlName="Description" autoGrow="true"></ion-textarea>
+        <ion-textarea class="font-style" placeholder="Descripción..." formControlName="Description" autoGrow="true">
+        </ion-textarea>
       </ion-item>
-      <ion-item>
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Fecha de inicio</ion-label>
-        <ion-datetime class="font-style" formControlName="InitialDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
+        <ion-datetime class="font-style" formControlName="InitialDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019"
+          max="2022"></ion-datetime>
       </ion-item>
-      <ion-item>
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Fecha de fin</ion-label>
-        <ion-datetime class="font-syle" formControlName="FinalDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019" max="2022"></ion-datetime>
+        <ion-datetime class="font-syle" formControlName="FinalDateTime" displayFormat="MMM DD, YYYY HH:mm" min="2019"
+          max="2022"></ion-datetime>
       </ion-item>
-      <ion-item>
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Localidades</ion-label>
-        <ion-select class="font-style" formControlName="Locations" multiple="true" cancelText="Cancelar" okText="Aceptar">
+        <ion-select class="font-style" formControlName="Locations" multiple="true" cancelText="Cancelar"
+          okText="Aceptar">
           <ion-select-option *ngFor="let location of locations">
             {{location.Name}}
           </ion-select-option>
         </ion-select>
       </ion-item>
-      <ion-item>
+      <ion-item color={{color}}>
         <ion-label class="label-css" position="floating">Tipo de aviso</ion-label>
-        <ion-select class="font-style" formControlName="WarningType" multiple="false" cancelText="Cancelar" okText="Aceptar">
+        <ion-select class="font-style" formControlName="WarningType" multiple="false" cancelText="Cancelar"
+          okText="Aceptar">
           <ion-select-option value="Information">Información</ion-select-option>
           <ion-select-option value="Caution">Aviso</ion-select-option>
           <ion-select-option value="Prohibition">Prohibición</ion-select-option>
@@ -44,8 +49,10 @@
       </ion-item>
     </ion-list>
   </form>
-    <div align="center">
-      <ion-button *ngIf="canEditWarning" class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
-      <ion-button class="font-syle" [disabled]="!viewWarningForm.valid" color="primary" (click)="acceptButtonClicked()">Aceptar</ion-button>
-    </div>
+  <div align="center">
+    <ion-button *ngIf="canEditWarning" class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar
+    </ion-button>
+    <ion-button class="font-syle" [disabled]="!viewWarningForm.valid" color="primary" (click)="acceptButtonClicked()">
+      Aceptar</ion-button>
+  </div>
 </ion-content>

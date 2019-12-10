@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="font" color={{color}}>
     <ion-buttons slot="start">
-      <ion-back-button text="Volver" color="light"></ion-back-button>
+      <ion-back-button text="Volver" color={{color}}></ion-back-button>
     </ion-buttons>
     <ion-buttons *ngIf=isAdministrator slot="end">
       <ion-button (click)="create()">
@@ -9,7 +9,7 @@
         Crear
       </ion-button>
     </ion-buttons>
-    <ion-title color={{color}} align="center">AVISOS</ion-title>
+    <ion-title align="center">AVISOS</ion-title>
   </ion-toolbar>
   <ion-toolbar color={{color}} class="font">
     <ion-searchbar (ionChange)="getItems( $event )"></ion-searchbar>
@@ -19,7 +19,7 @@
   <ion-list style="--ion-background-color:primary;">
     <ion-item color={{color}} *ngFor="let location of locations | filterLocations: searchText: 'column'">
       <ion-label class="font"> {{location.Name}} </ion-label>
-      <ion-button color={{color}} (click)="locationWarnings(location)">
+      <ion-button (click)="locationWarnings(location)">
         <ion-icon name="eye"></ion-icon>
       </ion-button>
     </ion-item>
