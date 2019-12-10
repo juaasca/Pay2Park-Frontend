@@ -156,6 +156,7 @@ export class BonosComponent implements OnInit {
   // DURANTE PRUEBAS permite borrar tu registro de bonos
   borrarClick(ev: any){
     CurrentUserData.FechaFinalizacion = 0;
+    CurrentUserData.EsMultiBono = false;
     console.log( + CurrentUserData.FechaFinalizacion );
   } 
 }
