@@ -26,7 +26,7 @@ export class LocationActionsService {
         return this.locationService.getEntitiesAsync();
     }
 
-    getLocationAsync(location: Location) {
-        return this.locationService.getEntityAsync(location.Name);
+    getLocationByNameAsync(locationName: string) {
+        return this.locationService.getEntityAsync(locationName);
     }
 }

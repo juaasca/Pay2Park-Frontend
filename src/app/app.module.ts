@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import {FormsModule} from '@angular/forms';
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
@@ -33,9 +33,7 @@ import { CheckerComponent } from './components/checker/checker.component';
 import { CheckPlateComponent } from './components/checker/check-plate/check-plate.component';
 import { AuthGuard } from './security/authGuard';
 import { ScanComponent } from './components/checker/scan/scan.component';
-import { ResultModal } from './components/checker/result/result.component';
 import { Camera } from "@ionic-native/camera/ngx";
-import { OpenALPR } from '@ionic-native/openalpr/ngx';
 import { FilterCheckersPipe } from './services/pipes/filter.checkers.pipe';
 import { ManageCheckersComponent } from './components/administrator/manage.checkers/manage.checkers.component';
 import { InfoCheckerComponent } from './components/administrator/manage.checkers/info.checker/info.checker.component';
@@ -57,6 +55,12 @@ import { HistorialDenunciasComponent } from './components/historial-denuncias/hi
 import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
 import { ClientWarningsComponent } from './components/warnings/client.warnings.component';
+import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
+import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
+import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
+import { ChoosePlateComponent } from './components/checker/scan/choose.plate/choose.plate.component';
+import { PlateCheckOptionsComponent } from './components/checker/plate.check.options/plate.check.options.component';
+import { ManuallyInsertPlateComponent } from './components/checker/manually/manually.insert.plate.component';
 
 
 @NgModule({
@@ -84,9 +88,11 @@ import { ClientWarningsComponent } from './components/warnings/client.warnings.c
         ParkConfirmComponent,
         AnadirVehiculoComponent,
         CheckerComponent,
-        CheckPlateComponent,
+        PlateCheckOptionsComponent,
         ScanComponent,
-        ResultModal,
+        ChoosePlateComponent,
+        ManuallyInsertPlateComponent,
+        CheckPlateComponent,
         ManageCheckersComponent,
         FilterCheckersPipe,
         InfoCheckerComponent,
@@ -102,11 +108,15 @@ import { ClientWarningsComponent } from './components/warnings/client.warnings.c
         ManageSubscriptionsComponent,
         CreateSubscriptionComponent,
         ViewSubscriptionComponent,
-        CreateWarningComponent
+        CreateWarningComponent,
+        EditWarningComponent,
+        ViewLocationWarnings,
+        ClientViewWarningComponent
     ],
     entryComponents: [],
     imports: [
         BrowserModule,
+        FormsModule,
         IonicModule.forRoot(),
         AppRoutingModule,
         AgmCoreModule.forRoot({
@@ -121,8 +131,7 @@ import { ClientWarningsComponent } from './components/warnings/client.warnings.c
         AuthGuard,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         ManageClientsComponent,
-        Camera,
-        OpenALPR
+        Camera
     ],
     bootstrap: [AppComponent]
 })

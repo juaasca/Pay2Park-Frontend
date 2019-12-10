@@ -62,7 +62,7 @@ export class UserActions {
             );
         } else {
             //const wallet: Wallet = new Wallet(0);
-            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email, 0, 0);
+            const newClient: Client = new Client(name + ' ' + surname, username, birthDate, email, 0, 0, false, 0);
 
             await firebase.auth().createUserWithEmailAndPassword(email, password);
             this.clientService.addEntityAsync(newClient.Email, newClient);
@@ -109,18 +109,20 @@ export class UserActions {
 
                 let user = await this.clientService.getEntityAsync(email);
                 if (result.additionalUserInfo.isNewUser || user == null) {
-                    user = new Client(name, name, new Date(), email, 0, 0);
+                    user = new Client(name, name, new Date(), email, 0, 0, false, 0);
                     this.clientService.addEntityAsync(email, user);
 
                 }
                 // Para añadir administrador
                 // this.adminService.addEntity(result.additionalUserInfo.profile.email, new Administrator(result.additionalUserInfo.profile.name, result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email));
                 CurrentUserData.LoggedUser = new Client(result.additionalUserInfo.profile.name,
-                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet, result.additionalUserInfo.profile.DuracionBono);
+                    result.additionalUserInfo.profile.name, new Date(), result.additionalUserInfo.profile.email, result.additionalUserInfo.profile.wallet, result.additionalUserInfo.profile.FechaFinalizacion, result.additionalUserInfo.profile.EsMultiBono, result.additionalUserInfo.profile.CochesAparcados);
 
                 let auxUser = await this.clientService.getEntityAsync(result.additionalUserInfo.profile.email);
                 CurrentUserData.wallet = auxUser.Wallet;
-                CurrentUserData.DuracionBono = auxUser.DuracionBono;
+                CurrentUserData.FechaFinalizacion = auxUser.FechaFinalizacion;
+                CurrentUserData.CochesAparcados = auxUser.CochesAparcados;
+                CurrentUserData.EsMultiBono = auxUser.EsMultiBono.valueOf(); 
 
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
@@ -148,14 +150,17 @@ export class UserActions {
                 let currentClient = await this.clientService.getEntityAsync(email);
 
                 if (currentClient == null) {
-                    currentClient = new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email, 0, 0);
+                    currentClient = new Client(userCredential.user.displayName, userCredential.additionalUserInfo.username, new Date(), userCredential.user.email, 0, 0, false, 0);
 
                     await this.clientService.addEntityAsync(email, currentClient);
                 }
 
                 CurrentUserData.LoggedUser = currentClient;
                 CurrentUserData.wallet = currentClient.Wallet;
-                CurrentUserData.DuracionBono = currentClient.DuracionBono;
+                CurrentUserData.FechaFinalizacion = currentClient.FechaFinalizacion;
+                CurrentUserData.CochesAparcados = currentClient.CochesAparcados;
+                CurrentUserData.EsMultiBono = currentClient.EsMultiBono.valueOf(); 
+
 
                 await this.checkAdmin(email);
                 await this.checkWorker(email);
@@ -182,12 +187,6 @@ export class UserActions {
     }
 
     public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Tariff) {
-        let park = await this.parkService.getEntityAsync(id.toString());
-        while (park) {
-            id++;
-            park = await this.parkService.getEntityAsync(id.toString());
-        }
-        console.log(id);
 
         let newPark = new Park(id, vehicle, street, coordinates, fare, new Date().toString());
         this.parkService.addEntityAsync(newPark.id.toString(), newPark);
@@ -195,6 +194,15 @@ export class UserActions {
 
     }
 
+    public async newId(id:number){
+        let park = await this.parkService.getEntityAsync(id.toString());
+        while (park) {
+            id++;
+            park = await this.parkService.getEntityAsync(id.toString());
+        }
+        return id;
+    }
+    
     getParks() {
         this.parkService.getEntitiesAsync().then(parks => CurrentParkingData.parks = parks);
     }

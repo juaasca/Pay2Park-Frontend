@@ -39,6 +39,12 @@ import { HistorialPagosComponent } from './components/historial-pagos/historial-
 import { HistorialDenunciasComponent } from './components/historial-denuncias/historial-denuncias.component';
 import { CreateWarningComponent } from './components/administrator/manage.warnings/create-warning/create-warning.component';
 import { AdministratorWarningsComponent } from './components/administrator/manage.warnings/administrator.manage.warnings.component';
+import { EditWarningComponent } from './components/administrator/manage.warnings/edit-warning/edit-warning.component';
+import { ViewLocationWarnings } from './components/common/warnings/view.location.warnings/view.location.warnings.component';
+import { ClientViewWarningComponent } from './components/warnings/client.view.warning/client.view.warning.component';
+import { ChoosePlateComponent } from './components/checker/scan/choose.plate/choose.plate.component';
+import { PlateCheckOptionsComponent } from './components/checker/plate.check.options/plate.check.options.component';
+import { ManuallyInsertPlateComponent } from './components/checker/manually/manually.insert.plate.component';
 
 const routes: Routes = [
     {
@@ -150,8 +156,16 @@ const routes: Routes = [
                         component: AdministratorWarningsComponent
                     },
                     {
+                        path: 'manage-warnings/view-warnings-by-location',
+                        component: ViewLocationWarnings
+                    },
+                    {
                         path: 'manage-warnings/create-warning',
                         component: CreateWarningComponent
+                    },
+                    {
+                        path: 'manage-warnings/edit-warning',
+                        component: EditWarningComponent
                     }
                 ]
             },
@@ -160,16 +174,36 @@ const routes: Routes = [
                 component: ClientWarningsComponent,
             },
             {
+                path: 'warnings/view-warnings-by-location',
+                component: ViewLocationWarnings
+            },
+            {
+                path: 'warnings/view-warning',
+                component: ClientViewWarningComponent
+            },
+            {
                 path: 'checker',
                 component: CheckerComponent,
                 children: [
                     {
-                        path: 'check-plate',
-                        component: CheckPlateComponent
+                        path: 'plate-check-options',
+                        component: PlateCheckOptionsComponent
                     },
                     {
                         path: 'scan',
                         component: ScanComponent
+                    },
+                    {
+                        path: 'scan/choose-plate',
+                        component: ChoosePlateComponent
+                    },
+                    {
+                        path: 'manually-insert',
+                        component: ManuallyInsertPlateComponent
+                    },
+                    {
+                        path: 'check-plate',
+                        component: CheckPlateComponent
                     }
                 ]
             },

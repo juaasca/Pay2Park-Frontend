@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as firebase from 'firebase';
-import { Location } from 'src/app/Domain/Location';
 import { PersistenceService } from './persistence.service';
+import { Location } from '../../Domain/Location';
 
 @Injectable({
     providedIn: 'root'

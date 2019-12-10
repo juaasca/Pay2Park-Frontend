@@ -8,7 +8,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-create-tariff',
   templateUrl: './create-tariff.component.html',
-  styleUrls: ['./create-tariff.component.scss'],
+  styleUrls: ['./create-tariff.component.scss', './../../../../formulario.scss'],
 })
 export class CreateTariffComponent implements OnInit {
   private createTariffForm: FormGroup;

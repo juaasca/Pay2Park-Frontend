@@ -36,7 +36,7 @@ export class ParkComponent implements OnInit {
     //this.subscription = CurrentUserData.subscription;
     this.subscription = new Subscription("prueba", 23,2,true);
     this.comprobar1HoraBono();
-    this.posicion = [39.482638, -0.348196];
+    this.posicion = [39.482765, -0.346754];
     this.comprobar();
     this.color = CurrentUserData.color;
     let map;
@@ -91,7 +91,7 @@ export class ParkComponent implements OnInit {
   // Comprueba que tengas un bono activo
   activo: boolean = false;
   comprobarBono() {
-    if (CurrentUserData.DuracionBono > Date.now()) { this.activo = true; }
+    if (CurrentUserData.FechaFinalizacion > Date.now()) { this.activo = true; }
     else this.activo = false;
   }
 
@@ -103,10 +103,10 @@ export class ParkComponent implements OnInit {
 
   // Recuperar y calcular el tiempre restante del bono
   conversorHoras() {
-    this.restanteTiempoBono = CurrentUserData.DuracionBono - Date.now();
+    this.restanteTiempoBono = CurrentUserData.FechaFinalizacion - Date.now();
 
     this.dias = Number((this.restanteTiempoBono / (1000 * 60 * 60 * 24)).toFixed()) - 1;
-    this.horas = Number(((this.restanteTiempoBono / (1000 * 60 * 60)) % 24).toFixed());
+    this.horas = Number(((this.restanteTiempoBono / (1000 * 60 * 60)) % 24).toFixed()) -1;
     this.min = Number(((this.restanteTiempoBono / (1000 * 60)) % 60).toFixed());
   }
 
@@ -120,10 +120,40 @@ export class ParkComponent implements OnInit {
   async aparcar() {
     const existe = this.comprobar();
     this.comprobarBono();
-    if (existe && !this.subscription.IsMultiCar) {
+    if (existe && !CurrentUserData.EsMultiBono) {
       this.errorAparcar();
     } else {
       if (this.activo) {
+
+        if(CurrentUserData.EsMultiBono){
+
+          if(CurrentUserData.CochesAparcados<4){
+          this.conversorHoras();
+          this.selectorMensajeMulti();
+
+          const alert = await this.alertController.create({
+          header: '¿Desea aparcar aquí?',
+          message: (this.mensaje),
+          buttons: [
+            {
+              text: 'Cancelar',
+              role: 'cancel',
+              cssClass: 'secondary',
+              handler: () => {
+                console.log('Confirm Cancel');
+              }
+            }, {
+              text: 'Aparcar',
+              handler: () => {
+                this.crearAparcamiento();
+              }
+            }
+          ]
+        });
+
+        await alert.present();
+      }else this.alertaNoCochesDisponibles();
+        } else {
 
         this.conversorHoras();
         this.selectorMensaje();
@@ -148,7 +178,7 @@ export class ParkComponent implements OnInit {
           ]
         });
 
-        await alert.present();
+        await alert.present();}
       } else {
         const alert = await this.alertController.create({
           header: '¿Desea aparcar aquí?',
@@ -233,5 +263,30 @@ export class ParkComponent implements OnInit {
         }
       }
     }
+  }
+
+  selectorMensajeMulti(){
+    if (this.dias > 0) {
+      this.mensaje = ('El máximo es de 2 horas, a su bono le quedan ' + this.dias + ' días ' + this.horas + ' horas y ' + this.min + ' minutos, ademas todavia puede estacionar ' + (4- CurrentUserData.CochesAparcados) + ' vehiculo(s)')
+    } else this.mensaje = ('El máximo es de 2 horas, a su bono le quedan ' + this.horas + ' horas y ' + this.min + ' minutos, ademas todavia puede estacionar ' + (4- CurrentUserData.CochesAparcados) + ' vehiculo(s)');
+  }
+
+  async alertaNoCochesDisponibles(){
+    const alert = await this.alertController.create({
+      header: ('Atencion'),
+      message: ('No puede utilizar más este bono hasta que uno de los vehículos deje de estar aparcado'),
+      buttons: [
+        {
+          text: 'Ok',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Comprendido');
+          }
+        
+        }
+      ]
+    });
+
+    await alert.present();
   }
 }

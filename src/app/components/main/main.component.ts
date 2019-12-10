@@ -49,6 +49,10 @@ export class MainComponent implements OnInit, OnDestroy {
                 this.router.navigateByUrl('main/wallet');
 
                 break;
+            case "warnings":
+                this.router.navigateByUrl('main/warnings');
+
+                break;
             case "profile":
                 this.router.navigateByUrl('main/profile');
 
@@ -60,7 +64,7 @@ export class MainComponent implements OnInit, OnDestroy {
                 break;
             case "checkerView":
                 this.HideBar = true;
-                this.router.navigateByUrl('main/checker/check-plate');
+                this.router.navigateByUrl('main/checker/plate-check-options');
 
                 break;
         }

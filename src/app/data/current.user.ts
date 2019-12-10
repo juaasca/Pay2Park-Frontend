@@ -7,7 +7,9 @@ export class CurrentUserData {
     public static CurrentStreet : string;
     public static LoggedUser: Person = null;
     public static price : string = null;
-    public static DuracionBono: number = 0;
+    public static FechaFinalizacion: number = 0;
+    public static EsMultiBono: boolean;
+    public static CochesAparcados: number;
     public static color : string = 'light';
     public static wallet : number = 0;
     public static motivo : string = "";

@@ -1,131 +1,109 @@
-import { Component } from "@angular/core";
 import { Camera, CameraOptions } from "@ionic-native/camera/ngx";
-import {
-  OpenALPR,
-  OpenALPROptions,
-  OpenALPRResult
-} from "@ionic-native/openalpr/ngx";
-import { Platform, ModalController } from "@ionic/angular";
-import { ResultModal } from "../result/result.component";
+import { AlertController, LoadingController } from "@ionic/angular";
+import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { RecognisedPlates } from './RecognisedPlates';
 
 @Component({
   selector: "app-scan",
   templateUrl: "scan.component.html"
 })
-/**
- * Class scan
- */
-export class ScanComponent {
-  //Camera options.
-  protected cameraOptions: CameraOptions;
-  //OpenALPR options.
-  protected openAlprOptions: OpenALPROptions;
-  //Countries array.
-  public countries: string[] = [];
+export class ScanComponent implements OnInit {
+  private cameraOptions: CameraOptions;
+  private recognisedPlates: string[];
+  private loadingInformation;
 
-  /**
-   * Constructor.
-   *
-   * @param camera
-   */
   constructor(
-    protected camera: Camera,
-    protected openalpr: OpenALPR,
-    protected platform: Platform,
-    protected modalController: ModalController
-  ) {
-    //Set default camera options.
+    private router: Router,
+    private loadingController: LoadingController,
+    private camera: Camera,
+    private alertController: AlertController)
+  {
     this.cameraOptions = {
-      quality: 100,
-      destinationType: this.camera.DestinationType.FILE_URI,
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE,
+      saveToPhotoAlbum: false,
+      cameraDirection: this.camera.Direction.BACK,
       correctOrientation: true
     };
-
-    this.openAlprOptions = {
-      amount: 3,
-      country: this.openalpr.Country.EU
-    };
-
-    this.countries = this.getAllCountries();
   }
 
-  /**
-   * Scan an image for any licenseplates.
-   *
-   * @param input - determines whether to use the camera or the photolibrary.
-   */
+  ngOnInit() {}
+
   scan(input: string) {
     this.cameraOptions.sourceType =
       input === "camera"
         ? this.camera.PictureSourceType.CAMERA
         : this.camera.PictureSourceType.PHOTOLIBRARY;
 
-    this.camera
-      .getPicture(this.cameraOptions)
-      .then(imageData => {
-        this.openalpr
-          .scan(imageData, this.openAlprOptions)
-          .then((result: [OpenALPRResult]) => {
-            this.showResult(result);
-          })
-          .catch(error => console.error(error));
+    this.camera.getPicture(this.cameraOptions)
+      .then((imageData) => {
+        this.recognisePlates(imageData);
       })
-      .catch(error => console.error(error));
-
-    if (this.platform.is("ios")) {
-      this.camera.cleanup();
-    }
+      .catch((error) => {
+        this.showResultAlert('ERROR en el scan o la cámara');
+      });
   }
 
-  /**
-   * Set country.
-   *
-   * @param country
-   */
-  setCountry(country: string) {
-    console.log(country);
-    this.openAlprOptions.country = country;
-  }
-
-  /**
-   * Get currently selected country.
-   */
-  getCountry(): string {
-    return this.openAlprOptions.country;
-  }
-
-  /**
-   * Function to get all countries options from the openalpr Country property.
-   */
-  getAllCountries(): string[] {
-    const countries = [];
-
-    for (let country in this.openalpr.Country) {
-      if (this.openalpr.Country.hasOwnProperty(country)) {
-        const countryValue = this.openalpr.Country[country];
-        countries.push({
-          value: countryValue,
-          label: countryValue.toUpperCase()
-        });
-      }
-    }
-
-    return countries;
-  }
-
-  /**
-   * Show the result using a modal.
-   *
-   * @param result
-   */
-  async showResult(result: OpenALPRResult[]) {
-    const modal = await this.modalController.create({
-      component: ResultModal,
-      componentProps: { result: result, country: this.getCountry() }
+  async showResultAlert(msg: string) {
+    const alert = await this.alertController.create({
+        header: '¡Resultados!',
+        message: msg,
+        buttons: [
+            {
+              text: 'Aceptar',
+              handler: () => {
+                  alert.dismiss();
+              },
+            }
+        ],
     });
 
-    await modal.present();
+    await alert.present();
+  }
+
+  async showLoadingInformation() {
+    this.loadingInformation = this.loadingController.create({
+      spinner: 'circles',
+      message: 'Procesando imagen...',
+      translucent: true,
+    })
+    .then((res) => {
+      res.present();
+
+      res.onDidDismiss();
+    })
+  }
+
+  async stopLoadingInformation() {
+    await this.loadingController.dismiss();
+  }
+
+  recognisePlates(image) {
+    this.showLoadingInformation();
+    var secret_key = "sk_b8870cd7fb7111d8c44b21c6";
+    var url = "https://api.openalpr.com/v2/recognize_bytes?recognize_vehicle=1&country=eu&secret_key=" + secret_key;
+    var xhr = new XMLHttpRequest();
+
+    xhr.open("POST", url);
+    xhr.send(image);
+
+    var candidatePlates: string[] = [];
+      
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState == 4 && xhr.status == 200) {
+        var jsonResponse = JSON.parse(xhr.responseText);
+        var results = jsonResponse.results[0];
+        results.candidates.forEach(candidate => {
+          candidatePlates.push(candidate.plate);
+        });
+
+        RecognisedPlates.RecognisedPlates = candidatePlates;
+        this.stopLoadingInformation();
+        this.router.navigateByUrl('main/checker/scan/choose-plate');
+      }
+    }
   }
 }
