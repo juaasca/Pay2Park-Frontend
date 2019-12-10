@@ -48,6 +48,7 @@ export class MainComponent implements OnInit, OnDestroy {
             case "wallet":
                 this.router.navigateByUrl('main/wallet');
 
+                break;
             case "warnings":
                 this.router.navigateByUrl('main/warnings');
 
