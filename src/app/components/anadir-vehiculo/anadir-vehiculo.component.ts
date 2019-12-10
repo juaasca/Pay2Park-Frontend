@@ -13,7 +13,7 @@ import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 @Component({
   selector: 'app-anadir-vehiculo',
   templateUrl: './anadir-vehiculo.component.html',
-  styleUrls: ['./anadir-vehiculo.component.scss', './../../../formulario.scss'],
+  styleUrls: ['./anadir-vehiculo.component.scss', './../../globalCSS/form.scss'],
 })
 export class AnadirVehiculoComponent implements OnInit {
   public color: string;
