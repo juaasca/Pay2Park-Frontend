@@ -11,54 +11,37 @@
   <ion-list>
     <ion-item>
       <ion-label class="font">
-        Matrícula:
-      </ion-label>
-      <!-- <input type="text" name="plate" class="native-input sc-ion-input-md" id="plate" [(ngModel)]="vehicle.LicensePlate"> -->
-      <ion-input class="input-css center" name="plate" [(ngModel)]="vehicle.LicensePlate"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-label class="font">
-        Usuarios:
-      </ion-label>
-      <ion-label>
-        {{vehicle.OwnerEmail}}
+        Matrícula: {{vehicle.LicensePlate}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="font">
-        Marca:
-      </ion-label>
-      <ion-label>
-        {{vehicle.Manufacturer}}
+        Usuario: {{vehicle.OwnerEmail}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="font">
-        Modelo:
-      </ion-label>
-      <ion-label>
-        {{vehicle.ModelName}}
+        Marca: {{vehicle.Manufacturer}}
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-label class="font">
-        Aparcamiento:
-      </ion-label>
-      <ion-label>
-        {{vehicle.Parked ? "Sí" : "No"}}
+        Modelo: {{vehicle.ModelName}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
-        Tiempo restante:
-      </ion-label>
-      <ion-label>
-        {{leftTime}}
+        <ion-label class="font">
+          Aparcamiento: {{isParkedBetweenHours}}
+        </ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-label class="no">
+        Tiempo restante: {{leftTime}}
       </ion-label>
     </ion-item>
+    <div align="center">
+      <ion-button *ngIf="parkIsValid" class="font" color="success" (onClick)="acceptButtonClicked()">Aceptar</ion-button>
+      <ion-button *ngIf="!parkIsValid" class="font" color="danger" (onClick)="">Denunciar</ion-button>
+    </div>
   </ion-list>
-  <div class="center">
-    <ion-button class="input-css" (click)="checkPlate()" class="font" color="success">Comprobar</ion-button>
-    <ion-button class="input-css" *ngIf="!parkIsValid" class="font" color="danger">Denunciar</ion-button>
-  </div>
 </ion-content>
