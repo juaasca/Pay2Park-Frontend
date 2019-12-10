@@ -7,9 +7,9 @@
     <ion-title align="center">Avisos en {{selectedLocation.Name}}</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content>
-  <ion-list> 
-    <ion-item *ngFor="let warning of warnings" (click)="viewWarning(warning)">
+<ion-content color={{color}}>
+  <ion-list style="--ion-background-color:primary;">
+    <ion-item color={{color}} *ngFor="let warning of warnings" (click)="viewWarning(warning)">
       <ion-avatar slot="start">
         <img *ngIf="warning.WarningType === 'Information'" src="../../assets/warnings/information.png">
         <img *ngIf="warning.WarningType === 'Prohibition'" src="../../assets/warnings/prohibition.png">
