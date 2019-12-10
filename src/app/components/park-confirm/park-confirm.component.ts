@@ -12,6 +12,7 @@ import { CurrentParkingData } from 'src/app/data/currentParking';
 import { TariffService } from 'src/app/services/dao/tariff.service';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Client } from 'src/app/Domain/Client';
+import { async } from 'q';
 
 @Component({
     selector: 'app-park-confirm',
@@ -51,11 +52,11 @@ export class ParkConfirmComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.tieneBono= false;
+        this.tieneBono = false;
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
-        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(()=> this.vehiculo = this.vehicles[this.vehicles.length-1]);
-        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length -1]);
-        if (CurrentUserData.FechaFinalizacion > Date.now()) { this.tieneBono = true; this.bonoColor= 'success'; this.bonoTexto = 'Tienes un bono activo incluye 120 min'} else { this.tieneBono = false; }
+        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(() => this.vehiculo = this.vehicles[this.vehicles.length - 1]);
+        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length - 1]);
+        if (CurrentUserData.FechaFinalizacion > Date.now()) { this.tieneBono = true; this.bonoColor = 'success'; this.bonoTexto = 'Tienes un bono activo incluye 120 min' } else { this.tieneBono = false; }
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
         this.simpleReverseGeocoding(lat, lon);
@@ -63,7 +64,7 @@ export class ParkConfirmComponent implements OnInit {
         this.color = CurrentUserData.color;
         setInterval(() => {
             this.color = CurrentUserData.color;
-            if(this.tieneBono == false){this.bonoColor = CurrentUserData.color;}else{this.bonoColor = 'success';}
+            if (this.tieneBono == false) { this.bonoColor = CurrentUserData.color; } else { this.bonoColor = 'success'; }
         }, 1000);
 
     }
@@ -88,15 +89,22 @@ export class ParkConfirmComponent implements OnInit {
         if (this.tieneBono) { this.tariff = new Tariff(false, 'con bono', 999, 60); }
         this.vehiculo.Parked = true;
         this.vehiclesService.addEntityAsync(this.vehiculo.LicensePlate, this.vehiculo);
-        if(CurrentUserData.CochesAparcados<4 && CurrentUserData.EsMultiBono) {
+        if (CurrentUserData.CochesAparcados < 4 && CurrentUserData.EsMultiBono) {
             CurrentUserData.CochesAparcados++;
             this.anyadirCochesAparcados();
         }
-        this.prueba = new Park(1, this.vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
-        CurrentParkingData.park = this.prueba;
-        this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
-        this.sendNotifications();
-        CurrentParkingData.parks.push(this.prueba);
+        let id = this.userActions.newId(1);
+        id.then(
+            (result) => {
+                console.log(result);
+                this.prueba = new Park(result, this.vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
+                CurrentParkingData.park = this.prueba;
+                this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
+                this.sendNotifications();
+                CurrentParkingData.parks.push(this.prueba);
+            }
+        )
+
     }
 
     simpleReverseGeocoding(lon, lat) {
@@ -191,10 +199,10 @@ export class ParkConfirmComponent implements OnInit {
         this.tariff = i;
     }
 
-    anyadirCochesAparcados(){
+    anyadirCochesAparcados() {
         var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, CurrentUserData.wallet, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
         CurrentUserData.LoggedUser = user;
         this.userActions.updateBono(user);
-      }
+    }
 
 }

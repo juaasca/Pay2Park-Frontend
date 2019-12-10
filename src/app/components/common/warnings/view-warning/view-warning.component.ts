@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
 import { Warning } from 'src/app/Domain/Warning';
 import { DateValidatorService } from 'src/app/services/validators/date.validator.service';
 import { AlertController } from '@ionic/angular';
+import { CurrentUserData } from 'src/app/data/current.user';
 
 export abstract class ViewWarningComponent implements OnInit {
   protected locations: Location[] = [];
@@ -14,7 +15,7 @@ export abstract class ViewWarningComponent implements OnInit {
   protected canEditWarning = false;
 
   protected selectedWarning: Warning;
-
+  color: string;
   private alertControl: AlertController;
 
   constructor(protected formBuilder: FormBuilder, protected router: Router, protected locationActionsService: LocationActionsService) {
@@ -39,6 +40,11 @@ export abstract class ViewWarningComponent implements OnInit {
         Validators.required
       ]))
     });
+    this.color = CurrentUserData.color;
+
+    setInterval(() => {
+      this.color = CurrentUserData.color;
+    }, 1000);
   }
 
   abstract acceptButtonClicked();
@@ -51,7 +57,7 @@ export abstract class ViewWarningComponent implements OnInit {
 
   abstract customOnInit();
 
-  updateLocations(){
+  updateLocations() {
     return this.locationActionsService.getLocationsAsync()
       .then((locations) => {
         this.locations = locations.sort((a, b) => this.sortLocationAscendingByName(a, b));
@@ -61,7 +67,7 @@ export abstract class ViewWarningComponent implements OnInit {
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {
     var nameA = firstLocation.Name.toLowerCase();
     var nameB = secondLocation.Name.toLowerCase();
-    
+
     if (nameA < nameB) {
       return -1;
     } else if (nameA > nameB) {
