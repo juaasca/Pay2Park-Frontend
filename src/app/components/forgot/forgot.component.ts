@@ -7,7 +7,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-forgot',
   templateUrl: './forgot.component.html',
-  styleUrls: ['./forgot.component.scss'],
+  styleUrls: ['./forgot.component.scss', '../../globalCSS/common.scss'],
 })
 
 export class ForgotComponent implements OnInit {

@@ -9,7 +9,7 @@ import { WorkerActionsService } from 'src/app/logic/worker.actions.service';
 @Component({
     selector: 'app-create.person',
     templateUrl: '../../../common/create.person/create.person.component.html',
-    styleUrls: ['../../../common/create.person/create.person.component.scss'],
+    styleUrls: ['../../../common/create.person/create.person.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class CreateCheckerComponent extends CreatePersonComponent<Worker> implements OnInit {
   constructor(

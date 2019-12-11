@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font" color={{color}}>
+  <ion-toolbar class="header-style" color={{color}}>
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="primary"></ion-back-button>
     </ion-buttons>
@@ -45,6 +45,6 @@
     </ion-list>
   </form>
   <div align="center">
-    <ion-button *ngIf="canEditWarning" class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
+    <ion-button *ngIf="canEditWarning" class="font-style" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
   </div>
 </ion-content>

@@ -1,6 +1,6 @@
 <ion-app>
   <ion-header style="padding-bottom: 0px;">
-    <ion-toolbar class="font-style" color={{color}}>
+    <ion-toolbar class="header-style" color={{color}}>
       <ion-buttons slot="start">
         <ion-back-button defaultHref="/main/profile"></ion-back-button>
       </ion-buttons>
@@ -29,7 +29,7 @@
 
     </form>
 
-    <ion-item style="padding-top: 20px; padding-left: 15px;font-size: 20px;" class="font" position="floating" color={{color}}>Tus vehiculos:</ion-item>
+    <ion-item style="padding-top: 20px; padding-left: 15px;font-size: 20px;" class="font-style" position="floating" color={{color}}>Tus vehiculos:</ion-item>
     <ion-list style="--ion-background-color:primary;">
       <ion-item color={{color}} class="font-style" style="font-size: 20px;" *ngFor="let item of vehicles">
         <ion-icon name="arrow-forward"></ion-icon>
@@ -41,7 +41,7 @@
   </ion-content>
   <ion-footer>
     <ion-toolbar color={{color}}>
-      <ion-button size=block class="font" (click)=anadirVehiculo()>
+      <ion-button size=block class="font-style" (click)=anadirVehiculo()>
         Aceptar
       </ion-button>
     </ion-toolbar>

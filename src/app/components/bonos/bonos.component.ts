@@ -16,7 +16,7 @@ declare var paypal;
 @Component({
   selector: 'app-bonos',
   templateUrl: './bonos.component.html',
-  styleUrls: ['./bonos.component.scss']
+  styleUrls: ['./bonos.component.scss', '../../globalCSS/common.scss']
 })
 export class BonosComponent implements OnInit {
 

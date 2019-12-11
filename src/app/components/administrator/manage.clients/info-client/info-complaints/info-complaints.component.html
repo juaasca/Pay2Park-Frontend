@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar color="primary" class="font">
+  <ion-toolbar color="primary" class="font-style">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">DENUNCIAS</ion-title>
+    <ion-title align="center">Lista denuncias</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let data of complaints">
-      <ion-label class="font"> {{data}} </ion-label>  
+      <ion-label class="font-style"> {{data}} </ion-label>  
     </ion-item>
   </ion-list>
 </ion-content>

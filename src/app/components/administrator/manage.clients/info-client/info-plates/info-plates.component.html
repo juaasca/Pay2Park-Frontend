@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font">
+  <ion-toolbar class="header-style">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
@@ -9,7 +9,7 @@
 <ion-content class="margin">
   <ion-list *ngIf="RelatedVehicles.length !== 0">
     <ion-item *ngFor="let vehicle of RelatedVehicles">
-      <ion-label class="font">{{ vehicle.LicensePlate }} | {{ vehicle.Manufacturer }} | {{ vehicle.ModelName }}</ion-label>
+      <ion-label class="font-style">{{ vehicle.LicensePlate }} | {{ vehicle.Manufacturer }} | {{ vehicle.ModelName }}</ion-label>
     </ion-item>
   </ion-list>
   <div align="center" *ngIf="RelatedVehicles.length === 0">

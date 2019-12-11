@@ -1,15 +1,15 @@
 <ion-header>
-  <ion-toolbar class="font" color={{color}}>
+  <ion-toolbar class="header-style" color={{color}}>
     <ion-buttons slot="start">
     </ion-buttons>
     <ion-title align="center">PERFIL</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-item  color = {{color}} class="font" (click)="info()" detail>Información</ion-item>
-  <ion-item  color = {{color}} class="font" (click)="historiales()" detail>Historial de transacciones</ion-item>
-  <ion-item  color={{color}} class="font" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
-  <ion-item  color={{color}} class="font">
+  <ion-item  color = {{color}} class="font-style" (click)="info()" detail>Información</ion-item>
+  <ion-item  color = {{color}} class="font-style" (click)="historiales()" detail>Historial de transacciones</ion-item>
+  <ion-item  color={{color}} class="font-style" (click)="anadirVehiculo()" detail>Añadir Vehiculo</ion-item>
+  <ion-item  color={{color}} class="font-style">
     Modo Oscuro
     <ion-toggle slot="end" (click)="modoOscuro()"></ion-toggle>
   </ion-item>

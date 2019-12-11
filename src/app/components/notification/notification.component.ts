@@ -18,7 +18,7 @@ import { Client } from 'src/app/Domain/Client';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
-  styleUrls: ['./notification.component.scss'],
+  styleUrls: ['./notification.component.scss', '../../globalCSS/common.scss'],
 })
 export class NotificationComponent implements OnInit {
   parks: Park[];

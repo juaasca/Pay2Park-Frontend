@@ -5,7 +5,7 @@ import { MainComponent } from '../main/main.component';
 @Component({
   selector: 'app-administrator',
   templateUrl: './administrator.component.html',
-  styleUrls: ['./administrator.component.scss'],
+  styleUrls: ['./administrator.component.scss', '../../globalCSS/common.scss'],
 })
 export class AdministratorComponent implements OnInit {
   constructor(private router: Router, private mainComponent: MainComponent) { }

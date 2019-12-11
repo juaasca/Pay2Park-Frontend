@@ -1,19 +1,19 @@
 <router-outlet></router-outlet>
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">CLIENTE</ion-title>
+    <ion-title align="center">Lista de clientes</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-toolbar>
-  <ion-searchbar class="font" placeholder="Nombre o usuario del cliente..." animated (ionChange)="getItems( $event )"></ion-searchbar>
+  <ion-searchbar class="font-style" placeholder="Nombre o usuario del cliente..." animated (ionChange)="getItems( $event )"></ion-searchbar>
 </ion-toolbar>
 <ion-content>
   <ion-list>
     <ion-item (click)="click(client)" *ngFor="let client of clients | filterClient: searchText: 'column'"> 
-      <ion-label class="font">{{client.Name}} - {{client.Username}}</ion-label>
+      <ion-label class="font-style">{{client.Name}} - {{client.Username}}</ion-label>
     </ion-item>
   </ion-list> 
 </ion-content>  

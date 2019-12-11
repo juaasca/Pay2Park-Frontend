@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar class="font" color="primary">
+    <ion-toolbar class="header-style" color="primary">
       <ion-buttons slot="start">
         <ion-back-button text="Volver" color="light"></ion-back-button>
       </ion-buttons>
@@ -9,7 +9,7 @@
             Crear
         </ion-button>
       </ion-buttons>
-      <ion-title align="center">BONOS</ion-title>
+      <ion-title align="center">Bonos</ion-title>
     </ion-toolbar>
   </ion-header>
   <ion-content>
@@ -25,7 +25,7 @@
   </ion-card>
   <ion-list>
     <ion-item *ngFor="let subscription of subscriptions">
-      <ion-label class="font"><b>{{subscription.Name}}</b> <br> {{subscription.Price}}€</ion-label>
+      <ion-label class="font-style"><b>{{subscription.Name}}</b> <br> {{subscription.Price}}€</ion-label>
         <ion-button (click)="manage(subscription)">
           <ion-icon name="Create"></ion-icon>
         </ion-button>

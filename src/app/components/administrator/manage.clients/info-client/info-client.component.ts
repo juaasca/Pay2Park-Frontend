@@ -9,7 +9,7 @@ import { ManageClientsComponent } from '../manage.clients.component';
 @Component({
   selector: 'app-info-client',
   templateUrl: './info-client.component.html',
-  styleUrls: ['./info-client.component.scss'],
+  styleUrls: ['./info-client.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class InfoClientComponent implements OnInit {
   private selectedClient: Client = null;

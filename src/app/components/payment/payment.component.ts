@@ -17,7 +17,7 @@ declare var paypal;
 @Component({
   selector: 'app-payment',
   templateUrl: './payment.component.html',
-  styleUrls: ['./payment.component.scss']
+  styleUrls: ['./payment.component.scss', '../../globalCSS/common.scss']
 })
 export class PaymentComponent implements OnInit {
   paymentAmount: string = '0.30';

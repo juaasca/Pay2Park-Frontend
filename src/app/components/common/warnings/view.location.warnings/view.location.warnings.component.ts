@@ -10,7 +10,7 @@ import { CurrentUserData } from 'src/app/data/current.user';
 @Component({
   selector: 'app-manage-warnings',
   templateUrl: './view.location.warnings.component.html',
-  styleUrls: ['./view.location.warnings.component.scss'],
+  styleUrls: ['./view.location.warnings.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class ViewLocationWarnings implements OnInit {
   private selectedLocation: Location;

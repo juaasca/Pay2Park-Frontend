@@ -1,42 +1,38 @@
 <ion-header>
-  <ion-toolbar class="font" color={{color}}>
+  <ion-toolbar class="header-style" color={{color}}>
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>
+    <ion-title align="center">
       Adquirir bonos
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content color={{color}}>
-  <ion-card color={{color}} class="bonos-card">
+  <ion-card color={{color}}>
 
-    <ion-card-header class="font">
+    <ion-card-header class="font-style">
       <ion-label></ion-label>
       <p></p>
 
-      <ion-button color={{color}} class="font" style="width: 100%;" (click)="borrarClick()">
-        Borrar registro de bonos
-      </ion-button>
-
       <ion-list style="--ion-background-color:primary;">
-        <ion-list-header color={{color}}>Selecciona un bono</ion-list-header>
+        <ion-list-header class="font-style" color={{color}}>Selecciona un bono</ion-list-header>
 
         <ion-item color={{color}}>
-          <ion-label>Tipo</ion-label>
-          <ion-select (ionChange)="TipoSeleccionado($event)" placeholder="Elige un tipo" okText="Seleccionar"
+          <ion-label class="label-css">Tipo</ion-label>
+          <ion-select class="font-style" (ionChange)="TipoSeleccionado($event)" placeholder="Elige un tipo" okText="Seleccionar"
             cancelText="Cancelar">
-            <ion-select-option>Individual</ion-select-option>
-            <ion-select-option>Multicoche</ion-select-option>
+            <ion-select-option class="font-style">Individual</ion-select-option>
+            <ion-select-option class="font-style">Multicoche</ion-select-option>
           </ion-select>
         </ion-item>
 
         <ion-item color={{color}}>
-          <ion-label>Bonos</ion-label>
-          <ion-select (ionChange)="Cambiando($event)" placeholder="Elige un bono" okText="Seleccionar"
+          <ion-label class="label-css">Bonos</ion-label>
+          <ion-select class="font-style" (ionChange)="Cambiando($event)" placeholder="Elige un bono" okText="Seleccionar"
             cancelText="Cancelar">
-            <ion-select-option *ngFor="let Bono of BonosAMostrar">{{Bono.Name}}</ion-select-option>
+            <ion-select-option class="font-style" *ngFor="let Bono of BonosAMostrar">{{Bono.Name}}</ion-select-option>
           </ion-select>
         </ion-item>
 
@@ -44,11 +40,11 @@
 
       <ion-label></ion-label>
       <p align="center">
-        <ion-row class="text">
-          <ion-col>
+        <ion-row class="font-style">
+          <ion-col class="label-css">
             Precio del bono:
           </ion-col>
-          <ion-col>
+          <ion-col class="font-style">
             {{paymentAmount2}} {{currencyIcon}}
           </ion-col>
         </ion-row>
@@ -59,7 +55,7 @@
 
     </ion-card-header>
 
-    <ion-card-content class="font">
+    <ion-card-content class="font-style">
 
       <div id="paypal-button-container-Bonos"></div>
 

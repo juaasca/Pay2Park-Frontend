@@ -9,7 +9,7 @@ import { Transactions } from 'src/app/Domain/Transactions';
 @Component({
   selector: 'app-historial-denuncias',
   templateUrl: './historial-denuncias.component.html',
-  styleUrls: ['./historial-denuncias.component.scss'],
+  styleUrls: ['./historial-denuncias.component.scss', '../../globalCSS/common.scss'],
 })
 export class HistorialDenunciasComponent implements OnInit {
 

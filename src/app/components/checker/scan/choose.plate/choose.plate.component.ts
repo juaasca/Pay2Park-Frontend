@@ -7,7 +7,7 @@ import { SelectedPlate } from '../../selectedPlate';
 @Component({
   selector: 'app-choose.plate',
   templateUrl: './choose.plate.component.html',
-  styleUrls: ['./choose.plate.component.scss'],
+  styleUrls: ['./choose.plate.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class ChoosePlateComponent implements OnInit {
   private recognisedPlates: string[] = [];

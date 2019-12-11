@@ -9,7 +9,7 @@ import { SubscriptionFormComponent } from '../common/subscription-form/subscript
 @Component({
   selector: 'app-create.subscription',
   templateUrl: '../common/subscription-form/subscription-form.component.html',
-  styleUrls: ['../common/subscription-form/subscription-form.component.scss'],
+  styleUrls: ['../common/subscription-form/subscription-form.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class CreateSubscriptionComponent extends SubscriptionFormComponent {
   constructor(

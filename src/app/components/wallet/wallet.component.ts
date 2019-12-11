@@ -14,7 +14,7 @@ declare var paypal;
 @Component({
   selector: 'app-wallet',
   templateUrl: './wallet.component.html',
-  styleUrls: ['./wallet.component.scss'],
+  styleUrls: ['./wallet.component.scss', '../../globalCSS/common.scss'],
 })
 export class WalletComponent implements OnInit {
 

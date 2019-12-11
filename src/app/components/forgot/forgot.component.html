@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
@@ -25,7 +25,7 @@
         <ion-card-content text-center>
             <ion-chip text-left>
                 <ion-icon name="email"></ion-icon>
-                <ion-input class="font" formControlName="Email" placeholder="Correo electrónico" type="text">
+                <ion-input class="font-style" formControlName="Email" placeholder="Correo electrónico" type="text">
                 </ion-input>
               </ion-chip>
         </ion-card-content>
@@ -39,13 +39,13 @@
         </div>
 
         <div text-center>
-          <ion-button [disabled]=!forgot.valid class="font" (click)="recover()">
+          <ion-button [disabled]=!forgot.valid class="font-style" (click)="recover()">
               Restaurar contraseña
           </ion-button>
         </div>
         
         <div text-center>
-            <ion-button class="font" (click)="back()">
+            <ion-button class="font-style" (click)="back()">
                 Atras
             </ion-button>
         </div>

@@ -7,7 +7,7 @@ import { SelectedChecker } from './selected.checker';
 @Component({
   selector: 'app-manage.checkers',
   templateUrl: './manage.checkers.component.html',
-  styleUrls: ['./manage.checkers.component.scss'],
+  styleUrls: ['./manage.checkers.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ManageCheckersComponent implements OnInit {
   private checkers: Worker[] = [];

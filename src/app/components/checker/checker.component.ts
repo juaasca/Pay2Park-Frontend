@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-checker',
   templateUrl: './checker.component.html',
-  styleUrls: ['./checker.component.scss'],
+  styleUrls: ['./checker.component.scss', '../../globalCSS/common.scss'],
 })
 export class CheckerComponent implements OnInit {
   constructor(private mainComponent: MainComponent, private router: Router) {

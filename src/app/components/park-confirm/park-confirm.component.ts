@@ -17,7 +17,7 @@ import { async } from 'q';
 @Component({
     selector: 'app-park-confirm',
     templateUrl: './park-confirm.component.html',
-    styleUrls: ['./park-confirm.component.scss'],
+    styleUrls: ['./park-confirm.component.scss', '../../globalCSS/common.scss'],
 })
 export class ParkConfirmComponent implements OnInit {
     vehicles: Vehicle[];

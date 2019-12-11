@@ -1,12 +1,12 @@
 <ion-header>
-  <ion-toolbar class="font" color={{color}}>
+  <ion-toolbar class="header-style" color={{color}}>
     <ion-buttons slot="start">
         <ion-back-button defaultHref="/main/profile"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">HISTORIAL</ion-title>
+    <ion-title align="center">Historiales</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content color={{color}}>
-  <ion-item  color = {{color}} class="font" (click)="denuncias()" detail>Denuncias</ion-item>
-  <ion-item  color = {{color}} class="font" (click)="pagos()" detail>Pagos</ion-item>
+  <ion-item  color = {{color}} class="label-css" (click)="denuncias()" detail>Denuncias</ion-item>
+  <ion-item  color = {{color}} class="label-css" (click)="pagos()" detail>Pagos</ion-item>
 </ion-content>

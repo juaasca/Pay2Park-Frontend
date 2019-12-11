@@ -7,7 +7,7 @@ import { SelectedTariff } from './selected.tariff';
 @Component({
   selector: 'app-tariff',
   templateUrl: './tariff.component.html',
-  styleUrls: ['./tariff.component.scss'],
+  styleUrls: ['./tariff.component.scss', '../../globalCSS/common.scss'],
 })
 export class TariffComponent implements OnInit {
   private tariffs: Tariff[] = [];

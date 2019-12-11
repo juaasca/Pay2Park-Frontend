@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-manually',
   templateUrl: './manually.insert.plate.component.html',
-  styleUrls: ['./manually.insert.plate.component.scss'],
+  styleUrls: ['./manually.insert.plate.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ManuallyInsertPlateComponent implements OnInit {
   private manuallyInsertPlateForm: FormGroup;

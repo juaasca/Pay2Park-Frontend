@@ -1,46 +1,46 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">COMPROBACIÓN MATRÍCULA</ion-title>
+    <ion-title align="center">Comprobación matrícula</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="text">
+<ion-content>
   <ion-list>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Matrícula: {{vehicle.LicensePlate}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Usuario: {{vehicle.OwnerEmail}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Marca: {{vehicle.Manufacturer}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Modelo: {{vehicle.ModelName}}
       </ion-label>
     </ion-item>
     <ion-item>
-        <ion-label class="font">
+        <ion-label class="font-style">
           Aparcamiento: {{isParkedBetweenHours}}
         </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="no">
+      <ion-label class="font-style">
         Tiempo restante: {{leftTime}}
       </ion-label>
     </ion-item>
     <div align="center">
-      <ion-button *ngIf="parkIsValid" class="font" color="success" (click)="acceptButtonClicked()">Aceptar</ion-button>
-      <ion-button *ngIf="!parkIsValid" class="font" color="danger" (click)="acceptButtonClicked()">Denunciar</ion-button>
+      <ion-button *ngIf="parkIsValid" class="font-style" color="success" (click)="acceptButtonClicked()">Aceptar</ion-button>
+      <ion-button *ngIf="!parkIsValid" class="font-style" color="danger" (click)="acceptButtonClicked()">Denunciar</ion-button>
     </div>
   </ion-list>
 </ion-content>

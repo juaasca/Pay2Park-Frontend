@@ -13,7 +13,7 @@ import { Subscription } from 'rxjs';
 @Component({
     selector: 'app-authentication',
     templateUrl: './authentication.component.html',
-    styleUrls: ['./authentication.component.scss'],
+    styleUrls: ['./authentication.component.scss', '../../globalCSS/common.scss'],
 })
 export class AuthenticationComponent implements OnInit, OnDestroy {
     color: string;

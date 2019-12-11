@@ -8,7 +8,7 @@ import { SelectedWarning } from '../../common/warnings/selected.warning';
 @Component({
   selector: 'app-client.view.warning',
   templateUrl: '../../common/warnings/view-warning/view-warning.component.html',
-  styleUrls: ['../../common/warnings/view-warning/view-warning.component.scss'],
+  styleUrls: ['../../common/warnings/view-warning/view-warning.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ClientViewWarningComponent extends ViewWarningComponent {
   constructor(

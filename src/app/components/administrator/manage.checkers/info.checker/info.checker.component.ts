@@ -9,7 +9,7 @@ import { SelectedChecker } from '../selected.checker';
 @Component({
   selector: 'app-info.checker',
   templateUrl: './info.checker.component.html',
-  styleUrls: ['./info.checker.component.scss'],
+  styleUrls: ['./info.checker.component.scss', '../../../../globalCSS/common.scss'],
 })
 export class InfoCheckerComponent implements OnInit {
   private selectedChecker: Worker = null;

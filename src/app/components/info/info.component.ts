@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-info',
   templateUrl: './info.component.html',
-  styleUrls: ['./info.component.scss'],
+  styleUrls: ['./info.component.scss', '../../globalCSS/common.scss'],
 })
 export class InfoComponent implements OnInit {
   private locations: Location[] = [];

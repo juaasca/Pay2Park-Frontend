@@ -14,7 +14,7 @@ declare let L;
 @Component({
   selector: 'app-park',
   templateUrl: './park.component.html',
-  styleUrls: ['./park.component.scss'],
+  styleUrls: ['./park.component.scss', '../../globalCSS/common.scss'],
 })
 export class ParkComponent implements OnInit {
   private subscription: Subscription;

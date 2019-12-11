@@ -8,7 +8,7 @@ import { LoadingController } from '@ionic/angular';
 @Component({
   selector: 'app-profile',
   templateUrl: './profile.component.html',
-  styleUrls: ['./profile.component.scss'],
+  styleUrls: ['./profile.component.scss', '../../globalCSS/common.scss'],
 })
 export class ProfileComponent implements OnInit {
   color:string;

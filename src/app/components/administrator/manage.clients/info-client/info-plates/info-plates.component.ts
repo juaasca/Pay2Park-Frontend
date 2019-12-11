@@ -8,7 +8,7 @@ import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
 @Component({
   selector: 'app-info-plates',
   templateUrl: './info-plates.component.html',
-  styleUrls: ['./info-plates.component.scss'],
+  styleUrls: ['./info-plates.component.scss', '../../../../../globalCSS/common.scss'],
 })
 export class InfoPlatesComponent implements OnInit {
   private SelectedClient: Client = null;

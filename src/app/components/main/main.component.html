@@ -3,12 +3,12 @@
     <ion-tab-bar color = {{color}} slot="bottom" *ngIf="!HideBar">
         <ion-tab-button  (click)="click('park')">
             <ion-icon name="car"></ion-icon>
-            <ion-label class="font">Aparcar</ion-label>
+            <ion-label class="font-style">Aparcar</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('notifications')">
             <ion-icon name="time"></ion-icon>
-            <ion-label class="font">Notificaciones</ion-label>
+            <ion-label class="font-style">Notificaciones</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('subscriptions')">
@@ -18,25 +18,25 @@
 
         <ion-tab-button (click)="click('wallet')">
             <ion-icon name="cash"></ion-icon>
-            <ion-label class="font">Cartera</ion-label>
+            <ion-label class="font-style">Cartera</ion-label>
         </ion-tab-button>
         
         <ion-tab-button (click)="click('warnings')">
             <ion-icon name="alert"></ion-icon>
-            <ion-label class="font">Avisos</ion-label>
+            <ion-label class="font-style">Avisos</ion-label>
         </ion-tab-button>
 
         <ion-tab-button (click)="click('profile')">
             <ion-icon name="contact"></ion-icon>
-            <ion-label class="font">Perfil</ion-label>
+            <ion-label class="font-style">Perfil</ion-label>
         </ion-tab-button>
         <ion-tab-button *ngIf="isAdmin" (click)="click('adminView')">
             <ion-icon name="card"></ion-icon>
-            <ion-label class="font">Vista Administrador</ion-label>
+            <ion-label class="font-style">Vista Administrador</ion-label>
         </ion-tab-button>
         <ion-tab-button *ngIf="isChecker" (click)="click('checkerView')">
             <ion-icon name="card"></ion-icon>
-            <ion-label class="font">Vista Revisor</ion-label>
+            <ion-label class="font-style">Vista Revisor</ion-label>
         </ion-tab-button>
     </ion-tab-bar>
 </ion-tabs>

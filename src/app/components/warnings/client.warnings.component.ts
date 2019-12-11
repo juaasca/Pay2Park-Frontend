@@ -6,7 +6,7 @@ import { ViewLocationsComponent } from '../common/warnings/view.locations/view.l
 @Component({
   selector: 'app-warnings',
   templateUrl: '../common/warnings/view.locations/view.locations.component.html',
-  styleUrls: ['../common/warnings/view.locations/view.locations.component.scss'],
+  styleUrls: ['../common/warnings/view.locations/view.locations.component.scss', '../../globalCSS/common.scss'],
 })
 export class ClientWarningsComponent extends ViewLocationsComponent {
   constructor(router: Router, locationActionsService: LocationActionsService) {

@@ -6,7 +6,7 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 @Component({
   selector: 'app-historiales',
   templateUrl: './historiales.component.html',
-  styleUrls: ['./historiales.component.scss'],
+  styleUrls: ['./historiales.component.scss', '../../globalCSS/common.scss'],
 })
 export class HistorialesComponent implements OnInit {
 

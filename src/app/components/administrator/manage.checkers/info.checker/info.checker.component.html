@@ -1,35 +1,35 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
-    <ion-title>Información de revisor</ion-title>
+    <ion-title>Info de revisor</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="text">
+<ion-content>
   <ion-list>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Usuario: {{selectedChecker.Username}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Nombre: {{selectedChecker.Name}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Email: {{selectedChecker.Email}}
       </ion-label>
     </ion-item>
     <ion-item *ngIf="!birthDateIsNull">
-        <ion-label class="font">
+        <ion-label class="font-style">
           Fecha de nacimiento: {{formattedBirthDate}}
         </ion-label>
       </ion-item>
     <div align="center">
-      <ion-button color="danger" class="font" (click)="deleteCheckerAsync()">Eliminar revisor</ion-button>
+      <ion-button color="danger" class="font-style" (click)="deleteCheckerAsync()">Eliminar revisor</ion-button>
     </div>
   </ion-list>
 </ion-content>

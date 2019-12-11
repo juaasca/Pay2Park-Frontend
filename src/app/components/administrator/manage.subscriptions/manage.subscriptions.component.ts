@@ -7,7 +7,7 @@ import { SubscriptionsActionsService } from 'src/app/logic/subscriptions.actions
 @Component({
   selector: 'app-manage.subscriptions',
   templateUrl: './manage.subscriptions.component.html',
-  styleUrls: ['./manage.subscriptions.component.scss'],
+  styleUrls: ['./manage.subscriptions.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ManageSubscriptionsComponent implements OnInit {
   private subscriptions: Subscription[] = [];

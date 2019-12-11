@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-toolbar class="font" color="primary">
+    <ion-toolbar class="header-style" color="primary">
       <ion-buttons slot="start">
         <ion-back-button text="Volver" color="light"></ion-back-button>
       </ion-buttons>
@@ -10,8 +10,8 @@
     <form [formGroup]="createSubscriptionForm">
       <ion-list>
         <ion-item>
-          <ion-label class="font" position="floating">Nombre:</ion-label>
-          <ion-input class="font" formControlName="Name" type="text" placeholder="Nombre"></ion-input>
+          <ion-label class="label-css" position="floating">Nombre:</ion-label>
+          <ion-input class="font-style" formControlName="Name" type="text" placeholder="Nombre"></ion-input>
         </ion-item>
         <div>
           <ng-container *ngFor="let validation of validation_messages.Name">
@@ -22,11 +22,11 @@
         </div>
         <ion-item>
           <ion-checkbox formControlName="IsMultiCar" (click)="checkMultiCar()"></ion-checkbox>
-          <ion-label class="font">&nbsp;&nbsp;Es multicoche</ion-label>       
+          <ion-label class="font-style">&nbsp;&nbsp;Es multicoche</ion-label>       
         </ion-item>
         <ion-item>
-          <ion-label class="font" position="floating">Duración (días):</ion-label>
-          <ion-input class="font" formControlName="Duration" type="text" placeholder="Duración en días"></ion-input>
+          <ion-label class="label-css" position="floating">Duración (días):</ion-label>
+          <ion-input class="font-style" formControlName="Duration" type="text" placeholder="Duración en días"></ion-input>
         </ion-item>
         <div>
           <ng-container *ngFor="let validation of validation_messages.Duration">
@@ -36,8 +36,8 @@
           </ng-container>
         </div>
         <ion-item>
-          <ion-label class="font" position="floating">Precio:</ion-label>
-          <ion-input class="font" formControlName="Price" type="text" placeholder="Precio"></ion-input>
+          <ion-label class="label-css" position="floating">Precio:</ion-label>
+          <ion-input class="font-style" formControlName="Price" type="text" placeholder="Precio"></ion-input>
         </ion-item>
         <div>
           <ng-container *ngFor="let validation of validation_messages.Price">
@@ -48,7 +48,7 @@
         </div>
       </ion-list>
       <div align="center">
-        <ion-button *ngIf="canDeleteSubscription" class="font" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
+        <ion-button *ngIf="canDeleteSubscription" class="font-style" color="danger" (click)="deleteButtonClickedAsync()">Eliminar</ion-button>
         <ion-button [disabled]="!createSubscriptionForm.valid" (click)="acceptButtonClicked()">Aceptar</ion-button>
       </div>
     </form>

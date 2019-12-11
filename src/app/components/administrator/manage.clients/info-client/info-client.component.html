@@ -1,39 +1,39 @@
 <ion-header>
-  <ion-toolbar class="font">
+  <ion-toolbar class="header-style">
     <ion-buttons slot="start">
         <ion-back-button text="Volver"></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">Información de cliente</ion-title>
+    <ion-title align="center">Info cliente</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-content class="text">
+<ion-content>
   <ion-list>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Usuario: {{selectedClient.Username}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Nombre: {{selectedClient.Name}}
       </ion-label>
     </ion-item>
     <ion-item>
-      <ion-label class="font">
+      <ion-label class="font-style">
         Email: {{selectedClient.Email}}
       </ion-label>
     </ion-item>
     <ion-item *ngIf="!birthDateIsNull">
-        <ion-label class="font">
+        <ion-label class="font-style">
           Fecha de nacimiento: {{formattedBirthDate}}
         </ion-label>
       </ion-item>
     <div padding>
-      <ion-button class="font" float-left (click)="showPlates()">Ver matriculas</ion-button>
-      <ion-button class="font" float-right (click)="showComplaints()">Ver denuncias</ion-button>
+      <ion-button class="font-style" float-left (click)="showPlates()">Ver matriculas</ion-button>
+      <ion-button class="font-style" float-right (click)="showComplaints()">Ver denuncias</ion-button>
     </div>
     <div align="center">
-      <ion-button color="danger" class="font" (click)="deleteUserAsync()">Eliminar usuario</ion-button>
+      <ion-button color="danger" class="font-style" (click)="deleteUserAsync()">Eliminar usuario</ion-button>
     </div>
   </ion-list>
 </ion-content>

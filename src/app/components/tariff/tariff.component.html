@@ -1,5 +1,5 @@
 <ion-header>
-  <ion-toolbar class="font" color="primary">
+  <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
       <ion-back-button text="Volver" color="light"></ion-back-button>
     </ion-buttons>
@@ -9,14 +9,14 @@
           Crear
       </ion-button>
     </ion-buttons>
-    <ion-title align="center">TARIFAS</ion-title>
+    <ion-title align="center">Lista de tarifas</ion-title>
   </ion-toolbar>
 </ion-header>
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let tariff of tariffs">
-      <ion-label *ngIf="!tariff.IsRealTime" class="font"> - Duración (min): {{tariff.Duration}} min<br> - Tiempo real: no<br> - Precio: {{tariff.Price}}€ </ion-label>
-      <ion-label *ngIf="tariff.IsRealTime" class="font"> - Tiempo real: sí<br> - Precio por minuto: {{tariff.Price}}€ </ion-label>
+      <ion-label *ngIf="!tariff.IsRealTime" class="font-style"> - Duración (min): {{tariff.Duration}} min<br> - Tiempo real: no<br> - Precio: {{tariff.Price}}€ </ion-label>
+      <ion-label *ngIf="tariff.IsRealTime" class="font-style"> - Tiempo real: sí<br> - Precio por minuto: {{tariff.Price}}€ </ion-label>
         <ion-button (click)="manage(tariff)">
           <ion-icon name="Create"></ion-icon>
         </ion-button>

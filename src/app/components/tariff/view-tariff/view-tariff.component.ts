@@ -9,7 +9,7 @@ import { AlertController } from '@ionic/angular';
 @Component({
   selector: 'app-view-tariff',
   templateUrl: './view-tariff.component.html',
-  styleUrls: ['./view-tariff.component.scss'],
+  styleUrls: ['./view-tariff.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ViewTariffComponent implements OnInit {
   private selectedTariff: Tariff = null;

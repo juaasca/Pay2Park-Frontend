@@ -8,7 +8,7 @@ import { Location } from 'src/app/Domain/Location';
 @Component({
   selector: 'app-create-location',
   templateUrl: './create-location.component.html',
-  styleUrls: ['./create-location.component.scss', './../../../globalCSS/form.scss'],
+  styleUrls: ['./create-location.component.scss', './../../../globalCSS/common.scss'],
 })
 export class CreateLocationComponent implements OnInit {
   private createLocationForm: FormGroup;

@@ -7,7 +7,7 @@ import { SelectedClient } from './selected.client';
 @Component({
   selector: 'app-manage.clients',
   templateUrl: './manage.clients.component.html',
-  styleUrls: ['./manage.clients.component.scss'],
+  styleUrls: ['./manage.clients.component.scss', '../../../globalCSS/common.scss'],
 })
 export class ManageClientsComponent implements OnInit {
   private clients: Client[] = [];
