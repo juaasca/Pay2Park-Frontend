@@ -1,16 +1,25 @@
+<ion-router-outlet></ion-router-outlet>
 <ion-header>
   <ion-toolbar class="header-style" color="primary">
     <ion-buttons slot="start">
-      <ion-back-button text="Volver" color="light"></ion-back-button>
+      <ion-back-button  ></ion-back-button>
     </ion-buttons>
-    <ion-title align="center">BÚSQUEDA DE MATRÍCULA</ion-title>
+    <ion-title align="center">Búsqueda de matrícula</ion-title>
   </ion-toolbar>
 </ion-header>
-<ion-button color="primary" (click)="scan('camera')">
-  <ion-icon name="qr-scanner"></ion-icon>
-  Hacer foto
-</ion-button>
-<ion-button color="dark" (click)="scan('library')">
-  <ion-icon name="images"></ion-icon>
-  Seleccionar foto
-</ion-button>
+<ion-content>
+  <br>
+  <ion-card>
+  <ion-button color="primary" expand="block" (click)="scan('camera')">
+    <ion-icon name="camera"></ion-icon>
+     &nbsp;Hacer foto
+  </ion-button>
+</ion-card>
+  <br><br>
+<ion-card>
+  <ion-button color="dark" expand="block" (click)="scan('library')">
+    <ion-icon name="images"></ion-icon>
+     &nbsp;Seleccionar foto
+  </ion-button>
+</ion-card>
+</ion-content>
