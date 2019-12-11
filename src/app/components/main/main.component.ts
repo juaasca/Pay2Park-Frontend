@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { CurrentUserData } from 'src/app/data/current.user';
 import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { Subscription } from 'rxjs';
+import { WindowStats } from 'src/app/data/window.status';
 
 @Component({
     selector: 'app-main',
@@ -59,6 +60,7 @@ export class MainComponent implements OnInit, OnDestroy {
                 break;
             case "adminView":
                 this.HideBar = true;
+                WindowStats.AdminWindowIsActive = true;
                 this.router.navigateByUrl('main/admin/manage-clients');
 
                 break;

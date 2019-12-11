@@ -12,7 +12,8 @@ export abstract class ViewWarningComponent implements OnInit {
   protected locations: Location[] = [];
   protected viewWarningForm: FormGroup;
   protected componentTitle: string;
-  protected canEditWarning = false;
+  protected canDeleteWarning = false;
+  protected canCreateWarning = false;
 
   protected selectedWarning: Warning;
   color: string;

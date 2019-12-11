@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { MainComponent } from '../main/main.component';
+import { WindowStats } from 'src/app/data/window.status';
 
 @Component({
   selector: 'app-administrator',
@@ -33,6 +34,7 @@ export class AdministratorComponent implements OnInit {
   }
 
   changeToClientView() {
+    WindowStats.AdminWindowIsActive = false;
     this.mainComponent.HideBar = false;
     this.router.navigateByUrl('main/park');
   }

@@ -6,6 +6,7 @@ import { LocationActionsService } from 'src/app/logic/location.actions.service';
 import { SelectedLocation } from '../selectedLocation';
 import { SelectedWarning } from '../selected.warning';
 import { CurrentUserData } from 'src/app/data/current.user';
+import { WindowStats } from 'src/app/data/window.status';
 
 @Component({
   selector: 'app-manage-warnings',
@@ -50,7 +51,7 @@ export class ViewLocationWarnings implements OnInit {
   viewWarning(warning: Warning) {
     SelectedWarning.SelectedWarning = warning;
 
-    if (CurrentUserData.IsAdmin) {
+    if (WindowStats.AdminWindowIsActive) {
       this.router.navigateByUrl('main/admin/manage-warnings/edit-warning');
     } else {
       this.router.navigateByUrl('main/warnings/view-warning');

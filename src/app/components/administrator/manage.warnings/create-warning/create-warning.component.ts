@@ -18,9 +18,11 @@ export class CreateWarningComponent extends ViewWarningComponent {
     formBuilder: FormBuilder,
     router: Router,
     locationActionsService: LocationActionsService,
-    private alertController: AlertController) {
+    private alertController: AlertController)
+  {
     super(formBuilder, router, locationActionsService);
     this.componentTitle = 'CREAR AVISO';
+    this.canCreateWarning = true;
   }
   
   customOnInit() {};

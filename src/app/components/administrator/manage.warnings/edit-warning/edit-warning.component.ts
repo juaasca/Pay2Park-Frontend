@@ -22,7 +22,7 @@ export class EditWarningComponent extends ViewWarningComponent {
   {
     super(formBuilder, router, locationActionsService);
     this.componentTitle = 'Ver aviso';
-    this.canEditWarning = true;
+    this.canDeleteWarning = true;
   }
   
   customOnInit() {

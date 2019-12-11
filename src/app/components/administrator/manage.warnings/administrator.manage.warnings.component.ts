@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ViewLocationsComponent } from 'src/app/components/common/warnings/view.locations/view.locations.component';
 import { Router } from '@angular/router';
 import { LocationActionsService } from 'src/app/logic/location.actions.service';
+import { ViewWarningComponent } from '../../common/warnings/view-warning/view-warning.component';
 
 @Component({
   selector: 'app-manage.warnings',

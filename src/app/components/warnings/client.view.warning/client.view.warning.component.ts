@@ -17,6 +17,7 @@ export class ClientViewWarningComponent extends ViewWarningComponent {
     locationActionsService: LocationActionsService)
   {
     super(formBuilder, router, locationActionsService);
+    this.componentTitle = 'Ver aviso';
   }
 
   customOnInit() {
