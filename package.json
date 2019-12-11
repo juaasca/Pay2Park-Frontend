@@ -42,6 +42,7 @@
     "cordova-plugin-camera": "^4.1.0",
     "cordova-plugin-inappbrowser": "^3.1.0",
     "cordova-plugin-local-notification": "^0.9.0-beta.2",
+    "cordova-plugin-openalpr": "^2.1.0",
     "cordova-plugin-stripe": "^1.5.3",
     "core-js": "^2.5.4",
     "firebase": "^6.6.2",

@@ -7,11 +7,13 @@ import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
 import { ParkActionsServiceService } from 'src/app/logic/park.actions.service.service';
 import { AlertController } from '@ionic/angular';
 import { Router } from '@angular/router';
+import { VehiclesService } from 'src/app/services/dao/vehicles.service';
+import { ParkService } from 'src/app/services/dao/parks.service';
 
 @Component({
   selector: 'app-check-plate',
   templateUrl: './check-plate.component.html',
-  styleUrls: ['./check-plate.component.scss', '../../../globalCSS/common.scss'],
+  styleUrls: ['./check-plate.component.scss'],
 })
 export class CheckPlateComponent implements OnInit {
   private vehicle: Vehicle = new Vehicle('', '', '', '');
@@ -22,6 +24,8 @@ export class CheckPlateComponent implements OnInit {
   private leftTime: string = '-';
   
   constructor(
+    private parksService: ParkService,
+    private vehiclesService: VehiclesService,
     private vehicleActionsService: VehicleActionsService,
     private parkActionsService: ParkActionsServiceService,
     private alertController: AlertController,
@@ -49,7 +53,6 @@ export class CheckPlateComponent implements OnInit {
 
     if (this.parkIsNull) {
       this.isParkedBetweenHours = 'No';
-      this.leftTime = '-';
       this.parkIsValid = false;
 
       return;
@@ -75,7 +78,7 @@ export class CheckPlateComponent implements OnInit {
       this.parkIsValid = false;
     }
 
-    this.leftTime = minutesDifference.toFixed(2);
+    this.leftTime = minutesDifference.toFixed(0);
   }
 
   ionViewDidLeave() {
@@ -119,5 +122,43 @@ export class CheckPlateComponent implements OnInit {
 
   acceptButtonClicked() {
     this.router.navigateByUrl('main/checker/plate-check-options');
+  }
+  findVehicle(selectedPlate) {
+    return this.vehiclesService.getEntityAsync(selectedPlate);
+  }
+  
+  checkPlate(){
+    this.findVehicle(this.vehicle.LicensePlate).then((vehicle) => {
+      console.log(vehicle);
+      this.vehicle = vehicle;
+    });
+
+    let park = this.findPark(this.vehicle.LicensePlate).then((park) => {
+      if(park){
+        this.park = park;
+
+        console.log(this.park);
+
+        var minutesDifference = this.getMinutesBetweenDates(new Date(Date.now()), new Date(this.park.Date));
+
+        if (minutesDifference > 0) {
+          this.isParkedBetweenHours = 'Sí';
+          this.parkIsValid = true;
+        } else {
+          this.isParkedBetweenHours = 'No';
+          this.parkIsValid = false;
+        }
+
+        let beautifiedLeftTime = (minutesDifference).toFixed(0) + " minutos";
+  
+        this.leftTime = beautifiedLeftTime;
+      }
+    });
+  }
+  findPark(licensePlate: String) {
+    return this.parksService.getEntitiesAsync()
+      .then((parks) => {
+        return parks.find(park => park.Vehicle.LicensePlate === licensePlate);
+      });
   }
 }
