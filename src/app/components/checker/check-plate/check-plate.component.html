@@ -1,4 +1,3 @@
-<ion-router-outlet></ion-router-outlet>
 <ion-header>
   <ion-toolbar class="font" color="primary">
     <ion-buttons slot="start">
@@ -40,8 +39,8 @@
       </ion-label>
     </ion-item>
     <div align="center">
-      <ion-button *ngIf="parkIsValid" class="font" color="success" (onClick)="acceptButtonClicked()">Aceptar</ion-button>
-      <ion-button *ngIf="!parkIsValid" class="font" color="danger" (onClick)="">Denunciar</ion-button>
+      <ion-button *ngIf="parkIsValid" class="font" color="success" (click)="acceptButtonClicked()">Aceptar</ion-button>
+      <ion-button *ngIf="!parkIsValid" class="font" color="danger" (click)="acceptButtonClicked()">Denunciar</ion-button>
     </div>
   </ion-list>
 </ion-content>

@@ -27,11 +27,15 @@ export class CheckPlateComponent implements OnInit {
     private alertController: AlertController,
     private router: Router) { }
 
-  async ngOnInit() {
+  ngOnInit() {}
+
+  async ionViewDidEnter() {
     var relatedVehicle = await this.vehicleActionsService.getVehicleByPlate(SelectedPlate.selectedPlate);
 
     if (relatedVehicle === null) {
       await this.showVehicleNotFoundAlert();
+      
+      return;
     }
 
     this.vehicle = relatedVehicle;
@@ -74,6 +78,10 @@ export class CheckPlateComponent implements OnInit {
     this.leftTime = minutesDifference.toFixed(2);
   }
 
+  ionViewDidLeave() {
+    this.vehicle = new Vehicle('', '', '', '');
+  }
+
   async showVehicleNotFoundAlert() {
     const alert = await this.alertController.create({
       header: '¡Error!',
@@ -107,5 +115,9 @@ export class CheckPlateComponent implements OnInit {
     } else {
       return 0;
     }
+  }
+
+  acceptButtonClicked() {
+    this.router.navigateByUrl('main/checker/plate-check-options');
   }
 }
