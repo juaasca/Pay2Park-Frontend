@@ -12,7 +12,7 @@ import { ParkService } from 'src/app/services/dao/parks.service';
 @Component({
   selector: 'app-check-plate',
   templateUrl: './check-plate.component.html',
-  styleUrls: ['./check-plate.component.scss'],
+  styleUrls: ['./check-plate.component.scss', '../../../globalCSS/common.scss'],
 })
 export class CheckPlateComponent implements OnInit {
   private vehicle: Vehicle = new Vehicle('', '', '', '');
