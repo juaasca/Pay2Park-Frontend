@@ -15,6 +15,7 @@ import { Subscription } from 'rxjs';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { Client } from 'src/app/Domain/Client';
+import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
 @Component({
   selector: 'app-notification',
   templateUrl: './notification.component.html',
@@ -22,14 +23,19 @@ import { Client } from 'src/app/Domain/Client';
 })
 export class NotificationComponent implements OnInit {
   parks: Park[];
+  parkedVehicles: Vehicle[] = [];
   park: Park;
+  vehicle: Vehicle = new Vehicle('', '', '', '');
   time: number;
   calle: string;
   color: string;
   max: number;
+  //Comprueba que el bono esta activo
+  activo: boolean = false;
+
   constructor(public alertController: AlertController, private parkService: ParkService, private userActions: UserActions,
     private payPal: PayPal, private router: Router, private darkMode: DarkModeService, public alertControllerBono: AlertController,
-    private vehicleService: VehiclesService
+    private vehicleActionsService: VehicleActionsService
   ) { }
 
   precio = 2.3;
@@ -37,18 +43,26 @@ export class NotificationComponent implements OnInit {
   ngOnInit() {
     this.parks = CurrentParkingData.parks;
     this.parkService.getEntitiesAsync().then(parks => this.parksUsuario(parks));
-    console.log(this.parks);
     this.time = 0;
     this.max = 120;
     this.color = CurrentUserData.color;
     this.comprobar();
+
     if (CurrentParkingData.park) {
       this.park = CurrentParkingData.park;
+
+      this.vehicleActionsService.getVehicleByPlate(this.park.VehiclePlate)
+        .then((vehicle) => this.vehicle = vehicle);
+        
       this.time = this.park.getCurrentTime();
       this.calle = this.park.Street;
       this.max = this.park.Fare.Duration;
-      if (this.park.Fare.IsRealTime) { this.max = 120; }
+      
+      if (this.park.Fare.IsRealTime) {
+        this.max = 120;
+      }
     }
+
     this.calle = 'Todavia no has aparcado';
     setInterval(() => {
       this.color = CurrentUserData.color;
@@ -72,8 +86,13 @@ export class NotificationComponent implements OnInit {
   async botonPagar() {
     if (CurrentParkingData.park) {
       this.precio = this.park.Fare.Price;
-      if (this.park.Fare.IsRealTime) { this.precio = this.park.Fare.Price * this.time; }
+
+      if (this.park.Fare.IsRealTime) {
+        this.precio = this.park.Fare.Price * this.time;
+      }
+      
       this.comprobarBono();
+
       if (this.activo) {
         this.bonoActivo();
         //this.confirmPagoBono();
@@ -87,7 +106,6 @@ export class NotificationComponent implements OnInit {
               text: 'Cancelar',
               role: 'cancel',
               handler: () => {
-                console.log('Confirm Cancel');
               }
             }, {
               text: 'Finalizar',
@@ -115,41 +133,53 @@ export class NotificationComponent implements OnInit {
     }
   }
 
-  confirmPagar() {
-    console.log(CurrentParkingData.park.id);
-    console.log(CurrentParkingData.park.Vehicle.Manufacturer);
+  async confirmPagar() {
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
-    let coche: Vehicle = CurrentParkingData.park.Vehicle;
+
+    let coche = await this.vehicleActionsService.getVehicleByPlate(CurrentParkingData.park.VehiclePlate);
     coche.Parked = false;
-    this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
+
+    this.vehicleActionsService.addVehicle(coche);
+
     CurrentParkingData.park = null;
     if (this.park.Fare.IsRealTime) {
       CurrentUserData.price = this.precio.toString();
       this.router.navigateByUrl('payment');
     }
     this.parks.splice(this.parks.findIndex(x => x.id == this.park.id),1);
-    console.log(this.parks);
+    this.parkedVehicles.splice(this.parkedVehicles.findIndex(v => v === coche), 1);
   }
 
   comprobar() {
-    // if(CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnersEmail[0]===CurrentUserData.LoggedUser.Email){return true;}
     if (CurrentUserData.LoggedUser) {
-      const aux1 = CurrentParkingData.parks;
-      while (aux1.length > 0) {
-        const aux = aux1.pop();
-        if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
-          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
-        }
+      const currentParks = CurrentParkingData.parks;
+
+      while (currentParks.length > 0) {
+        const park = currentParks.pop();
+        
+        this.vehicleActionsService.getVehicleByPlate(park.VehiclePlate)
+          .then((vehicle) => {
+            if (vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
+              var endDate: number;
+
+              if (!park.Fare.IsRealTime) {
+                endDate = +park.InitialDate + +(park.Fare.Duration * 60000);
+              }
+
+              CurrentParkingData.park = new Park(park.id, park.VehiclePlate, park.Street, park.Coordinates, park.Fare, +park.InitialDate, +endDate);
+            }
+          })
+        
       }
     }
   }
 
-  //Comprueba que el bono esta activo
-  activo: boolean = false;
   comprobarBono() {
-    console.log(CurrentUserData.FechaFinalizacion);
-    if (CurrentUserData.FechaFinalizacion > Date.now()) this.activo = true;
-    else this.activo = false;
+    if (CurrentUserData.FechaFinalizacion > Date.now()) {
+      this.activo = true;
+    } else {
+      this.activo = false;
+    }
   }
 
   //Alerta de aviso de que el bono esta activo
@@ -160,7 +190,7 @@ export class NotificationComponent implements OnInit {
         {
           text: 'OK',
           handler: () => {
-            this.confirmPagoBono();
+            this.confirmSubscriptionPayment();
             this.router.navigateByUrl('main/park');
           }
         }
@@ -171,19 +201,24 @@ export class NotificationComponent implements OnInit {
   }
 
   //Elimina el registro de parking del usuario variable del codigo para confirmacion del bono
-  confirmPagoBono() {
+  confirmSubscriptionPayment() {
     if(CurrentUserData.EsMultiBono){
       CurrentUserData.CochesAparcados--;
       this.quitarCochesAparcados();
     }
 
     this.parkService.deleteEntityAsync(CurrentParkingData.park.id.toString());
-    let coche: Vehicle = CurrentParkingData.park.Vehicle;
+
+    var coche: Vehicle;
+
+    this.vehicleActionsService.getVehicleByPlate(CurrentParkingData.park.VehiclePlate)
+      .then((vehicle) => coche = vehicle);
+
     coche.Parked = false;
-    this.vehicleService.addEntityAsync(coche.LicensePlate, coche);
+    this.vehicleActionsService.addVehicle(coche);
+
     CurrentParkingData.park = null;
     this.parks.splice(this.parks.findIndex(x => x.id == this.park.id),1);
-    console.log(this.parks);
 
     this.calle = 'Todavia no has aparcado';
     this.max = 120;
@@ -195,24 +230,27 @@ export class NotificationComponent implements OnInit {
     let auxParks = [];
     if (CurrentUserData.LoggedUser) {
       while (parks.length > 0) {
-        let aux = parks.pop();
-        if (aux.Vehicle.OwnerEmail == CurrentUserData.LoggedUser.Email) {
-          this.parks.push(aux);
-        }
+        let park = parks.pop();
+        this.vehicleActionsService.getVehicleByPlate(park.VehiclePlate)
+          .then((vehicle) => {
+            if (vehicle.OwnerEmail == CurrentUserData.LoggedUser.Email) {
+              this.parks.push(park);
+              this.parkedVehicles.push(vehicle);
+            }
+          });
       }
     }
   }
 
-  seleccionarPark(park:Park){
-    this.park = park;
+  seleccionarPark(vehicle: Vehicle){
+    this.park = this.parks.find((park) => park.VehiclePlate === vehicle.LicensePlate);;
     CurrentParkingData.park = new Park(null,null,null,null,null,null);
-    CurrentParkingData.park.Coordinates = park.Coordinates;
-    CurrentParkingData.park.Date = park.Date;
-    CurrentParkingData.park.Fare = park.Fare;
-    CurrentParkingData.park.Street = park.Street;
-    CurrentParkingData.park.Vehicle = park.Vehicle;
-    CurrentParkingData.park.id = park.id;
-    console.log(this.parks);
+    CurrentParkingData.park.Coordinates = this.park.Coordinates;
+    CurrentParkingData.park.InitialDate = this.park.InitialDate;
+    CurrentParkingData.park.Fare = this.park.Fare;
+    CurrentParkingData.park.Street = this.park.Street;
+    CurrentParkingData.park.VehiclePlate = this.park.VehiclePlate;
+    CurrentParkingData.park.id = this.park.id;
   }
 
   quitarCochesAparcados(){
@@ -220,5 +258,4 @@ export class NotificationComponent implements OnInit {
     CurrentUserData.LoggedUser = user;
     this.userActions.updateBono(user);
   }
-  
 }

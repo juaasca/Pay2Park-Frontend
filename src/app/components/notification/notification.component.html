@@ -30,10 +30,10 @@
 
     <ion-radio-group>
         <ion-list style="--ion-background-color:primary;">
-            <ion-item button="true" (click)="seleccionarPark(park)" color={{color}} *ngFor="let park of parks">
-                {{park.Vehicle.LicensePlate}}
-                {{park.Vehicle.Manufacturer}}
-                {{park.Vehicle.ModelName}}
+            <ion-item button="true" (click)="seleccionarPark(vehicle)" color={{color}} *ngFor="let vehicle of parkedVehicles">
+                {{vehicle.LicensePlate}}
+                {{vehicle.Manufacturer}}
+                {{vehicle.ModelName}}
                 <ion-radio checked="true" slot="start"></ion-radio>
             </ion-item>
         </ion-list>

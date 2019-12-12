@@ -66,13 +66,11 @@ export class BonosComponent implements OnInit {
               CurrentUserData.FechaFinalizacion = Date.now() + (86400000 * _this.BonoSeleccionado.DurationInDays);
               CurrentUserData.EsMultiBono = _this.BonoSeleccionado.IsMultiCar;
               CurrentUserData.CochesAparcados = 0;
-              console.log( + CurrentUserData.FechaFinalizacion );
               _this.anyadirBono();
               _this.anyadirHistorial();
 
             })
             .catch(err => {
-              console.log(err);
             })
         }
 
@@ -129,9 +127,6 @@ export class BonosComponent implements OnInit {
   Cambiando(event){
     this.BonoSeleccionado = this.BonosAMostrar.find(bono => bono.Name == event.detail.value);
     this.paymentAmount2 = this.BonoSeleccionado.Price.toString();
-    console.log(CurrentUserData.FechaFinalizacion);
-    console.log(CurrentUserData.EsMultiBono);
-    console.log(CurrentUserData.CochesAparcados);
   }
 
   //Bono seleccionado
@@ -158,7 +153,6 @@ export class BonosComponent implements OnInit {
   borrarClick(ev: any){
     CurrentUserData.FechaFinalizacion = 0;
     CurrentUserData.EsMultiBono = false;
-    console.log( + CurrentUserData.FechaFinalizacion );
   } 
 
   anyadirHistorial(){

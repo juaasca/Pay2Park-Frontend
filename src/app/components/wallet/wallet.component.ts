@@ -68,7 +68,6 @@ changeSaldo() {
   anyadirSaldo() {
     //Preparar cobro
     var formValue = this.cartera.value;
-    console.log(formValue.dinero);
     var dinero = formValue.dinero;
     var nuevoSaldo = Number(dinero) + Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
@@ -99,7 +98,6 @@ changeSaldo() {
 
   restarSaldo() {
     var formValue = this.cartera.value;
-    console.log(formValue.dinero);
     var dinero = formValue.dinero;
     var nuevoSaldo = Number(dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;

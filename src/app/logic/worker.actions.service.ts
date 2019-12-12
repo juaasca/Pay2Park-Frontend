@@ -57,6 +57,6 @@ export class WorkerActionsService {
         .then(async () => {
             await this.workersService.deleteEntityAsync(worker.Email);
             await this.clientService.deleteEntityAsync(worker.Email);
-        }).catch((error) => console.log(error));
+        }).catch((error) => {});
   }
 }

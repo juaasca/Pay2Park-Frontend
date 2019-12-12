@@ -8,6 +8,8 @@ import { DarkModeService } from 'src/app/services/dark-mode.service';
 import { LocalNotifications, ELocalNotificationTriggerUnit } from '@ionic-native/local-notifications/ngx';
 import { AlertController, Platform, LoadingController } from '@ionic/angular';
 import { Subscription } from 'src/app/Domain/Subscription';
+import { Vehicle } from 'src/app/Domain/Vehicle';
+import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
 
 declare let L;
 
@@ -20,31 +22,40 @@ export class ParkComponent implements OnInit {
   private subscription: Subscription;
   private idWatch: any;
   color: string;
-  constructor(public alertController: AlertController, private router: Router, private darkMode: DarkModeService, private localNotification: LocalNotifications,private platform:Platform,
-    ) {
+  posicion: [number, number];
+
+  constructor(
+    public alertController: AlertController,
+    private router: Router,
+    private darkMode: DarkModeService,
+    private localNotification: LocalNotifications,
+    private platform:Platform,
+    private vehicleActionsService: VehicleActionsService
+  ) {
     this.platform.ready().then(() => {
       this.localNotification.on('trigger').subscribe(res => {
-          console.log('trigger: ', res);
           let msg = res.data ? res.data.mydata : '';
           this.showAlert(res.title, res.text, msg)
       });
-  })
+    })
   }
-  posicion: [number, number];
-  ngOnInit() {
-
+  
+  async ngOnInit() {
     //this.subscription = CurrentUserData.subscription;
     this.subscription = new Subscription("prueba", 23,2,true);
     this.comprobar1HoraBono();
     this.posicion = [39.482765, -0.346754];
-    this.comprobar();
+    await this.comprobar();
+
     this.color = CurrentUserData.color;
     let map;
+    
     const options = {
       enableHighAccuracy: true,
       timeout: 5000,
       maximumAge: 0
     };
+
     //const actual = navigator.geolocation.getCurrentPosition((pos) => {
     map = L.map('map').setView(this.posicion, 16);
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -118,15 +129,14 @@ export class ParkComponent implements OnInit {
   }
 
   async aparcar() {
-    const existe = this.comprobar();
+    const existe = await this.comprobar();
     this.comprobarBono();
+
     if (existe && !CurrentUserData.EsMultiBono) {
       this.errorAparcar();
     } else {
       if (this.activo) {
-
         if(CurrentUserData.EsMultiBono){
-
           if(CurrentUserData.CochesAparcados<4){
           this.conversorHoras();
           this.selectorMensajeMulti();
@@ -140,7 +150,6 @@ export class ParkComponent implements OnInit {
               role: 'cancel',
               cssClass: 'secondary',
               handler: () => {
-                console.log('Confirm Cancel');
               }
             }, {
               text: 'Aparcar',
@@ -167,7 +176,6 @@ export class ParkComponent implements OnInit {
               role: 'cancel',
               cssClass: 'secondary',
               handler: () => {
-                console.log('Confirm Cancel');
               }
             }, {
               text: 'Aparcar',
@@ -189,7 +197,6 @@ export class ParkComponent implements OnInit {
               role: 'cancel',
               cssClass: 'secondary',
               handler: () => {
-                console.log('Confirm Cancel');
               }
             }, {
               text: 'Aparcar',
@@ -249,16 +256,36 @@ export class ParkComponent implements OnInit {
         message: msg,
         buttons: ['Ok']
     }).then(alert => alert.present());
-}
-  comprobar() {
-    if (CurrentParkingData.park && CurrentParkingData.park.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {return true; }
+  }
+
+  async comprobar() {
+    var currentParkingDataVehicle: Vehicle;
+
+    if (CurrentParkingData.park) {
+      currentParkingDataVehicle = await this.vehicleActionsService.getVehicleByPlate(CurrentParkingData.park.VehiclePlate);
+    }
+
+    if (currentParkingDataVehicle && currentParkingDataVehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
+      return true;
+    }
+
     if (CurrentUserData.LoggedUser) {
-      const aux1 = CurrentParkingData.parks;
-      while (aux1.length > 0) {
-        const aux = aux1.pop();
-        if (aux.Vehicle.OwnerEmail === CurrentUserData.LoggedUser.Email) {
-          CurrentParkingData.park = new Park(aux.id, aux.Vehicle, aux.Street, aux.Coordinates, aux.Fare, new Date(aux.Date).toString());
-          CurrentParkingData.parkPosition = aux.Coordinates;
+      const currentParks = CurrentParkingData.parks;
+
+      while (currentParks.length > 0) {
+        const currentPark = currentParks.pop();
+        var parkedCar = await this.vehicleActionsService.getVehicleByPlate(currentPark.VehiclePlate);
+
+        if (parkedCar.OwnerEmail === CurrentUserData.LoggedUser.Email) {
+          var endDate: Date;
+
+          if (!currentPark.Fare.IsRealTime) {
+            endDate = new Date(+currentPark.InitialDate + +(currentPark.Fare.Duration * 3600));
+          }
+
+          CurrentParkingData.park = new Park(currentPark.id, currentPark.VehiclePlate, currentPark.Street, currentPark.Coordinates, currentPark.Fare, +currentPark.InitialDate, +endDate);
+          CurrentParkingData.parkPosition = currentPark.Coordinates;
+
           return true;
         }
       }
@@ -280,7 +307,6 @@ export class ParkComponent implements OnInit {
           text: 'Ok',
           cssClass: 'secondary',
           handler: () => {
-            console.log('Comprendido');
           }
         
         }

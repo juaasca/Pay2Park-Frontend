@@ -13,6 +13,8 @@ import { TariffService } from 'src/app/services/dao/tariff.service';
 import { FormControl, Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { Client } from 'src/app/Domain/Client';
 import { async } from 'q';
+import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
+import { ParkActionsServiceService } from 'src/app/logic/park.actions.service.service';
 
 @Component({
     selector: 'app-park-confirm',
@@ -33,51 +35,57 @@ export class ParkConfirmComponent implements OnInit {
     vehiculo: Vehicle;
     tarifaFormGroup: FormGroup;
     popoverController: any;
-    constructor(private router: Router,
+
+    constructor(
+        private router: Router,
         private tariffService: TariffService,
-        private vehiclesService: VehiclesService,
+        private vehicleActionsService: VehicleActionsService,
         private userActions: UserActions,
         private alertController: AlertController,
         private platform: Platform,
         private loadingController: LoadingController,
-        private localNotification: LocalNotifications) {
+        private localNotification: LocalNotifications,
+        private parksActionsService: ParkActionsServiceService)
+    {
         this.vehicles = [];
         this.platform.ready().then(() => {
             this.localNotification.on('trigger').subscribe(res => {
-                console.log('trigger: ', res);
                 let msg = res.data ? res.data.mydata : '';
                 this.showAlert(res.title, res.text, msg)
             });
         })
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.tieneBono = false;
         //this.userActions.registerVehicle(this.prueba.LicensePlate, this.prueba.Name,this.prueba.Description,this.prueba.OwnersEmail);
-        this.vehiclesService.getEntitiesAsync().then(vehicles => this.vehiculosUsuario(vehicles)).then(() => this.vehiculo = this.vehicles[this.vehicles.length - 1]);
-        this.tariffService.getEntitiesAsync().then((tariffs) => this.tariffs = tariffs.sort((a, b) => this.sortNameAscending(a, b))).then((tariffs) => this.tariff = this.tariffs[this.tariffs.length - 1]);
-        if (CurrentUserData.FechaFinalizacion > Date.now()) { this.tieneBono = true; this.bonoColor = 'success'; this.bonoTexto = 'Tienes un bono activo incluye 120 min' } else { this.tieneBono = false; }
+        this.vehicles = await this.vehicleActionsService.getVehiclesByOwner(CurrentUserData.LoggedUser.Email);
+
+        this.vehiculo = this.vehicles[this.vehicles.length - 1];
+
+        this.tariffs = await this.tariffService.getEntitiesAsync();
+        this.tariffs = this.tariffs.sort((a, b) => this.sortNameAscending(a, b));
+        this.tariff = this.tariffs[this.tariffs.length - 1];
+
+        if (CurrentUserData.FechaFinalizacion > Date.now()) {
+            this.tieneBono = true;
+            this.bonoColor = 'success';
+            this.bonoTexto = 'Tienes un bono activo incluye 120 min';
+        } else {
+            this.tieneBono = false;
+        }
+
         let lon = CurrentUserData.CurrentPosition[0];
         let lat = CurrentUserData.CurrentPosition[1];
+
         this.simpleReverseGeocoding(lat, lon);
         this.bonoColor = CurrentUserData.color;
         this.color = CurrentUserData.color;
+
         setInterval(() => {
             this.color = CurrentUserData.color;
             if (this.tieneBono == false) { this.bonoColor = CurrentUserData.color; } else { this.bonoColor = 'success'; }
         }, 1000);
-
-    }
-
-    vehiculosUsuario(vehicles: Vehicle[]) {
-        if (CurrentUserData.LoggedUser) {
-            while (vehicles.length > 0) {
-                let aux = vehicles.pop();
-                if (aux.OwnerEmail == CurrentUserData.LoggedUser.Email) {
-                    this.vehicles.push(aux);
-                }
-            }
-        }
     }
 
     seleccionarVehiculo(v: Vehicle) {
@@ -86,20 +94,32 @@ export class ParkConfirmComponent implements OnInit {
 
     aparcarVehiculo() {
         this.carga();
-        if (this.tieneBono) { this.tariff = new Tariff(false, 'con bono', 999, 60); }
+
+        if (this.tieneBono) {
+            this.tariff = new Tariff(false, 'con bono', 999, 60);
+        }
+
         this.vehiculo.Parked = true;
-        this.vehiclesService.addEntityAsync(this.vehiculo.LicensePlate, this.vehiculo);
+        this.vehicleActionsService.addVehicle(this.vehiculo);
+
         if (CurrentUserData.CochesAparcados < 4 && CurrentUserData.EsMultiBono) {
             CurrentUserData.CochesAparcados++;
             this.anyadirCochesAparcados();
         }
+
         let id = this.userActions.newId(1);
         id.then(
             (result) => {
-                console.log(result);
-                this.prueba = new Park(result, this.vehiculo, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, new Date().toString());
+                var currentDate = new Date();
+                var endDate: Date;
+
+                if (!this.tariff.IsRealTime) {
+                    endDate = new Date(+currentDate + +(this.tariff.Duration * 60000));
+                }
+
+                this.prueba = new Park(result, this.vehiculo.LicensePlate, CurrentUserData.CurrentStreet.split(',')[0], CurrentUserData.CurrentPosition, this.tariff, +currentDate, +endDate);
                 CurrentParkingData.park = this.prueba;
-                this.userActions.registerPark(this.prueba.id, this.prueba.Vehicle, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
+                this.userActions.registerPark(this.prueba.id, this.prueba.VehiclePlate, this.prueba.Street, this.prueba.Coordinates, this.prueba.Fare);
                 this.sendNotifications();
                 CurrentParkingData.parks.push(this.prueba);
             }
@@ -179,10 +199,7 @@ export class ParkConfirmComponent implements OnInit {
                 CurrentUserData.price = this.prueba.Fare.Price.toString(); this.router.navigateByUrl('payment');
             }
         } else {
-            console.log(this.prueba.Fare.IsRealTime);
-
             this.router.navigateByUrl('main/notification');
-
         }
     }
 

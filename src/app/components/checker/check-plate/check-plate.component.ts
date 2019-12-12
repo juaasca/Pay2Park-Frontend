@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Vehicle } from 'src/app/Domain/Vehicle';
 import { Park } from 'src/app/Domain/Park';
-import { Tariff } from 'src/app/Domain/Tariff';
 import { SelectedPlate } from '../selectedPlate';
 import { VehicleActionsService } from 'src/app/logic/vehicle.actions.service';
 import { ParkActionsServiceService } from 'src/app/logic/park.actions.service.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { VehiclesService } from 'src/app/services/dao/vehicles.service';
 import { ParkService } from 'src/app/services/dao/parks.service';
@@ -29,6 +28,7 @@ export class CheckPlateComponent implements OnInit {
     private vehicleActionsService: VehicleActionsService,
     private parkActionsService: ParkActionsServiceService,
     private alertController: AlertController,
+    private toastController: ToastController,
     private router: Router) { }
 
   ngOnInit() {}
@@ -44,31 +44,25 @@ export class CheckPlateComponent implements OnInit {
 
     this.vehicle = relatedVehicle;
 
-    var parks = await this.parkActionsService.getParksByLicensePlateAsync(SelectedPlate.selectedPlate);
-    parks = parks.sort((a, b) => this.sortParksByDate(a, b));
-
-    this.park = parks.shift();
-
-    this.parkIsNull = this.park === undefined;
-
-    if (this.parkIsNull) {
-      this.isParkedBetweenHours = 'No';
+    if (!this.vehicle.Parked) {
+      this.isParkedBetweenHours = "No";
       this.parkIsValid = false;
+      this.leftTime = '-';
 
       return;
     }
 
-    if (this.park.Fare.IsRealTime) {
-      if (this.park.Date === undefined) {
-        this.isParkedBetweenHours = 'Sí';
-        this.leftTime = 'Tiempo real';
-        this.parkIsValid = true;
+    this.park = await this.parkActionsService.getParkByLicensePlateAsync(SelectedPlate.selectedPlate);
 
-        return;
-      }
+    if (this.park.Fare.IsRealTime) {
+      this.isParkedBetweenHours = 'Sí';
+      this.parkIsValid = true;
+      this.leftTime = 'Tiempo real';
+
+      return;
     }
 
-    var minutesDifference = this.getMinutesBetweenDates(new Date(Date.now()), new Date(this.park.Date));
+    var minutesDifference = this.getMinutesBetweenDates(new Date(Date.now()), new Date(this.park.FinalDate));
   
     if (minutesDifference > 0) {
       this.isParkedBetweenHours = 'Sí';
@@ -108,8 +102,8 @@ export class CheckPlateComponent implements OnInit {
   }
 
   sortParksByDate(parkA: Park, parkB: Park) {
-    var firstParkInitialDate = parkA.Date;
-    var secondParkInitialDate = parkB.Date;
+    var firstParkInitialDate = parkA.InitialDate;
+    var secondParkInitialDate = parkB.InitialDate;
 
     if (firstParkInitialDate > secondParkInitialDate) {
       return -1;
@@ -123,42 +117,31 @@ export class CheckPlateComponent implements OnInit {
   acceptButtonClicked() {
     this.router.navigateByUrl('main/checker/plate-check-options');
   }
+
+  reportButtonClicked() {
+    this.showUserSuccesfullyReportedAsync();
+  }
+
+  async showUserSuccesfullyReportedAsync() {
+    const toast = await this.toastController.create({
+      message: 'Usuario denunciado con éxito.',
+      position: 'bottom',
+      buttons: [
+        {
+          side: 'end',
+          icon: 'checkmark-circle',
+          text: 'Aceptar',
+          handler: () => {
+            this.router.navigateByUrl('main/checker/plate-check-options');
+          }
+        }
+      ]
+    });
+    
+    toast.present();
+  }
+
   findVehicle(selectedPlate) {
     return this.vehiclesService.getEntityAsync(selectedPlate);
-  }
-  
-  checkPlate(){
-    this.findVehicle(this.vehicle.LicensePlate).then((vehicle) => {
-      console.log(vehicle);
-      this.vehicle = vehicle;
-    });
-
-    let park = this.findPark(this.vehicle.LicensePlate).then((park) => {
-      if(park){
-        this.park = park;
-
-        console.log(this.park);
-
-        var minutesDifference = this.getMinutesBetweenDates(new Date(Date.now()), new Date(this.park.Date));
-
-        if (minutesDifference > 0) {
-          this.isParkedBetweenHours = 'Sí';
-          this.parkIsValid = true;
-        } else {
-          this.isParkedBetweenHours = 'No';
-          this.parkIsValid = false;
-        }
-
-        let beautifiedLeftTime = (minutesDifference).toFixed(0) + " minutos";
-  
-        this.leftTime = beautifiedLeftTime;
-      }
-    });
-  }
-  findPark(licensePlate: String) {
-    return this.parksService.getEntitiesAsync()
-      .then((parks) => {
-        return parks.find(park => park.Vehicle.LicensePlate === licensePlate);
-      });
   }
 }

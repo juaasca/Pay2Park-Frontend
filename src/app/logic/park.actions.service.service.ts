@@ -7,10 +7,10 @@ import { ParkService } from '../services/dao/parks.service';
 export class ParkActionsServiceService {
   constructor(private parkService: ParkService) { }
 
-  getParksByLicensePlateAsync(licensePlate: string) {
+  getParkByLicensePlateAsync(licensePlate: string) {
     return this.parkService.getEntitiesAsync()
       .then((parks) => {
-        return parks.filter(park => park.Vehicle.LicensePlate === licensePlate);
+        return parks.find(park => park.VehiclePlate.toLowerCase() === licensePlate.toLowerCase());
       })
   }
 }

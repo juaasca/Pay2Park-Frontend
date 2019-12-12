@@ -9,6 +9,10 @@ export class VehicleActionsService {
 
   constructor(private vehiclesService: VehiclesService) { }
 
+  addVehicle(vehicle: Vehicle) {
+    this.vehiclesService.addEntityAsync(vehicle.LicensePlate, vehicle);
+  }
+  
   getVehicleByPlate(plate: string) {
     return this.vehiclesService.getEntityAsync(plate);
   }

@@ -78,7 +78,7 @@ export class UserActions {
         return deleteUserFunction(client)
             .then(async () => {
                 await this.clientService.deleteEntityAsync(client.Email);
-            }).catch((error) => console.log(error));
+            }).catch((error) => {});
     }
 
     public recoverPassword(email: string) {
@@ -186,12 +186,16 @@ export class UserActions {
         }
     }
 
-    public async registerPark(id: number, vehicle: Vehicle, street: string, coordinates: [number, number], fare: Tariff) {
+    public async registerPark(id: number, vehicleLicensePlate: string, street: string, coordinates: [number, number], fare: Tariff) {
+        var initialDate = new Date();
+        var endDate = 0;
 
-        let newPark = new Park(id, vehicle, street, coordinates, fare, new Date().toString());
+        if (!fare.IsRealTime) {
+            endDate = +initialDate + (fare.Duration * 60000);
+        }
+
+        let newPark = new Park(id, vehicleLicensePlate, street, coordinates, fare, +initialDate, endDate);
         this.parkService.addEntityAsync(newPark.id.toString(), newPark);
-        //this.usernameValidatorService.updateList();
-
     }
 
     public async newId(id:number){

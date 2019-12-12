@@ -28,7 +28,6 @@ export class PaymentComponent implements OnInit {
     this.color = CurrentUserData.color;
     this.paymentAmount = CurrentUserData.price;
     this.realizarPago();
-    console.log(this.paymentAmount);
     setInterval(() => {
       this.color = CurrentUserData.color;
     }, 1000);
@@ -73,7 +72,6 @@ export class PaymentComponent implements OnInit {
               _this.location.back();
             })
             .catch(err => {
-              console.log(err);
             })
         }
       }).render('#paypal-button-container');

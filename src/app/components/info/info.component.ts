@@ -52,7 +52,7 @@ export class InfoComponent implements OnInit {
 
   delete(location: Location) {
     this.locationActionsService.deleteLocationAsync(location)
-      .catch((error) => console.log(error));
+      .catch((error) => {});
   }
 
   sortLocationAscendingByName(firstLocation: Location, secondLocation: Location) {

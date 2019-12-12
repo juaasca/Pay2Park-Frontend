@@ -3,26 +3,27 @@ import { Tariff } from './Tariff';
 
 export class Park {
     id: number;
-    Vehicle: Vehicle;
+    VehiclePlate: string;
     Street: string;
     Coordinates: [number, number];
     Fare: Tariff;
-    Date: string;
-    constructor(id: number, vehicle: Vehicle, street: string, coordinates: [number, number],
-         fare: Tariff, date: string) {
+    InitialDate: number;
+    FinalDate: number;
+
+    constructor(id: number, vehiclePlate: string, street: string, coordinates: [number, number], fare: Tariff, initialDate: number, finalDate?: number) {
         this.id = id;
-        this.Vehicle = vehicle;
+        this.VehiclePlate = vehiclePlate;
         this.Street = street;
         this.Coordinates = coordinates;
         this.Fare = fare;
-        this.Date = date;
+        this.InitialDate = new Date(initialDate).getTime();
+        this.FinalDate = new Date(finalDate).getTime();
     } 
     
     getCurrentTime(){
         let tiempoAhora = (new Date()).getTime() * 1.66667 * 0.00001;
-        let tiempo = (new Date(this.Date)).getTime() *1.66667 * 0.00001;
-        console.log()
+        let tiempo = new Date(this.InitialDate).getTime() *1.66667 * 0.00001;
+
         return Math.floor(tiempoAhora - tiempo);
-        
     }
 }
