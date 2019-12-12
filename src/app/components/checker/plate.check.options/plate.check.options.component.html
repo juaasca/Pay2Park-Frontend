@@ -7,12 +7,18 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-  <ion-list>
-    <ion-item>
-      <ion-button (click)="insertManually()">Introducir manualmente</ion-button>
-    </ion-item>
-    <ion-item>
-      <ion-button (click)="useCamera()">Escanear</ion-button>
-    </ion-item>
-  </ion-list>
+  <br>
+  <ion-card>
+  <ion-button color="primary" expand="block" (click)="insertManually()">
+    <ion-icon name="clipboard"></ion-icon>
+     &nbsp;Introducir manualmente
+  </ion-button>
+</ion-card>
+  <br>
+<ion-card>
+  <ion-button color="primary" expand="block" (click)="useCamera()">
+    <ion-icon name="camera"></ion-icon>
+     &nbsp;Escanear
+  </ion-button>
+</ion-card>
 </ion-content>
