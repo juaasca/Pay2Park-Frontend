@@ -46,6 +46,7 @@ export class WalletComponent implements OnInit {
 
     setInterval(async () => {
       this.color = CurrentUserData.color;
+      this.saldo = CurrentUserData.wallet;
       await this.updateMovements();
     }, 1000);
   }
@@ -96,10 +97,8 @@ changeSaldo() {
       .then((transactions) => this.movements = transactions);
   }
 
-  restarSaldo() {
-    var formValue = this.cartera.value;
-    var dinero = formValue.dinero;
-    var nuevoSaldo = Number(dinero) - Number(CurrentUserData.wallet); // CurrentUserData.wallet.value;
+  restarSaldo(dinero: Number) {
+    var nuevoSaldo = Number(CurrentUserData.wallet) - Number(dinero);// CurrentUserData.wallet.value;
     this.saldo = nuevoSaldo;
     var user = new Client(CurrentUserData.LoggedUser.Name, CurrentUserData.LoggedUser.Username, CurrentUserData.LoggedUser.BirthDate, CurrentUserData.LoggedUser.Email, nuevoSaldo, CurrentUserData.FechaFinalizacion, CurrentUserData.EsMultiBono, CurrentUserData.CochesAparcados);
     CurrentUserData.LoggedUser = user;
@@ -111,10 +110,8 @@ changeSaldo() {
     var time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
     var dateTime = date+' '+time;
     
-    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'añadido','cartera', 'cartera');
+    var transaccion = new Transactions(dinero.toString(), dateTime , CurrentUserData.LoggedUser.Email, 'gastado','cartera', 'cartera');
     this.userActions.addHistory(user,transaccion);
-    CurrentUserData.price = dinero.toString();
-    this.router.navigateByUrl('payment');
   }
 
 }
