@@ -12,13 +12,20 @@
 
 
         <ion-button style="padding-left: 50px;padding-right: 50px;padding-bottom: 10px ;" size="large" expand="block"
-             (click)="botonPagar()">
+            (click)="botonPagar()">
             Finalizar
         </ion-button>
 
     </ion-card>
 
-
+    <ion-item color={{color}}>
+        <ion-label class="label-css">Método de pago</ion-label>
+        <ion-select class="font-style" (ionChange)="MetodoPago($event)" value="Online"
+            okText="Seleccionar" cancelText="Cancelar">
+            <ion-select-option class="font-style">Online</ion-select-option>
+            <ion-select-option class="font-style">Cartera</ion-select-option>
+        </ion-select>
+    </ion-item>
     <div>
         <ion-label class="font-style" style="padding-left: 15px;">Has aparcado en: </ion-label>
     </div>
@@ -30,7 +37,8 @@
 
     <ion-radio-group>
         <ion-list style="--ion-background-color:primary;">
-            <ion-item button="true" (click)="seleccionarPark(vehicle)" color={{color}} *ngFor="let vehicle of parkedVehicles">
+            <ion-item button="true" (click)="seleccionarPark(vehicle)" color={{color}}
+                *ngFor="let vehicle of parkedVehicles">
                 {{vehicle.LicensePlate}}
                 {{vehicle.Manufacturer}}
                 {{vehicle.ModelName}}
